@@ -1,0 +1,442 @@
+price_banner: "{product} kostar {price, number, ::currency/EUR}"
+
+# For the main menu = MenuMain component
+selalbumcoll: Välj albumsamling
+albumcollinfo: Albumsamling (eller albumrot)
+albumcare: Albumverktyg för
+albumcareinfo: Ta bort, gör nytt, bildsortera, dublettsökning, med mera
+albumcoll: Albumsamling
+albumcollshow: Visa/dölj albumlistan
+openallalb: Visa/dölj underalbum
+showselected: Visa valt album
+tmpalbum1: Med
+tmpalbum2: "först:"
+tmpalbum3: Tillfälligt album för visning av funna bilder
+needaroot: Välj först albumsamling!
+nimages: antal bilder
+nlinked: plus antal inlänkade bilder
+nsubalbums: antal underalbum
+anyhidden: synligt p.g.a. användarrättighet
+
+# Appendix to the the 'dialog.rights' (allowances)
+allowed: "                Får"
+adminAll:     göra vadsomhelst
+albumEdit:    göra/radera album
+appendixEdit: (arbeta med bilagor +4)¹
+appendixView: (se på bilagor)¹
+delcreLink:   flytta till annat album, göra/radera länkar
+deleteImg:    radera bilder +5
+imgEdit:      (redigera bilder)¹
+imgHidden:    gömma/visa bilder
+imgOriginal:  se högupplösta bilder²
+imgReorder:   flytta om bilder inom album
+imgUpload:    ladda upp originalbilder till album
+notesEdit:    redigera/spara anteckningar +13
+notesView:    se på anteckningar
+saveChanges:  spara ändringar utöver text
+setSetting:   ändra inställningar
+textEdit:     redigera/spara bildtexter, se dolda album³
+
+all: alla
+allInAlbum: (till albumet)
+and: och
+captionFor: Bildtext för
+captionSaved: sparad
+checkuncheck: Markera/avmarkera alla
+chooseShow: "Välj att visa i <b>{f}</b> eller i sitt egna album:"
+created: skapat
+createfail: INTE SKAPAT
+deleted: raderat
+dark: mörk
+Dimension: Dimension
+download: Ladda ned...
+dupImgNames: dubletter av bildnamn
+editext: Redigera text...
+editimage: Redigera bild...
+eraseCancelled: Raderingen genomförs inte
+errTxtNotSaved: Texten sparades inte!
+errTxtCannotSave: Bildtexten kan inte uppdateras, är filen ändringsskyddad?
+errTxtRecover: Försvunnen text återfås med att ladda om albumet (återställ osparade ändringar)
+explainLink: visas här som länkad bild
+Filename: Filnamn
+findDuplicates: sök dublettbilder
+findImageDups: Sök tänkbara dubletter till den här bilden
+for: för
+found: Funna
+futureFacility: Ännu inte färdigt för användning
+#NOTE: Choose a 'guest: value' which exists in the _imdb_settings.sqlite 'user' table!
+#      Else use instead the standard name guest!
+guest: gäst
+has: har
+hidden: dolda
+hideshow: Göm eller visa
+home: till&nbsp;huvudsidan&nbsp;för
+homemain: huvudsida
+images: bilder
+imageFind: Finn bilder
+imageSearch: Sök i bildtexter m.m.
+in: i
+information: Information
+intlcode: sv-se
+invertsel: Invertera markeringar
+light: ljus
+linked: inlänkade
+Linkname: Länknamn
+linkto: Länka till...
+Mark: Markera
+marked: markerade
+markhidden: Markera bara gömda
+mayExist: (kanske redan finns?)
+missing: (saknas) NOTE never used
+Moditime: Ändrad
+moveto: Flytta till...
+Name: Namn
+next: nästa
+no: inga
+notAvailable: Inte tillgänglig
+numbererror: V A R N I N G<br><br>Bildantalet stämmer inte!
+Original: Original
+own: egna original
+Phototime: Fototid
+placeFirst: Placera i början av albumet
+placefirst: Placera först
+placeLast: Placera i slutet av albumet
+placelast: Placera sist
+placeWhere: placeras vanligtvis i slutet av albumet
+previous: föregående
+plus: plus
+remove: RADERA...
+return: utanför = återgå
+rights: rättigheter
+saved: S P A R A T
+searchedFor: Sökte efter
+searchHelp: Sökhjälp
+selectTreshold: Välj tröskelvärde
+settings: Inställningar
+settingsGeneral: Allmänna inställningar
+shown: visas
+simiThres: med likhetströskel
+Size: Storlek
+status: Status
+subalbum:  underalbum
+subalbums: underalbum
+toggtext: "Visa/dölj\nbildtexter"
+wait: vänta
+with: med
+txtGif: Gif-bild! Kan bara ges tillfällig text som inte bevaras permanent
+xplErrImg: Uppskattning av original-\nbildens tekniska kvalitet
+
+albumcollselect: Vänligen välj en albumsamling i huvudmenyn!
+albumMissing: Det här albumet kan inte visas, kanske<br>
+              på grund av otillräckliga rättigheter
+albumSelectInfo: "Välj här en album-
+                 samling om den inte
+                 redan är förvald.
+                 Det kan finnas fler
+                 än ett alternativ.
+                 Ingångsalbumet till en
+                 albumsamling kallas också
+                 ”albumroten”, som sedan
+                 förgrenar sig nedåt.
+                 – Tips vid problem:
+                 Ladda om webbläsaren!"
+blockCopyright: "Fullstort fönster blockerat av upphovsrättsskäl.\n
+                Vänligen kontakta upphovsrättsinnehavaren!"
+blockCopyright1: "Nedladdning blockerad av upphovsrättsskäl.\n
+                Vänligen kontakta upphovsrättsinnehavaren!"
+blockFirefox: "Tyvärr kan fullstora bilder ännu inte ses med Firefox-webbläsare.\n
+              Förhoppningsvis kommer det snart att kunna åtgärdas."
+blockPopup: POPUP-fönster blockerat av webbläsaren
+button:
+  ok:        Ja
+  backgtitle: "Byt\xa0bakgrund"
+  cancel:    Avbryt
+  close:     Stäng
+  confirm:   Bekräfta
+  continue:  Fortsätt
+  delete:    Radera <b>{name}</b>
+  dosub:     Gör ett nytt underalbum
+  findIn:    Sök i
+  findDupNames: Finn dublettnamn
+  keywords:  Nyckelord
+  #the initial 1 means link==true, move==false
+  linkFunc:  1Länka till det valda albumet
+  login:     Logga in
+  move:      Till albumet
+  #the initial 0 means link==false, move==true
+  moveFunc:  0Flytta till det valda albumet
+  notes:     Anteckningar
+  optchuser: "Om\xa0rättigheter Byt\xa0användare"
+  restart:   "Ladda om webbläsaren\n
+             genom att klicka här!"
+  rights:    Om rättigheter
+  rightsinfo: Rättighetsinformation
+  save:      Spara
+  saveclose: Spara och stäng
+  show:      Visa alla i
+  sort:      Sortera
+
+buttons:
+  left:
+    main: "Huvudmeny: Albumsamling"
+
+    find: "Finn bildtexter\n
+           med mera [F]"
+
+    help: "Användarhand-\n
+          ledning [F1]"
+
+    reload: "Ladda om albumet\n
+            (återställ osparade ändringar)"
+
+    name: Visa/dölj bildnamnen
+    hide: Visa/dölj gömda bilder
+    save: Spara ändringar
+    mail: "Mejla gärna en fråga\n
+          eller skicka andra\n
+          upplysningar (eller\n
+          kanske en rättelse!)"
+
+    up: "Gå upp (visa\n
+        översta raden)\n
+        [pgUp]"
+
+    meet: "Internetmöte:\n
+          Kom överens med de(n)\n
+          du vill träffa. Det behövs\n
+          inga inbjudningar – ni\n
+          bara klickar här!"
+
+dialog:
+  find:
+    header: Finn bilder i hela albumsamlingen
+    nolinks: (ej inlänkade)
+  help:
+    header: Användarhandledning
+    header1: (främst för dator med tangentbord och mus eller pekplatta)
+    imgdef0: En bild
+    imgdef1: i ett album är antingen en
+    imgdef2: originalbild
+    imgdef3: eller en inlänkad bild från ett annat album i albumsamlingen
+    imgdef4: en ”länk”
+    login0: Inloggad som gäst
+    login1: har du bara vissa rättigheter (gömma, markera och flytta miniatyrer med dra + släpp; gå till originalbild). Med personlig inloggning kan du få fler rättigheter (till exempel göra bildtextändringar och och spara dem). Personlig inloggning kan bara fås från en systemadministratör
+    ihrcm0: Varje bild har en meny
+    ihrcm1: ( <b>⡇</b>) med kommandon/funktioner
+    ctrlclick: Ctrl + klick (⌘ + klick)
+    ihrcm2: på en bild visar också menyn (⌘ med Mac-tangentbord)
+    mark0:  "<b>Markera en bild</b> uppe i högra hörnet, eller:"
+    shift0: Skifttangent + klick
+    shift1: på en bild markerar/avmarkerar den
+    green0: En bild med grön underkant är länkad
+    green1: från annat album – miniatyrbildmenyn har en länk till originalbilden
+    flebu: Knapparna till vänster
+    wviva: vilka som är synliga varierar
+    mmenu: Huvudmeny med albumöversikt (”site map”), välj album att visa"
+    tools: Verktyg för albumsamlingen
+    find:  Finn bilder i albumsamlingen med textsökning
+    qmark: Visa/dölj den här användarhandledningen
+    rload: Ladda om albumet, återställ eventuella osparade ändringar (’ångerknapp’ men avser ej textändringar)¹ ²
+    names: Visa/dölj namn på bilden (filnamn utan .filtyp)
+    hide:  Visa/dölj ’gömda bilder’ (gömda med bildmenyn)
+    save:  Spara bildändringar¹ som annars är tillfälliga och kan återställas²
+    uptop: Gå upp till överst på sidan
+    note1: "¹ Ändringar är: Dra-och-släpp-flyttning av miniatyrbilder, göm eller visa med miniatyrbildmenyn"
+    note2: ² Återställning kan också ibland förbättra ofullständig bildvisning
+    advice: "<b>Övriga knappar</b>: Utforska på egen hand! Och använd <b>Esc-tangenten</b> (se nedan)!"
+    keyb: Tangentbordet
+    F1:   visar den här användarhandledningen &ndash; Esc-tangenten stänger den
+    hilo: ökar respektive minskar bildskalningen
+    zero: (noll) återställer (⌘ med Mac-tangentbord)
+    F11:  används för att börja eller avsluta helskärmsvisning
+    right: <b>Högerpil</b>- eller <b>vänsterpiltangenten</b> växlar bild framåt eller bakåt
+    A:    <b>A</b>-tangenten startar automatisk bildväxling &ndash; Esc-tangenten avbryter
+    F:    <b>F</b>-tangenten öppnar ’Finn bilder’ (sökfönstret) &ndash; Esc-tangenten stänger det
+    Esc:  <b>Esc</b> är avslutnings- och avbrottstangent för bildväxling, fönsterstängning m.m.
+    F5:   <b>F5</b> eller <b>Ctrl</b>+<b>R</b> används för att börja om från början, till exempel om bildväxlingen kommit i oordning
+  info:
+    filename: Filnamn
+    header: Information om originalbilden
+  login:
+    header:   Inloggning och rättigheter
+    user:     Användare
+    name:     Namn
+    password: Nyckelord
+    text1: Du är nu inloggad som
+    text2: Om du har anledning att byta gör du det här
+    text3: användarnamn utan nyckelord
+    error: Felaktigt användarnamn eller nyckelord, försök igen!
+  rights:
+    header: Lista över användarrättigheter och deras innebörd, samt rättsliga användarvillkor längst ner
+    text0: "Kryssen vid sifferkolumnen visar de gällande rättigheterna:"
+    text1: Du får se och använda bilderna för eget bruk men inte distribuera dem vidare.
+    text2: Du får inte heller använda dem för något kommersiellt eller vinstdrivande syfte.
+    text3: Du åtar dig att respektera tillämplig upphovsrättslagstiftning och att inte överlåta bilder till tredje part.
+    text4: Vänligen hantera alla frågor om tillstånd för distribution eller överlåtelse genom att kontakta den som är ansvarig för albumsamlingen.
+    footnote1: "¹ Inom parentes: Ännu ej implementerat"
+    footnote2: "² Begränsning för vissa bilder på grund av upphovsrättsförbehåll"
+    footnote3: "³ Utan denna rättighet går det inte att veta om det finns gömda album"
+  text:
+    header:   Bildtexter för
+    keywords: Nyckelord för
+    notes:    Anteckningar för
+    open:
+      origpos: ... på originalplats
+      modal: Öppna modalt textfönster
+    reset: Återställ
+    toggle: Öppna/stäng textfönster
+erase: radera
+fav:
+  images: Favoritbilder
+  manage: Favoritbildhantering
+fileNameRules: "Ett filnamn får bara innehålla »A« till »Z«, »a« till »z«, ».«, »_« och »0« till »9« men inte blank/mellanslag, och det får inte börja med ».«, »_imdb_«, »_mini_« eller »_show_«."
+filesFailed: "Underkända: {n}"
+filesPassed: "Antal godkända: {n}"
+filesProceed: med godkända
+foundExplain: Funna bilder
+fullSize: "Full storlek\ni nytt fönster"
+gomini: "Återgå\n
+        [Esc]"
+gonext: "Nästa\n
+        bild [>]"
+goprev: "Föregående\n
+        bild [<]"
+gotext: i albumet
+goto: Gå till originalbilden
+header: Mish bildgalleri
+hello:
+  world:  Goddag hela världen!
+imageFirst: första bilden
+imageLast:  sista bilden
+imageNumber: bild nummer {n}
+imageMenu: "Bild-\nmeny"
+infoHeader: Information
+loggedIn: Inloggad användare
+nameError: Namnfel
+noCollSelected: Ingen albumsamling har valts
+picfound: §Funna_bilder
+plusExplain: Underalbum har också underalbum!
+printOut: Skriv ut
+reloadApp: Ladda om appen!
+select:
+  language: Välj språk
+  languagetext: Svenska
+selectAlbumMove: Flytta till vilket album?
+selectAlbumLink: Länka till vilket album?
+selectTarget: Välj destinationsalbum
+sizewarning: M Ä N G D V A R N I N G<br><br>Fler än
+spinwait: V Ä N T A — eller stoppa med klick om det snurrar för länge
+time:
+  text: Klockan är
+  buildstamp: Ember development server
+tools: Verktyg
+totalImgNumber: Antal bilder i samlingen
+write:
+  afterSort: Dra-och-släpp-flyttning av bilder är<br>
+             inte möjlig efter detta, men återställs<br>
+             genom att ladda om <a id="reFr0" class="helpIcon"><img draggable="false" src="/images/reload.png"></a> albumet, efter<br>
+             att först eventuellt ha sparat <a class="helpIcon"><img draggable="false" src="/images/floppy1.png" style="width:.9rem"></a> det<br><br>
+             Gäster kan bara ladda om<br><br>
+             <span style="font-weight:normal;color:#000">Förhoppningsvis ska dra-och-släpp-<br>
+             problemet så småningom åtgärdas</span>
+  albumName: Skriv ett albumnamn
+  chooseAlbum: Inget album är valt, välj ett!
+  chooseBoth:  Ska båda markerade bilderna
+  chooseErase: verkligen raderas?
+  chooseFirst: placeras först?
+  chooseHeader: <b>Avbryt eller bekräfta</b>
+  chooseHide: gömmas eller visas?
+  chooseLast: placeras sist?
+  chooseLink: länkas till ett annat album?
+  chooseMany: Ska alla {n} markerade bilderna
+  chooseMove: flyttas till ett annat album?
+  chosenNone: Ingen bild vald!<br>
+              <br>Åtminstone den bild du klickar måste också markeras.
+              <br>Det gäller för radering som en säkerhetsåtgärd.
+  chooseOne:  Ska den här bilden
+  chooseThis: "Valt album: <b>{a}</b>"
+#  chooseTool: Välj verktyg
+  confirm: Används inte, rapportera!
+  creator: "Ursprung: Foto upphov källa"
+  dbUpdated: Textsökningsdatabasen uppdaterad
+  description: "Beskrivning: När var vad vilka"
+  dialogDupResult: Dublettnamnsökning i <b>{a}</b>
+  doEraOri:  "OBS: Inklusive originalbilderna!"
+  doEraOri1: "OBS: Inklusive originalbilden!"
+  doErased:  Tog bort {n} bilder från ”{a}”
+  doErased1: Tog bort en bild från ”{a}”
+  doLinked:  Länkade {n} bilder till ”{a}”
+  doLinked1: Länkade en bild till ”{a}”
+  doMoved:   Flyttade {n} bilder till ”{a}”
+  doMoved1:  Flyttade en bild till ”{a}”
+  eraseFunc: RADERING av originalbilder kan inte ångras
+  eraseFunc1: ", men raderade inlänkade bilder (länkar) kan återskapas"
+  eraseOption: "TILLVAL och UNDANTAG: Radera originalbild"
+  eraseOption1: VARNING! Länkars ORIGINALBILDER kommer nu också att raderas!
+  eraseOption2: Bra till att ta bort dubletter, använd varsamt!
+  find0: "Sök i:"
+  find1: bildtext (övre texten)
+  find2: ursprung (nedre texten)
+  find3: anteckningar
+  find4: albumnamn
+  find5: bildnamn
+  find6: "Om blank ska sökas: skriv % (åtskiljer ej)"
+  find7: "Välj regel för åtskilda ord/textbitar/sökbegrepp:"
+  find8: "&nbsp;alla&nbsp;ska&nbsp;hittas&nbsp;i&nbsp;en&nbsp;bild"
+  find9: "&nbsp;minst&nbsp;ett&nbsp;av&nbsp;dem&nbsp;ska&nbsp;hittas&nbsp;i&nbsp;en&nbsp;bild"
+  findHelpHeader: Hur man hittar bilder
+  findHelpHeader1: (ej länkar)
+  findResultHeader: Sammanfattning av {n} bilder, funna i <b>{c}</b>
+  findHelp0: Sök i bildtexter med mera
+  findHelp1: <span>Sök i:</span>-raden används för att markera vilka textfält som tillsammans ska ingå i sökningen (röd = markerad).
+  findHelp2: "<span>I nedersta</span> raden kan du välja ett av två alternativ:"
+  findHelp3: "<span>1</span>. Du markerar att <span>alla ska hittas...</span> och skriver sedan i textrutan ovanför, några exempel (blåmarkerade):
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (två sökbegrepp) som hittar alla bilder med text ’Nils Jacobsson’ men även andra bilder med både ’Nils’ och ’Jacobss’ i texten, till exempel ’Nils Jonasson och Bertil Jacobsson’.<br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (ett sökbegrepp) som hittar bilder med till exempel ’Nils Jacobsson’ eller ’Nils Jacobsen’."
+  findHelp4: "<span>2</span>. Du markerar att <span>minst ett av dem ska hittas...</span> och skriver till exempel:
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (två sökbegrepp) hittar alla bilder med text ’Nils Jacobsson’ och även alla bilder med någon av ’Nils’ och ’Jacobss’ i texten, till exempel ’Fredrik Nilson’ och/eller ’Filip Jacobsson’ (men inte ’Nisse Jacobson’).<br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (ett sökbegrepp) hittar bilder med till exempel ’Nils Jacobsson’ eller ’Nils Jacobsen’ i texten (som i <span>1</span>, eftersom bara ett sökbegrepp)."
+  findHelp5: Skriv det du vill söka i rutan överst och starta sökningen. Resultatet presenteras i ett album för tillfälligt bruk som heter <b>Funna bilder</b> med länk till originalet i varje miniatyrbilds meny. <span style="color:#0a0;text-decoration:underline">Grön kant under bildtexten</span> betyder länkad bild.
+  findHelp6: "Tips: Ta reda på hur många bilder det finns i albumsamlingen genom att söka efter ett ’/’ (i albumnamn)!"
+  foundNoAlbums: Fann inga album!
+  imageSeveral: Namnen på {n} bilder som ska tas bort
+  imageSingle:  Namnet på bilden som ska tas bort
+  isEmpty: är tomt
+  keywords: "<b>Information om planerat framtida tillägg:</b><br>
+            Ord lagrade som metadata för användning som särskilda sökbegrepp"
+  maxWarning: <b>Fler än {n} bilder kan<br>inte visas tillsammans</b>
+  noDupNamesFound: Fann inga dubletter av bildnamn i <b>{a}</b> med underalbum
+  noErased: men {n} kunde inte tas bort:<br><br>{a}
+  noLinkLink: Det finns minst en länk bland de valda bilderna.<br>Inlänkade bilder kan inte vidarelänkas!<br>Gå till originalbilden för att länka den.
+  noneFound: Tyvärr, ingen bild funnen!
+  notEmpty: Albumet måste först tömmas!
+  notes: Anteckningar som ej visas med bilden
+  originUntouch: "<b>OBSERVERA</b> att det är skillnad på bilder: Gröna bildnamn avser inte egna <b>originalbilder</b> utan <b>inlänkade bilder</b> (enklare: <b>länkar</b>). En bild med grön underkant är egentligen bara en länk till sin originalbild i ett annat album. En originalbild förblir orörd även när länken till den tas bort."
+  origRemove: "Alternativ:"
+  reloadRequired: <br><br>Ändrad albumstruktur kräver omstart<br>
+  searchTerms: Skriv sökbegrepp åtskilda av blanktecken, små/stora bokstäver är betydelselöst, liksom diakritiska tecken förutom üåäö (välj nedan vilka texter du vill söka i)
+  set0: Välj inställningar
+  setBeep: Pip vid musklick
+  setPoop: Visa musklick
+  setEraseOriginal: Radera original med länk (VARNING!)
+  tool0: "Välj för <b>{a}</b>:"
+  tool01: "För <b>alla album</b> i den här samlingen, välj:"
+  tool1: Radera albumet (måste vara tomt)
+  tool2: Gör ett underalbum
+  tool3: Sortera bilderna efter namn
+  tool31: i stigande ordning
+  tool32: i fallande ordning
+  tool4: Finn dubletter av bildnamn
+  tool41: Finn dubletter av bildnamn i <b>{a}</b> inklusive eventuella underalbum
+  tool42: Finn dubletter av bildnamn
+  tool5: Ladda upp bilder
+  tool51: Välj bildfiler att ladda upp
+  tool6: Uppdatera sökdata
+  tool7: Försök finna likadana bilder
+  tool8: Gör textlista till bilder som visas
+  tool91: Hantera egna favoritbilder
+  tool99: Här finns inget att välja!
+  utilHeader: Verktyg för albumet
+  utilHeader0: Verktyg för albumsamlingen

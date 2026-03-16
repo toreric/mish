@@ -1,0 +1,13 @@
+#!/bin/bash
+#This script is autorun by cron and should reside in the server's root catalog (w. - not ~)
+
+#BACKUP of MISH to he Koofr cloud:
+echo cron: MISH-BACKUP >> /var/log/mish-backup.log
+echo `date -I'seconds'` >> /var/log/mish-backup.log
+rclone copy -PvlM --exclude '**{§*/**,_mini_*,_show_*}' /media/raid1/MISH/ koofr:MISH/ --log-file /var/log/mish-backup.log
+
+#ALSO CHECK the picFound files (temporary 2025, since some were errenous generated with weird names):
+echo cron: CHECK picFound files >> /var/log/mish-backup.log
+echo `date -I'seconds'` >> /var/log/mish-backup.log
+ls -l /media/raid1/MISH/ | grep ".*Gefundene_.*\|.*Found_.*\|.*Funna_.*" >> /var/log/mish-backup.log
+echo >> /var/log/mish-backup.log

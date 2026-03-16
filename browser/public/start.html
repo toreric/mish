@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Mish gallery start page</title>
+    <meta name="description" content="Minnen från Sävarådalen och Holmön" />
+    <meta
+      name="keywords"
+      content="mish,photo,foto,album,gallery,slideshow,sävar,kommundel,socken,församling,umeå,kommun,avalund,bergvall,bjuren,bodbyn,bullbäck,bullmark,botsmark,brattby,brattfors,brännlandstorp,bygdenäs,bäcknäs,bäckron,dalfors,damm,drumlin,drumliner,degerbyn,fjäderbäck,fjäderägg,floda,flottning,flottningsdamm,forsliden,furunäs,fäbodsand,granbäck,gravmark,gravfors,grossgrunden,gunnismark,gäddbäck,jebäck,gebäck,gåsflötan,hemmesmark,henriksfors,hedlunda,hjåggmark,hjoggmark,holmöarna,holmögadd,holmön,hundtjärnliden,högsmyrliden,högåker,inneråträsk,ivarsboda,johannisfors,klappmark,krokbäck,krokfors,kroknäs,krokån,krutbrånet,krångelbäck,kustlandet,kvarnfors,kälen,tjälen,laxbådagrund,lillsävarträsket,lillåkälen,lillåtjälen,långstrand,malsjön,marielund,melsbäck,morbyn,mårdsjön,norrfjärden,nyby,nybyn,olofsfors,ostnäs,pålböle,renträsk,risträsk,rovan,rovågern,rovögern,rönnäs,sjöarödd,sjöåker,skeppsvik,skravelbäck,stenfors,stora fjäderägg,storliden,stormyrbränna,strandfors,strömbäck,sundbäck,sunnanträsk,sävarberg,sävarån,tomterna,tväråmark,täfteböle,täfteå,täfte,tålsmark,västra kroknäs,växtholm,ytterboda,ytterstmark,ytterträsk,ytteråträsk,ängesön,åkerbäck,åbyn,åträsk,ängesön,östanträsk,östra kroknäs"
+    />
+    <meta name="author" content="Tore Ericsson" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="origin" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="start.css"
+    />
+  </head>
+  <body>
+    <div id="GO" style="display: none">
+      <!--a href="/" title="S T A R T K N A P P">I</a-->
+      <a
+        href="/"
+        title="S T A R T K N A P P"
+        style="width: 10em; font-size: 1.25em"
+        >K L I C K A &nbsp; H Ä R</a
+      >
+    </div>
+    <script>
+      function toggle(queSel) {
+        var x = document.querySelector(queSel);
+        if (x.style.display === "none") x.style.display = "";
+        else x.style.display = "none";
+      }
+    </script>
+    <div class="wrap0">
+      <p
+        class="dzclose"
+        onclick="parent.document.getElementsByTagName('iframe')[0].style.display='none'"
+        title="Stäng       [Esc]
+introduktionen"
+      >
+        &times;
+      </p>
+
+      <a
+        href="https://bygdegardarna.se/savar"
+        target="_blank"
+        title="Gå till hemsidan
+i nytt fönster"
+        ><h3 style="line-height: 0.8em; vertical-align: top">
+          Sävar Hembygdsförening
+        </h3></a
+      ><br />
+      <h2 style="margin: 0.5em 0">
+        INTRODUKTION<br /><span>till fotoalbum</span>
+      </h2>
+      <img
+        src="/images/savar.png"
+        draggable="false"
+        ondragstart="return false"
+        title="Sävars
+kommuns
+vapen"
+        style="width: 2.4em; border: 0; margin: 0 0.2em -0.4em 0.1em"
+      />
+      <h3 style="margin: -0.1em 0 0.5em 0">
+        Minnen från <br />Sävarådalen och Holmön
+      </h3>
+      <br />
+      <pre
+        style="
+          font-size: 95%;
+          font-weight: normal;
+          line-height: 130%;
+          margin: 0.5em 0 0 0;
+        "
+      ><a title="Läs användarregler, upphovrättsavtal..." onclick="toggle('.mid')">Se användarregler med mera &ndash;</a></pre>
+
+      <div class="mid" style="display: none">
+        <a
+          class="intro"
+          title="Användarreglerna"
+          href="villkor.html"
+          onclick="toggle('.mid')"
+          target="villkor"
+          >Läs &ndash; i nytt fönster &ndash; Hembygds-<br />föreningens
+          användarregler!</a
+        ><br />
+        <a
+          class="intro"
+          title="Egna bidrag"
+          href="#"
+          onclick="window.parent.document.getElementById('do_mail').click();toggle('.mid')"
+          >Har du frågor? Kontakta oss!<br />(vill du bidra med egna
+          fotografier?)</a
+        ><br />
+        <a
+          class="intro"
+          href="text/Mish-demonstration.pdf"
+          onclick="toggle('.mid')"
+          target="demo"
+          >För den som vill sätta sig in i album-<br />administration &ndash;
+          PDF i nytt fönster</a
+        ><br />
+        <a
+          class="intro"
+          href="history.html"
+          onclick="toggle('.mid')"
+          target="history"
+          >Historik &ndash; i nytt fönster</a
+        >
+      </div>
+
+      <pre
+        style="
+          font-size: 95%;
+          font-weight: normal;
+          line-height: 130%;
+          margin: 0;
+        "
+      >välj fotoalbum, sök i bildtexter
+och finn bland tusentals bilder!
+<b>Tips</b>: Sök något ortsnamn, förnamn och/eller
+efternamn med den <b title="Öppna menyn" onclick="window.parent.document.getElementById('menuButton').click()" style="color:#6cf;cursor:pointer">blå</b> menyknappen:
+Välj ”Finn bilder” och skriv sökbegrepp...
+<a title="Öppna sökfönstret" onclick="window.parent.document.querySelector('a.search').click()" target="_parent" style="margin: 0 1em 1em 0">...eller sök direkt!</a></pre>
+      <pre
+        style="margin: 0.8em 0 1em 0"
+      ><a onclick="window.parent.document.querySelector('#menuButton').click();if(window.parent.document.querySelector('.jstreeAlbumSelect').style.display==='none')window.parent.document.querySelector('#jstreeHdr').click()">Site map (albumkarta, albumträd)</a></pre>
+      <pre
+        style="margin: 0.8em 0 1em 0"
+      ><span style="font-size:95%;color:#fe4">Du måste acceptera att Mish gör
+kakor (cookies) med dina inställningar
+och ”favoritbilder”</span></pre>
+
+      <span class="exapic" style="font-weight: bold; font-size: 90%"
+        >Bildexempel, klicka för att gå vidare:</span
+      ><br />
+      <a
+        class="intro border0"
+        draggable="false"
+        ondragstart="return false"
+        title="name"
+        style="display: inline-block"
+        ><img src="" /></a
+      ><br /><span class="imtx"></span>
+    </div>
+    <div class="wrap1">
+      <a
+        class="intro border0"
+        draggable="false"
+        ondragstart="return false"
+        title="name"
+        style="display: inline-block"
+        ><img src="" /></a
+      ><br /><span class="imtx"></span><br />
+      <a
+        class="intro border0"
+        draggable="false"
+        ondragstart="return false"
+        title="name"
+        style="display: inline-block"
+        ><img src="" /></a
+      ><br /><span class="imtx"></span>
+      <a
+        class="intro border0"
+        draggable="false"
+        ondragstart="return false"
+        title="name"
+        style="display: inline-block"
+        ><img src="" /></a
+      ><br /><span class="imtx"></span>
+    </div>
+
+    <script>
+      if (!window.parent.frames.length) {
+        document.getElementById("GO").style.display = "block";
+        document.querySelector(".dzclose").style.display = "none";
+      }
+    </script>
+    <p style="position: absolute; top: 0; right: 199em">
+      Minnen från Sävarådalen och
+      Holmön,mish,photo,foto,album,gallery,slideshow,sävar,kommundel,socken,församling,umeå,kommun,avalund,bergvall,bjuren,bodbyn,bullbäck,bullmark,botsmark,brattby,brattfors,brännlandstorp,bygdenäs,bäcknäs,bäckron,dalfors,damm,drumlin,drumliner,degerbyn,fjäderbäck,fjäderägg,floda,flottning,flottningsdamm,forsliden,furunäs,fäbodsand,granbäck,gravmark,gravfors,grossgrunden,gunnismark,gäddbäck,jebäck,gebäck,gåsflötan,hemmesmark,henriksfors,hedlunda,hjåggmark,hjoggmark,holmöarna,holmögadd,holmön,hundtjärnliden,högsmyrliden,högåker,inneråträsk,ivarsboda,johannisfors,klappmark,krokbäck,krokfors,kroknäs,krokån,krutbrånet,krångelbäck,kustlandet,kvarnfors,kälen,tjälen,laxbådagrund,lillsävarträsket,lillåkälen,lillåtjälen,långstrand,malsjön,marielund,melsbäck,morbyn,mårdsjön,norrfjärden,nyby,nybyn,olofsfors,ostnäs,pålböle,renträsk,risträsk,rovan,rovågern,rovögern,rönnäs,sjöarödd,sjöåker,skeppsvik,skravelbäck,stenfors,stora
+      fjäderägg,storliden,stormyrbränna,strandfors,strömbäck,sundbäck,sunnanträsk,sävarberg,sävarån,tomterna,tväråmark,täfteböle,täfteå,täfte,tålsmark,västra
+      kroknäs,växtholm,ytterboda,ytterstmark,ytterträsk,ytteråträsk,ängesön,åkerbäck,åbyn,åträsk,ängesön,östanträsk,östra
+      kroknäs
+    </p>
+  </body>
+</html>

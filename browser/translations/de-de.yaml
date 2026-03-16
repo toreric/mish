@@ -1,0 +1,442 @@
+price_banner: "{product} kostet {price, number, ::currency/EUR}"
+
+# For the main menu = MenuMain component
+selalbumcoll: Albensammlung wählen
+albumcollinfo: Albensammlung (oder Albenstamm)
+albumcare: Albumwerkzeuge für
+albumcareinfo: Löschen, neu erstellen, Bilder sortieren, nach Duplikaten suchen, und mehr
+albumcoll: Albensammlung
+albumcollshow: Albumliste ein-/ausblenden
+openallalb: Unteralben zeigen/verbergen
+showselected: Gewähltes Album anzeigen
+tmpalbum1: Mit
+tmpalbum2: "zuerst:"
+tmpalbum3: Temporäres Album zur Anzeige gefundener Bilder
+needaroot: Zuerst Albensammlung auswählen!
+nimages: Anzahl der Bilder
+nlinked: plus Anzahl der verlinkten Bilder
+nsubalbums: Anzahl der Unteralben
+anyhidden: sichtbar aufgrund Benutzerrecht
+
+# Appendix to the the 'dialog.rights' (allowances)
+allowed: "                Erlaubt zu"
+adminAll:     irgendetwas tun
+albumEdit:    Album erstellen/löschen
+appendixEdit: (mit Anhängen arbeiten +4)¹
+appendixView: (Anhänge anschauen)¹
+delcreLink:   Bilder in andere Alben umplatzieren, Links erstellen/löschen
+deleteImg:    Bilder löschen +5
+imgEdit:      (Bilder bearbeiten)¹
+imgHidden:    Bilder ein-/ausblenden
+imgOriginal:  hochauflösende Bilder sehen²
+imgReorder:   Bilder innerhalb von Alben verschieben
+imgUpload:    Originalfotos in das Album hochladen
+notesEdit:    Notizen bearbeiten/speichern +13
+notesView:    Notizen anschauen
+saveChanges:  Änderungen speichern zusätzlich zu Text
+setSetting:   Einstellungen ändern
+textEdit:     Untertiteln bearbeiten/speichern, ausgeblendete Alben anzeigen³
+
+all: alle
+allInAlbum: (zum album)
+and: und
+captionFor: Bildunterschrift für
+captionSaved: gespeichert
+checkuncheck: Alle markieren/abmarkieren
+chooseShow: "Zur Anzeige in <b>{f}</b> oder im eigenen Album:"
+created: erstellt
+createfail: NICHT ERSTELLT
+deleted: gelöscht
+dark: dunkel
+Dimension: Dimension
+download: Herunterladen...
+dupImgNames: doppelte Bildnamen
+editext: Text bearbeiten...
+editimage: Bild bearbeiten...
+eraseCancelled: Das Entfernen wird nicht durchgeführt
+errTxtNotSaved: Der Text wurde nicht gespeichert!
+errTxtCannotSave: Die Beschriftung kann nicht aktualisiert werden. Ist die Datei geschützt?
+errTxtRecover: Verlorener Text wird zurückgegeben durch Neuladen des Albums (ungespeicherte Änderungen zurücksetzen)
+explainLink: hier als verlinktes bild dargestellt
+Filename: Dateiname
+findDuplicates: nach duplikaten suchen
+findImageDups: Mögliche Duplikate dieses Bildes finden
+for: für
+found: Gefundene
+futureFacility: Noch nicht umgesetzt
+#NOTE: Choose a 'guest: value' which exists in the _imdb_settings.sqlite 'user' table!
+#      Else use instead the standard name guest!
+guest: gast
+has: hat
+hidden: verbergte
+hideshow: Verstecken oder anzeigen
+home: zur&nbsp;hauptseite&nbsp;von
+homemain: hauptseite
+images: Bilder
+imageFind: Bilder finden
+imageSearch: In Bildunterschriften usw. suchen
+in: in
+information: Information
+intlcode: de-de
+invertsel: Auswahl umkehren
+light: licht
+linked: verlinkte
+Linkname: Linkname
+linkto: Verlinken zu...
+Mark: Markieren
+marked: markierte
+markhidden: Nur versteckten markieren
+mayExist: (vielleicht schon erstellt?)
+missing: (fehlt) NOTE never used
+Moditime: Geändert
+moveto: Umzug nach...
+Name: Name
+next: nächstes
+no: keine
+notAvailable: Nicht verfügbar
+numbererror: W A R N U N G<br><br>Nicht übereinstimmende Bildanzahl!
+Original: Original
+own: eigene Originale
+Phototime: Fotozeit
+placeFirst: Am Anfang des Albums platzieren
+placefirst: Zum Anfang bewegen
+placeLast: Am Ende des Albums platzieren
+placelast: Zum Ende bewegen
+placeWhere: wird meistens am Ende des Albums platziert
+plus: plus
+previous: vorheriges
+remove: LÖSCHEN...
+return: außerhalb = zurück
+rights: Rechte
+saved: GESPEICHERT
+searchedFor: Gesucht
+searchHelp: Suchhilfe
+selectTreshold: Schwellenwert auswählen
+settings: Einstellungen
+settingsGeneral: Allgemeine Einstellungen
+shown: gezeigte
+simiThres: mit Ähnlichkeitsschwelle
+Size: Größe
+status: Status
+subalbum:  Unteralbum
+subalbums: Unteralben
+toggtext: "Bildunterschriften\nzeigen/verbergen"
+txtGif: Gif-Bild! Kann nur temporären Text zugewiesen der nicht dauerhaft gesichert werden kann
+wait: warten
+with: mit
+xplErrImg: Beurteilung der technischen \nQualität des Originalbildes
+
+albumcollselect: Bitte eine Albensammlung auswählen im Hauptmenü!
+albumMissing: Dieses Album kann, möglicherweise<br>
+              aufgrund unzureichender Rechte,<br>
+              nicht angezeigt werden
+albumSelectInfo: "Eine Albensammlung hier auswählen,
+                 falls diese nicht bereits vorausgewählt ist.
+                 Möglicherweise gibt es noch mehr
+                 als eine Alternative.
+                 Das Eingabealbum einer Albensammlung ist
+                 auch „Album Root” genannt, und es
+                 verzweigt sich nach unten.
+                 – Tipps bei Problemen:
+                 Den Browser neuladen!"
+blockCopyright: "Vollbildfenster aus urheberrechtlichen Gründen gesperrt.\n
+                Bitte an den Urheberrechtsinhaber wenden!"
+blockCopyright1: "Herunterladen aus urheberrechtlichen Gründen gesperrt.\n
+                Bitte an den Urheberrechtsinhaber wenden!"
+blockFirefox: "Leider können Bilder in voller Größe derzeit nicht mit Firefox-\n
+              Browsern angezeigt werden. Hoffentlich wird dies bald behoben."
+blockPopup: POPUP-Fenster wird vom Browser blockiert
+button:
+  ok:         Ja
+  backgtitle: Hintergrund ändern
+  cancel:    Absagen
+  close:     Schließen
+  confirm:   Bestätigen
+  continue:  Weitermachen
+  delete:    <b>{name}</b> löschen
+  dosub:     Ein neues Unteralbum erstellen
+  findIn:    Suche in
+  findDupNames: Doppelte Namen finden
+  keywords:  Stichwörter
+  #the initial 1 means link==true, move==false
+  linkFunc:  1Zum ausgewählten Album verlinken
+  login:     Anmelden
+  move:      Zum Album
+  #the initial 0 means link==false, move==true
+  moveFunc:  0Verschieben in das ausgewählte Album
+  notes:     Anmerkungen
+  optchuser: "Rechteinformation Benutzer\xa0wechseln"
+  restart:   "Den Browser neuladen\n
+             durch hier klicken!"
+  rightsinfo: Rechteinformation
+  rights:    Rechteinformation
+  save:      Speichern
+  saveclose: Speichern und schließen
+  show:      Alle anzeigen in
+  sort:      Sortieren
+
+buttons:
+  left:
+    main: "Hauptmenü: Albensammlung"
+
+    find: "In Untertiteln und\n
+           mehr finden [F]"
+
+    help: "Anweisungen\n
+          [F1]"
+
+    reload: "Album neuladen (ungespeicherte\n
+            Änderungen zurücksetzen)"
+
+    name: Bildnamen zeigen/verbergen
+    hide: Versteckte Bilder zeigen/verbergen
+    save: Änderungen speichern
+    mail: "Bitte Frage(n) mailen, oder\n
+          Nachricht mit weitere\n
+          Informationen (vielleicht\n
+          Korrekturen!)"
+
+    up: "Nach oben (erste\n
+        Zeile zeigen)\n
+        [pgUp]"
+
+    meet: "Meeting: Wir sehen uns im\n
+          Internet (im neuen Fenster).\n
+          Bitte stimmen dem/denen zu\n
+          die getroffen werden. Dann ist\n
+          keine Einladung erforderlich\n
+          – einfach hier klicken!"
+
+dialog:
+  find:
+    header: Bilder in der Sammlung finden
+    nolinks: (nicht verlinkte)
+  help:
+    header: Benutzeranweisung
+    header1: (vor allem für Computers mit Tastatur und Maus oder Touchpad)
+    imgdef0: Ein Bild
+    imgdef1: in einem Album ist entweder ein
+    imgdef2: Originalbild
+    imgdef3: oder ein verlinktes Bild aus einem anderen Album in der Albensammlung
+    imgdef4: ein „Link”
+    login0: Wer als Gast-Benutzer⋅in (gast) angemeldet ist
+    login1: hat nur beschränkte Rechte (Vorschaubilder verstecken, markieren und mit drag & drop bewegen; zum Originalbild gehen). Nach persönlichem Login (Anmeldung) erfolgen weitere Rechte (z.B. Bildunterschriften ändern und speichern). Nur Systemadministrierende können ein persönliches Login bereitstellen
+    ihrcm0: Jedes Bild hat ein Menü
+    ihrcm1: ( <b>⡇</b>) mit Befehlen/Funktionen
+    ctrlclick: Ctrl + klicken (⌘ + klicken)
+    ihrcm2: einem Bild öffnet es auch (⌘ mit Mac-Tastatur)
+    mark0:  "<b>Ein Bild auswählen</b> in der oberen rechten Ecke, oder:"
+    shift0: Shift + klicken
+    shift1: auf einem Bild macht markieren/ausmarkieren
+    green0: Ein Bild mit einem grünen unteren Rand
+    green1: ist aus einem anderen Album verlinkt – das Miniaturbildmenü enthält einen Link zum Originalbild
+    flebu: Die linke Schaltflächen
+    wviva: welche sichtbar sind, variiert
+    mmenu: "Hauptmenü: Albenübersicht (site map), Album zu anzeigen wählen"
+    tools: Werkzeuge für die Albensammlung
+    find:  Bilder in der Albensammlung finden per Textsuche
+    qmark: Benutzeranweisung öffnen/schließen
+    rload: Das Album neuladen, alle nicht gespeicherten Änderungen wiederherstellen („reset-Taste”, jedoch nicht für Textänderungen)¹ ²
+    names: Bildnamen ein-/ausblenden (Dateiname ohne .file-Typ)
+    hide:  „Versteckte Bilder” ein-/ausblenden (beim Bildmenü versteckt)
+    save:  Bildänderungen¹ speichern, die ansonsten temporär sind und wiederhergestellt werden können²
+    uptop: Zum Seitenanfang
+    note1: "¹ Änderungen sind: Verschieben von Miniaturbilder per Drag-and-Drop, Ausblenden oder Anzeigen mit Miniaturansichtsmenü"
+    note2: ² Durch die Wiederherstellung kann manchmal auch unvollständige Bildanzeige verbessert werden
+    advice: "<b>Andere Schaltflächen</b>: Auf eigene Faust entdecken! Und  die <b>Esc-Taste</b> verwenden (siehe unten)!"
+    keyb: Tastatur
+    F1:   öffnet dieses Benutzerhandbuch &ndash; die Esc-Taste schließt es
+    hilo: erhöht oder verringert die Bildskalierung
+    zero: (null) setzt es zurück (⌘ mit Mac-Tastatur)
+    F11:  Vollbildanzeige wird gestartet bzw. gestoppt
+    right: <b>Rechtspfeil</b>- oder <b>Linkspfeiltaste</b> schaltet das Bild vorwärts oder rückwärts
+    A:    Die <b>A</b>-Taste startet den automatischen Bildwechsel &ndash; die Esc-Taste bricht ab
+    F:    Die <b>F</b>-Taste öffnet „Bilder finden” (das Suchfenster) &ndash; die Esc-Taste schließt es
+    Esc:  <b>Esc</b> ist die End- und Abbruchtaste zum Wechseln von Bildern, Schließen von Fenstern usw.
+    F5:   <b>F5</b> oder <b>Ctrl</b>+<b>R</b> wird verwendet, um von vorne zu beginnen, beispielsweise wenn die Bildübergänge nicht in Ordnung sind
+  info:
+    filename: Dateiname
+    header: Information zum Originalbild
+  login:
+    header:   Anmelden/Login und Nutzerrechte
+    user:     Benutzer
+    name:     Name
+    password: Passwort
+    text1: Schon eingemeldet als
+    text2: Bei Änderungsanlass hier angeben
+    text3: Benutzernamen ohne Passwort
+    error: Falscher Benutzername oder Passwort, erneut versuchen!
+  rights:
+    header: Liste der Nutzerrechte und ihrer Bedeutung, mit rechtliche Nutzungsbedingungen unten
+    text0: "Aktuelle Rechte sind neben der Zahlenspalte mit Kreuzen angezeigt:"
+    text1: Es ist Ihnen gestattet, die Bilder für Ihren eigenen Gebrauch zu sehen und zu besitzen, sie jedoch nicht weiter zu verbreiten.
+    text2: Sie dürfen die Bilder auch nicht für kommerzielle oder gewinnbringende Zwecke verwenden.
+    text3: Sie verpflichten sich, die geltenden Urheberrechtsgesetze zu respektieren und Bilder nicht an Dritte weiterzugeben.
+    text4: Bei Fragen zur Genehmigung einer möglichen Verbreitung oder Übertragung wenden Sie sich bitte an den Verantwortlichen für die Albensammlung.
+    footnote1: "¹ In Klammern: Noch nicht implementiert"
+    footnote2: "² Einschränkungen für einige Bilder aufgrund des Urheberrechtsvorbehalts"
+    footnote3: "³ Ohne diese Berechtigung kann man nicht wissen, ob versteckte Alben vorhanden sind"
+  text:
+    header:   Beschreibung für
+    keywords: Stichwörter für
+    notes:    Anmerkungen für
+    open:
+      origpos: ... auf Originalplatz
+      modal: Modales Textfenster öffnen
+    reset: Zurücksetzen
+    toggle: Textfenster öffnen/schließen
+erase: löschen
+fav:
+  images: Bildfavoriten
+  manage: Bildfavoriten verwalten
+fileNameRules: "Ein Dateiname darf nur »A« bis »Z«, »a« bis »z«, ».«, »_« und »0« bis »9« enthalten, jedoch keine Leerzeichen und darf nicht mit ».«, »_imdb_«, »_mini_« oder »_show_« beginnen."
+filesFailed: "Nicht genehmigte: {n}"
+filesPassed: "Anzahl genehmigte: {n}"
+filesProceed: mit genehmigte
+foundExplain: Gefundene Bilder
+fullSize: "Vollbild im\nneuen Fenster"
+gomini: "Zurück\n
+        [Esc]"
+gonext: "Nächstes\n
+        Bild [>]"
+goprev: "Vorheriges\n
+        Bild [<]"
+gotext: im Album
+goto: Zum Originalbild gehen
+header: Mish Bildergalerie
+hello:
+  world:  Guten Tag, Welt!
+imageFirst: erstes bild
+imageLast:  letztes bild
+imageMenu: "Bild-\nmenü"
+imageNumber: bild nummer {n}
+infoHeader: Information
+loggedIn: Angemeldet Benutzer⋅in
+nameError: Namensfehler
+noCollSelected: Keine Albensammlung ausgewählt
+picfound: §Gefundene_Bilder
+plusExplain: Unteralben haben auch Unteralben!
+printOut: Ausdrucken
+reloadApp: Die App neu laden!
+select:
+  language: Sprache wählen
+  languagetext: Deutsch
+selectAlbumMove: Zu welchem Album verschieben?
+selectAlbumLink: Zu welchem Album verlinken?
+selectTarget: Zielalbum auswählen
+sizewarning: M E N G E N W A R N U N G<br><br>Mehr als
+spinwait: W A R T E N — oder mit einem Klick abbrechen, wenn es zuuu lange dreht
+time:
+  text: "Zeitangabe:"
+  buildstamp: Ember development server
+tools: Werkzeuge
+totalImgNumber: Anzahl der Bilder in der Sammlung
+write:
+  afterSort: Das Verschieben von Bildern per Drag-and-Drop<br>
+             ist jetzt nicht mehr möglich, aber wird<br>
+             wiederhergestellt durch das Album neu laden <a id="reFr0" class="helpIcon"><img draggable="false" src="/images/reload.png"></a>,<br>
+             vielleicht nach vorherigem Speichern <a class="helpIcon"><img draggable="false" src="/images/floppy1.png" style="width:.9rem"></a><br><br>
+             Gäste können nur neu laden<br><br>
+             <span style="font-weight:normal;color:#000">Hoffentlich wird das Drag-and-Drop-<br>
+             Problem irgendwann behoben</span>
+  albumName: Einen Albumnamen eingeben
+  chooseAlbum: Nichts ausgewählt, ein Album auswählen!
+  chooseBoth: Sollen beide Ausgewählten Bilder
+  chooseErase: wirklich entfernt werden?
+  chooseFirst: an den Anfang verschoben werden?
+  chooseHeader: <b>Absagen oder bestätigen</b>
+  chooseHide: versteckt oder angezeigt werden?
+  chooseLast: ans Ende verschoben werden?
+  chooseLink: zu einem anderen Album verlinkt werden?
+  chooseMany: Sollen alle {n} Ausgewählten Bilder
+  chooseMove: zu einem anderen Album verschiebt werden?
+  chosenNone: Kein Bild ausgewählt!<br>
+              <br>Zumindest das angeklickte Bild muss auch markiert sein.
+              <br>Es ist eine Sicherheitsmaßnahme beim Löschen.
+  chooseOne:  Soll dieses Bild
+  chooseThis: "Ausgewähltes Album: <b>{a}</b>"
+#  chooseTool: Werkzeug wählen
+  confirm: Nicht verwendet, melden!
+  creator: "Herkunft: Foto Ursprung Quelle"
+  description: "Beschreibung: Wann wo was welche"
+  dbUpdated: Textsuchdatenbank aktualisiert
+  dialogDupResult: Suche nach doppelten Namen in <b>{a}</b>
+  doEraOri:  "HINWEIS: Einschließlich der Originalbilder!"
+  doEraOri1: "HINWEIS: Originalbild inklusive!"
+  doErased: "{n} Bilder aus ”{a}” entfernt"
+  doErased1: Ein Bild aus ”{a}” entfernt
+  doLinked: "{n} Bilder zu ”{a}” verlinkt"
+  doLinked1: Ein Bild aus ”{a}” verlinkt
+  doMoved:  "{n} Bilder zu ”{a}” verschiebt"
+  doMoved1:  Ein Bild zu ”{a}” verschiebt
+  eraseFunc: LÖSCHEN von Originalbildern kann nicht rückgängig gemacht werden
+  eraseFunc1: ", gelöschte verlinkte Bilder (Links) können jedoch neu erstellt werden"
+  eraseOption: "OPTION und AUSNAHME: Originalbilder löschen"
+  eraseOption1: WARNUNG! Die ORIGINALBILDER der Links werden nun ebenfalls gelöscht!
+  eraseOption2: Gut zum Entfernen von Duplikaten, mit Vorsicht verwenden!
+  find0: "Suchen in:"
+  find1: Bildunterschrift (oberer Text)
+  find2: Herkunft (unterer Text)
+  find3: Anmerkungen
+  find4: Albumnamen
+  find5: Bildnamen
+  find6: "Wenn nach Leerzeichen gesucht werden soll: % schreiben (trennt nicht)"
+  find7: "Regel für einzelne Wörter/Textteile/Suchbegriffe auswählen:"
+  find8: "&nbsp;alle&nbsp;davon&nbsp;mussen&nbsp;im&nbsp;selben&nbsp;Bild&nbsp;zu&nbsp;finden&nbsp;sein"
+  find9: "&nbsp;mindestens&nbsp;einer&nbsp;davon&nbsp;muss&nbsp;in&nbsp;einem&nbsp;Bild&nbsp;zu&nbsp;finden&nbsp;sein"
+  findHelpHeader: Wie Bilder gefunden werden
+  findHelpHeader1: (keine Linken)
+  findResultHeader: Zusammenfassung von {n} Bilder, in <b>{c}</b> gefunden
+  findHelp0: Suchen in Bildunterschriften usw.
+  findHelp1: In der <span>Suchen in:</span>-Zeile wird markiert, welche Textfelder gemeinsam in die Suche einbezogen werden sollen (rot = markiert).
+  findHelp2: "<span>In den unteren Zeilen</span> kann eine von zwei Optionen ausgewählt werden:"
+  findHelp3: "<span>1</span>. Markieren, dass <span>alle davon mussen...</span> und schreiben dann in das Textfeld oben, einige Beispiele (blau markiert):
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (zwei Suchbegriffe) findet alle Bilder mit dem Text „Nils Jacobsson” und auch andere Bilder, in denen sowohl „Nils” als auch „Jacobss” im Text vorkommen, zum Beispiel „Nils Jonasson und Bertil Jacobsson”.<br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (ein Suchbegriff) findet Bilder mit zum Beispiel „Nils Jacobsson” oder „Nils Jacobsen”."
+  findHelp4: "<span>2</span>. Markieren, dass <span>mindestens einer davon...</span> und schreiben zum Beispiel:
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (zwei Suchbegriffe) findet alle Bilder mit dem Text „Nils Jacobsson” und auch alle Bilder mit irgendein von „Nils” oder „Jacobss” im Text, zum Beispiel „Fredrik Nilson” und/oder „Filip Jacobsson” (aber nicht „Nisse Jacobson”).<br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (ein Suchbegriff) findet Bilder mit zum Beispiel „Nils Jacobsson” oder „Nils Jacobsen” (wie in <span>1</span>, weil nur ein Suchbegriff)."
+  findHelp5: Schreiben in das Feld oben, wonach gesucht werden soll, dann die Suche starten. Das Ergebnis wird in einem temporären Album mit dem Namen <b>Gefundene Bilder</b> präsentiert. Es gibt einem Link zum Original im Menü jedes Miniaturbildes. <span style="color:#0a0;text-decoration:underline">Ein grüner Rand unter der Bildunterschrift</span> bedeutet ein verlinktes Bild.
+  findHelp6: "Tipp: Die Gesamtzahl der Bilder in der Albensammlung wird durch die Suche (in Albumnamen) nach einem „/” angezeigt!"
+  foundNoAlbums: Keine Alben gefunden!
+  isEmpty: ist leer
+  imageSeveral: Die Namen von {n} Bildern, die entfernt werden sollen
+  imageSingle:  Der Name des Bildes, das entfernt werden soll
+  keywords: "<b>Information von geplante zukünftige Ergänzung:</b><br>
+            Wörter als Metadaten gespeichert zur Verwendung als Suchbegriffe"
+  maxWarning: <b>Mehr als {n} Bilder können nicht<br>alle gleichzeitig angezeigt werden</b>
+  noDupNamesFound: In <b>{a}</b> mit Unteralben wurden keine doppelten Bildnamen gefunden
+  noErased: aber {n} konnte nicht entfernt werden:<br><br>{a}
+  noLinkLink: Unter den ausgewählten Bildern befindet sich mindestens ein Link.<br>Verlinkte Bilder können nicht weiterverlinkt werden!<br>Zum Originalbild gehen, um es zu verlinken.
+  noneFound: Leider kein Bild gefunden!
+  notEmpty: Das Album muss zuerst geleert werden!
+  notes: Anmerkungen die nicht mit dem Bild erscheinen
+  originUntouch: "<b>HINWEIS</b>, dass es einen Unterschied zwischen Bildern gibt: Grüne Bildnamen beziehen sich nicht auf eigene <b>Originalbilder</b>, sondern auf <b>verlinkte Bilder</b> (einfacher: <b>Links</b>). Ein Bild mit einem grünen unteren Rand ist eigentlich nur ein Link zu seinem Originalbild in einem anderen Album. Ein Originalbild bleibt unberührt, auch wenn der Link dazu entfernt wird."
+  reloadRequired: <br><br>Geänderte Albumstruktur erfordert Neustart<br>
+  searchTerms: Suchbegriffe eingeben, durch Leerzeichen getrennt, Groß-/Kleinschreibung spielt keine Rolle, ebenso diakritische Zeichen außer üåäö (unten auswählen, in welchen Texten gesucht werden soll)
+  set0: Einstellungen wählen
+  setBeep: Piepton bei Mausklicks
+  setPoop: Mausklicks anzeigen
+  setEraseOriginal: Original mit Link löschen (WARNUNG!)
+  tool0: "Für <b>{a}</b> wählen:"
+  tool01: "Für <b>alle Alben</b> dieser Sammlung wählen:"
+  tool1: Das Album löschen (muss leer sein)
+  tool2: Ein Unteralbum erstellen
+  tool3: Die Bilder nach Namen sortieren
+  tool31: in steigender Reihenfolge
+  tool32: in umgekehrter Reihenfolge
+  tool4: Doppelte Bildnamen finden
+  tool41: Doppelte Bildnamen in <b>{a}</b> inklusive aller Unteralben finden
+  tool42: Doppelte Bildnamen finden
+  tool5: Bilder hochladen
+  tool51: Bilddateien hochzuladen auswählen
+  tool6: Suchdaten aktualisieren
+  tool7: Ähnliche Bilder finden versuchen
+  tool8: Textliste für angezeigte Bilder erstellen
+  tool91: Eigene Lieblingsbilder verwalten
+  tool99: Hier gibt es nichts zu wählen!
+  utilHeader: Werkzeuge für das Album
+  utilHeader0: Werkzeuge für die Albensammlung
+

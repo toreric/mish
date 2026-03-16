@@ -1,0 +1,58 @@
+#!/bin/bash
+
+#" Remember to set the project durectory: "
+#project=/home/tore/Arbeten/mish
+project=/home/tore/Arbeten/mish-dev
+
+port=3000
+
+prid=`lsof -t -i:$port`
+# If in autostart, this port shouldn't be occupied
+if [[ $prid ]]; then
+  echo "Port $port is occupied by a process with pid=$prid;"
+# Else, maybe kill the process listening to this port
+  echo -n "Kill the process and continue? (y/N): "
+  read yN
+  if [[ $yN != 'y' && $yN != 'yes' ]]; then
+    echo "Cancelled"
+    exit
+  fi
+  sudo kill $prid
+  clear
+fi
+
+# Make the script usable from any directory
+cd $project
+echo pwd is $project
+
+#IMDB_HOME=/mnt/sda2
+#IMDB_HOME=/mnt/koofrwebdav
+IMDB_HOME=/home/tore
+#IMDB_ROOT=MISH
+IMDB_ROOT=Album-1
+IMDB_ROOT='""'
+### NOTE: IMDB_ROOT may be empty in order to force the user to choose
+### among album collections. Such an 'empty' string argument must be '""'
+### in order to be passed correctly positioned into `node server.js ...`,
+### since '' or "" will cause errors. The '""' parameter will be taken
+### care of and is eventually converted into an empty string.
+
+if [[ $1 ]]; then
+  IMDB_HOME=$1
+  if [[ $2 ]]; then
+    IMDB_ROOT=$2
+  fi
+fi
+echo IMDB_HOME = $IMDB_HOME
+if [[ $IMDB_ROOT != '""' ]]; then
+  echo IMDB_ROOT = $IMDB_ROOT
+else
+  echo "IMDB_ROOT = [user choice]"
+fi
+echo -n "##### Starting the Node server "`date`
+# Note that Node JS may be installed as either 'node', 'nodejs', or both
+# Start the Express server. NOTE: server.js contains `import express from 'express'`
+logger "EXPRESS starting"
+logger `echo $PATH`
+logger `whereis node`
+/usr/bin/node server.js $IMDB_HOME $IMDB_ROOT $port

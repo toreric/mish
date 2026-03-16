@@ -1,0 +1,51 @@
+
+#!/bin/bash
+
+pwd=$PWD
+echo
+# Go to the web home directory:
+cd /var/www/mish/
+
+# NOTE that the 'node' version must "match the build", use 'nvm'!
+
+# This must be modified  to reflect whether NPM or PNPM is used:
+# Pnpm has been used since 2024 or earlier
+# Generally, pnpm is superior, and don't mix!
+echo -n "  Run pnpm install? (y/N): " # NOTE: for PNPM
+#echo -n "  Run npm install? (y/N): "  # NOTE: for NPM
+read yN
+
+echo
+if [[ $yN == "y" || $yN == "yes" ]]; then
+  rm -rf node_modules/
+  pnpm install # Update node_modules using package.json # NOTE: for PNPM, producing a pnp-lock.yaml file
+#  npm install # Update node_modules using package.json # NOTE: for NPM, producing another file
+  # ... changed dec.2018 to yarn, reverted july 2019
+  #sudo yarn  # Update node_modules using package.json
+  echo "##### Deployment is complete if no errors or severe complains appeared"
+fi
+
+#TODO elsewhere?: Add link to the text (document) directory (if present in imdbroot)
+#textdir=$imdbhome/$imdbroot/text
+#if [ -d $textdir ]; then ln -sTf $textdir public/text; fi
+
+appname=mish
+# NOTE imdbhome = server database(datastore) catalog MUST NOT end with slash NOTE
+imdbhome="/media/raid1" # Do not end with '/'
+imdbroot="''"    # user selects, important duoble quoted syntax!
+# NOTE imdbroot = the preselected album collection MUST NOT have any slashes NOTE
+imdbroot="MISH"  # preselected, without '/'es
+port=3000
+
+echo "##### Delete all PM2 services"
+pm2 delete all
+echo "##### Start $appname service"
+#pm2 start server.js -i 0 --name $appname -- $imdbhome $imdbroot $port
+pm2 start server.js -i max --name $appname -- $imdbhome $imdbroot $port
+pm2 flush
+pm2 save
+pm2 restart all
+
+cd $pwd
+#pm2 logs --lines 24 $appname
+pm2 logs

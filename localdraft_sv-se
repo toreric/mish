@@ -1,0 +1,37 @@
+
+Bilddatabaser (IMDB) i albumsystemet Mish
+
+Kataloger med bilder (tiff, jpeg, png, gif) kan direkt inkluderas i
+albumsystemet, men de måste flyttas till ett ställe (IMDB_ROOT) som
+är rot för en albumsamling. Det kan vara en katalog hos användaren
+eller på annat ställe (där albumsamlingar kan finnas) i datorns fil-
+system där aktuell användare har fullständiga åtkomsträttigheter.
+
+Tillverka en katalog (IMDB_ROOT) dit bildkataloger (IMDB) kan
+flyttas. Varje sådan katalog blir en bilddatabas (ett album).
+Så här till exempel:
+
+IMDB_HOME  IMDB = image database = albums
+–––––––––– ––––––––––––––––––––––––––––––––––––––––––––––
+/home/tore/Photo_gallery                     <= IMDB_ROOT
+/home/tore/Photo_gallery/Forests
+/home/tore/Photo_gallery/Forests/Sweden
+/home/tore/Photo_gallery/Forests/Nicaragua
+/home/tore/Photo_gallery/Car_excursions
+/home/tore/Photo_gallery/Car_excursions/Denmark
+/home/tore/Photo_gallery/Car_excursions/Sweden
+/home/tore/Photo_gallery/Car_excursions/Sweden/Stockholm
+/home/tore/Photo_gallery/Car_excursions/Sweden/Countryside
+/home/tore/Photo_gallery/Midsummer
+/home/tore/Photo_gallery/Midsummer/2013
+/home/tore/Photo_gallery/Midsummer/2018
+–––––––––– –––––––––––––––––––––––––––––––––––––––––––––––
+
+Var och en av kataloger och underkataloger (IMDB) är en egen
+'bilddatabas' eller ett 'album' -- hyfsat överblickbart
+på en vanlig bildskärm så länge bildantalet understiger ungefär
+ett hundratal (även IMDB_ROOT kan användas som album).
+
+Platsen i filsystemet där IMDB_ROOT finns kallar vi IMDB_HOME.
+I IMDB_HOME får det finnas mer än en IMDB_ROOT-katalog och man
+väljer bland dem i huvudmenyn.

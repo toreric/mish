@@ -1,0 +1,445 @@
+price_banner: "{product} costs {price, number, ::currency/EUR}"
+
+# For the main menu = MenuMain component
+selalbumcoll: Choose album collection
+albumcollinfo: Album collection (or album root)
+albumcare: Album tools for
+albumcareinfo: Delete, create new, image sorting, duplicate search, and more
+albumcoll: Album collection
+albumcollshow: Show/hide album list
+openallalb: Show/hide subalbums
+showselected: Show selected album
+tmpalbum1: With
+tmpalbum2: "first:"
+tmpalbum3: Temporary album for displaying found images
+needaroot: First select album collection!
+nimages: number of images
+nlinked: plus number of linked images
+nsubalbums: number of subalbums
+anyhidden: visible due to user rights
+
+# Appendix to the the 'dialog.rights' (allowances)
+allowed: "                Allowed to"
+adminAll:     do anything
+albumEdit:    make/erase albums
+appendixEdit: (edit appendices +4)¹
+appendixView: (view appendices)¹
+delcreLink:   move to another album, make/erase links
+deleteImg:    erase images +5
+imgEdit:      (edit images)¹
+imgHidden:    hide/show images
+imgOriginal:  view high density images²
+imgReorder:   move images within an album
+imgUpload:    upload original images to album
+notesEdit:    edit/save notes +13
+notesView:    view notes
+saveChanges:  save changes more than texts
+setSetting:   change settings
+textEdit:     edit/save image texts/captions, access hidden albums³
+
+all: all
+allInAlbum: (to the album)
+and: and
+captionFor: Image caption for
+captionSaved: saved
+checkuncheck: Check or uncheck all
+chooseShow: "Choose to view in <b>{f}</b> or in own album"
+created: created
+createfail: NOT CREATED
+deleted: deleted
+dark: dark
+Dimension: Dimension
+download: Download...
+dupImgNames: duplicate image names
+editext: Edit text...
+editimage: Edit image...
+eraseCancelled: The deletion is cancelled
+errTxtNotSaved: The text was not saved!
+errTxtCannotSave: The caption cannot be updated, is the file protected?
+errTxtRecover: Recover lost text by reloading the album (restore unsaved changes)
+explainLink: shown here as linked image
+Filename: File name
+findDuplicates: find duplicates
+findImageDups: Find possible duplicates of this image
+for: for
+found: Found
+futureFacility: Not yet implemented
+#NOTE: Choose a 'guest: value' which exists in the _imdb_settings.sqlite 'user' table!
+#      Else use instead the standard name guest!
+guest: guest
+has: has
+hidden: hidden
+hideshow: Hide or show
+home: to&nbsp;the&nbsp;main&nbsp;page&nbsp;of
+homemain: main&nbsp;page
+images: images
+imageFind: Find images
+imageSearch: Search in captions etc.
+in: in
+information: Information
+intlcode: en-us
+invertsel: Invert selections
+light: light
+linked: linked
+Linkname: Link name
+linkto: Link to...
+Mark: Mark
+marked: checked
+markhidden: Check hidden only
+mayExist: (may already exist?)
+missing: (missing) NOTE never used
+Moditime: Modified
+moveto: Move to...
+Name: Name
+next: next
+no: no
+notAvailable: Not available
+numbererror: W A R N I N G<br><br>Image count mismatch!
+Original: Original
+own: own original
+Phototime: Photo time
+placeFirst: Place at the beginning of the album
+placefirst: Place first
+placeLast: Place at the end of the album
+placelast: Place last
+placeWhere: usually placed at the end of the album
+plus: plus
+previous: previous
+remove: REMOVE...
+return: outside = return
+rights: rights
+saved: S A V E D
+searchedFor: Searched for
+searchHelp: Search help
+selectTreshold: Select threshold value
+settings: Settings
+settingsGeneral: General settings
+shown: shown
+simiThres: with similarity threshold
+Size: Size
+status: Status
+subalbum:  subalbum
+subalbums: subalbums
+toggtext: "Show/hide\nimage captions"
+txtGif: Gif image! May only be given temporary text that cannot be kept permanently
+wait: wait
+with: with
+xplErrImg: Assessment of the technical \nquality of the original image
+
+albumcollselect: Please select an album collection in the main menu!
+albumMissing: This album cannot be shown,<br>
+              possibly due to insufficient rights
+albumSelectInfo: "Select here an album
+                  collection if it isn't
+                  already preselected.
+                  There may be more
+                  than one alternative.
+                  The entrance album to an
+                  album collection is also
+                  called “album root”,
+                  branches downwards.
+                  – Tips at problems:
+                  Reload the browser!"
+blockCopyright: "Fullsize window blocked for copyright reasons.\n
+                Please contact the copyright owner!"
+blockCopyright1: "Download blocked for copyright reasons.\n
+                Please contact the copyright owner!"
+blockFirefox: "Unfortunately, full-size images cannot yet be viewed with\n
+              Firefox browsers. Hopefully this will be fixed soon."
+blockPopup: POPUP window blocked by the browser
+button:
+  ok:        "Yes"
+  backgtitle: Change background
+  cancel:    Cancel
+  close:     Close
+  confirm:   Confirm
+  continue:  Continue
+  delete:    Delete <b>{name}</b>
+  dosub:     Make a new subalbum
+  findIn:    Search in
+  findDupNames: Find duplicate names
+  keywords:  Keywords
+  #the initial 1 means link==true, move==false
+  linkFunc:  1Link to the selected album
+  login:     Log in
+  move:      To the album
+  #the initial 0 means link==false, move==true
+  moveFunc:  0Transfer to the selected album
+  notes:     Notes
+  optchuser: "About\xa0rights Change\xa0user"
+  restart:   "Reload the browser\n
+             by clicking here!"
+  rights:    About rights
+  rightsinfo: Rights information
+  save:      Save
+  saveclose: Save and close
+  show:      Show all in
+  sort:      Sort
+
+buttons:
+  left:
+    main: "Main menu: Album collection"
+
+    find: "Find in captions\n
+           and more [F]"
+
+    help: "User guide\n
+          [F1]"
+
+    reload: "Reload album\n
+            (reset unsaved changes)"
+
+    name: Show/hide image names
+    hide: Show/hide hidden images
+    save: Save changes
+    mail: "Please mail a question\n
+          or send a message with\n
+          additional information\n
+          (or corrections!)"
+          #NOTE: The '\n's are for standard HTML title="...", just in case!
+
+    up: "To top (show\n
+        first line)\n
+        [pgUp]"
+
+    meet: "Meeting: See you on\n
+          Internet (in new window).\n
+          Please agree whith the\n
+          people you will see. Then,\n
+          no invitation is needed\n
+          – you just click here!"
+
+dialog:
+  find:
+    header: Find images in the album collection
+    nolinks: (not linked)
+  help:
+    header: User guide
+    header1: (mainly for computers with keyboard and mouse or touchpad)
+    imgdef0: An image
+    imgdef1: in an album is either an
+    imgdef2: original image
+    imgdef3: or a linked-in image from elsewhere in the album collection
+    imgdef4: a “link”
+    login0: When logged in as guest
+    login1: you will have limited rights (hide, select, and move thumbnails by drag'n-drop; go to original image). You can get more rights with a personal login (for example, make and save caption changes). A personal login can only be obtained from a system administrator
+    ihrcm0: Each image has a menu
+    ihrcm1: ( <b>⡇</b>) with commands/functions
+    ctrlclick:  Ctrl + click (⌘ + click)
+    ihrcm2: an image also shows the menu (⌘ with Mac keyboard)
+    mark0:  "<b>Select an image</b> in the upper right corner, or:"
+    shift0: Shift + click
+    shift1: an image selects/deselects it
+    green0: An image with a green bottom border
+    green1: is linked from another album – the thumbnail menu has a link to the original image
+    flebu: The left hand buttons
+    wviva: which ones visible varies
+    mmenu: "Main menu: Album overview (site map), choose album to show"
+    tools: Tools for the album collection
+    find:  Find images in the album collection by text search
+    qmark: Show/hide this user guide
+    rload: Reload the album, restore any unsaved changes (’undo button’, but doesn't refer to text changes)¹ ²
+    names: Show/hide image name (file name without .type)
+    hide:  Show/hide ’hidden images’ (hidden with the thumbnail menu)
+    save:  Save image changes¹ that are otherwise temporary and can be restored²
+    uptop: To the top of the page
+    note1: "¹ Changes are: Drag-and-drop moving of thumbnails, hide or show with thumbnail menu"
+    note2: ² Restoring can also sometimes improve incomplete image display
+    advice: "<b>Other buttons</b>: Explore on your own! And use the <b>Esc key</b> (see below)!"
+    keyb: Keyboard
+    F1:   shows this user guide &ndash; the Esc key closes it
+    hilo: increases and decreases the image scaling
+    zero: (zero) resets (⌘ with Mac keyboard)
+    F11:  starts or ends full screen display
+    right: <b>Right arrow</b> or <b>Left arrow key</b> switches image forwards or backwards
+    A:    The <b>A</b> key starts automatic image switching &ndash; the Esc key cancels
+    F:    The <b>F</b> key opens 'Find Images' (the search window) &ndash; the Esc key closes it
+    Esc:  <b>Esc</b> is the end and break key for switching images, closing windows, etc.
+    F5:   <b>F5</b> or <b>Ctrl</b>+<b>R</b> is used to start over from the beginning, for example if the image transition got out of order
+  info:
+    filename: File name
+    header: Information about the original image
+  login:
+    header:   Log in and user rights
+    user:     User
+    name:     Name
+    password: Password
+    text1: You are now logged in as
+    text2: If you have reason to change, do it here
+    text3: user names without password
+    error: Incorrect user name or password, try again!
+  rights:
+    header: List of user rights and their meaning, and legal terms of use at the bottom
+    text0: "The current rights are checked next to the number column:"
+    text1: You are allowed to see and have the images for your own use but not to distribute them further.
+    text2: Nor may you use them for any commercial or profit-making purpose.
+    text3: You undertake to respect applicable copyright legislation and not to transfer images to third parties.
+    text4: Please handle all questions about permission for possible distribution or transfer by contacting the responsible for the album collection.
+    footnote1: "¹ In parentheses: Not yet implemented"
+    footnote2: "² Restriction for some images due to Copyright reservation"
+    footnote3: "³ Without this permission, there is no way to know if hidden albums exist"
+  text:
+    header:   Captions for
+    keywords: Keywords for
+    notes:    Notes for
+    open:
+      origpos: ... in original position
+      modal:   Open modal text dialog
+    reset: Reset
+    toggle: Toggle text dialog
+erase: erase
+fav:
+  images: Favorite images
+  manage: Manage favorite images
+fileNameRules: "A file name may only contain »A« to »Z«, »a« to »z«, ».«, »_« and »0« to »9« but not blanks/spaces, and it may not start with ».«, »_imdb_«, »_mini_« or »_show_«."
+filesFailed: "Number failed: {n}"
+filesPassed: "Number of approved: {n}"
+filesProceed: with the approved
+foundExplain: Found images
+fullSize: "Full size in\nnew window"
+gomini: "Return\n
+        [Esc]"
+gonext: "Next\n
+        image [>]"
+goprev: "Previous\n
+        image [<]"
+gotext: in the album
+goto: Go to the original image
+header: Mish image gallery
+hello:
+  world:  Hello World!
+imageFirst: first image
+imageLast:  last image
+imageNumber: image number {n}
+imageMenu: "Image\nmenu"
+infoHeader: Information
+loggedIn: Logged in user
+nameError: Name error
+noCollSelected: No album collection selected
+picfound: §Found_images
+plusExplain: Subalbums also have subalbums!
+printOut: Prnt
+reloadApp: Reload the app!
+select:
+  language: Choose language
+  languagetext: English
+selectAlbumMove: Move to which album?
+selectAlbumLink: Link to which album?
+selectTarget: Select destination album
+sizewarning: S I Z E &nbsp; W A R N I N G<br><br>More than
+spinwait: W A I T — or stop with a click if it spins too long
+time:
+  text: The time is
+  buildstamp: Ember development server
+tools: Tools
+totalImgNumber: Number of images in the collection
+write:
+  afterSort: Drag-and-drop moving of images<br>
+             is not possible hereafter, but is<br>
+             restored by reloading <a id="reFr0" class="helpIcon"><img draggable="false" src="/images/reload.png"></a> the album,<br>
+             after perhaps having saved <a class="helpIcon"><img draggable="false" src="/images/floppy1.png" style="width:.9rem"></a> it<br><br>
+             Guests can only reload<br><br>
+             <span style="font-weight:normal;color:#000">Hopefully, the drag-and-drop<br>
+              problem will be eventually fixed</span>
+  albumName: Enter an album name
+  chooseAlbum: No album chosen, select one!
+  chooseBoth: Should both selected images
+  chooseErase: really be removed?
+  chooseFirst: be moved to the beginning?
+  chooseHeader: <b>Cancel or confirm</b>
+  chooseHide: be hidden or shown?
+  chooseLast: be moved to the end?
+  chooseLink: be linked to another album?
+  chooseMany: Should all {n} selected images
+  chooseMove: be moved to another album?
+  chosenNone: No image chosen!<br>
+              <br>At least the image you click must also be marked.
+              <br>This applies to deletion as a security measure.
+  chooseOne:  Should this image
+  chooseThis: "Selected album: <b>{a}</b>"
+#  chooseTool: Choose tool
+  confirm: Not used, report!
+  creator: 'Origin: Photographer Source'
+  dbUpdated: Text search database updated
+  description: 'Caption: When Where What Who'
+  dialogDupResult: Duplicate name search in <b>{a}</b>
+  doEraOri:  "NOTE: Including the original images!"
+  doEraOri1: "NOTE: Including the original image!"
+  doErased:  Removed {n} images from “{a}”
+  doErased1: Removed an image from “{a}”
+  doLinked:  Linked {n} images to “{a}”
+  doLinked1: Linked an image to “{a}”
+  doMoved:   Moved {n} images to “{a}”
+  doMoved1:  Moved an image to “{a}”
+  eraseFunc: DELETING original images cannot be undone
+  eraseFunc1: ", but deleted linked images (links) can be recreated"
+  eraseOption: "OPTION and EXCEPTION: Delete original images"
+  eraseOption1: WARNING! Links’ ORIGINAL IMAGES will now also be deleted!
+  eraseOption2: Good for removing duplicates, use with care!
+  find0: "Search in:"
+  find1: captions (upper texts)
+  find2: origins (bottom texts)
+  find3: notes
+  find4: album names
+  find5: image names
+  find6: "If blank/space is to be searched: write % (does not separate)"
+  find7: "Select rule for separate words/pieces of text/search terms:"
+  find8: "&nbsp;all&nbsp;to&nbsp;be&nbsp;found&nbsp;in&nbsp;one&nbsp;image"
+  find9: "&nbsp;at&nbsp;least&nbsp;one&nbsp;of&nbsp;them&nbsp;must&nbsp;be&nbsp;found&nbsp;in&nbsp;an&nbsp;image"
+  findHelpHeader: How to find images
+  findHelpHeader1: (no links)
+  findResultHeader: Summary of {n} images, found in <b>{c}</b>
+  findHelp0: Search in captions etc.
+  findHelp1: Mark in the <span>Search in:</span> line, which text fields should be included in the search (red = marked).
+  findHelp2: "<span>In the bottom</span> line, you can choose one of two options:"
+  findHelp3: "<span>1</span>. Do mark that <span>all to be found...</span> and then write in the text box above, some examples (blue marked):
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (two search terms) finds all images with the text ’Nils Jacobsson’ but also other images with both ’Nils’ and ’Jacobss’ in the text, for example ’Nils Jonasson and Bertil Jacobsson’.<br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (one search term) finds images with, for example ’Nils Jacobsson’ or ’Nils Jacobsen’."
+  findHelp4: "<span>2</span>. Do mark that <span>at least one of them must be found...</span> and write, for example:
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (two search terms) finds all images with the text ’Nils Jacobsson’ and also all images with any of ’Nils’ or ’Jacobss’ in the text, for example ’Fredrik Nilson’ and/or ’Filip Jacobsson’ (but not ’Nisse Jacobson’).<br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (one search term) finds images with, for example ’Nils Jacobsson’ or ’Nils Jacobsen’ (same as <span>1</span>, since only one search term)."
+  findHelp5: Write what you want to search for in the box at the top and start the search. The result is presented in an album for temporary use called <b>Found images</b> with a link to the original in each thumbnail's menu. <span style="color:#0a0;text-decoration:underline">Green border below the caption</span> means linked image.
+  findHelp6: "Tip: Find out how many photos are in the album collection by searching for a ’/’ (in album names)!"
+  foundNoAlbums: No albums found!
+  imageSeveral: The names of {n} images to be removed
+  imageSingle:  The name of the image to be removed
+  isEmpty: is empty
+  keywords: "<b>Information about planned future addition:</b><br>
+             Keywords to be stored as metadata for search key use"
+  maxWarning: <b>More than {n} images cannot<br>be displayed together</b>
+  noDupNamesFound: Found no duplicate image names in <b>{a}</b> with subalbums
+  noErased: but {n} could not be removed:<br><br>{a}
+  noLinkLink: There is at least one link among the selected images.<br>Linked images cannot be further linked!<br>Go to the original image to link it.
+  noneFound: Sorry, no image found!
+  notEmpty: The album must first be emptied!
+  notes: Notes not shown with the image
+  originUntouch: "<b>NOTE</b> that there is a difference between images: Green image names do not refer to own <b>original images</b> but to <b>linked images</b> (more simply: <b>links</b>). An image with a green bottom border is actually just a link to its original image in another album. An original image remains untouched even when the link to it is removed."
+  reloadRequired: <br><br>Changed album structure requires restart<br>
+  searchTerms: Enter search terms separated by spaces, lower/uppercase do not matter, nor diacritics except üåäö (choose below which texts to search in)
+  set0: Choose settings
+  setBeep: Beep at mouse clicks
+  setPoop: Show mouse clicks
+  setEraseOriginal: Erase original with link (WARNING!)
+  # To use 'a' instead of 'album' as parameter did HANG
+  # both FF and Chromium (UNBELIEVABLE!):
+  tool0: "Choose for <b>{a}</b>:"
+  tool01: "For <b>all albums</b> in this collection, choose:"
+  tool1: Delete the album (must be empty)
+  tool2: Make a subalbum
+  tool3: Sort the images by names
+  tool31: in ascending order
+  tool32: in reverse order
+  tool4: Find duplicate image names
+  tool41: Find duplicate image names in <b>{a}</b> including all subalbums
+  tool42: Find duplicate image names
+  tool5: Upload images
+  tool51: Select image files to upload
+  tool6: Update search data
+  tool7: Try to find similar images
+  tool8: Make text list for displayed images
+  tool91: Manage own favorite images
+  tool99: Here is nothing to choose!
+  utilHeader: Tools for the album
+  utilHeader0: Tools for the album collection

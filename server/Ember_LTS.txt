@@ -1,0 +1,104 @@
+STATUS 2026-01-30
+tore@nejlika:~/Arbeten/mish-dev
+$ pnpm outdated
+tore@nejlika:~/Arbeten/mish-dev/mish-project
+$ pnpm outdated
+┌─────────────────────────────────┬─────────┬────────┐
+│ Package                         │ Current │ Latest │
+├─────────────────────────────────┼─────────┼────────┤
+│ ember-cli (dev)                 │ 6.9.1   │ 6.10.0 │ yellow!
+├─────────────────────────────────┼─────────┼────────┤
+│ @embroider/compat (dev)         │ 3.9.3   │ 4.1.12 │ red!
+├─────────────────────────────────┼─────────┼────────┤
+│ @embroider/core (dev)           │ 3.5.9   │ 4.4.2  │ red!
+├─────────────────────────────────┼─────────┼────────┤
+│ @embroider/webpack (dev)        │ 3.2.3   │ 4.1.2  │ red!
+├─────────────────────────────────┼─────────┼────────┤ 
+│ stylelint (dev)                 │ 16.26.1 │ 17.1.0 │ red?
+├─────────────────────────────────┼─────────┼────────┤
+│ stylelint-config-standard (dev) │ 39.0.1  │ 40.0.0 │ red?
+├─────────────────────────────────┼─────────┼────────┤
+│ ember-primitives                │ 0.51.0  │ 0.53.0 │ red?
+└─────────────────────────────────┴─────────┴────────┘
+
+STATUS 2025-07-07
+tore@nejlika:~/Arbeten/mish-dev
+$ pnpm outdated
+┌─────────┬─────────────┬────────┐
+│ Package │ Current     │ Latest │
+├─────────┼─────────────┼────────┤
+│ express │ 4.21.2      │ 5.1.0  │
+├─────────┼─────────────┼────────┤
+│ multer  │ 1.4.5-lts.2 │ 2.0.1  │
+└─────────┴─────────────┴────────┘
+tore@nejlika:~/Arbeten/mish-dev/mish-project
+$ pnpm outdated
+┌─────────────────────────┬─────────┬────────┐
+│ Package                 │ Current │ Latest │
+├─────────────────────────┼─────────┼────────┤
+│ @embroider/compat (dev) │ 3.9.1   │ 4.1.0  │
+├─────────────────────────┼─────────┼────────┤
+│ @embroider/core (dev)   │ 3.5.7   │ 4.1.1  │
+├─────────────────────────┼─────────┼────────┤
+│ ember-primitives        │ 0.32.0  │ 0.34.0 │
+└─────────────────────────┴─────────┴────────┘
+
+
+
+
+evo (Ember) 2025-04-10:
+
+  Personally on any project I'm actively maintaining I keep my dependencies up to date including ember-source. I prefer to get rid of deprecations asap instead of waiting until the next LTS to upgrade and find a bunch of work I need to do all at once.
+  But my projects are smaller so that's manageable for me.
+  How and when you upgrade will be a decision you need to balance based on your own (or teams) ability to do the work it might surface (most of the time I have nothing to do upgrading between minors)
+
+  x.4, x.8, x.12, x.16, x.18 tend to be LTS versions
+  6.4 will likely be the next LTS once it's been released for 6 weeks and in active use
+
+NullVoxPopuli added:
+  each release is ~6 weeks, and each LTS is each 24 weeks
+  so with that cadence, planning can be pretty predictable
+
+After a failed update according to
+├──────────────────────────────────────────┼─────────┼─────────┤
+│ @embroider/compat (dev)                  │ 3.8.3   │ 4.0.1   │
+├──────────────────────────────────────────┼─────────┼─────────┤
+│ @embroider/core (dev)                    │ 3.5.2   │ 4.0.1   │
+├──────────────────────────────────────────┼─────────┼─────────┤
+│ @glimmer/component (dev)                 │ 1.1.2   │ 2.0.0   │
+├──────────────────────────────────────────┼─────────┼─────────┤
+│ body-parser                              │ 1.20.3  │ 2.2.0   │
+├──────────────────────────────────────────┼─────────┼─────────┤
+│ ember-cli (dev)                          │ 5.12.0  │ 6.3.1   │
+├──────────────────────────────────────────┼─────────┼─────────┤
+│ ember-source (dev)                       │ 5.12.0  │ 6.3.0   │
+├──────────────────────────────────────────┼─────────┼─────────┤
+│ stylelint-config-standard (dev)          │ 37.0.0  │ 38.0.0  │
+├──────────────────────────────────────────┼─────────┼─────────┤
+│ ember-primitives                         │ 0.27.2  │ 0.30.0  │
+└──────────────────────────────────────────┴─────────┴─────────┘,
+Windvis added:
+  I think that @embroider/compat v4 doesn't support Webpack yet (only Vite) but I wouldn't run pnpm update to update those dependencies.
+  If you want to update ember-source / ember-cli, I would use ember-cli-update since that updates your whole blueprint
+  I'm guessing Embroider requires manual changes, not sure if there is a migration guide.
+  Maybe you can run this for the Embroider update: https://github.com/mainmatter/ember-vite-codemod
+
+THE UPDATE ENDED 2025-04-11 WITH:
+$ pnpm outdated
+┌─────────────────────────┬─────────┬────────┐
+│ Package                 │ Current │ Latest │
+├─────────────────────────┼─────────┼────────┤
+│ @embroider/compat (dev) │ 3.9.0   │ 4.0.1  │
+├─────────────────────────┼─────────┼────────┤
+│ @embroider/core (dev)   │ 3.5.6   │ 4.0.1  │
+├─────────────────────────┼─────────┼────────┤
+│ ember-primitives        │ 0.27.2  │ 0.30.0 │
+└─────────────────────────┴─────────┴────────┘
+Everything else is updated to latest, thus Ember 6.3 now!
+
+toreric 2025-07-26 15:06
+Packages excluded so fare from update (because of compatibility problems some time ago)@embroider/compat (dev)        3.9.1   (4.1.1)
+@embroider/core (dev)          3.5.7   (4.1.3)
+ember-primitives               0.32.0  (0.36.0)
+NullVoxPopuli 2025-07-26 16:12
+If you're using embroider/webpack, you need embroider/compat and core to be on v3

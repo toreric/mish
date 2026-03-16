@@ -1,0 +1,1 @@
+Header always set Content-Security-Policy "script-src-attr 'unsafe-inline'; style-src 'unsafe-inline' 'self';  default-src 'self' https://mish.hopto.org/text/;"
