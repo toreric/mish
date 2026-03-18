@@ -11,7 +11,7 @@ echo "${mestxt} during work with" > ${prodcat}buildstamp.txt
 ember b -prod --output-path=$prodcat --watch true
 # pnpm exec ember b -prod --output-path=$prodcat --watch true
 
-# NOTE: If --watch true is set, the lines below don't
+# NOTE: If --watch [true] is set, the lines below don't
 # process until build watch is broken manually with ^C
 echo "Producing build timestamp ..."
 mestxt='build '`date +%y%m%d-%H%M`
