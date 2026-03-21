@@ -1,13 +1,17 @@
 import { setApplication } from '@ember/test-helpers';
 import * as QUnit from 'qunit';
 import { setup } from 'qunit-dom';
-import { start } from 'ember-qunit';
+import { start as qunitStart, setupEmberOnerrorValidation } from 'ember-qunit';
 
-import Application from 'polaris-starter/app';
-import config from 'polaris-starter/config/environment';
+import Application from 'mish-client/app';
+import config from 'mish-client/config/environment';
 
-setApplication(Application.create(config.APP));
+export function start() {
+  setApplication(Application.create(config.APP));
 
-setup(QUnit.assert);
+  setup(QUnit.assert);
 
-start();
+  setupEmberOnerrorValidation();
+
+  qunitStart();
+}

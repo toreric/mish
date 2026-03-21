@@ -10,8 +10,8 @@
     "baseUrl": ".",
     "allowJs": true,
     "paths": {
-      "polaris-starter/tests/*": ["tests/*"],
-      "polaris-starter/*": ["app/*"],
+      "mish-client/tests/*": ["tests/*"],
+      "mish-client/*": ["app/*"],
       "*": ["types/*"]
     }
   },

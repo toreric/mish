@@ -3,7 +3,7 @@ import '@glint/environment-ember-loose/native-integration';
 
 import type { HelperLike } from '@glint/template';
 // import type { ComponentLike, HelperLike, ModifierLike } from "@glint/template";
-import type Welcome from 'polaris-starter/components/welcome';
+import type Welcome from 'mish-client/components/welcome';
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
