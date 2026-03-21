@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   const ENV = {
-    modulePrefix: 'polaris-starter',
+    modulePrefix: 'mish-client',
     environment,
     rootURL: '/',
     locationType: 'history',
