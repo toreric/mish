@@ -1,0 +1,23 @@
+#! /bin/bash
+
+# Vite-build-script: vite-build-script
+# Was: Ember-build-script: ember-b-script
+
+# Production directory
+prodcat="../server/public/"
+messcat="../server/"
+# Produce a build stamp message
+mestxt='build '`date +%y%m%d-%H%M`
+echo "${mestxt} during work with" > ${prodcat}buildstamp.txt
+pnpm vite build --mode='production' --outDir=$prodcat --watch
+#ember b -prod --output-path=$prodcat --watch true
+
+# NOTE: If --watch [true] is set, the lines below don't
+# process until build watch is broken manually with ^C
+echo "Producing build timestamp ..."
+mestxt='build '`date +%y%m%d-%H%M`
+echo $mestxt
+hint=' · for modern browsers only · '
+echo $mestxt$hint > ${messcat}buildstamp.txt
+echo -n "Done. "
+date
