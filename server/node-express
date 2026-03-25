@@ -2,15 +2,15 @@
 
 #" Remember to set the project durectory: "
 #project=/home/tore/Arbeten/mish
-project=/home/tore/Arbeten/mish-dev
+project=/home/tore/Arbeten/mish/server
 
 port=3000
 
 prid=`lsof -t -i:$port`
-# If in autostart, this port shouldn't be occupied
+# If in autostart, this port may be occupied:
 if [[ $prid ]]; then
-  echo "Port $port is occupied by a process with pid=$prid;"
-# Else, maybe kill the process listening to this port
+  echo "Port $port is occupied by a process with pid=$prid."
+  # Perhaps, kill the process listening to this port:
   echo -n "Kill the process and continue? (y/N): "
   read yN
   if [[ $yN != 'y' && $yN != 'yes' ]]; then

@@ -233,7 +233,8 @@ class Welcome extends Component {
   // To be executed only once before a user is defined with userStatus
   // HERE INITIAL actions may be added like the openLogIn() in last line
   getCred = async () => {
-    await new Promise (z => setTimeout (z, 99)); // Allow userStatus to settle
+    //await new Promise (z => setTimeout (z, 99)); // Allow userStatus to settle
+    await new Promise (z => setTimeout (z, 2299)); // With Vite 2026
     if (!this.z.userStatus) { // only once
         // this.z.loli('getCred 0', 'color:red');
 
@@ -288,11 +289,12 @@ class Welcome extends Component {
       this.z.allowvalue = cred[2];
       this.z.freeUsers = cred[3];
       this.z.imdbRoot = cred[4]; // Non-empty if defined at server startup
-        // this.z.loli('imdbRoot = ' + this.z.imdbRoot, 'color:red');
+        this.z.loli('imdbRoot = ' + this.z.imdbRoot, 'color:red');
       this.z.allowFunc(); // SET ALLOWANCES PATTERN important!
 
       // Get album-collection-qualified directories
       let roots = await this.z.getAlbumRoots();
+        this.z.loli('roots = ' + roots, 'color:red');
       this.z.imdbRoots = roots.split(LF);
     }
     // Now check if the album root is already chosen and if so,
@@ -337,6 +339,8 @@ export default class extends Welcome {
 
         <span>
           <Language />
+      {{!-- temporary: --}}
+      <span>{{this.z.refreshTexts}}</span>
 
           <button id="dark_light" style="line-height:0.65rem;margin-left:0.1rem" type="button" title-2="{{t 'button.backgtitle'}}: {{t 'dark'}}/{{t 'light'}}" {{on 'click' (fn this.z.toggleBackg)}}>&nbsp;</button>
 

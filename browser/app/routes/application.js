@@ -23,10 +23,12 @@ import translationsForEsEs from 'virtual:ember-intl/translations/es-es';
 import translationsForSvSe from 'virtual:ember-intl/translations/sv-se';
 
 export default class ApplicationRoute extends Route {
+  @service('common-storage') z;
   @service intl;
 
   beforeModel() {
     this.setupIntl();
+    this.z.initialize();
   }
 
   setupIntl() {
@@ -37,4 +39,5 @@ export default class ApplicationRoute extends Route {
 
     this.intl.setLocale(['en-us']);
   }
+
 }

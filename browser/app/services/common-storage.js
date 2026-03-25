@@ -91,7 +91,7 @@ export default class CommonStorageService extends Service {
   // and <flag> is empty or "*". The <flag> indicates a hidden album,
   // which needs permission for access
 
-  initialize = async () => {
+  initialize = async () => { // Called from routes/application.js
     // idempotent: safe to call multiple times, but should be called ONCE
     if (this.imdbRoots === null) this.imdbRoots = this.imdbRootsPrep;
     if (this.intlCodeCurr === null) this.intlCodeCurr = this.intlCode;
@@ -264,6 +264,8 @@ export default class CommonStorageService extends Service {
   // Susbtitute underscores in an album name with spaces and remove the first
   // character and the random end from a temporary 'found-images-album' name
   handsomize2sp = (name) => {
+      // this.z.loli('name = ' + name, 'color:yellow');
+      // console.log('name = ' + name)
     let tmp = name.replace(/_/g, ' ');
     if (tmp[0] === '§') tmp = tmp.replace(/\.[^.]+$/, '').slice(1);
     return tmp;
