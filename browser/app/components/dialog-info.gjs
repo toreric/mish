@@ -58,7 +58,7 @@ export class DialogInfo extends Component {
   // This promise has to be run indirectly with TrackedAsyncData
   // See the actual getStat use, further down in the template!
   actualGetStat = async () => {
-    let i = this.z.picIndex;
+    let i = await this.z.picIndex();
     if (i > -1) return await this.z.getFilestat(this.z.allFiles[i].linkto);
   }
   get getStat() {

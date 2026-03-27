@@ -64,10 +64,17 @@ export class DialogText extends Component {
     }
   }
 
-  get picName() {
+  picName = async () => {
+      this.z.loli('picName = ' + this.z.picName, 'color:yellow');
+      this.z.loli('picIndex() = ' + await this.z.picIndex(), 'color:yellow');
+      console.log(await this.z.picIndex());
+      this.z.loli('allFiles = ' + this.z.allFiles, 'color:yellow');
+      console.log(this.z.allFiles);
     if (!this.z.picName) return; // Dismiss initial reactivity
+    if (await this.z.picIndex() < 0) return; // Dismiss initial reactivity
+    if (!this.z.allFiles) return; // Dismiss initial reactivity
     let text = '';
-    let path = this.z.allFiles[this.z.picIndex].linkto;
+    let path = this.z.allFiles[await this.z.picIndex()].linkto;
     let nodeMess = document.querySelector('#dialogText main .diaMess b');
     if (/\.gif$/i.test(path)) {
       // Insert after '#dialogText main .diaMess'
@@ -86,29 +93,29 @@ export class DialogText extends Component {
     return this.z.picName;
   }
 
-  get txt1() {
+  txt1 = async () => {
     if (!this.z.picName) return; // picIndex depends on picName
-    return this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt1.toString());
+    return this.z.deNormalize2LF(this.z.allFiles[await this.z.picIndex()].txt1.toString());
   }
 
-  get txt2() {
+  txt2 = async () => {
     if (!this.z.picName) return; // picIndex depends on picName
-    return this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt2.toString());
+    return this.z.deNormalize2LF(this.z.allFiles[await this.z.picIndex()].txt2.toString());
   }
 
-  texts = () => {
+  texts = async () => { // IS THIS PERHAPS NEVER USED?
     if (!this.z.picName) return;
     let desc = document.getElementById('dialogTextDescription');
       // this.z.loli('picName = ' + this.z.picName, 'color:red');
-      // this.z.loli('picIndex = ' + this.z.picIndex, 'color:red');
+      // this.z.loli('picIndex() = ' + await this.z.picIndex(), 'color:red');
       // console.log(desc);
-      // console.log(this.z.allFiles[this.z.picIndex].txt1.toString());
-    desc.value = this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt1.toString());
-    document.getElementById('dialogTextCreator').value = this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt2.toString());
+      // console.log(this.z.allFiles[await this.z.picIndex()].txt1.toString());
+    desc.value = this.z.deNormalize2LF(this.z.allFiles[await this.z.picIndex()].txt1.toString());
+    document.getElementById('dialogTextCreator').value = this.z.deNormalize2LF(this.z.allFiles[await this.z.picIndex()].txt2.toString());
     document.getElementById('dialogTextDescription').focus();
   }
 
-  // Detect closing click outside a dialog-draggable modal dialog (FF only)
+  // Detect closing click outside a dialog-draggable modal dialog (Firefox only)
   detectClickOutside = (e) => {
     e.stopPropagation();
     if (!navigator.userAgent.includes("Firefox")) return; // Only Firefox can do this
@@ -125,7 +132,7 @@ export class DialogText extends Component {
       <dialog id="dialogText" style="width:min(calc(100vw - 1rem),700px)">
         <header data-dialog-draggable >
           <p>&nbsp;</p>
-          <p><b>{{t 'dialog.text.header'}} <span style="color:blue;cursor:pointer" type="button" {{on 'click' this.texts}} title="{{t 'dialog.text.reset'}}">{{this.picName}}</span></b></p>
+          <p><b>{{t 'dialog.text.header'}} <span style="color:blue;cursor:pointer" type="button" {{on 'click' this.texts}} title="{{t 'dialog.text.reset'}}">{{this.z.picName}}</span></b></p>
           <button class="close" type="button" {{on 'click' (fn this.z.closeDialog dialogTextId)}}>×</button>
         </header>
         <main>
@@ -134,7 +141,7 @@ export class DialogText extends Component {
             <VirtualKeys />
           </div>
 
-          <RefreshThis @for={{this.picName}}>
+          <RefreshThis @for={{this.z.picName}}>
             <textarea id="dialogTextDescription" autofocus="true" name="description" rows="6" placeholder="{{t "write.description"}} (Xmp.dc.description)" {{on 'mouseleave' onMouseLeaveTextarea}}>{{this.txt1}}</textarea><br>
 
             <textarea id="dialogTextCreator" name="creator" rows="2" placeholder="{{t "write.creator"}} (Xmp.dc.creator)" {{on 'mouseleave' onMouseLeaveTextarea}}>{{this.txt2}}</textarea>

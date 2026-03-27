@@ -254,6 +254,7 @@ class Welcome extends Component {
 
       // Language cookie
       let lng = this.z.getCookie('mish_lang');
+      await new Promise (z => setTimeout (z, 99)); // Needed sometimes
       if (lng) {
         // A lot of trial-and-error came to that the simplest way to
         // initiate the right user name language are these two lines:

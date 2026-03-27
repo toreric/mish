@@ -1047,7 +1047,7 @@ export default class CommonStorageService extends Service {
       let path = '';
       if (i > -1) {
         this.picName = nextName;
-        i = this.picIndex;
+        i = await this.picIndex();
         path = allFiles[i].show;
         this.showImage(nextName, path);
       }
@@ -1791,7 +1791,7 @@ export default class CommonStorageService extends Service {
     }
     let name = this.picName;
       // this.loli(this.picName + ':', 'color:red');
-      // console.log(this.allFiles[this.picIndex])
+      // console.log(this.allFiles[await this.picIndex()])
 
     const loliClose = (name) => this.loli('closed menu of image ' + name + ' in album ' + this.imdbRoot + this.imdbDir);
 
@@ -1875,10 +1875,10 @@ export default class CommonStorageService extends Service {
 
   saveDialog = async (dialogId) => {
     // should have alternatives for any dialogId occurring with 'save' button
-    if (dialogId === 'dialogText' && this.picIndex > -1) {
+    if (dialogId === 'dialogText' && await this.picIndex() > -1) {
       // Close any previous alert:
       this.closeDialog('dialogAlert');
-      let f = this.allFiles[this.picIndex];
+      let f = this.allFiles[await this.picIndex()];
       let path = '';
       if (f.symlink) {
         path = f.orig; //** see below
@@ -1891,13 +1891,13 @@ export default class CommonStorageService extends Service {
       let txt1 = document.getElementById('dialogTextDescription').value;
       txt1 = this.normalize2br(txt1, true); // true: leave end untrimmed
         // this.loli(txt1,'color:yellow');
-      this.allFiles[this.picIndex].txt1 = txt1;
+      this.allFiles[await this.picIndex()].txt1 = txt1;
       document.getElementById('dialogTextDescription').value = txt1.replace(/<br>/g, '\n');
 
       let  txt2 = document.getElementById('dialogTextCreator').value;
       txt2 = this.normalize2br(txt2); // also trim end
         // this.loli(txt2,'color:yellow');
-      this.allFiles[this.picIndex].txt2 = txt2;
+      this.allFiles[await this.picIndex()].txt2 = txt2;
       document.getElementById('dialogTextCreator').value = txt2.replace(/<br>/g, '\n');
 
       // When the img_mini pictures are visible,
@@ -1908,7 +1908,7 @@ export default class CommonStorageService extends Service {
         document.querySelector('#link_texts .img_txt1').innerHTML = txt1;
         document.querySelector('#link_texts .img_txt2').innerHTML = txt2;
       }
-      // console.log(this.allFiles[this.picIndex])
+      // console.log(this.allFiles[await this.picIndex()])
       this.refreshTexts ++; // Change trigger to rerender by RefreshThis
       let size = this.albumAllImg(this.imdbDirs.indexOf(this.imdbDir));
       await new Promise (z => setTimeout (z, size*6 + 10)); // album rerender
