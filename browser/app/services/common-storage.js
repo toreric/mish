@@ -358,9 +358,10 @@ export default class CommonStorageService extends Service {
     // to conform with z.imdbDirs server list, rooted at album root
     if (this.imdbDir.slice(1,2) === '§') picName = (picName.trim()).replace(/\.[0-9a-z]{4}$/, '');
       // this.loli('imdbDir: ' + this.imdbDir, 'color:orange');
-      // this.loli('picName: ' + picName, 'color:orange');
+      this.loli('picName: ' + picName, 'color:orange');
+      this.loli('path: ' + path, 'color:orange');
     let dir = path.replace(/^([.]*\/)*/, '/').replace(/\/[^/]+$/, '');
-    let name = path.replace(/^([^/]*\/)*([^/]+)\/[^/]+$/, "$2")
+    let name = path.replace(/^([^/]*\/)*([^/]+)\/[^/]+$/, "$2");
     // dir is the home album (with index i) for path
     let i = this.imdbDirs.indexOf(dir);
     if (i < 0) {

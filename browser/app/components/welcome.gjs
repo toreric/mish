@@ -340,8 +340,6 @@ export default class extends Welcome {
 
         <span>
           <Language />
-      {{!-- temporary: --}}
-      <span>{{this.z.refreshTexts}}</span>
 
           <button id="dark_light" style="line-height:0.65rem;margin-left:0.1rem" type="button" title-2="{{t 'button.backgtitle'}}: {{t 'dark'}}/{{t 'light'}}" {{on 'click' (fn this.z.toggleBackg)}}>&nbsp;</button>
 

@@ -273,14 +273,16 @@ export class MenuImage extends Component {
     if (b) a = b.albname; //name of home album
     return a;
   }
+
   orig = async () => {
     let a = '';
     let i = await this.z.picIndex();
     if (i < 0) return a; //important
-    let b = this.z.allFiles[i];
-    if (b) a = b.orig; //path to home album
+    let b = this.z.allFiles[i]; // has an object property `orig`
+    if (b) a = b.orig;          // which is path to home album
     return a;
   }
+
   symlink = async () => {
     let a = '';
     let i = await this.z.picIndex();

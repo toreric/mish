@@ -58,8 +58,6 @@ export class Language extends Component {
       {{#each this.selections as |tongue|}}
         <span class="langflags {{tongue}} {{if (this.isActive tongue) 'active'}}" ondragstart="return false" {{on "click" (fn this.changeLocale tongue)}} style="padding:0;margin:0"><img src="/images/{{tongue}}.svg" alt={{tongue}}></span>
       {{/each}}
-      {{!-- temporary: --}}
-      <span>{{this.z.refreshTexts}}</span>
     </div>
     </div>
   </template>
