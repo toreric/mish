@@ -269,8 +269,8 @@ export class MenuImage extends Component {
     let a = '';
     let i = await this.z.picIndex();
     if (i < 0) return a; //important
-    let b = this.z.allFiles[i];
-    if (b) a = b.albname; //name of home album
+    let b = this.z.allFiles[i]; // has an object property `albname`
+    if (b) a = b.albname;       // which is name of home album
     return a;
   }
 

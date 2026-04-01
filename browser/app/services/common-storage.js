@@ -264,10 +264,11 @@ export default class CommonStorageService extends Service {
   // Susbtitute underscores in an album name with spaces and remove the first
   // character and the random end from a temporary 'found-images-album' name
   handsomize2sp = (name) => {
-      // this.z.loli('name = ' + name, 'color:yellow');
-      // console.log('name = ' + name)
+      // this.loli('name = ' + name, 'color:yellow');
     let tmp = name.replace(/_/g, ' ');
+      // this.loli('tmp = ' + tmp, 'color:yellow');
     if (tmp[0] === '§') tmp = tmp.replace(/\.[^.]+$/, '').slice(1);
+      // this.loli('tmp. = ' + tmp, 'color:yellow');
     return tmp;
   }
 

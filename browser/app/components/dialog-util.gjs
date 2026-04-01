@@ -23,17 +23,21 @@ const LF = '\n';
 // var passedFiles;
 
 // const queue = this.fileQueue.find('your-queue-name');
+let amTools = 0; // album tools flag
+let cnTools = 0; // common tools flag
+let tool = ''; // utility tool id
+let resRad = 0; // to trigger rerender/reset of radio buttons
 
 export class DialogUtil extends Component {
   @service('common-storage') z;
   @service intl;
   @service fileQueue;
 
-  @tracked tool = ''; // utility tool id
+  // @tracked tool = ''; // utility tool id
   @tracked countImgs = 0; // duplicate image name counter
-  @tracked amTools = 0; // album tools flag
-  @tracked cnTools = 0; // common tools flag
-  @tracked resRad = 0; // to trigger rerender/reset of radio buttons
+  // @tracked amTools = 0; // album tools flag
+  // @tracked cnTools = 0; // common tools flag
+  // @tracked resRad = 0; // to trigger rerender/reset of radio buttons
 
   @tracked nFail = 0; // no of illegal file(name)s
   @tracked nPass = 0; // no of passed files
@@ -488,27 +492,27 @@ uploadPhoto = async (file) => {
   // }
 
   get resetRadio() { // trigger
-    this.resRad ++;
+    resRad ++;
     return '';
   }
 
   get zeroTools1() {
-    this.amTools = 0;
+    amTools = 0;
     return '';
   }
 
   get addTools1() {
-    this.amTools ++;
+    amTools ++;
     return '';
   }
 
   get zeroTools2() {
-    this.cnTools = 0;
+    cnTools = 0;
     return '';
   }
 
   get addTools2() {
-    this.cnTools ++;
+    cnTools ++;
     return '';
   }
 
@@ -554,7 +558,7 @@ uploadPhoto = async (file) => {
       </header>
       <main style="padding:0 0.75rem;max-height:24rem" width="99%">
 
-        <RefreshThis @for={{this.resRad}}>
+        <RefreshThis @for={{resRad}}>
         <div style="padding:0.5rem 0;line-height:1.4rem">
         {{#if this.z.albumTools}}
         {{!-- Album tools --}}{{this.zeroTools1}}
@@ -629,13 +633,13 @@ uploadPhoto = async (file) => {
         <div style="padding:0.5rem 0">
 
           {{#if this.z.albumTools}}
-            {{#if this.amTools}}
+            {{#if amTools}}
               {{!-- {{t 'write.chooseTool'}}<br> --}}
             {{else}}
               {{t 'write.tool99'}}
             {{/if}}
           {{else}}
-            {{#if this.cnTools}}
+            {{#if cnTools}}
               {{!-- {{t 'write.chooseTool'}}<br> --}}
             {{else}}
               {{t 'write.tool99'}}

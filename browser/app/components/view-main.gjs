@@ -91,12 +91,6 @@ class SubAlbums extends Component {
     else return false;
   }
 
-  get prettyName() {
-    let name = this.z.imdbDirName;
-      this.z.loli('name = ' + name, 'color:red');
-    return this.z.handsomize2sp(name);
-  }
-
   hasImages = () => {
     let txt = '';
     if (this.z.hasImages) {
@@ -153,14 +147,12 @@ class SubAlbums extends Component {
 
           {{#if this.z.imdbDir}}
             <span title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}">
-              {{!-- <b>”{{{this.z.handsomize2sp this.z.imdbDirName}}}”</b> --}}
-              <b>”{{this.prettyName}}”</b>
+              <b>”{{this.z.handsomize2sp this.z.imdbDirName}}”</b>
               {{t 'has'}} {{this.nsub}} {{this.sual}}<span title-2={{t 'plusExplain'}}>{{{this.nadd}}}</span>, &nbsp;<span>{{this.hasImages}}</span>
             </span>
           {{else}} {{!-- root --}}
             <span>
-              {{!-- <b>”{{{this.z.handsomize2sp this.z.imdbDirName}}}”</b> --}}
-              <b>”{{this.prettyName}}”</b>
+              <b>”{{{this.z.handsomize2sp this.z.imdbDirName}}}”</b>
               {{t 'has'}} {{this.nsubRoot}} <span title-2="”{{t 'foundExplain'}}”">(+1)</span> {{this.sualRoot}}<span title-2={{t 'plusExplain'}}>{{{this.nadd}}}</span>, &nbsp;<span>{{this.hasImages}}</span>
             </span>
           {{/if}}
@@ -320,6 +312,13 @@ class AllImages extends Component {
     }
   }
 
+  // prettyDirName = () => { // alternative
+  //   let name = this.z.imdbDirName;
+  //     // this.z.loli('name = ' + name, 'color:red');
+  //   let tmp = this.z.handsomize2sp(name);
+  //   return tmp;
+  // }
+
   // itemVisualClass = 'sortable-item--active';
   //  *** NEXT check ember-sortable 5.0 on NPM 2025-01-24
   //============================================================
@@ -369,8 +368,8 @@ class AllImages extends Component {
           {{!-- If the album isn't the root album: --}}
           {{#if this.z.imdbDir}}
 
-            {{!-- <p><b title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}">”{{{this.z.handsomize2sp this.z.imdbDirName}}}”</b> --}}
-            <p><b title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}">”{{this.prettyName}}”</b>
+            <p><b title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}">”{{this.z.handsomize2sp this.z.imdbDirName}}”</b>
+            {{!-- <p><b title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}">”{{this.prettyDirName}}”</b> --}}
 
             {{#if this.z.numHidden}}
               — {{this.z.numShown}}&nbsp;{{t 'shown'}},
@@ -384,8 +383,8 @@ class AllImages extends Component {
           {{!-- If the album is the root album: --}}
           {{else}} {{!-- root --}}
 
-            {{!-- <p><b>”{{{this.z.handsomize2sp this.z.imdbDirName}}}”</b> --}}
-            <p><b>”{{this.prettyName}}”</b>
+            <p><b>”{{this.z.handsomize2sp this.z.imdbDirName}}”</b>
+            {{!-- <p><b>”{{this.prettyDirName}}”</b> --}}
 
             {{#if this.z.numHidden}}
               — {{this.z.numShown}}&nbsp;{{t 'shown'}},

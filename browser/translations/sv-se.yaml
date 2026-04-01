@@ -23,7 +23,7 @@ allowed: "                Får"
 adminAll:     göra vadsomhelst
 albumEdit:    göra/radera album
 appendixEdit: (arbeta med bilagor +4)¹
-appendixView: (se på bilagor)¹
+appendixView: (se bilagor)¹
 delcreLink:   flytta till annat album, göra/radera länkar
 deleteImg:    radera bilder +5
 imgEdit:      (redigera bilder)¹
@@ -32,7 +32,7 @@ imgOriginal:  se högupplösta bilder²
 imgReorder:   flytta om bilder inom album
 imgUpload:    ladda upp originalbilder till album
 notesEdit:    redigera/spara anteckningar +13
-notesView:    se på anteckningar
+notesView:    se anteckningar
 saveChanges:  spara ändringar utöver text
 setSetting:   ändra inställningar
 textEdit:     redigera/spara bildtexter, se dolda album³
