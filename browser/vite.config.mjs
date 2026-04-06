@@ -14,4 +14,15 @@ export default defineConfig({
     }),
     loadTranslations(),
   ],
+  build: {
+    rollupOptions: {
+      onwarn(warning, warn) {
+         if (warning.code === 'FILE_NAME_CONFLICT') {
+      // if (warning.code === 'FILE_NAME_CONFLICT' && warning.message.includes('@embroider/virtual/app.css')) { // May also target a specific file
+          return; // Ignore this warning (don't log)
+        }
+        warn(warning); // Else default log
+      },
+    },
+  },
 });

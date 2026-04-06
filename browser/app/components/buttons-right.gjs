@@ -21,10 +21,10 @@ export class ButtonsRight extends Component {
   }
 
   doGetFullSize = async () => {
-    if (await this.z.picIndex() < 0) return; // Dismiss initial reactivity
+    if (this.z.picIndex < 0) return; // Dismiss initial reactivity
     if (!this.z.allFiles) return; // Dismiss initial reactivity
 
-    var fileName = this.z.allFiles[await this.z.picIndex()].linkto;
+    var fileName = this.z.allFiles[this.z.picIndex].linkto;
     // If the file name begins with e.g. 'Vbm' or 'CPR'
     // then !fileName.search(/^vbm|^cpr/i) is !0 === true:
     if (!fileName.search(/^vbm|^cpr/i) && !this.z.allow.deleteImg) {
@@ -63,7 +63,7 @@ export class ButtonsRight extends Component {
     //   return;
     // }
     document.querySelector('img.spinner').style.display = '';
-    let i = await this.z.picIndex();
+    let i = this.z.picIndex;
     let f012345 = '';
     if (i > -1) f012345 = await this.z.getFullSize(this.z.allFiles[i].linkto);
     await new Promise (z => setTimeout (z, 99));

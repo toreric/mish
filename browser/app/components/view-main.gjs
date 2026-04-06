@@ -92,14 +92,14 @@ class SubAlbums extends Component {
   }
 
   hasImages = () => {
-    let txt = '';
+    let tmp = '';
     if (this.z.hasImages) {
-      txt = this.z.numOrigin + ' ' + this.intl.t('images');
-      if (this.z.numLinked) txt += ' (' + this.intl.t('own') + ') + ' + this.z.numLinked + ' ' + this.intl.t('linked');
+      tmp = this.z.numOrigin + ' ' + this.intl.t('images');
+      if (this.z.numLinked) tmp += ' (' + this.intl.t('own') + ') + ' + this.z.numLinked + ' ' + this.intl.t('linked');
     } else {
-      txt =  this.intl.t('no') + ' ' + this.intl.t('images');
+      tmp =  this.intl.t('no') + ' ' + this.intl.t('images');
     }
-    return txt;
+    return tmp;
   }
 
   imdbDirs = (i) => {
@@ -214,16 +214,18 @@ class AllImages extends Component {
   // }
 
   // Copies 'allFiles' to 'items' by real-value duplication
-  // NOTE: the function is only called from the hidden preload button!
-  allFiles = async () => {
-    this.items = [];
-    for (let file of this.z.allFiles) {
+  // NOTE: This function is only called from the hidden preload button,
+  //  with id="loadMiniImages", used for album load by z.openAlbum().
+  copyAllFiles = () => {
+    this.items = [...this.z.allFiles];
+    // this.items = [];
+    // for (let file of this.z.allFiles) {
         // this.z.loli(file.show, 'color:red');
-      this.items.push(file);
-    }
+    //  this.items.push(file);
+    // }
   }
 
-  // Returns 'none' or ''
+  // Returns 'none' or '' for display styling
   get ifShow() {
     return htmlSafe(this.z.displayNames);
   }
@@ -235,9 +237,10 @@ class AllImages extends Component {
   }
 
   // Get the album path to the original image
+  // from z.allFiles used by z.picIndex()
   path2orig = async () => {
     let a = '';
-    let i = await this.z.picIndex();
+    let i = this.z.picIndex;
     if (i < 0) return a; //important
     let b = this.z.allFiles[i];
     if (b) a = b.orig; //path to home album
@@ -268,6 +271,8 @@ class AllImages extends Component {
     // NOTE: The picName is already set at .img_show (perhaps not at .img_mini):
     if (tgt.closest('.img_mini')) {
       this.z.picName = tgt.closest('.img_mini').id.slice(1);
+      while (!this.z.allFiles) await new Promise (z => setTimeout (z,99)); // maybe remove?
+      this.picIndex = this.z.allFiles.findIndex(a => {return a.name === this.z.picName;});
       this.z.markBorders(this.z.picName, 'ViewMain.ediText');
     }
     if (old === this.z.picName) {
@@ -275,7 +280,7 @@ class AllImages extends Component {
     } else {
       this.z.openDialog(dialogTextId);
     }
-    await new Promise (z => setTimeout (z, 9)); // ediText
+    // await new Promise (z => setTimeout (z, 9)); // ediText
     document.querySelector('textarea[name="description"]').focus();
   }
 
@@ -345,7 +350,7 @@ class AllImages extends Component {
         programmatically by z.openAlbum, display it for manual test/use! --}}
         <p class="tmpHeader" style="display:none">
             Press to (re)load images for
-            <button id="loadMiniImages" type="button" {{on 'click' this.allFiles}}>{{{this.z.imdbDirName}}}</button>
+            <button id="loadMiniImages" type="button" {{on 'click' this.copyAllFiles}}>{{{this.z.imdbDirName}}}</button>
         </p>
 
       {{else}}

@@ -236,9 +236,9 @@ export class MenuImage extends Component {
 
   downLoad = async () => {
     // var that = this;
-    if (await this.z.picIndex() < 0) return; // Dismiss initial reactivity
+    if (this.z.picIndex < 0) return; // Dismiss initial reactivity
     if (!this.z.allFiles) return; // Dismiss initial reactivity
-    var path = this.z.imdbPath + this.z.allFiles[await this.z.picIndex()].linkto;
+    var path = this.z.imdbPath + this.z.allFiles[this.z.picIndex].linkto;
       // this.z.loli('DOWNLOAD ' + path, 'color:red');
     var fileName = path.replace(/^\/(.*\/)*/, '');
       // this.z.loli(fileName, 'color:red');
@@ -250,7 +250,7 @@ export class MenuImage extends Component {
       this.z.alertMess(this.intl.t('blockCopyright1'));
       return;
     }
-      // var urletal = this.z.allFiles[await this.z.picIndex()]; //debug
+      // var urletal = this.z.allFiles[this.z.picIndex]; //debug
       // console.log(urletal);
     let file = await fetch(path).then(r => r.blob()).then(blobFile => new File([blobFile],  fileName, { type: blobFile.type, lastModified: blobFile.lastModified }));
       // console.log(file);
@@ -267,7 +267,7 @@ export class MenuImage extends Component {
 
   albname = async () => {
     let a = '';
-    let i = await this.z.picIndex();
+    let i = this.z.picIndex;
     if (i < 0) return a; //important
     let b = this.z.allFiles[i]; // has an object property `albname`
     if (b) a = b.albname;       // which is name of home album
@@ -276,7 +276,7 @@ export class MenuImage extends Component {
 
   orig = async () => {
     let a = '';
-    let i = await this.z.picIndex();
+    let i = this.z.picIndex;
     if (i < 0) return a; //important
     let b = this.z.allFiles[i]; // has an object property `orig`
     if (b) a = b.orig;          // which is path to home album
@@ -285,7 +285,7 @@ export class MenuImage extends Component {
 
   symlink = async () => {
     let a = '';
-    let i = await this.z.picIndex();
+    let i = this.z.picIndex;
     if (i < 0) return a; //important
     let b = this.z.allFiles[i];
     if (b) a = b.symlink; //has a home album

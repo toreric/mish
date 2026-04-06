@@ -261,7 +261,7 @@ export class MenuMain extends Component {
         <Tree @tree={{this.tree}} />
         {{#if this.z.imdbRoot}}
           <p style="font-size:77%;vertical-align:top;line-height:1.1rem;margin:0 0.2rem 0 3rem">
-            <span style="color:#e0e;font-size:inherit">{{t 'tmpalbum1'}} § {{t 'tmpalbum2'}}</span> {{t 'tmpalbum3'}}<br>
+            <span style="color:#cb0;font-size:inherit">{{t 'tmpalbum1'}} § {{t 'tmpalbum2'}}</span> {{t 'tmpalbum3'}}<br>
             (⋅) {{t 'nimages'}}, (⋅+⋅) {{t 'nlinked'}}<br>
             {{SA}} {{t 'nsubalbums'}}
             {{#if this.hasHidden}}

@@ -16,14 +16,11 @@ export class Language extends Component {
   @service intl;
 
   get selections() {
-      this.z.loli('locales = ' + this.intl.locales, 'color:red');
     return this.intl.locales;
-    // return ['de-de', 'en-us', 'es-es', 'sv-se'];
   }
 
   changeLocale = async (newLoc) => {
-      this.z.loli('locales = ' + this.selections, 'color:red');
-      // console.log('selections', this.selections);
+      // this.z.loli('locales = ' + this.selections, 'color:red');
     if (newLoc === this.z.intlCodeCurr) return;
     let defaultUser = this.z.userName === this.z.defaultUserName;
     this.intl.setLocale([newLoc]);
@@ -39,17 +36,9 @@ export class Language extends Component {
         //   .slice(2,6); // Each language must update it's found pics name
   }
 
-  // changeLanguage = async (event) => {
-  //   this.changeLocale(event.target.value);
-  // }
-
   isActive = (locale) => {
     return this.intl.primaryLocale === locale;
   }
-
-  // langText = (locale) => {
-  //   return this.intl.getTranslation("select.languagetext", locale);
-  // }
 
   <template>
     <div style="display:inline-block">

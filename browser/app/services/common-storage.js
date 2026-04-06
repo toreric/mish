@@ -59,11 +59,12 @@ export default class CommonStorageService extends Service {
         get picFoundBaseName() { return this.intl.t('picfound'); }
   @tracked  picFoundIndex = -1; //set in MenuMain, the index may vary by language
   @tracked  picName = ''; //actual/current image name
-            picIndex = async () => { //the index of picName's file info.object in allFiles
-              while (!this.allFiles.findIndex) await new Promise (z => setTimeout (z,99));
-              let index = this.allFiles.findIndex(a => {return a.name === this.picName;});
-              return index;
-            }
+  @tracked  picIndex = -1 //the index of picName's file info.object in allFiles
+            // picIndex = async () => { //the index of picName's file info.object in allFiles
+            //   while (!this.allFiles) await new Promise (z => setTimeout (z,99));
+            //   let index = this.allFiles.findIndex(a => {return a.name === this.picName;});
+            //   return index;
+            // }
   @tracked  sortOrder = '';    //file order information table of 'imdbDir'
   @tracked  subColor = '#aef'; //subalbum legends color
         get subaIndex() {      //subalbum index array for imdbLabels
@@ -357,7 +358,12 @@ export default class CommonStorageService extends Service {
       // this.loli('picName: ' + picName, 'color:red');
     // Convert the relative path of the linked-file target,
     // to conform with z.imdbDirs server list, rooted at album root
-    if (this.imdbDir.slice(1,2) === '§') picName = (picName.trim()).replace(/\.[0-9a-z]{4}$/, '');
+    if (this.imdbDir.slice(1,2) === '§') {
+      picName = (picName.trim()).replace(/\.[0-9a-z]{4}$/, '');
+      // Uncertain about the role of picIndex here
+      // while (!this.allFiles) await new Promise (z => setTimeout (z,99));
+      // this.picIndex = this.allFiles.findIndex(a => {return a.name === picName;});
+    }
       // this.loli('imdbDir: ' + this.imdbDir, 'color:orange');
       this.loli('picName: ' + picName, 'color:orange');
       this.loli('path: ' + path, 'color:orange');
@@ -383,6 +389,7 @@ export default class CommonStorageService extends Service {
   //#region openAlbum
   openAlbum = async (i) => {
     this.picName = '';
+    this.picIndex = -1;
     // Close dialogs without reuse potential:
     // this.closeDialog('dialogAlert');
     this.closeDialog('dialogChoose');
@@ -427,8 +434,8 @@ export default class CommonStorageService extends Service {
     this.sortOrder = await this.requestOrder();
 
     // Now arrange allFiles according to sortOrder before populating DOM
-    let allFiles = [...this.allFiles]; // clone-copy
-    let newFiles = [];
+    let allFiles = [...this.allFiles]; // clone-copy ¤¤¤
+    let newFiles = []; // for rearranging of allFiles ¤¤¤
     let order = this.sortOrder.split(LF);
     let name, k;
         // this.loli(order);
@@ -448,7 +455,7 @@ export default class CommonStorageService extends Service {
     this.hasImages = newFiles.length > 0;
       // this.loli('hasImages = ' + this.hasImages, 'color:red'); // LOG WITH
     this.numImages = newFiles.length;
-    this.allFiles = newFiles;
+    this.allFiles = [...newFiles]; // copy back ¤¤¤
 
     this.clearMiniImgs(); // remove any old thumbnails
     // Hide the subalbums etc.
@@ -486,8 +493,12 @@ export default class CommonStorageService extends Service {
     // Prepare for an initial arrow key hit by setting
     // 'this.picName' to the last in album
     if (this.allFiles.length > 0) {
-      this.picName = this.allFiles[this.allFiles.length - 1].name;
-    } else this.picName = '';
+      this.picIndex = this.allFiles.length - 1;
+      this.picName = this.allFiles[this.picIndex].name;
+    } else {
+      this.picName = '';
+      this.picIndex = -1;
+    }
 
     // Set colors in the album tree
     this.paintTree(i);
@@ -503,10 +514,10 @@ export default class CommonStorageService extends Service {
       }
     }
     // THEN: Set color mark on picFound
-    document.querySelector('span.album.a' + this.picFoundIndex).style.color = '#e0e';
+    document.querySelector('span.album.a' + this.picFoundIndex).style.color = '#cb0';
     // THEN: Set color mark on the selected album name and make it visible
     // NOTE: This is the selected album in the ALBUM tree.
-    document.querySelector('span.album.a' + isel).style.color = '#fd0';
+    document.querySelector('span.album.a' + isel).style.color = '#e0e';
     let selected = document.querySelector('div.album.a' + isel);
     selected.style.display = '';
     // Check that all parents are visible too
@@ -782,7 +793,7 @@ export default class CommonStorageService extends Service {
   albumAllImg = (i) => { // number of original + symlink images in album 'i'
     let c = this.imdbCoco[i];
     let a = c.replace(/^.*(\(.+\)).*$/, '$1'); // NOTE; Avoiding eval(a)
-      // this.loli('eval ' + a, 'color:red');
+      // this.loli(a, 'color:red');
     a = a.slice(0, -1).slice(1).split('+');
       // this.loli('array ' + a, 'color:red');
     let v = 0;
@@ -871,6 +882,8 @@ export default class CommonStorageService extends Service {
       if (tgt.closest('.img_mini')) {
         // Does this ever happen?
         this.picName = tgt.closest('.img_mini').id.slice(1);
+        while (!this.allFiles) await new Promise (z => setTimeout (z,99));
+        this.picIndex = this.allFiles.findIndex(a => {return a.name === this.picName;});
       }
       if (e.button === 0) { // mouse button
         if (!this.picName) this.loli('CommonStorageService error 3', 'color:red');
@@ -890,8 +903,10 @@ export default class CommonStorageService extends Service {
       await new Promise (z => setTimeout (z, 19)); // Just by suspicion
           // this.loli('show name: ' + name, 'color:red');
           // this.loli('show path: ' + path, 'color:red');
-      // Set the actual picName, do not forget!
+      // Set the actual picName and picIndex, do not forget!
       this.picName = name;
+      while (!this.allFiles) await new Promise (z => setTimeout (z,99));
+      this.picIndex = this.allFiles.findIndex(a => {return a.name === this.picName;});
       document.querySelector('.miniImgs.imgs').style.display = 'none'; //was 'flex'
       // Load the show image source path and set it's id="dname"
       let pic = document.querySelector('#link_show img');
@@ -983,7 +998,7 @@ export default class CommonStorageService extends Service {
     if (!this.picName) this.loli('CommonStorageService error 5', 'color:red');
     var actual = document.getElementById('i' + this.picName);
     var actualParent = actual.parentElement;
-    var allFiles = this.allFiles;
+    var allFiles = this.allFiles; // Reference, not a copy! Within showNext() ¤¤¤
     if (forward) {
 
       ino = 0; // börja längst framifrån ??
@@ -1044,16 +1059,16 @@ export default class CommonStorageService extends Service {
 
     if (nextName) {
         // console.log(allFiles);
-      let i = allFiles.findIndex(all => {return all.name === nextName;});
-        // this.loli('index=' + i);
+      this.picIndex = allFiles.findIndex(all => {return all.name === nextName;});
+        // this.loli('picIndex = ' + this.picIndex, 'color:orange');
       let path = '';
-      if (i > -1) {
+      this.picName = '';
+      if (this.picIndex > -1) {
         this.picName = nextName;
-        i = await this.picIndex();
-        path = allFiles[i].show;
+        path = allFiles[this.picIndex].show;
         this.showImage(nextName, path);
       }
-      // The order of 'allFiles' may not reflect DOM content which may be rearranged
+      // NOTE: The order of 'allFiles' may not reflect DOM content which may be rearranged
       this.edgeImage = '';
       actual = document.querySelector('#i' + this.escapeDots(this.picName));
       if (!actual.nextElementSibling) this.edgeImage = this.intl.t('imageLast');
@@ -1790,10 +1805,11 @@ export default class CommonStorageService extends Service {
       let id = tgt.id;
       let name = id.slice(1);
       this.picName = name;
+      this.picIndex = allFiles.findIndex(all => {return all.name === name;});
     }
     let name = this.picName;
       // this.loli(this.picName + ':', 'color:red');
-      // console.log(this.allFiles[await this.picIndex()])
+      // console.log(this.allFiles[this.picIndex])
 
     const loliClose = (name) => this.loli('closed menu of image ' + name + ' in album ' + this.imdbRoot + this.imdbDir);
 
@@ -1877,10 +1893,10 @@ export default class CommonStorageService extends Service {
 
   saveDialog = async (dialogId) => {
     // should have alternatives for any dialogId occurring with 'save' button
-    if (dialogId === 'dialogText' && await this.picIndex() > -1) {
+    if (dialogId === 'dialogText' && this.picIndex > -1) {
       // Close any previous alert:
       this.closeDialog('dialogAlert');
-      let f = this.allFiles[await this.picIndex()];
+      let f = this.allFiles[this.picIndex];
       let path = '';
       if (f.symlink) {
         path = f.orig; //** see below
@@ -1893,13 +1909,13 @@ export default class CommonStorageService extends Service {
       let txt1 = document.getElementById('dialogTextDescription').value;
       txt1 = this.normalize2br(txt1, true); // true: leave end untrimmed
         // this.loli(txt1,'color:yellow');
-      this.allFiles[await this.picIndex()].txt1 = txt1;
+      this.allFiles[this.picIndex].txt1 = txt1;
       document.getElementById('dialogTextDescription').value = txt1.replace(/<br>/g, '\n');
 
       let  txt2 = document.getElementById('dialogTextCreator').value;
       txt2 = this.normalize2br(txt2); // also trim end
         // this.loli(txt2,'color:yellow');
-      this.allFiles[await this.picIndex()].txt2 = txt2;
+      this.allFiles[this.picIndex].txt2 = txt2;
       document.getElementById('dialogTextCreator').value = txt2.replace(/<br>/g, '\n');
 
       // When the img_mini pictures are visible,
@@ -1910,7 +1926,7 @@ export default class CommonStorageService extends Service {
         document.querySelector('#link_texts .img_txt1').innerHTML = txt1;
         document.querySelector('#link_texts .img_txt2').innerHTML = txt2;
       }
-      // console.log(this.allFiles[await this.picIndex()])
+      // console.log(this.allFiles[this.picIndex])
       this.refreshTexts ++; // Change trigger to rerender by RefreshThis
       let size = this.albumAllImg(this.imdbDirs.indexOf(this.imdbDir));
       await new Promise (z => setTimeout (z, size*6 + 10)); // album rerender

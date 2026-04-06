@@ -160,14 +160,7 @@ export default function(app) { // Start module.exports
       // await cmdasync(cmd) // ger direktare diagnos
       await exec(cmd)
       // console.log(BYEL + cmd + RSET)
-
-      // tmp = decodeURIComponent(req.originalUrl)
-      // if (tmp !== '/execute/' && tmp !== '/filestat/' && !tmp.startsWith(IMDB)) {
-      //   console.log(BGRE + tmp + RSET)
-      //     // console.log("***nearest req.body =", req.body) undefined
-      // }
-
-      let show_imagedir = true // For debug of directories printout
+      let show_imagedir = false // For debug of directories printout
       if (show_imagedir) {     // and also each ”tmp” printout
         console.log(BLUE + req.originalUrl + RSET)
         console.log('  WWW_ROOT:', WWW_ROOT)
@@ -392,10 +385,10 @@ export default function(app) { // Start module.exports
     }
     setTimeout(function() {
       allDirs().then(dirlist => { // dirlist entries start with the root album
-          console.log('dirlist 1:', dirlist)
+          // console.log('RAW dirlist 0:', dirlist)
         areAlbums(dirlist).then(async (dirlist) => {
-          // dirlist = dirlist.sort()
-            console.log('dirlist 2:', dirlist)
+          // dirlist = dirlist.sort() // unnecessary
+            // console.log('ALBUMS dirlist 1:', dirlist)
           var albumLabel
           var dircoco = [] // directory content counters
           var dirlabel = [] // album label thumbnail paths
@@ -1027,7 +1020,6 @@ export default function(app) { // Start module.exports
     for (let i=0; i<dirlist.length; i++) {
       dirlist[i] = dirlist[i].slice(IMDB.length)
     }
-      console.log('dirlist 0:', dirlist)
     return dirlist
   }
 
@@ -1037,6 +1029,8 @@ export default function(app) { // Start module.exports
   //#region areAlbums
   let areAlbums = async (dirlist) => {
     let fd, albums = []
+    // Here is the only place where Bluebird's Promise still is used
+    // A reminder from when there was no native Promise ---
     return ProMise.mapSeries(dirlist, async (album) => { //(*) CAN use mapSeries here but don't understand why!?
       try {
         const fd = await open(IMDB + album + '/.imdb', 'r')
@@ -1116,7 +1110,7 @@ export default function(app) { // Start module.exports
       console.log(RED + err.toString() + RSET)
       return ''
     }
-    /*****************************old code***************************************
+    /*****************************old code**************************************
     return fs.readdirAsync(IMDB + dirName).map(function(fileName) { // Cannot use mapSeries here(why?)
         var filepath = path.join(IMDB + dirName, fileName)
 
@@ -1278,20 +1272,6 @@ export default function(app) { // Start module.exports
       // execSync("mv " + filepath1 + " " + filepath + "&&chmod 664 " + filepath)
       await exec("mv " + filepath1 + " " + filepath + "&&chmod 664 " + filepath)
     }
-
-    // // OLD EXEC
-    // exec(imckcmd,(error, stdout, stderr) => {
-    //   if (error) {
-    //     console.error(`exec error: ${error}`)
-    //     return
-    //   }
-    //   //if(filepath1 !== filepath) {
-    //     try { // Rename to 'fake png' and adjust mode
-    //       execSync("mv " + filepath1 + " " + filepath + "&&chmod 664 " + filepath)
-    //     } catch(err) {
-    //       console.error(err.message)
-    //     }
-    //   //}
       console.log(' .' + filepath.slice(IMDB.length) + ' created') // Hide absolute server path
     // })
     return

@@ -64,17 +64,16 @@ export class DialogText extends Component {
     }
   }
 
-  picName = async () => {
+  picName = () => { // failed when async/await was required
       this.z.loli('picName = ' + this.z.picName, 'color:yellow');
-      this.z.loli('picIndex() = ' + await this.z.picIndex(), 'color:yellow');
-      console.log(await this.z.picIndex());
+      this.z.loli('picIndex = ' + this.z.picIndex, 'color:yellow');
       this.z.loli('allFiles = ' + this.z.allFiles, 'color:yellow');
       console.log(this.z.allFiles);
     if (!this.z.picName) return; // Dismiss initial reactivity
-    if (await this.z.picIndex() < 0) return; // Dismiss initial reactivity
+    if (this.z.picIndex < 0) return; // Dismiss initial reactivity
     if (!this.z.allFiles) return; // Dismiss initial reactivity
     let text = '';
-    let path = this.z.allFiles[await this.z.picIndex()].linkto;
+    let path = this.z.allFiles[this.z.picIndex].linkto;
     let nodeMess = document.querySelector('#dialogText main .diaMess b');
     if (/\.gif$/i.test(path)) {
       // Insert after '#dialogText main .diaMess'
@@ -93,25 +92,27 @@ export class DialogText extends Component {
     return this.z.picName;
   }
 
-  txt1 = async () => {
+  txt1 = () => {
     if (!this.z.picName) return; // picIndex depends on picName
-    return this.z.deNormalize2LF(this.z.allFiles[await this.z.picIndex()].txt1.toString());
+    let tmp = this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt1.toString());
+    this.z.loli('txt1\n' + tmp, 'color:red');
+    return tmp;
   }
 
-  txt2 = async () => {
+  txt2 = () => {
     if (!this.z.picName) return; // picIndex depends on picName
-    return this.z.deNormalize2LF(this.z.allFiles[await this.z.picIndex()].txt2.toString());
+    return this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt2.toString());
   }
 
   texts = async () => { // IS THIS PERHAPS NEVER USED?
     if (!this.z.picName) return;
     let desc = document.getElementById('dialogTextDescription');
       // this.z.loli('picName = ' + this.z.picName, 'color:red');
-      // this.z.loli('picIndex() = ' + await this.z.picIndex(), 'color:red');
+      // this.z.loli('picIndex = ' + this.z.picIndex, 'color:red');
       // console.log(desc);
-      // console.log(this.z.allFiles[await this.z.picIndex()].txt1.toString());
-    desc.value = this.z.deNormalize2LF(this.z.allFiles[await this.z.picIndex()].txt1.toString());
-    document.getElementById('dialogTextCreator').value = this.z.deNormalize2LF(this.z.allFiles[await this.z.picIndex()].txt2.toString());
+      // console.log(this.z.allFiles[this.z.picIndex()].txt1.toString());
+    desc.value = this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt1.toString());
+    document.getElementById('dialogTextCreator').value = this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt2.toString());
     document.getElementById('dialogTextDescription').focus();
   }
 
@@ -260,7 +261,7 @@ export function insert(e) {
     0, textArea.selectionStart);
   let afterInsert = textValue.substring(
     textArea.selectionStart, textArea.length);
-  // Avoid 'delete selected', cannot undo!
+  // Avoid 'delete selected', cannot be undone!
   // let afterInsert = textValue.substring(
   //   textArea.selectionEnd, textArea.length);
   // selectedText = textValue.substring(
