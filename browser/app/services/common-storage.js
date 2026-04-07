@@ -1805,7 +1805,7 @@ export default class CommonStorageService extends Service {
       let id = tgt.id;
       let name = id.slice(1);
       this.picName = name;
-      this.picIndex = allFiles.findIndex(all => {return all.name === name;});
+      this.picIndex = this.allFiles.findIndex(all => {return all.name === name;});
     }
     let name = this.picName;
       // this.loli(this.picName + ':', 'color:red');

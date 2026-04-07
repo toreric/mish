@@ -265,7 +265,7 @@ export class MenuImage extends Component {
     URL.revokeObjectURL(file);
   }
 
-  albname = async () => {
+  get albname() {
     let a = '';
     let i = this.z.picIndex;
     if (i < 0) return a; //important
@@ -274,7 +274,7 @@ export class MenuImage extends Component {
     return a;
   }
 
-  orig = async () => {
+  get orig() {
     let a = '';
     let i = this.z.picIndex;
     if (i < 0) return a; //important
@@ -283,7 +283,7 @@ export class MenuImage extends Component {
     return a;
   }
 
-  symlink = async () => {
+  get symlink() {
     let a = '';
     let i = this.z.picIndex;
     if (i < 0) return a; //important

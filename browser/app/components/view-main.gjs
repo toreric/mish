@@ -250,6 +250,8 @@ class AllImages extends Component {
   // The image caption texts (from metadata)
   txt = (no, name) => {
     let i = this.items.findIndex(item => {return item.name === name;});
+    this.z.picIndex = i; // Do not forget to update picIndex!
+      // this.z.loli('picIndex = ' + i, 'color:orange');
     let r = '';
     if (i > -1) {
       if (no === 1) {

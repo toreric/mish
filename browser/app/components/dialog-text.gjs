@@ -93,14 +93,14 @@ export class DialogText extends Component {
   }
 
   txt1 = () => {
-    if (!this.z.picName) return; // picIndex depends on picName
+    if (this.z.picIndex < 0) return;
     let tmp = this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt1.toString());
-    this.z.loli('txt1\n' + tmp, 'color:red');
+      // this.z.loli('txt1\n' + tmp, 'color:red');
     return tmp;
   }
 
   txt2 = () => {
-    if (!this.z.picName) return; // picIndex depends on picName
+    if (this.z.picIndex < 0) return;
     return this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt2.toString());
   }
 
@@ -150,11 +150,17 @@ export class DialogText extends Component {
 
         </main>
         <footer data-dialog-draggable>
+
           <button id="dialogTextButton1" title="Ctrl+s" type="button" {{on 'click' (fn this.z.saveDialog dialogTextId)}}>{{t 'button.save'}}</button>&nbsp;
+
           <button id="dialogTextButton2" type="button" {{on 'click' (fn this.z.saveCloseDialog dialogTextId)}}>{{t 'button.saveclose'}}</button>&nbsp;
+
           <button id="dialogTextButton3" type="button" {{on 'click' (fn this.z.closeDialog dialogTextId)}}>{{t 'button.close'}}</button>&nbsp;
+
           <button id="dialogTextButton4" type="button" {{on 'click' (fn this.childDialog 'dialogTextNotes')}}>{{t 'button.notes'}}</button>&nbsp;
+
           <button id="dialogTextButton5" type="button" {{on 'click' (fn this.childDialog 'dialogTextKeywords')}}>{{t 'button.keywords'}}</button>&nbsp;
+
         </footer>
       </dialog>
 

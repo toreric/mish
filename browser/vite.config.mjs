@@ -24,5 +24,6 @@ export default defineConfig({
         warn(warning); // Else default log
       },
     },
+    chunkSizeWarningLimit: 800, // Default is 500
   },
 });
