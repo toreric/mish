@@ -21,6 +21,7 @@ import util from 'util'
 import { exec as execute } from 'child_process'
 
 import SQLite from 'better-sqlite3'
+import { stdout } from 'node:process'
 // const SQLite = require('better-sqlite3')
 
 // Configure storage engine and filename
@@ -36,9 +37,9 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
   if (!file.originalname.match(/\.(jpe?g|tif{1,2}|png|gif)$/i)) {
-    return cb(new Error('Only image files are allowed!'), false);
+    return cb(new Error('Only image files are allowed!'), false)
   }
-  cb(null, true);
+  cb(null, true)
 }
 
 // Initialize upload middleware and with file size limit
@@ -54,16 +55,21 @@ export default function(app) { // Start module.exports
   // const fs = ProMise.promisifyAll(require('fs')) // ...Async() suffix
   // const fs = ProMise.promisifyAll(fisy) // sets ...Async() suffix
   // const execP = ProMise.promisify(require('child_process').exec)
+
+  // exec is imported as execute (now exec will appear like an "execAsync")
+  // Now exec use is ({stdout, stderr} = await exec(cmdstring)); note ()s!
+  // Or: result = await exec(cmdstring).stdout
+  // Or: temp = await exec(cmdstring); result = temp.stdout 
   const exec = util.promisify(execute) // modern exec replaces execP
   
   // const cpUpload = upload.fields([{ name: 'file' }]) // default fileKey name
   // Error handler for file filter rejections
   app.use((err, req, res, next) => {
-    res.status(400).send(err.message);
+    res.status(400).send(err.message)
   })
 
-  app.use(bodyParser.urlencoded({extended: false}));
-  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: false}))
+  app.use(bodyParser.json())
 
 
   // This row should be moved to the 'login' and there followed at end by 'setdb.close'
@@ -222,12 +228,12 @@ export default function(app) { // Start module.exports
     var stat = fs.statSync(file)
       // console.log('fileStat',stat)
     // linkto is relative path to the original file
-    // linktop is the absolute path to pe used for the imgErr check
+    // linktop is the absolute path to be used for the imgErr check
     var linkto = "", linktop
     var syml = await isSymlink(file)
     if (syml) {
       linkto = execSync("readlink " + file).toString().trim ()
-      if (linkto [0] !== '.') linkto = './' + linkto //if symlink in the root album
+      if (linkto[0] !== '.') linkto = './' + linkto //if symlink in the root album
       linktop = IMDB + linkto.replace(/^(\.\.?\/)+/, "/") //
     }
     // Exclude IMDB from `file`, feb 2022, in order to difficultize
@@ -239,14 +245,14 @@ export default function(app) { // Start module.exports
     fileStat += stat.size/1000000 + ' Mb' + BR
     let tmp = execSync("exif_dimension " + file).toString().trim()
     if (tmp === 'missing') tmp = missing
-    fileStat += tmp + BR
+    fileStat += tmp + BR // size
 
     tmp = (new Date (execSync("exif_dateorig " + file))).toLocaleString(LT, {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})
     if (tmp.indexOf ("Invalid") > -1) {tmp = missing}
-    fileStat += tmp + BR //created
+    fileStat += tmp + BR //time created
 
     tmp = stat.mtime.toLocaleString(LT, {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'})
-    fileStat += tmp + BR //modified
+    fileStat += tmp + BR //time modified
 
     if (linkto) {
       errimg = await imgErr(linktop)
@@ -330,7 +336,7 @@ export default function(app) { // Start module.exports
     console.log(BGRE + '/fullsize' + RSET)
     var fileName = decodeURIComponent(req.get('path'))
     // var fileName = req.get('path') // with path but servers may remove first `/`:
-    if (fileName.slice (0, 1) !== "/") fileName = "/" + fileName;
+    if (fileName.slice (0, 1) !== "/") fileName = "/" + fileName
     //console.log (fileName)
     // Make a temporary .djvu file with the mkdjvu script
     // Plugins missing for most browsers January 2019
@@ -341,10 +347,10 @@ export default function(app) { // Start module.exports
       console.log(WWW_ROOT)
     // Now mkpng will deliver the file 'tmpName'
     // into the pwd directory = WWW_ROOT
-    let cmd = 'mkpng ' + IMDB + fileName;
-      console.log(cmd);
-    var tmpName = await exec(cmd); // 'await exec' delivers both stdout and stderr
-      console.log(tmpName.stdout);
+    let cmd = 'mkpng ' + IMDB + fileName
+      console.log(cmd)
+    var tmpName = await exec(cmd) // 'await exec' delivers both stdout and stderr
+      console.log(tmpName.stdout)
     res.location ('/')
     res.send (tmpName.stdout)
     //res.end ()
@@ -415,8 +421,8 @@ export default function(app) { // Start module.exports
                 ignore[j] = ignore[j].replace(/^[^/]*/, '')
                 for (let i=dirlist.length-1;i>-1;i--) {
                   if (ignore[j] && ignore[j].slice(0, 1) !== '#') {
-                      // console.log('ignore[j]', ignore[j]);
-                      // console.log('dirlist[i]', dirlist[i]);
+                      // console.log('ignore[j]', ignore[j])
+                      // console.log('dirlist[i]', dirlist[i])
                     if (ignore[j] && (dirlist[i] + '/').startsWith(ignore[j] + '/')) {
                       dirlist.splice(i, 1)
                       break
@@ -713,7 +719,7 @@ export default function(app) { // Start module.exports
           execSync('set_xmp_creator ' + fileName + " '" + body + "'") // for txt2
           // Reset modification time, this was metadata only:
           execSync('touch -d "' + mtime + '" "' + fileName + '"')
-          res.send('')
+          res.send('ok')
           await new Promise(z => setTimeout (z, 888))
           await sqlUpdate (fileName) // with path @***
         }
@@ -753,7 +759,7 @@ export default function(app) { // Start module.exports
     // await new Promise(z => setTimeout(z, 277))
     let like = removeDiacritics (req.body.like)
     if (req.body.info != "exact") like = like.toLowerCase() // if not e.g. file name compare
-      // console.log("like",like);
+      // console.log("like",like)
     let cols = eval ("[" + req.body.cols + "]")
     // Table columns:
     let taco = ["description", "creator", "source", "album", "name"]
@@ -775,7 +781,7 @@ export default function(app) { // Start module.exports
           var foundpaths = "", n = 0
             // console.log(rows)
           rows.forEach((row) => {
-              // console.log("row.filepath",row.filepath.trim());
+              // console.log("row.filepath",row.filepath.trim())
             // In certain situations, dotted directories may
             // appear here and urgently need to be left out!
             if (!row.filepath.includes('/.')) {
@@ -833,7 +839,7 @@ export default function(app) { // Start module.exports
   //   let file_that_was_uploaded = req.files
   //   console.log(file_that_was_uploaded)
   //   return res.json("thanks")
-  // });
+  // })
 
 
 
@@ -895,11 +901,11 @@ export default function(app) { // Start module.exports
     var extn = file.replace (/.*(\.[^. ]+)$/, "$1")
     if ( /\.jpe?g$/i.test (extn) ) {
       // return await cmdasync("finderrimg 1 " + file)
-      return await exec("finderrimg 1 " + file)
+      return (await exec("finderrimg 1 " + file)).stdout
     } else
     if ( /\.tiff?$/i.test (extn) ) {
       // return await cmdasync("finderrimg 2 " + file)
-      return await exec("finderrimg 2 " + file)
+      return await exec("finderrimg 2 " + file).stdout
     } else {
       return "NA"
     }
@@ -1242,10 +1248,12 @@ export default function(app) { // Start module.exports
 
   // ===== Use of ImageMagick: It is no longer true that
   // '-thumbnail' stands for '-resize -strip', perhaps darkens pictures ...
-  // Note: All files except GIFs are resized into JPGs and thereafter
-  // 'fake typed' PNG (resize into PNG is too difficult with ImageMagick).
-  // GIFs are resized into GIFs to preserve their special properties.
-  // The formal file extension PNG will still be kept for all resized files.
+  // Note: All files (even PNGs!) except GIFs are resized into JPGs and
+  // thereafter 'fake typed' PNG (resize into PNG is too difficult with
+  // ImageMagick). Only GIFs are resized into GIFs to preserve their
+  // special properties. The faked formal file extension PNG will still
+  // be kept for all resized files, for some reason, since the real
+  // image file type is still recognized by the system.
   //#region rzFile
   async function rzFile(origpath, filepath, size) {
     var filepath1 = filepath // Set 'png' as in filepath
@@ -1353,7 +1361,7 @@ export default function(app) { // Start module.exports
           // console.error(filePath)
         // No files in the picFound album (may be occasionally uploaded,
         // temporary non-symlinks) and no symlinks should be processed:
-        if (filePath.indexOf(picFound) > 0 || await isSymlink(pathlist[i])) continue;
+        if (filePath.indexOf(picFound) > 0 || await isSymlink(pathlist[i])) continue
         // Classify the file as existing or not
         let pathArr = filePath.split("/")
         let xmpParams = [], dbValues = {}
@@ -1399,7 +1407,7 @@ export default function(app) { // Start module.exports
             tchanged: ''
           }
         }
-        //console.log(" fileExists", fileExists, "recId", recId, i);
+        //console.log(" fileExists", fileExists, "recId", recId, i)
 
         if (recId > -1) { // in db table
           // RECORD 1 means that the database HAS a record

@@ -6,10 +6,11 @@ import { service } from '@ember/service';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
+import { use } from 'ember-resources';
+import { resource } from 'ember-resources';
 import { htmlSafe } from '@ember/template';
 // import { MenuImage } from './menu-image';
-
-import { cached } from '@glimmer/tracking';
+// import { cached } from '@glimmer/tracking';
 import { TrackedAsyncData } from 'ember-async-data';
 
 import { dialogAlertId } from './dialog-alert';
@@ -40,6 +41,7 @@ export class DialogInfo extends Component {
   @service intl;
 
   @tracked imQual = '?';
+  @tracked statResult = 'N.A.';
 
   inform = (what) => {
     let obj = document.getElementById(dialogAlertId);
@@ -53,25 +55,53 @@ export class DialogInfo extends Component {
     }
   }
 
-  // ================================================
+  // ==== Before Vite etc. ==========================
   // Get information about this image from the server
   // This promise has to be run indirectly with TrackedAsyncData
   // See the actual getStat use, further down in the template!
-  actualGetStat = async () => {
-    let i = this.z.picIndex();
-    if (i > -1) return await this.z.getFilestat(this.z.allFiles[i].linkto);
-  }
-  get getStat() {
-    let recordPromise = this.actualGetStat();
-    if (!recordPromise) return;
-    let tmp = new TrackedAsyncData(recordPromise);
-    return tmp;
-  }
+  // actualGetStat = async () => {
+  //   let i = this.z.picIndex();
+  //   if (i > -1) return await this.z.getFilestat(this.z.allFiles[i].linkto);
+  // }
+  // get getStat() {
+  //   let recordPromise = this.actualGetStat();
+  //   if (!recordPromise) return;
+  //   let tmp = new TrackedAsyncData(recordPromise);
+  //   return tmp;
+  // }
   // ================================================
 
-  showStat = (stat) => {
-    if (!stat) return; // Dismiss any initial reactivity
-    let arr = stat.split(BR);
+  // === Proposed by AI: =============================
+  // stat = use(this, resource(({ on }) => {
+  //   // dependency
+  //   let index = this.z.picIndex;
+  //   // tell Ember when to recompute
+  //   on(() => this.z.allFiles);
+  //   on(() => index);
+  //   // guard
+  //   if (index <= -1) return;
+  //   // return promise directly
+  //   return this.z.getFilestat(this.z.allFiles[index].linkto);
+  // }));
+
+  // === Next from AI: ===============================
+  stat = resource(this, async () => {
+    let index = this.z.picIndex;
+      this.z.loli('index = ' + index, 'color:red');
+    if (index < 0) return Promise.resolve(null);
+    let tmp = await this.z.getFilestat(this.z.allFiles[index].linkto);
+      this.statResult = tmp;
+      this.z.loli(this.statResult, 'color:yellow');
+    return tmp;
+  });
+  // ==== + corresponding changes in the template ====
+
+  showStat = () => {
+    let statValue = [...this.statResult]
+      this.z.loli('statValue: ' + statValue, 'color:red');''
+    // if (!statValue) return; // Dismiss any initial reactivity
+    let arr = statValue.split(BR);
+      this.z.loli('arr: ' + arr, 'color:red');''
 
     // Image name
 
@@ -115,7 +145,7 @@ export class DialogInfo extends Component {
     if (arr[2] === 'NA') arr[2] = NA;
     txt += '<i>' + this.intl.t('Phototime') + '</i>: ' + arr[2] + BR;
     txt += '<i>' + this.intl.t('Moditime') + '</i>: ' + arr[3] + BR + BR;
-
+      this.z.loli(txt);
     return txt;
   }
 
@@ -132,18 +162,18 @@ export class DialogInfo extends Component {
 
       <main style="padding:1rem 1rem 1.5rem 1rem;text-align:center;min-height:10rem;color:blue">
 
-        {{#if this.getStat.isResolved}}
+        {{#if this.stat.isResolved}}
 
           {{!-- File statistics: --}}
-          {{{this.showStat this.getStat.value}}}
+          {{this.showStat}}
 
           {{!-- Find duplicates --}}
           <a class="hoverDark" title-1="{{t 'findImageDups'}}" style="font-family:sans-serif;font-variant:small-caps" {{on 'click' (fn this.inform 'dups')}}>{{t 'findDuplicates'}}</a> {{t 'simiThres'}} = <form style="display:inline-block"><input class="threshold" type="number" min="40" max="100" value="70" title="{{t 'selectTreshold'}} 40&ndash;100%"></form>%
           <br>
-        {{else if this.getStat.isPending}}
+        {{else if this.stat.isPending}}
           . . . {{t 'wait'}} . . .
           {{!-- Do nothing, just wait --}}
-        {{else if this.getStat.isRejected}}
+        {{else if this.stat.isRejected}}
           <p>REJECTED</p>
         {{/if}}
 

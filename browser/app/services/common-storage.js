@@ -1465,7 +1465,7 @@ export default class CommonStorageService extends Service {
       var xhr = new XMLHttpRequest ();
       xhr.open('GET', 'sortlist/', true, null, null);
       this.xhrSetRequestHeader(xhr);
-      xhr.onload = async function () {
+      xhr.onload = async function() {
         if (this.status >= 200 && this.status < 300) {
           var data = xhr.response.trim ();
           if (data.slice (0, 8) === '{"error"') {
@@ -1495,7 +1495,7 @@ export default class CommonStorageService extends Service {
   }
 
   //#region saveorder/
-  //the name coincides with the saveOrder left button
+  //the name coincides with the saveOrder left button id
   saveOrder = async () => {
     if (this.imdbDir === this.picFound || !this.allow.saveChanges) return;
     // assemble the new sortOrder list
@@ -1560,9 +1560,9 @@ export default class CommonStorageService extends Service {
       var xhr = new XMLHttpRequest ();
       xhr.open('POST', 'savetext/', true, null, null);
       this.xhrSetRequestHeader(xhr);
-      xhr.onload = function () {
-        if (xhr.response) {
-            console.log(xhr.response);
+      xhr.onload = async function() {
+          console.log('xhr.response = ' + xhr.response);
+        if (xhr.response !== 'ok') {
           that.loli('Xmp.dc metadata not saved for ' + that.picName, 'color:red');
           let edpn = that.escapeDots(that.picName);
           document.querySelector('#i' + edpn + ' .img_txt1').innerHTML = '';
