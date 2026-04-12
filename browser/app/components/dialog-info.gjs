@@ -1,7 +1,7 @@
 //== Mish individual file information dialog
 
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
+import { cached, tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
@@ -9,6 +9,7 @@ import t from 'ember-intl/helpers/t';
 import { use } from 'ember-resources';
 import { resource } from 'ember-resources';
 import { htmlSafe } from '@ember/template';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
 // import { MenuImage } from './menu-image';
 // import { cached } from '@glimmer/tracking';
 import { TrackedAsyncData } from 'ember-async-data';
@@ -85,26 +86,45 @@ export class DialogInfo extends Component {
   // }));
 
   // === Next from AI: ===============================
-  stat = resource(this, async () => {
+  // stat = resource(this, async () => {
+  //   let index = this.z.picIndex;
+  //     this.z.loli('index = ' + index, 'color:red');
+  //   if (index < 0) return Promise.resolve(null);
+  //   let tmp = await this.z.getFilestat(this.z.allFiles[index].linkto);
+  //     this.statResult = tmp;
+  //     this.z.loli(this.statResult, 'color:yellow');
+  //   return tmp;
+  // });
+
+  // === Next from NullVoxPopuli: ====================
+// just an async function
+  stat = async () => {
     let index = this.z.picIndex;
-      this.z.loli('index = ' + index, 'color:red');
+    this.z.loli('index = ' + index, 'color:red');
+
     if (index < 0) return Promise.resolve(null);
+
     let tmp = await this.z.getFilestat(this.z.allFiles[index].linkto);
-      this.statResult = tmp;
-      this.z.loli(this.statResult, 'color:yellow');
+    this.z.loli(tmp, 'color:yellow');
+
     return tmp;
-  });
+  };
+
+  // the cached here is important, else each access re-invokes
+  // this.stat(), and you lose your stable reference
+  @cached
+  get currentStat() {
+    return getPromiseState(this.stat());
+  }
   // ==== + corresponding changes in the template ====
 
   get showStat() {
-    let statValue = [...this.statResult];
-      this.z.loli('statValue: ' + statValue, 'color:red');''
-    // if (!statValue) return; // Dismiss any initial reactivity
-    let arr = statValue.split(BR);
+      this.z.loli('statResult: ' + this.statResult, 'color:red');''
+    if (!this.statResult) return; // Dismiss any initial reactivity
+    let arr = this.statResult.split(BR);
       this.z.loli('arr: ' + arr, 'color:red');''
 
     // Image name
-
     let txt = '<i>' + this.intl.t('Name') + '</i>: ';
     txt += '<span style="color:black">' + this.z.picName + '</span>' + BR;
 
@@ -162,7 +182,7 @@ export class DialogInfo extends Component {
 
       <main style="padding:1rem 1rem 1.5rem 1rem;text-align:center;min-height:10rem;color:blue">
 
-        {{#if this.stat.isResolved}}
+        {{#if this.currentStat.isResolved}}
 
           {{!-- File statistics: --}}
           {{this.showStat}}
