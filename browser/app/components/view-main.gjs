@@ -238,7 +238,7 @@ class AllImages extends Component {
 
   // Get the album path to the original image
   // from z.allFiles used by z.picIndex()
-  path2orig = async () => {
+  path2orig = () => {
     let a = '';
     let i = this.z.picIndex;
     if (i < 0) return a; //important

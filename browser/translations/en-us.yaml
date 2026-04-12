@@ -40,7 +40,7 @@ textEdit:     edit/save image texts/captions, access hidden albums³
 all: all
 allInAlbum: (to the album)
 and: and
-captionFor: Image caption for
+captionFor: Image captions for
 captionSaved: saved
 checkuncheck: Check or uncheck all
 chooseShow: "Choose to view in <b>{f}</b> or in own album"

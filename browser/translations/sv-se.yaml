@@ -40,8 +40,8 @@ textEdit:     redigera/spara bildtexter, se dolda album³
 all: alla
 allInAlbum: (till albumet)
 and: och
-captionFor: Bildtext för
-captionSaved: sparad
+captionFor: Bildtexter för
+captionSaved: sparade
 checkuncheck: Markera/avmarkera alla
 chooseShow: "Välj att visa i <b>{f}</b> eller i sitt egna album:"
 created: skapat

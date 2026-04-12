@@ -40,7 +40,7 @@ textEdit:     Untertiteln bearbeiten/speichern, ausgeblendete Alben anzeigen³
 all: alle
 allInAlbum: (zum album)
 and: und
-captionFor: Bildunterschrift für
+captionFor: Bildunterschriften für
 captionSaved: gespeichert
 checkuncheck: Alle markieren/abmarkieren
 chooseShow: "Zur Anzeige in <b>{f}</b> oder im eigenen Album:"

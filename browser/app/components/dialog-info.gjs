@@ -96,8 +96,8 @@ export class DialogInfo extends Component {
   });
   // ==== + corresponding changes in the template ====
 
-  showStat = () => {
-    let statValue = [...this.statResult]
+  get showStat() {
+    let statValue = [...this.statResult];
       this.z.loli('statValue: ' + statValue, 'color:red');''
     // if (!statValue) return; // Dismiss any initial reactivity
     let arr = statValue.split(BR);

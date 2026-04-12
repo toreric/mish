@@ -70,15 +70,22 @@ export class DialogText extends Component {
       this.z.loli('allFiles = ' + this.z.allFiles, 'color:yellow');
       console.log(this.z.allFiles);
     if (!this.z.picName) return; // Dismiss initial reactivity
-    if (this.z.picIndex < 0) return; // Dismiss initial reactivity
+    // if (this.z.picIndex < 0) return; // Dismiss initial reactivity
     if (!this.z.allFiles) return; // Dismiss initial reactivity
+    let name = this.z.picName;
+      this.z.loli(name, 'color:pink');
+    let item = this.z.allFiles; // reference only
+    this.z.picIndex = this.items.findIndex(item => {return item.name === name;});
     let text = '';
     let path = this.z.allFiles[this.z.picIndex].linkto;
     let nodeMess = document.querySelector('#dialogText main .diaMess b');
+      this.z.loli(path, 'color:pink');
+      console.log(nodeMess);
     if (/\.gif$/i.test(path)) {
       // Insert after '#dialogText main .diaMess'
       // Gif image! Cannot be given permanent text and it can just be saved temporarily
       text = this.intl.t('txtGif');
+        console.log(text);
       // Disable the Notes and Keyword buttons
       document.getElementById('dialogTextButton4').setAttribute('disabled', '');
       document.getElementById('dialogTextButton5').setAttribute('disabled', '');
@@ -104,7 +111,7 @@ export class DialogText extends Component {
     return this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt2.toString());
   }
 
-  texts = async () => { // IS THIS PERHAPS NEVER USED?
+  texts = async () => { // *************************KOLLA
     if (!this.z.picName) return;
     let desc = document.getElementById('dialogTextDescription');
       // this.z.loli('picName = ' + this.z.picName, 'color:red');

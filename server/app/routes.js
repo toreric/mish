@@ -7,7 +7,7 @@ import ProMise from 'bluebird'
 // const path = require('path')
 // const ProMise = require('bluebird')
 // import fisy from 'fs'
-import { access, writeFile, readFile, readdir, open } from 'node:fs/promises'
+import { access, constants, writeFile, readFile, readdir, open } from 'node:fs/promises'
 import fs from 'node:fs'
 
 import multer from 'multer'
@@ -72,7 +72,7 @@ export default function(app) { // Start module.exports
   app.use(bodyParser.json())
 
 
-  // This row should be moved to the 'login' and there followed at end by 'setdb.close'
+  // This line should be moved to the 'login' and there followed at end by 'setdb.close'
   // in order to free it for construction of an admin gui for settings management:
   const setdb = new SQLite('_imdb_settings.sqlite')
 
@@ -163,7 +163,7 @@ export default function(app) { // Start module.exports
       // The server automatically removes old search result temporary albums:
       // Remove too old picFound directories (with added random .01yz)
       cmd = 'find -L ' + IMDB + ' -type d -name "§*" -amin +' + toold + ' | xargs rm -rf'
-      // await cmdasync(cmd) // ger direktare diagnos
+      // await cmdasync(cmd) // gav direktare diagnos
       await exec(cmd)
       // console.log(BYEL + cmd + RSET)
       let show_imagedir = false // For debug of directories printout
@@ -185,7 +185,7 @@ export default function(app) { // Start module.exports
   // ##### Execute a shell command
   //region execute
   app.get('/execute', async (req, res) => {
-    // console.log(BGRE + '/execute' + RSET)
+    // console.log(BGRE + '/execute' + RSET) // Too much logging
     var cmd = decodeURIComponent(req.get('command'))
       // console.log(BLUE + cmd + RSET) // hide this to protect image paths
     try {
@@ -207,7 +207,7 @@ export default function(app) { // Start module.exports
   // ##### Return file information
   //#region filestat
   app.get('/filestat', async (req, res) => {
-    // console.log(BGRE + '/filestat' + RSET)
+    console.log(BGRE + '/filestat' + RSET) // Too much?
     var file = decodeURIComponent(req.get('path'))
     file = IMDB + file
     // This is an emergency solution, which was necessary since the 'filstat'
@@ -271,7 +271,7 @@ export default function(app) { // Start module.exports
   //       all available user statuses and their allowances
   //#region login
   app.get('/login', async (req, res) => {
-    // console.log(BGRE + '/login' + RSET)
+    // console.log(BGRE + '/login' + RSET) // Superfluous
     USER = decodeURIComponent(req.get('username'))
     var password = ''
     var status = ''
@@ -687,43 +687,41 @@ export default function(app) { // Start module.exports
     var body = []
     req.on('data', (chunk) => {
       body.push(chunk)
-    }).on('end', () => {
+    }).on('end', async () => {
       body = Buffer.concat(body).toString()
       // Here `body` has the entire request body stored in it as a string
       var tmp = body.split('\n')
       var fileName = IMDB_HOME + '/' + tmp[0].trim() // All path included here @***
       var msgName = fileName.slice(IMDB_HOME.length)
-
-      let okay = fs.constants.W_OK | fs.constants.R_OK
-      access(fileName, okay, async err => {
-        if (err) {
-          res.send("Cannot write to " + msgName)
-          console.log(err, 'ERROR', err.length)
-          console.error('NO WRITE PERMISSION to ' + msgName)
-        } else {
-          console.log('Xmp.dc metadata will be saved into ' + msgName)
-          body = tmp [1].trim() // These trimmings are probably superfluous
-          // The set_xmp_... command strings will be single quoted, avoiding
-          // most Bash shell interpretation. Thus slice out 's (single quotes)
-          // within 's (cannot be escaped just simply); makes Bash happy :)
-          // NEEDS better explanation?!:
-          body = body.replace(/'/g, "'\\''")
-          //console.log(fileName + " '" + body + "'")
-          var mtime = fs.statSync(fileName).mtime // Object
-          //console.log (typeof mtime, mtime)
-          execSync('set_xmp_description ' + fileName + " '" + body + "'") // for txt1
-          body = tmp [2].trim() // These trimmings are probably superfluous
-          body = body.replace(/'/g, "'\\''")
-          //console.log (fileName + " '" + body + "'")
-          if (open)
-          execSync('set_xmp_creator ' + fileName + " '" + body + "'") // for txt2
-          // Reset modification time, this was metadata only:
-          execSync('touch -d "' + mtime + '" "' + fileName + '"')
-          res.send('ok')
-          await new Promise(z => setTimeout (z, 888))
-          await sqlUpdate (fileName) // with path @***
-        }
-      })
+      let okay = constants.W_OK | constants.R_OK
+      try {
+        await access(fileName, okay)
+        console.log('Xmp.dc metadata will be saved into ' + msgName)
+        body = tmp [1].trim() // These trimmings are probably superfluous
+        // The set_xmp_... command strings will be single quoted, avoiding
+        // most Bash shell interpretation. Thus slice out 's (single quotes)
+        // within 's (cannot be escaped just simply); makes Bash happy :)
+        // NEEDS better explanation?!:
+        body = body.replace(/'/g, "'\\''")
+        //console.log(fileName + " '" + body + "'")
+        var mtime = fs.statSync(fileName).mtime // Object
+        //console.log (typeof mtime, mtime)
+        await exec('set_xmp_description ' + fileName + " '" + body + "'") // for txt1
+        body = tmp [2].trim() // These trimmings are probably superfluous
+        body = body.replace(/'/g, "'\\''")
+        //console.log (fileName + " '" + body + "'")
+        if (open)
+        await exec('set_xmp_creator ' + fileName + " '" + body + "'") // for txt2
+        // Reset modification time, this was metadata only:
+        await exec('touch -d "' + mtime + '" "' + fileName + '"')
+        res.send('ok')
+        await new Promise(z => setTimeout (z, 888))
+        await sqlUpdate (fileName) // with path @***
+      } catch (err) {
+        res.send("Cannot write to " + msgName)
+        console.log(err, 'ERROR', err.length)
+        console.error('NO WRITE PERMISSION to ' + msgName)
+      }
     })
     //res.sendFile ('index.html', {root: WWW_ROOT + '/public/'}) // stay at the index.html file
   })
@@ -956,7 +954,7 @@ export default function(app) { // Start module.exports
             var flagFile = path.join(item, '.imdb')
             // console.log(i, name, item, acceptedDirName(name), !!brokenLink(item))
             try { // albums only
-              await access(flagFile, fs.constants.F_OK)
+              await access(flagFile, constants.F_OK)
               files.push(name)
               // console.log('   Accepted')
             } catch {
@@ -1091,7 +1089,7 @@ export default function(app) { // Start module.exports
         } else { // Check if this is a regular file:
           fs.stat(filepath, (err, stat) => {
             // if (stat.mode & 0o100000) {
-            if (stat.mode & fs.constants.S_IFREG) {
+            if (stat.mode & constants.S_IFREG) {
               // See 'man 2 stat': S_IFREG bitmask for 'Regular file', and google more!
             } else {
               files[i] = path.join(path.dirname(filepath), '.ignore') // fake dotted file
@@ -1350,7 +1348,7 @@ export default function(app) { // Start module.exports
   // och search -- search text  etc.
   // Funkar ej om 'filepaths' är mer än en fil ... (async hell)
   // NOTE: filepaths.length MUST be 1 only, caused by sync/async problem!
-  // That is, filepaths must have only one (hypothetically LF-separated) row
+  // That is, filepaths must have only one (hypothetically LF-separated) line
   // (designed for many but never fulfilled successfully with more than one)
   //#region sqlUpdate
   function sqlUpdate(filepaths) { // Album server paths, complete Absolute
@@ -1378,7 +1376,7 @@ export default function(app) { // Start module.exports
         const db = new SQLite(IMDB + "/_imdb_images.sqlite")
         db.pragma("journal_mode = WAL") // Turn on write-ahead logging
         let sqlGetId = "SELECT id FROM imginfo WHERE filepath='" + filePath + "'"
-        row = db.prepare(sqlGetId).get()
+        let row = db.prepare(sqlGetId).get()
         //row = await db.get(sqlGetId)
         let recId = -1
         if (row) {recId = row['id']}
