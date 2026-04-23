@@ -99,7 +99,7 @@ export class DialogLogin extends Component {
   // Detect login Enter key
    detectLogInEnter = (e) => {
     e.stopPropagation();
-    if (e.keyCode === 13) { // Enter key
+    if (e.code === 'Enter') { // Enter key
       this.logIn();
     }
   }
@@ -107,7 +107,7 @@ export class DialogLogin extends Component {
   // Detect closing Esc key and handle dialog
   detectEscClose = (e) => {
     e.stopPropagation();
-    if (e.keyCode === 27) { // Esc key
+    if (e.code === 'Escape') { // Esc key
       this.z.closeDialog(dialogLoginId);
     }
   }

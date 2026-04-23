@@ -76,7 +76,7 @@ uploadPhoto = async (file) => {
   // Detect closing Esc key
   detectEscClose = (e) => {
     e.stopPropagation();
-    if (e.keyCode === 27) { // Esc key
+    if (e.code === 'Escape') { // Esc key
       if (document.getElementById(dialogUtilId).open) this.closeDialogUtil();
     }
   }

@@ -27,7 +27,7 @@ export const dialogFindId = 'dialogFind';
 // });
 
 document.addEventListener('keydown', (e) => {
-  if (e.keyCode === 27) {
+  if (e.code === 'Escape') {
     e.stopPropagation();
     if (document.getElementById('dialogFindHelp').open) {
       document.getElementById('dialogFindHelp').close();
@@ -69,7 +69,7 @@ export class DialogFind extends Component {
   // Detect closing Esc key
   detectEscClose = (e) => {
     e.stopPropagation();
-    if (e.keyCode === 27) { // Esc key
+    if (e.code === 'Escape') { // Esc key
       if (document.getElementById('dialogFindHelp').open) {
         this.z.closeDialog('dialogFindHelp');
       } else if (document.getElementById(dialogFindId).open) {

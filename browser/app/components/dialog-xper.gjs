@@ -35,7 +35,7 @@ export class DialogXper extends Component {
   // Detect closing Esc key
   detectEscClose = (e) => {
     e.stopPropagation();
-    if (e.keyCode === 27) { // Esc key
+    if (e.code === 'Escape') { // Esc key
       if (document.getElementById(dialogXperId).open) this.z.closeDialog(dialogXperId);
     }
   }
@@ -93,7 +93,7 @@ export class DialogXper extends Component {
         <div>
           <div title-2="The CSS-generated ”title-2” is shown here">
           <br>&nbsp; <br>
-            For display of<br>CSS: title-2
+            For display of CSS: title-2
           </div>
         </div>
         <br>

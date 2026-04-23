@@ -60,10 +60,10 @@ makeDialogDraggable();
 document.addEventListener('keydown', (event) => {
 
   event.stopPropagation();
-  var key = event.keyCode;
+  var key = event.code;
     // console.log('Key ' + key + ' pressed');
   switch(key) {
-    case 27:  // Esc
+    case 'Escape':  // Esc
         // console.log(event.target);
       resetBorders();
       for (let d of document.querySelectorAll('dialog')) {
@@ -80,23 +80,23 @@ document.addEventListener('keydown', (event) => {
       if (!document.querySelector('div.nav_links').style.display)
         document.getElementById('go_back').click(); //close view image
       break;
-    case 37:  // <
+    case 'ArrowLeft':  // <
       if (document.activeElement.nodeName === 'TEXTAREA') break;
       document.querySelector('.nav_.prev').click();
       break;
-    case 39:  // >
+    case 'ArrowRight':  // >
       if (document.activeElement.nodeName === 'TEXTAREA') break;
       document.querySelector('.nav_.next').click();
       break;
-    case 65:  // A
+    case 'KeyA':  // A
       if (document.activeElement.nodeName === 'TEXTAREA') break;
       break;
-    case 70:  // F
+    case 'KeyF':  // F
       if (document.activeElement.nodeName === 'TEXTAREA') break;
       event.preventDefault();
       document.getElementById('searchText').click();
       break;
-    case 112: // F1
+    case 'F1': // F1
       toggleDialog(dialogHelpId);
   }
 });
@@ -439,7 +439,7 @@ export default class extends Welcome {
     <DialogText />
     <DialogFind />
     <DialogHelp />
-    <DialogInfo />
+    {{!-- <DialogInfo /> --}}
     <DialogAlert />
     <DialogChoose />
     <DialogXper @content={{this.album}} />
@@ -457,7 +457,7 @@ export class DialogSettings extends Component {
   // Detect closing Esc key
   detectEscClose = (e) => {
     e.stopPropagation();
-    if (e.keyCode === 27) { // Esc key
+    if (e.code === 'Escape') { // Esc key
       if (document.getElementById('dialogSettings').open) this.z.closeDialog('dialogSettings');
     }
   }

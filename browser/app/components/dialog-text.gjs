@@ -21,7 +21,7 @@ document.body.addEventListener('mousedown', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
-  if (e.keyCode === 27) {
+  if (e.code === 'Escape') {
     e.stopPropagation();
     if (document.getElementById(dialogTextId).open) {
       document.getElementById(dialogTextId).close();
@@ -48,7 +48,7 @@ export class DialogText extends Component {
 
   // Detect closing Esc key and handle (sub)dialogs
   detectEscClose = async (e) => {
-    if (e.keyCode !== 27) return;
+    if (e.code !== 'Escape') return;
     e.stopPropagation();
     let tmp1 = document.getElementById(dialogTextNotesId);
     let tmp2 = document.getElementById(dialogTextKeywordsId);

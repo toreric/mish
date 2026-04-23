@@ -17,7 +17,7 @@ export class DialogHelp extends Component {
   @action
   detectEscClose(e) {
     e.stopPropagation();
-    if (e.keyCode === 27) { // Esc key
+    if (e.code === 'Escape') { // Esc key
       if (document.getElementById(dialogHelpId).open) this.z.closeDialog(dialogHelpId);
     }
   }

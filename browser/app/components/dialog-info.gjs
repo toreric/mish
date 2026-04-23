@@ -6,6 +6,7 @@ import { service } from '@ember/service';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
+import RefreshThis from './refresh-this';
 import { use } from 'ember-resources';
 import { resource } from 'ember-resources';
 import { htmlSafe } from '@ember/template';
@@ -22,7 +23,7 @@ const BR = '<br>'; // HTML line break
 
 // Detect closing Esc key
 const detectEscClose = (e) => {
-  if (e.keyCode !== 27) return;
+  if (e.code !== 'Escape') return;
   e.stopPropagation();
   let diaObj = document.getElementById(dialogInfoId);
   if (diaObj.open) {
@@ -184,8 +185,12 @@ export class DialogInfo extends Component {
 
         {{#if this.currentStat.isResolved}}
 
+
+      <RefreshThis @for={{this.z.picIndex}}>
           {{!-- File statistics: --}}
           {{this.showStat}}
+      </RefreshThis>
+
 
           {{!-- Find duplicates --}}
           <a class="hoverDark" title-1="{{t 'findImageDups'}}" style="font-family:sans-serif;font-variant:small-caps" {{on 'click' (fn this.inform 'dups')}}>{{t 'findDuplicates'}}</a> {{t 'simiThres'}} = <form style="display:inline-block"><input class="threshold" type="number" min="40" max="100" value="70" title="{{t 'selectTreshold'}} 40&ndash;100%"></form>%
@@ -205,3 +210,4 @@ export class DialogInfo extends Component {
     </dialog>
   </template>
 }
+

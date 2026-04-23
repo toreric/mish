@@ -17,7 +17,7 @@ export class DialogAlert extends Component {
   // Detect closing Esc key
   detectEscClose = (e) => {
     e.stopPropagation();
-    if (e.keyCode === 27) { // Esc key
+    if (e.code === 'Escape') { // Esc key
       if (document.getElementById(dialogAlertId).open) this.z.closeDialog(dialogAlertId);
       if (document.getElementById(dialogChooseId).open) this.z.closeDialog(dialogChooseId);
     }

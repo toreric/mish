@@ -47,7 +47,7 @@ export class MenuImage extends Component {
   detectClose = (e) => {
     e.stopPropagation();
     // Detect Esc key, or mouse click in the uppermost × line of this menu:
-    if (e.type === 'keydown' && e.keyCode === 27 || e.type === 'click') {
+    if (e.type === 'keydown' && e.code === 'Escape' || e.type === 'click') {
       // Close any open image menu (still if probably one single is open):
       for (let list of document.querySelectorAll('.menu_img_list')) list.style.display = 'none';
       // Sorry, no loli message!
@@ -685,7 +685,7 @@ export class ChooseAlbum extends Component {
   // Detect closing Esc (27) key
   detectEscClose = (e) => {
     e.stopPropagation();
-    if (e.keyCode === 27) this.closeChooseAlbum();
+    if (e.code === 'Escape') this.closeChooseAlbum();
   }
 
   // Which album was selected?

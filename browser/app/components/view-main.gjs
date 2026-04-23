@@ -186,7 +186,7 @@ class AllImages extends Component {
 
   detectEsc = (event) => {
     event.stopPropagation();
-    if (event.keyCode === 27) { // Esc
+    if (event.code === 'Escape') { // Esc
       this.z.resetBorders();
     }
   }
