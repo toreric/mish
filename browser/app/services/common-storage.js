@@ -1808,8 +1808,8 @@ export default class CommonStorageService extends Service {
       this.picIndex = this.allFiles.findIndex(all => {return all.name === name;});
     }
     let name = this.picName;
-      // this.loli(this.picName + ':', 'color:red');
-      // console.log(this.allFiles[this.picIndex])
+      this.loli(this.picName + ':', 'color:red');
+      console.log(this.allFiles[this.picIndex])
 
     const loliClose = (name) => this.loli('closed menu of image ' + name + ' in album ' + this.imdbRoot + this.imdbDir);
 
@@ -1821,7 +1821,7 @@ export default class CommonStorageService extends Service {
       for (let list of allist) {
         if (!list.style.display) {
           list.style.display = 'none';
-          this.closeDialog('dialogAlert'); // May iterfer, later
+          this.closeDialog('dialogAlert'); // May interfer, later
             // this.loli('toggleMenuImg: ' + list.style.display, 'color:red');
             // console.log(list);
           let name = list.closest('.img_mini').id.slice(1);
@@ -1862,6 +1862,7 @@ export default class CommonStorageService extends Service {
 
   toggleDialog = async (dialogId, origPos) => {
     let diaObj = document.getElementById(dialogId);
+      if (!diaObj) return; // DEBUG TMP DEBUG TMP DEBUG TMP DEBUG TMP
     let what = 'closed ';
     await new Promise (z => setTimeout (z, 20)); // toggleDialog
     if (diaObj.hasAttribute('open')) {

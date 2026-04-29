@@ -200,7 +200,7 @@ const resetBorders = () => { //copy from z
     min.classList.remove('dotted');
   }
 }
-const toggleDialog = (dialogId, origPos) => { //copy from z
+const toggleDialog = (dialogId, origPos) => { //copy from common-storage (z)
   let diaObj = document.getElementById(dialogId);
   let what = 'closed ';
   if (diaObj.hasAttribute('open')) {

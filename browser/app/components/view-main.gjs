@@ -13,6 +13,7 @@ import he from 'he';
 // USE: <div title={{he.decode 'text'}}></div> he = HTML entities
 // or  txt = he.decode('text')  or  txt = he.encode('text')
 import { MenuImage } from './menu-image';
+import { DialogInfo } from './dialog-info';
 
 import RefreshThis from './refresh-this';
 
@@ -157,6 +158,7 @@ class SubAlbums extends Component {
             </span>
           {{/if}}
           <br>
+
           {{#each this.z.subaIndex as |i|}}
             {{#if (this.keepDir i)}}
               <div class="subAlbum" title="" {{on 'click' (fn this.z.openAlbum i)}}>
@@ -169,6 +171,7 @@ class SubAlbums extends Component {
               </div>
             {{/if}}
           {{/each}}
+
         {{/if}}
       </div>
     </p>
@@ -183,6 +186,11 @@ class AllImages extends Component {
 
   // @tracked lastDragged; // for ember-sortable
   @tracked items = []; // NOTE: Used for allFiles duplication, below
+
+  @tracked infoVisible = false; // for DialogInfo and MenuImage
+  toggleInfo = () => {
+    this.infoVisible = !this.infoVisible;
+  };
 
   detectEsc = (event) => {
     event.stopPropagation();
@@ -423,8 +431,6 @@ class AllImages extends Component {
               {{on 'mousedown' this.z.resetBorders}}
             >
 
-              {{!-- The thumbnail menu --}}
-              <MenuImage />
               <div style="margin:auto auto 0 auto;position:relative;width:max-content;">
 
                 {{!-- The check mark in the thumnail's upper right corner --}}
@@ -456,17 +462,24 @@ class AllImages extends Component {
 
               </div>
 
+              {{!-- The image menu --}}
+              <MenuImage @toggleInfo={{this.toggleInfo}} />
+
             </div>
           {{/each}}
           </RefreshThis>
         </div>
 
         {{!-- Preload the show images --}}
-        <section style="display:none">
+        <section info="PRELOAD" style="display:none">
           {{#each this.items as |item|}}
             <img src="{{item.show}}" style="width:1px;height:1px;display:none">
           {{/each}}
         </section>
+
+        {{#if this.infoVisible}}
+          <DialogInfo @toggleInfo={{this.toggleInfo}} />
+        {{/if}}
 
       </div>
 
@@ -511,7 +524,12 @@ class AllImages extends Component {
             </a>
 
           </div>
-          <MenuImage />
+
+          {{!-- The image menu --}}
+          <MenuImage @toggleInfo={{this.toggleInfo}} />
+          {{#if this.infoVisible}}
+            <DialogInfo @toggleInfo={{this.toggleInfo}} />
+          {{/if}}
 
         </div>
 
