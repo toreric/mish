@@ -32,11 +32,11 @@ const detectEscClose = (e) => {
   }
 }
 
-const informQual = () => { // Replaces inform('qual')
-  let obj = document.getElementById(dialogAlertId);
-  if (obj.hasAttribute('open')) {obj.close();}
-    this.z.alertMess(this.intl.t('xplErrImg'), 15);
-}
+// const informQual = () => { // Replaces inform('qual')
+//   let obj = document.getElementById(dialogAlertId);
+//   if (obj.hasAttribute('open')) {obj.close();}
+//     this.z.alertMess(this.intl.t('xplErrImg'), 15);
+// }
 
 export class DialogInfo extends Component {
   @service('common-storage') z;
@@ -101,29 +101,28 @@ export class DialogInfo extends Component {
 // just an async function
   stat = async () => {
     let index = this.z.picIndex;
-    this.z.loli('index = ' + index, 'color:red');
-
+      this.z.loli('index = ' + index, 'color:red');
     if (index < 0) return Promise.resolve(null);
-
     let tmp = await this.z.getFilestat(this.z.allFiles[index].linkto);
-    this.z.loli(tmp, 'color:yellow');
-
+      this.z.loli('tmp: ' + tmp, 'color:yellow');
+    this.statResult = tmp;
     return tmp;
   };
 
   // the cached here is important, else each access re-invokes
   // this.stat(), and you lose your stable reference
-  @cached
-  get currentStat() {
-    return getPromiseState(this.stat());
+  // and: don't set something tracked in a getter (may spoil the browser!)
+  @cached get currentStat() {
+    let tmp = getPromiseState(this.stat());
+      console.log(tmp);
+    // this.statResult = tmp.resolved; WARNING NO ERROR DETECTION
+    return tmp;
   }
   // ==== + corresponding changes in the template ====
 
-  get showStat() {
-      this.z.loli('statResult: ' + this.statResult, 'color:red');''
-    if (!this.statResult) return; // Dismiss any initial reactivity
+  @cached get showStat() {
     let arr = this.statResult.split(BR);
-      this.z.loli('arr: ' + arr, 'color:red');''
+      this.z.loli('arr: ' + arr, 'color:red');
 
     // Image name
     let txt = '<i>' + this.intl.t('Name') + '</i>: ';
@@ -166,46 +165,43 @@ export class DialogInfo extends Component {
     if (arr[2] === 'NA') arr[2] = NA;
     txt += '<i>' + this.intl.t('Phototime') + '</i>: ' + arr[2] + BR;
     txt += '<i>' + this.intl.t('Moditime') + '</i>: ' + arr[3] + BR + BR;
-      this.z.loli(txt);
+      this.z.loli('txt: ' + txt, 'color:pink');
     return txt;
   }
 
   <template>
-    <dialog id="dialogInfo" {{on 'keydown' detectEscClose}}>
+    <dialog id="dialogInfo" {{on 'keydown' detectEscClose}} open>
       <header data-dialog-draggable>
         <div style="width:99%">
           <p>{{t 'dialog.info.header'}}<span></span></p>
         </div>
         <div>
-          <button class="close" type="button" {{on 'click' (fn this.z.closeDialog dialogInfoId)}}>×</button>
+          <button class="close" type="button" {{on 'click' @toggleInfo}}>×</button>
         </div>
       </header>
 
       <main style="padding:1rem 1rem 1.5rem 1rem;text-align:center;min-height:10rem;color:blue">
 
-        {{#if this.currentStat.isResolved}}
+        {{!-- {{#if this.currentStat.resolved}} --}}
+        {{#if this.currentStat.resolved}}
 
-
-      <RefreshThis @for={{this.z.picIndex}}>
           {{!-- File statistics: --}}
-          {{this.showStat}}
-      </RefreshThis>
-
+          {{{this.showStat}}}
 
           {{!-- Find duplicates --}}
           <a class="hoverDark" title-1="{{t 'findImageDups'}}" style="font-family:sans-serif;font-variant:small-caps" {{on 'click' (fn this.inform 'dups')}}>{{t 'findDuplicates'}}</a> {{t 'simiThres'}} = <form style="display:inline-block"><input class="threshold" type="number" min="40" max="100" value="70" title="{{t 'selectTreshold'}} 40&ndash;100%"></form>%
           <br>
-        {{else if this.stat.isPending}}
+        {{else if this.currentStat.isLoading}}
           . . . {{t 'wait'}} . . .
           {{!-- Do nothing, just wait --}}
-        {{else if this.stat.isRejected}}
+        {{else if this.currentStat.error}}
           <p>REJECTED</p>
         {{/if}}
 
       </main>
 
       <footer data-dialog-draggable>
-        <button type="button" {{on 'click' (fn this.z.closeDialog dialogInfoId)}}>{{t 'button.close'}}</button>&nbsp;
+        <button type="button" {{on 'click' @toggleDialog}}>{{t 'button.close'}}</button>&nbsp;
       </footer>
     </dialog>
   </template>

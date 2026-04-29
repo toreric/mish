@@ -8,6 +8,7 @@ import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
+import { DialogInfo } from './dialog-info';
 import { Spinner } from './spinner';
 import { MenuMain } from './menu-main';
 
@@ -38,7 +39,8 @@ const selMinImgs = (picName) => {
   else return document.querySelectorAll('#i' + picName.replace(/\./g, '\\.'));
 }
 
-// NOTE: MenuImage is the menu OF an image!
+// NOTE: MenuImage is the menu OF ONE image though some options may refer
+// to multiple images depending on grouping by markings, or similar.
 export class MenuImage extends Component {
   @service('common-storage') z;
   @service intl;
@@ -55,7 +57,7 @@ export class MenuImage extends Component {
     document.querySelector('body').focus();
   }
 
-  // A single image sometimes doesn't have this choice
+  // A single image sometimes doesn't have (i.e. bypasses) this choice
   get chooseText() {
     if (this.z.numMarked === 1) {
       return this.intl.t('write.chooseOne');
@@ -259,7 +261,7 @@ export class MenuImage extends Component {
     imDnLd.href = URL.createObjectURL(file);
     // imDnLd.href = 'https://google.com';
     imDnLd.download = fileName;
-      console.log(imDnLd);
+      // console.log(imDnLd);
     imDnLd.click();
     imDnLd.remove();
     URL.revokeObjectURL(file);
@@ -377,7 +379,7 @@ export class MenuImage extends Component {
     let fromIndex = this.z.imdbDirIndex;
       // this.z.loli(this.z.picName, 'color:red');
     let imgs = selMinImgs(this.z.picName);
-    await new Promise (z => setTimeout (z, 29)); // eraseFunc 1
+    await new Promise (z => setTimeout (z, 29)); // @eraseFunc 1
     this.z.toggleMenuImg(0); //close image menu
     if (document.getElementById('i' + this.z.picName).classList.contains('selected')) {
       // From toggleDisplayNames in ButtonsLeft:
@@ -432,7 +434,7 @@ export class MenuImage extends Component {
       this.z.buttonNumber = 0;
       // Wait until nonzero buttonNumber:
       while (!this.z.buttonNumber) {
-        await new Promise (z => setTimeout (z, 199)); // eraseFunc 2
+        await new Promise (z => setTimeout (z, 199)); // @eraseFunc 2
       }
 
       // (*) Concerning the use of dialogChoose here:
@@ -443,10 +445,10 @@ export class MenuImage extends Component {
       while (this.z.buttonNumber === 3) {
         if (document.getElementById('Choice_3').checked === true) {
           document.querySelector('span.Choice_3 label').innerHTML = SP + ' ' + this.intl.t('write.eraseOption') + '. <b style="color:#df1837">' + this.intl.t('write.eraseOption1') + '</b> ' + this.intl.t('write.eraseOption2');
-          await new Promise (z => setTimeout (z, 199)); // eraseFunc 3
+          await new Promise (z => setTimeout (z, 199)); // @eraseFunc 3
         } else {
           document.querySelector('span.Choice_3 label').innerHTML = SP + ' ' + this.intl.t('write.eraseOption');
-          await new Promise (z => setTimeout (z, 199)); // eraseFunc 4
+          await new Promise (z => setTimeout (z, 199)); // @eraseFunc 4
         }
       }
       if (this.z.buttonNumber === 1) {
@@ -562,13 +564,23 @@ export class MenuImage extends Component {
     return;
   }
 
-  @tracked eraseOrig = false;
-  get toggleEraseOrig() {
-    eraseOrig = !eraseOrig;
+  // @tracked eraseOrig = false;
+  // get toggleEraseOrig() {   // SHOULD BE ACTION??
+  //   eraseOrig = !eraseOrig; // THIS MISSING???
+  // }
+
+  // @tracked infoVisible = false;
+  // toggleInfo = () => {  // @action
+  //   this.infoVisible = !this.infoVisible;
+  // }
+  toggleInfo = () => {
+    this.args.toggleInfo?.();
   }
+
 
   <template>
     <button class='menu_img' type="button" title="{{t 'imageMenu'}}"
+    {{!-- {{on 'click' (fn this.z.toggleMenuImg 1)}} --}}
     {{on 'click' (fn this.z.toggleMenuImg 1)}}
     {{on 'keydown' this.detectClose}}>⡇</button>
     <ul class="menu_img_list" style="text-align:left;display:none">
@@ -587,7 +599,8 @@ export class MenuImage extends Component {
       {{/if}}
 
       {{!-- Open image file information dialog --}}
-      <li><p {{on 'click' (fn this.z.toggleDialog dialogInfoId)}}>
+      {{!-- <li><p {{on 'click' (fn this.z.toggleDialog dialogInfoId)}}> --}}
+      <li><p {{on 'click' @toggleInfo}}>
         {{t 'information'}}</p></li>
 
       {{!-- Open image text edit dialog --}}
@@ -669,6 +682,7 @@ export class MenuImage extends Component {
       {{/if}}
 
     </ul>
+
   </template>
 
 }
@@ -835,12 +849,8 @@ export class ChooseAlbum extends Component {
       this.z.alertMess(this.intl.t('write.doMoved', {n: pics.length, a: this.chosenAlbum}));
 
       // Refresh the album tree:
-      // let selEl = document.getElementById('rootSel');
-      // selEl.value = this.z.imdbRoot;
       this.z.updateTree();
       await new Promise (z => setTimeout (z, 88));
-      // selEl.dispatchEvent(new Event('change')); // Go to root album (auto)
-      // await new Promise (z => setTimeout (z, 5888)); // Increased 5s ...
 
       // Go back to the album we came from after root load
       this.z.openAlbum(fromIndex);
