@@ -104,7 +104,7 @@ export class DialogInfo extends Component {
       this.z.loli('index = ' + index, 'color:red');
     if (index < 0) return Promise.resolve(null);
     let tmp = await this.z.getFilestat(this.z.allFiles[index].linkto);
-      this.z.loli('tmp: ' + tmp, 'color:yellow');
+      // this.z.loli('tmp: ' + tmp, 'color:yellow');
     this.statResult = tmp;
     return tmp;
   };
@@ -122,14 +122,14 @@ export class DialogInfo extends Component {
 
   @cached get showStat() {
     let arr = this.statResult.split(BR);
-      this.z.loli('arr: ' + arr, 'color:red');
+      this.z.loli('arr: ' + arr, 'color:yellow');
 
     // Image name
     let txt = '<i>' + this.intl.t('Name') + '</i>: ';
     txt += '<span style="color:black">' + this.z.picName + '</span>' + BR;
 
     // Image quality status
-    if (arr[5] === 'NA') {
+    if (arr[5] === 'undefined' || arr[5] === 'NA') {
       this.imQual = this.intl.t('notAvailable');
     } else {
       this.imQual = arr[5].replace(/, /, '\n');//.replace(/ /g, '&nbsp;');
@@ -165,7 +165,7 @@ export class DialogInfo extends Component {
     if (arr[2] === 'NA') arr[2] = NA;
     txt += '<i>' + this.intl.t('Phototime') + '</i>: ' + arr[2] + BR;
     txt += '<i>' + this.intl.t('Moditime') + '</i>: ' + arr[3] + BR + BR;
-      this.z.loli('txt: ' + txt, 'color:pink');
+      // this.z.loli('txt: ' + txt, 'color:pink');
     return txt;
   }
 
@@ -201,7 +201,7 @@ export class DialogInfo extends Component {
       </main>
 
       <footer data-dialog-draggable>
-        <button type="button" {{on 'click' @toggleDialog}}>{{t 'button.close'}}</button>&nbsp;
+        <button type="button" {{on 'click' @toggleInfo}}>{{t 'button.close'}}</button>&nbsp;
       </footer>
     </dialog>
   </template>

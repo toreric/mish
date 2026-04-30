@@ -477,13 +477,13 @@ class AllImages extends Component {
           {{/each}}
         </section>
 
-        {{#if this.infoVisible}}
-          <DialogInfo @toggleInfo={{this.toggleInfo}} />
-        {{/if}}
-
       </div>
 
     </div>
+
+    {{#if this.infoVisible}}
+      <DialogInfo @toggleInfo={{this.toggleInfo}} />
+    {{/if}}
 
     {{!-- ================================================ --}}
     {{!-- The album's div with the slideshow image --}}
@@ -527,9 +527,6 @@ class AllImages extends Component {
 
           {{!-- The image menu --}}
           <MenuImage @toggleInfo={{this.toggleInfo}} />
-          {{#if this.infoVisible}}
-            <DialogInfo @toggleInfo={{this.toggleInfo}} />
-          {{/if}}
 
         </div>
 

@@ -426,6 +426,9 @@ textarea.favorites {
 
 /* Inline custom checkbox, label is ´container´ */
 label.hideText {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif !important;
   border: 1px solid #888;
   border-radius: 2px;
@@ -435,9 +438,6 @@ label.hideText {
   padding: 0.1em 1.4em 0.1em 0.25em;
   cursor: pointer;
   font-size: 70% !important;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -574,9 +574,14 @@ img.spinner {
 .large {
   font-size: 114%;
 }
+
 /* In helpText: */
-/* .helpIcon, #questionMark0, #albSel, #toggleName0, #toggleHide0, #upLoad0 { */
 .helpIcon {
+  /* Prevent highlighting: */
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
   display: inline-block;
   width: 0.9rem;
   height: 0.9rem;
@@ -592,11 +597,6 @@ img.spinner {
   color: lightskyblue;
   border: 1px solid #555;
   border-radius: 4px;
-  /* Prevent highlighting: */
-  -khtml-user-select: none;
-  -o-user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
   user-select: none;
   cursor: default;
 }
@@ -618,10 +618,12 @@ div[aria-describedby="textareas"] {
   background: transparent;
   z-index: 5;
 }
-/*#questionMark {
-  position: relative; Makes it visible in the layer above (why?)
-}*/
 a.smBu {
+  /* Prevent highlighting: */
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
   display: inline-block;
   width: 0.85em;
   height: 1em;
@@ -638,11 +640,6 @@ a.smBu {
   border: 1px solid #555;
   border-radius: 4px;
   cursor: pointer;
-  /* Prevent highlighting: */
-  -khtml-user-select: none;
-  -o-user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
   user-select: none;
 }
 #smallButtons a img,
@@ -712,6 +709,11 @@ a#do_mail,
   z-index: 16;
 }
 .mainMenu p {
+  /* Prevent highlighting: */
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
   margin: 0.3em 0.2em 0 -0.2em;
   position: relative;
   display: inline;
@@ -719,11 +721,6 @@ a#do_mail,
   height: auto;
   color: white;
   padding: 0;
-  /* Prevent highlighting: */
-  -khtml-user-select: none;
-  -o-user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
   user-select: none;
 }
 .mainMenu p,
@@ -1250,10 +1247,11 @@ img.mark {
   background-color: transparent;
   cursor: pointer;
 }
-/* *:not(input):not(textarea) {   Safari iPad iPhone */
-/*user-select: none!important;*/
-/* -webkit-user-select: none!important;  disable selection/Copy of UIWebView */
-/* -webkit-touch-callout: none!important; disable the IOS popup when long-press on a link */
+
+/* *:not(input):not(textarea) {   Safari iPad iPhone
+/* user-select: none!important;
+/* -webkit-user-select: none!important;  disable selection/Copy of UIWebView
+/* -webkit-touch-callout: none!important; disable the IOS popup when long-press on a link
 /* } */
 .nav_links {
   display: none;
@@ -1620,136 +1618,136 @@ img.dotted {
 }
 @-webkit-keyframes passing-through {
   0% {
-    opacity: 0;
     -webkit-transform: translateY(40px);
     -moz-transform: translateY(40px);
     -ms-transform: translateY(40px);
     -o-transform: translateY(40px);
+    opacity: 0;
     transform: translateY(40px);
   }
   30%,
   70% {
-    opacity: 0.7;
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
     -ms-transform: translateY(0px);
     -o-transform: translateY(0px);
+    opacity: 0.7;
     transform: translateY(0px);
   }
   100% {
-    opacity: 1;
     -webkit-transform: translateY(-0px);
     -moz-transform: translateY(-0px);
     -ms-transform: translateY(-0px);
     -o-transform: translateY(-0px);
+    opacity: 1;
     transform: translateY(-0px);
   }
 }
 @-moz-keyframes passing-through {
   0% {
-    opacity: 0;
     -webkit-transform: translateY(40px);
     -moz-transform: translateY(40px);
     -ms-transform: translateY(40px);
     -o-transform: translateY(40px);
+    opacity: 0;
     transform: translateY(40px);
   }
   30%,
   70% {
-    opacity: 0.7;
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
     -ms-transform: translateY(0px);
     -o-transform: translateY(0px);
+    opacity: 0.7;
     transform: translateY(0px);
   }
   100% {
-    opacity: 1;
     -webkit-transform: translateY(-0px);
     -moz-transform: translateY(-0px);
     -ms-transform: translateY(-0px);
     -o-transform: translateY(-0px);
+    opacity: 1;
     transform: translateY(-0px);
   }
 }
 @keyframes passing-through {
   0% {
-    opacity: 0;
     -webkit-transform: translateY(40px);
     -moz-transform: translateY(40px);
     -ms-transform: translateY(40px);
     -o-transform: translateY(40px);
+    opacity: 0;
     transform: translateY(40px);
   }
   30%,
   70% {
-    opacity: 0.7;
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
     -ms-transform: translateY(0px);
     -o-transform: translateY(0px);
+    opacity: 0.7;
     transform: translateY(0px);
   }
   100% {
-    opacity: 1;
     -webkit-transform: translateY(-0px);
     -moz-transform: translateY(-0px);
     -ms-transform: translateY(-0px);
     -o-transform: translateY(-0px);
+    opacity: 1;
     transform: translateY(-0px);
   }
 }
 @-webkit-keyframes slide-in {
   0% {
-    opacity: 0;
     -webkit-transform: translateY(40px);
     -moz-transform: translateY(40px);
     -ms-transform: translateY(40px);
     -o-transform: translateY(40px);
+    opacity: 0;
     transform: translateY(40px);
   }
   30% {
-    opacity: 1;
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
     -ms-transform: translateY(0px);
     -o-transform: translateY(0px);
+    opacity: 1;
     transform: translateY(0px);
   }
 }
 @-moz-keyframes slide-in {
   0% {
-    opacity: 0;
     -webkit-transform: translateY(40px);
     -moz-transform: translateY(40px);
     -ms-transform: translateY(40px);
     -o-transform: translateY(40px);
+    opacity: 0;
     transform: translateY(40px);
   }
   30% {
-    opacity: 1;
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
     -ms-transform: translateY(0px);
     -o-transform: translateY(0px);
+    opacity: 1;
     transform: translateY(0px);
   }
 }
 @keyframes slide-in {
   0% {
-    opacity: 0;
     -webkit-transform: translateY(40px);
     -moz-transform: translateY(40px);
     -ms-transform: translateY(40px);
     -o-transform: translateY(40px);
+    opacity: 0;
     transform: translateY(40px);
   }
   30% {
-    opacity: 1;
     -webkit-transform: translateY(0px);
     -moz-transform: translateY(0px);
     -ms-transform: translateY(0px);
     -o-transform: translateY(0px);
+    opacity: 1;
     transform: translateY(0px);
   }
 }
@@ -1900,6 +1898,7 @@ img.dotted {
 }
 .dropzone .dz-preview.dz-image-preview .dz-details {
   opacity: 1;
+
   /*-webkit-transition: opacity 0.2s linear;
         -moz-transition: opacity 0.2s linear;
         -ms-transition: opacity 0.2s linear;
@@ -1982,8 +1981,8 @@ a.hoverDark:hover {
   -moz-transform: scale(1.05, 1.05);
   -ms-transform: scale(1.05, 1.05);
   -o-transform: scale(1.05, 1.05);
-  transform: scale(1.05, 1.05);
   -webkit-filter: blur(8px);
+  transform: scale(1.05, 1.05);
   filter: blur(8px);
 }
 .dropzone .dz-preview .dz-image {
@@ -2002,20 +2001,20 @@ a.hoverDark:hover {
   display: block;
 }
 .dropzone .dz-preview.dz-success .dz-success-mark {
-  z-index: 500;
   -webkit-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
   -moz-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
   -ms-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
   -o-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 500;
   animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
 }
 .dropzone .dz-preview.dz-error .dz-error-mark {
-  z-index: 500;
-  opacity: 1;
   -webkit-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
   -moz-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
   -ms-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
   -o-animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 500;
+  opacity: 1;
   animation: slide-in 3s cubic-bezier(0.77, 0, 0.175, 1);
 }
 .dropzone .dz-preview .dz-success-mark,
@@ -2038,19 +2037,19 @@ a.hoverDark:hover {
   height: 54px;
 }
 .dropzone .dz-preview.dz-processing .dz-progress {
-  opacity: 1;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -ms-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
+  opacity: 1;
   transition: all 0.2s linear;
 }
 .dropzone .dz-preview.dz-complete .dz-progress {
-  opacity: 0;
   -webkit-transition: opacity 0.4s ease-in;
   -moz-transition: opacity 0.4s ease-in;
   -ms-transition: opacity 0.4s ease-in;
   -o-transition: opacity 0.4s ease-in;
+  opacity: 0;
   transition: opacity 0.4s ease-in;
 }
 .dropzone .dz-preview:not(.dz-processing) .dz-progress {
@@ -2061,6 +2060,7 @@ a.hoverDark:hover {
   animation: pulse 6s ease infinite;
 }
 .dropzone .dz-preview .dz-progress {
+  -webkit-transform: scale(1);
   opacity: 1;
   z-index: 1000;
   pointer-events: none;
@@ -2072,7 +2072,6 @@ a.hoverDark:hover {
   width: 80px;
   margin-left: -40px;
   background: rgba(255, 255, 255, 1);
-  -webkit-transform: scale(1);
   transform: scale(1);
   border-style: solid;
   border-width: 0.5px;
@@ -2102,16 +2101,16 @@ a.hoverDark:hover {
   pointer-events: auto;
 }
 .dropzone .dz-preview .dz-error-message {
+  -webkit-transition: opacity 0.3s ease;
+  -moz-transition: opacity 0.3s ease;
+  -ms-transition: opacity 0.3s ease;
+  -o-transition: opacity 0.3s ease;
   pointer-events: none;
   z-index: 1000;
   position: absolute;
   display: block;
   display: none;
   opacity: 0;
-  -webkit-transition: opacity 0.3s ease;
-  -moz-transition: opacity 0.3s ease;
-  -ms-transition: opacity 0.3s ease;
-  -o-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
   border-radius: 8px;
   font-size: 90%;

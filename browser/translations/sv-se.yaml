@@ -93,7 +93,7 @@ moveto: Flytta till...
 Name: Namn
 next: nästa
 no: inga
-notAvailable: Inte tillgänglig
+notAvailable: Ej tillgänglig
 numbererror: V A R N I N G<br><br>Bildantalet stämmer inte!
 Original: Original
 own: egna original
@@ -398,7 +398,7 @@ write:
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (två sökbegrepp) hittar alla bilder med text ’Nils Jacobsson’ och även alla bilder med någon av ’Nils’ och ’Jacobss’ i texten, till exempel ’Fredrik Nilson’ och/eller ’Filip Jacobsson’ (men inte ’Nisse Jacobson’).<br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (ett sökbegrepp) hittar bilder med till exempel ’Nils Jacobsson’ eller ’Nils Jacobsen’ i texten (som i <span>1</span>, eftersom bara ett sökbegrepp)."
-  findHelp5: Skriv det du vill söka i rutan överst och starta sökningen. Resultatet presenteras i ett album för tillfälligt bruk som heter <b>Funna bilder</b> med länk till originalet i varje miniatyrbilds meny. <span style="color:#0a0;text-decoration:underline">Grön kant under bildtexten</span> betyder länkad bild.
+  findHelp5: Skriv det du vill söka i söktextrutan och starta sökningen. Resultatet presenteras i ett album för tillfälligt bruk som heter <b>Funna bilder</b> med länk till originalet i varje miniatyrbilds meny. <span style="color:#0a0;text-decoration:underline">Grön kant under bildtexten</span> betyder länkad bild.
   findHelp6: "Tips: Ta reda på hur många bilder det finns i albumsamlingen genom att söka efter ett ’/’ (i albumnamn)!"
   foundNoAlbums: Fann inga album!
   imageSeveral: Namnen på {n} bilder som ska tas bort
