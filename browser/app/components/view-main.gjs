@@ -529,9 +529,6 @@ class AllImages extends Component {
 
           </div>
 
-          {{!-- The image menu --}}
-          <MenuImage @toggleInfo={{this.toggleInfo}} />
-
         </div>
 
         {{!-- The slideshow image's name and texts --}}

@@ -1808,8 +1808,8 @@ export default class CommonStorageService extends Service {
       this.picIndex = this.allFiles.findIndex(all => {return all.name === name;});
     }
     let name = this.picName;
-      this.loli(this.picName + ':', 'color:red');
-      console.log(this.allFiles[this.picIndex])
+      // this.loli(this.picName + ':', 'color:red');
+      // console.log(this.allFiles[this.picIndex])
 
     const loliClose = (name) => this.loli('closed menu of image ' + name + ' in album ' + this.imdbRoot + this.imdbDir);
 
