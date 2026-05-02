@@ -124,7 +124,7 @@ toggtext: "Visa/dölj\nbildtexter"
 wait: vänta
 with: med
 txtGif: Gif-bild! Kan bara ges tillfällig text som inte bevaras permanent
-xplErrImg: Uppskattning av original-\nbildens tekniska kvalitet
+xplErrImg: "Uppskattning av original-<br>bildens tekniska kvalitet:"
 
 albumcollselect: Vänligen välj en albumsamling i huvudmenyn!
 albumMissing: Det här albumet kan inte visas, kanske<br>

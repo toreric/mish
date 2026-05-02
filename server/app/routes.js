@@ -207,7 +207,7 @@ export default function(app) { // Start module.exports
   // ##### Return file information
   //#region filestat
   app.get('/filestat', async (req, res) => {
-    console.log(BGRE + '/filestat' + RSET) // Too much?
+    // console.log(BGRE + '/filestat' + RSET) // Too much?
     var file = decodeURIComponent(req.get('path'))
     file = IMDB + file
     // This is an emergency solution, which was necessary since the 'filstat'

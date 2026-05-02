@@ -124,7 +124,7 @@ toggtext: "Show/hide\nimage captions"
 txtGif: Gif image! May only be given temporary text that cannot be kept permanently
 wait: wait
 with: with
-xplErrImg: Assessment of the technical \nquality of the original image
+xplErrImg: "Assessment of the technical<br>quality of the original image:"
 
 albumcollselect: Please select an album collection in the main menu!
 albumMissing: This album cannot be shown,<br>

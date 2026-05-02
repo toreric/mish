@@ -124,7 +124,7 @@ toggtext: "Bildunterschriften\nzeigen/verbergen"
 txtGif: Gif-Bild! Kann nur temporären Text zugewiesen der nicht dauerhaft gesichert werden kann
 wait: warten
 with: mit
-xplErrImg: Beurteilung der technischen \nQualität des Originalbildes
+xplErrImg: "Beurteilung der technischen<br>Qualität des Originalbildes:"
 
 albumcollselect: Bitte eine Albensammlung auswählen im Hauptmenü!
 albumMissing: Dieses Album kann, möglicherweise<br>
