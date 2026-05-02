@@ -477,6 +477,10 @@ class AllImages extends Component {
           {{/each}}
         </section>
 
+        {{#if this.infoVisible}}
+          <DialogInfo @toggleInfo={{this.toggleInfo}} />
+        {{/if}}
+
       </div>
 
     </div>
