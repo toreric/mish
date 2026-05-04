@@ -562,8 +562,8 @@ export default function(app) { // Start module.exports
       // console.log('IMDB_DIR = "' + IMDB_DIR + '"')
 
     var files = await findFiles(IMDB_DIR)
-      files ??= [] // equals
-      if (!files) {files = []}
+      files ??= [] // Logical Nullish Assignment
+      if (!files) {files = []} // Dito
         // console.log('files from FINDFILES:', files)
       var origlist = ''
       for (var i=0; i<files.length; i++) {
@@ -574,20 +574,20 @@ export default function(app) { // Start module.exports
         }
       }
       origlist = origlist.trim()
-      //////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////
       // Get, check and package quadruple file names:
-      // 1 path from album root of full size origin in the album
+      // 1 path from ALBUM ROOT of full size origin in the album
       // 2 server absolute path of 640x640 show png "
       // 3 server absolute path of 150x150 mini png "
       // 4 the image name = the file name except extension
       // Note: png is hiding a jpg or gif, resized from original
-      //////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////
       // Next to them, two '\n-free' metadata lines follow:
       // 5 Xmp.dc.description
       // 6 Xmp.dc.creator
-      // 7 A '&' or the path to the origin if it is a symlink
+      // 7 An '&' or the FULL path to the origin if it's a symlink
       // In case of symlink, files 2 and 3 are also symlinks
-      //////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////
         // console.log('files to PKGFILENAMES:' + LF + origlist)
       pkgfilenames(origlist).then(() => { // Will make 'allfiles'
         // pkgfilenames prints an initial console.log message,
@@ -727,12 +727,11 @@ export default function(app) { // Start module.exports
   })
 
   // ##### Update one or more database entries
-  // NOTE: 'req.body' handlings depend on bluebird/multer, unclear how?
-  // THUS: Please modify carefully! (a sipmle remove caused crossdomain trouble)
   //#region sqlupdate
-  app.post('/sqlupdate', async function(req, res, next) {
+  // NOTE: To handle 'req.body' with Formdata: Use multer().none()
+  app.post('/sqlupdate', multer().none(), async function(req, res, next) {
     console.log(BGRE + '/sqlupdate' + RSET)
-      // console.log("req.body =", req.body)
+      console.log("req.body =", req.body)
     let filepaths = req.body.filepaths
     //console.log ('SQLUPDATE', filepaths)
     let files = filepaths.trim().split(LF)
@@ -1144,7 +1143,8 @@ export default function(app) { // Start module.exports
     })**********/
   }
 
-  // ===== Make a package of orig, show, mini, and plain filenames, metadata, and symlink flag=origin
+  // ===== Make a package of orig, show, mini, and plain filenames, metadata,
+  //       and symlink flag = origin (see above!)
   //#region pkgfilenames
   async function pkgfilenames(origlist) {
 

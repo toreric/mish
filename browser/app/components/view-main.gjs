@@ -135,6 +135,7 @@ class SubAlbums extends Component {
     }
   }
 
+  //SubAlbums
   <template>
    <RefreshThis @for={{this.z.numShown}}>
     <p class='albumsHdr' draggable="false" ondragstart="return false">
@@ -195,6 +196,11 @@ class AllImages extends Component {
   detectEsc = (event) => {
     event.stopPropagation();
     if (event.code === 'Escape') { // Esc
+      ul = querySelector('.img_mini ul.menu_img_list');
+      if (ul.style.display !== 'none') {
+        ul.style.display = 'none';
+        return
+      }
       this.z.resetBorders();
     }
   }
@@ -221,7 +227,8 @@ class AllImages extends Component {
   //   this.z.markBorders(item.name);
   // }
 
-  // Copies 'allFiles' to 'items' by real-value duplication
+
+  // copyAllFiles: Copies 'allFiles' to 'items' by real-value duplication
   // NOTE: This function is only called from the hidden preload button,
   //  with id="loadMiniImages", used for album load by z.openAlbum().
   copyAllFiles = () => {
@@ -350,6 +357,7 @@ class AllImages extends Component {
   }
   //============================================================
 
+  // AllImages
   <template>
 
     <div style="margin:0 2.2rem;width:auto;height:auto;text-align:center" {{on 'mousedown' this.z.resetBorders}} {{on 'keydown' this.detectEsc}}>
@@ -463,7 +471,9 @@ class AllImages extends Component {
               </div>
 
               {{!-- The image menu --}}
-              <MenuImage @toggleInfo={{this.toggleInfo}} />
+                <MenuImage @toggleInfo={{this.toggleInfo}} />
+              {{#if this.infoVisible}}
+              {{/if}}
 
             </div>
           {{/each}}
@@ -477,9 +487,9 @@ class AllImages extends Component {
           {{/each}}
         </section>
 
-        {{#if this.infoVisible}}
+        {{!-- {{#if this.infoVisible}}
           <DialogInfo @toggleInfo={{this.toggleInfo}} />
-        {{/if}}
+        {{/if}} --}}
 
       </div>
 
@@ -558,6 +568,9 @@ class AllImages extends Component {
 
         </div>
         </RefreshThis>
+
+        {{!-- The image menu --}}
+        <MenuImage @toggleInfo={{this.toggleInfo}} />
 
     </div>
 

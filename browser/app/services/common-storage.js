@@ -332,7 +332,7 @@ export default class CommonStorageService extends Service {
       window.onpopstate = () => {
         this.goBack();
       }
-      await new Promise (z => setTimeout (z, 10000)); // eternal loop pause
+      await new Promise (z => setTimeout (z, 10000)); // eternal loop pause in initBrowser
     }
   }
 
@@ -381,7 +381,7 @@ export default class CommonStorageService extends Service {
       this.openAlbum(i);
       // Allow for the rendering of mini images and preload of view images
       let size = this.albumAllImg(i);
-      await new Promise (z => setTimeout (z, size*120 + 100)); // album load
+      await new Promise (z => setTimeout (z, size*120 + 100)); // album load in homeAlbum
       this.gotoMinipic(picName);
     }
   }
@@ -480,7 +480,7 @@ export default class CommonStorageService extends Service {
 
     // Allow for the rendering of mini images and preload of view images
     let size = this.albumAllImg(i);
-    await new Promise (z => setTimeout (z, size*2)); // album load
+    await new Promise (z => setTimeout (z, size*2)); // album load in openAlbum
 
     // Then hide the spinner
     document.querySelector('img.spinner').style.display = 'none';
@@ -549,7 +549,7 @@ export default class CommonStorageService extends Service {
     // Display the spinner already (will be hidden somewhere else)
     document.querySelector('img.spinner').style.display = '';
 
-    await new Promise (z => setTimeout (z, 799)); // selectRoot, ensurance!?
+    await new Promise (z => setTimeout (z, 799)); // in updateTree, ensurance!?
     // The await reason: Sometimes getAlbumDirs is unsuspectedly null
     // The await values history: 199, 399, 799
 
@@ -560,21 +560,20 @@ export default class CommonStorageService extends Service {
     let tmp = await this.getAlbumDirs(allow.textEdit);
     let arr = tmp.split(LF);
       // this.loli(arr[1], 'color:red');
-
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-    // The two first lines (to be shifted off) have other content
+    // The three first lines (to be shifted off) have other content
     arr.shift();
     arr.shift();
+    arr.shift();
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-
     let n = arr.length/3;
-    this.imdbDirs = arr.splice(0, n); // album paths (without root)
+    this.imdbDirs = arr.splice(0, n); // album paths (without root directory)
     this.imdbCoco = arr.splice(0, n); // album content counts
     this.imdbLabels = arr.splice(0, n); // album labels (thumbnail paths)
-      this.loli('imdbCoco ' + n + LF + this.imdbCoco.join(LF), 'color:yellow');
-      this.loli('imdbDirs ' + n + LF + this.imdbDirs.join(LF), 'color:yellow');
-      this.loli('imdbLabels ' + n + LF + this.imdbLabels.join(LF));
-      this.loli(this.imdbDirs, 'color:green');
+      // this.loli('imdbCoco ' + n + LF + this.imdbCoco.join(LF), 'color:yellow');
+      // this.loli('imdbDirs ' + n + LF + this.imdbDirs.join(LF), 'color:yellow');
+      // this.loli('imdbLabels ' + n + LF + this.imdbLabels.join(LF));
+      // this.loli(this.imdbDirs, 'color:green');
 
     // let data = structuredClone(this.imdbDirs); // alt. clone-copy
     let data = [...this.imdbDirs]; // clone-copy albums
@@ -620,9 +619,9 @@ export default class CommonStorageService extends Service {
       // this.loli(this.imdbDirs);
       // this.loli('imdbTree ' + n + LF + JSON.stringify(result, null, 2)); //human readable
       // this.loli(this.imdbCoco.length, 'color:red');
-    // await new Promise (z => setTimeout (z, 33*this.imdbCoco.length)); // selectRoot Wait for album tree
+    // await new Promise (z => setTimeout (z, 33*this.imdbCoco.length)); // in updateTree Wait for album tree
     this.refreshTree ++;
-    await new Promise (z => setTimeout (z, 333)); // selectRoot Wait for album tree
+    await new Promise (z => setTimeout (z, 333)); // in updateTree Wait for album tree
 
     // Set colors in the album tree
     this.paintTree(this.imdbDirIndex);
@@ -633,6 +632,11 @@ export default class CommonStorageService extends Service {
   toggleText = () => {
     if (document.getElementById('link_texts').style.display === 'none') document.getElementById('link_texts').style.display ='';
     else document.getElementById('link_texts').style.display ='none';
+
+    if (document.getElementById('link_texts').style.display === '') {
+      if (document.querySelector('#link_texts .img_name').style.display === 'none') document.querySelector('#link_texts .img_name').style.display ='block';
+      else document.querySelector('#link_texts .img_name').style.display ='none';
+    }
   }
 
   //#region toggleBackg
@@ -905,7 +909,7 @@ export default class CommonStorageService extends Service {
           // this.loli('show path: ' + path, 'color:red');
       // Set the actual picName and picIndex, do not forget!
       this.picName = name;
-      while (!this.allFiles) await new Promise (z => setTimeout (z,99));
+      while (!this.allFiles) await new Promise (z => setTimeout (z,99)); // in showImage
       this.picIndex = this.allFiles.findIndex(a => {return a.name === this.picName;});
       document.querySelector('.miniImgs.imgs').style.display = 'none'; //was 'flex'
       // Load the show image source path and set it's id="dname"
@@ -961,7 +965,7 @@ export default class CommonStorageService extends Service {
       this.gotoMinipic(this.picName);
       document.querySelector('p.footer').style.display = '';
     }
-    await new Promise (z => setTimeout (z, 99)); // showImage
+    await new Promise (z => setTimeout (z, 99)); // in showImage
     // If the dialogText is visible, it should focus
     document.getElementById('dialogTextDescription').focus();
   }
@@ -973,12 +977,12 @@ export default class CommonStorageService extends Service {
     // If so, other than next or previous image is demanded:
     if (e) {
       e.stopPropagation();
-      if (e.button === 0) {
+      if (e.button === 0) { // main left button
         if (e.ctrlKey) {
           // Here, to avoid Ctrl+A-marking, some elements
           // must have CSS with 'user-select: none;'
           e.target.parentElement.style.userSelect = 'none';
-          let uli = document.querySelector('#link_show ul');
+          let uli = document.querySelector('.img_show ul.menu_img_list');
           if (uli.style.display === '') {
             uli.style.display = 'none';
             this.loli('closed menu of image ' + this.picName + ' in album ' + this.imdbRoot + this.imdbDir);
@@ -1076,7 +1080,7 @@ export default class CommonStorageService extends Service {
       // else this.edgeImage = this.intl.t('imageNumber', {n: ino})
     }
       // this.loli('end of showNext', 'color:red');
-    await new Promise (z => setTimeout (z, 99)); // showNext
+    await new Promise (z => setTimeout (z, 99)); // in showNext
     // If the dialogText is visible, it should focus
     document.getElementById('dialogTextDescription').focus();
   }
@@ -1606,6 +1610,7 @@ export default class CommonStorageService extends Service {
           statusText: xhr.statusText
         });
       }
+        console.log(data);
       xhr.send (data);
     });
   }
@@ -1770,13 +1775,13 @@ export default class CommonStorageService extends Service {
     var menuButton = document.getElementById('menuButton');
     var menuMain = document.getElementById('menuMain');
     menuMain.style.display = '';
-    await new Promise (z => setTimeout (z, 9)); // openMainMenu
+    await new Promise (z => setTimeout (z, 9)); // in openMainMenu
     menuButton.style.background = "#444 url('/images/cross.png') center 0.6rem/0.9rem no-repeat";
     // Ensure that the main menu behaves
     let ifshow = this.imdbRoot ? '' : 'none';
     document.getElementById('albumHead').style.display = ifshow;
     document.querySelector('div.albumTree').style.display = ifshow;
-    await new Promise (z => setTimeout (z, 29)); // openMainMenu
+    await new Promise (z => setTimeout (z, 29)); // in openMainMenu
       // console.log('menuButton', menuButton);
     this.loli('opened main menu');
     return '';
@@ -1787,9 +1792,9 @@ export default class CommonStorageService extends Service {
     if (menuMain.style.display === 'none') return '';
     var menuButton = document.getElementById('menuButton');
     menuMain.style.display = 'none';
-    await new Promise (z => setTimeout (z, 9)); // closeMainMenu
+    await new Promise (z => setTimeout (z, 9)); // in closeMainMenu
     menuButton.style.background = "#444 url('/images/favicon0.png') center 0.3rem/1.5rem no-repeat"; // Also in CSS (app.css)
-    await new Promise (z => setTimeout (z, 29)); // closeMainMenu
+    await new Promise (z => setTimeout (z, 29)); // in closeMainMenu
       // console.log('menuButton', menuButton);
     this.loli('closed main menu ' + msg);
     return '';
@@ -1864,12 +1869,12 @@ export default class CommonStorageService extends Service {
     let diaObj = document.getElementById(dialogId);
       if (!diaObj) return; // DEBUG TMP DEBUG TMP DEBUG TMP DEBUG TMP
     let what = 'closed ';
-    await new Promise (z => setTimeout (z, 20)); // toggleDialog
+    await new Promise (z => setTimeout (z, 20)); // in toggleDialog
     if (diaObj.hasAttribute('open')) {
       diaObj.close();
     } else {
       what = 'opened ';
-      await new Promise (z => setTimeout (z, 20)); // toggleDialog
+      await new Promise (z => setTimeout (z, 20)); // in toggleDialog
       if (origPos) diaObj.style.display = '';
       diaObj.show();
     }
@@ -1923,7 +1928,7 @@ export default class CommonStorageService extends Service {
       // When the img_mini pictures are visible,
       if (document.querySelector('.miniImgs.imgs').style.display !== 'none') {
         // let size = this.albumAllImg(this.imdbDirs.indexOf(this.imdbDir));
-        // await new Promise (z => setTimeout (z, size*6 + 10)); // album rerender
+        // await new Promise (z => setTimeout (z, size*6 + 10)); // album rerender in saveDialog, obsolete
       } else { // else the img_show picture is visible
         document.querySelector('#link_texts .img_txt1').innerHTML = txt1;
         document.querySelector('#link_texts .img_txt2').innerHTML = txt2;
@@ -1931,7 +1936,7 @@ export default class CommonStorageService extends Service {
       // console.log(this.allFiles[this.picIndex])
       this.refreshTexts ++; // Change trigger to rerender by RefreshThis
       let size = this.albumAllImg(this.imdbDirs.indexOf(this.imdbDir));
-      await new Promise (z => setTimeout (z, size*6 + 10)); // album rerender
+      await new Promise (z => setTimeout (z, size*6 + 10)); // album rerender in saveDialog
       this.paintHideFlags(); // AFTER RERENDER!
       this.markBorders(this.picName, 'z.saveDialog');
       // Remove the initial '../..etc.' if 'path' is from 'f.orig' //**
@@ -1956,7 +1961,7 @@ export default class CommonStorageService extends Service {
 
   saveCloseDialog = async (dialogId) => {
     this.saveDialog(dialogId);
-    await new Promise (z => setTimeout (z, 123)); // saveCloseDialog
+    await new Promise (z => setTimeout (z, 123)); // in saveCloseDialog
     this.closeDialog(dialogId);
   }
 

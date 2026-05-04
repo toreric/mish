@@ -39,8 +39,8 @@ const selMinImgs = (picName) => {
   else return document.querySelectorAll('#i' + picName.replace(/\./g, '\\.'));
 }
 
-// NOTE: MenuImage is the menu OF ONE image though some options may refer
-// to multiple images depending on grouping by markings, or similar.
+// NOTE: MenuImage is the menu OF ONE image though some options may
+// refer to multiple images from grouping by markings, or similar.
 export class MenuImage extends Component {
   @service('common-storage') z;
   @service intl;
@@ -48,7 +48,7 @@ export class MenuImage extends Component {
  // Detect closing Esc key
   detectClose = (e) => {
     e.stopPropagation();
-    // Detect Esc key, or mouse click in the uppermost × line of this menu:
+    // Detect Esc key, or mouse click in the uppermost (×) line of this menu:
     if (e.type === 'keydown' && e.code === 'Escape' || e.type === 'click') {
       // Close any open image menu (still if probably one single is open):
       for (let list of document.querySelectorAll('.menu_img_list')) list.style.display = 'none';
@@ -573,11 +573,11 @@ export class MenuImage extends Component {
   // toggleInfo = () => {  // @action
   //   this.infoVisible = !this.infoVisible;
   // }
-  toggleInfo = () => {
-    this.args.toggleInfo?.();
-  }
+  // toggleInfo = () => {
+  //   this.args.toggleInfo?.();
+  // }
 
-
+  // MenuImage
   <template>
     <button class='menu_img' type="button" title="{{t 'imageMenu'}}"
     {{!-- {{on 'click' (fn this.z.toggleMenuImg 1)}} --}}
