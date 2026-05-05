@@ -190,7 +190,8 @@ buttons:
             (återställ osparade ändringar)"
 
     name: Visa/dölj bildnamnen
-    hide: Visa/dölj gömda bilder
+    hide: "Minst en bild är gömd:\n
+          visa/dölj gömda bilder"
     save: Spara ändringar
     mail: "Mejla gärna en fråga\n
           eller skicka andra\n

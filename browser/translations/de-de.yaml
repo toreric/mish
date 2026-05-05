@@ -189,7 +189,8 @@ buttons:
             Änderungen zurücksetzen)"
 
     name: Bildnamen zeigen/verbergen
-    hide: Versteckte Bilder zeigen/verbergen
+    hide: "Mindestens ein verstecktes Bild:\n
+          versteckte Bilder zeigen/verbergen"
     save: Änderungen speichern
     mail: "Bitte Frage(n) mailen, oder\n
           Nachricht mit weitere\n

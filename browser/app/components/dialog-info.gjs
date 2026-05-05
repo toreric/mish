@@ -21,15 +21,15 @@ const LF = '\n';   // Line Feed == New Line
 const BR = '<br>'; // HTML line break
 
 // Detect closing Esc key
-const detectEscClose = (e) => {
-  if (e.code !== 'Escape') return;
-  e.stopPropagation();
-  let diaObj = document.getElementById(dialogInfoId);
-  if (diaObj.open) {
-    diaObj.close();
-    console.log('-"-: closed ' + dialogInfoId);
-  }
-}
+// const detectEscClose = (e) => {
+//   if (e.code !== 'Escape') return;
+//   e.stopPropagation();
+//   let diaObj = document.getElementById(dialogInfoId);
+//   if (diaObj.open) {
+//     diaObj.close();
+//     console.log('-"-: closed ' + dialogInfoId);
+//   }
+// }
 
 export class DialogInfo extends Component {
   @service('common-storage') z;
@@ -102,7 +102,8 @@ export class DialogInfo extends Component {
   }
 
   <template>
-    <dialog id="dialogInfo" {{on 'keydown' detectEscClose}} open>
+    {{!-- <dialog id="dialogInfo" {{on 'keydown' detectEscClose}} open> --}}
+    <dialog id="dialogInfo" open>
       <header data-dialog-draggable>
         <div style="width:99%">
           <p>{{t 'dialog.info.header'}}<span></span></p>

@@ -190,7 +190,8 @@ buttons:
             (reset unsaved changes)"
 
     name: Show/hide image names
-    hide: Show/hide hidden images
+    hide: "At least one image is hidden:\n
+          show/hide hidden images"
     save: Save changes
     mail: "Please mail a question\n
           or send a message with\n

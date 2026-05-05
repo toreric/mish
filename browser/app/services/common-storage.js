@@ -672,7 +672,7 @@ export default class CommonStorageService extends Service {
   //#region ifHideSet
   ifHideSet = () => { // whether the hidden imgs are invisible
     return document.getElementById('toggleHide')
-    .style.backgroundImage === 'url("/images/eyes-blue.png")';
+    .style.backgroundImage === 'url("/images/eyes-blind.png")';
   }
 
 
@@ -689,7 +689,7 @@ export default class CommonStorageService extends Service {
 
   //#region hideHidden
   hideHidden = () => {
-    document.getElementById('toggleHide').style.backgroundImage = 'url(/images/eyes-blue.png)';
+    document.getElementById('toggleHide').style.backgroundImage = 'url(/images/eyes-blind.png)';
     let n = 0;
     for (let pic of document.querySelectorAll('.img_mini.hidden')) {
       // console.log('hideHidden:', pic.classList);
@@ -751,7 +751,7 @@ export default class CommonStorageService extends Service {
     if (this.numHidden) document.getElementById('toggleHide').style.display = '';
     else {
       document.getElementById('toggleHide').style.display = 'none';
-      document.getElementById('toggleHide').style.backgroundImage = 'url(/images/eyes-blue.png)';
+      document.getElementById('toggleHide').style.backgroundImage = 'url(/images/eyes-blind.png)';
     }
     this.numInvisible = document.querySelectorAll('.img_mini.invisible').length;
     this.numLinked = document.querySelectorAll('.img_mini.symlink').length;

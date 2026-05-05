@@ -196,6 +196,7 @@ class AllImages extends Component {
   detectEsc = (event) => {
     event.stopPropagation();
     if (event.code === 'Escape') { // Esc
+      if (this.infoVisible) this.toggleInfo();
       ul = querySelector('.img_mini ul.menu_img_list');
       if (ul.style.display !== 'none') {
         ul.style.display = 'none';
