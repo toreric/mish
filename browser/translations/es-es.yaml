@@ -416,7 +416,7 @@ write:
   noneFound: Sorry, no image found!
   notEmpty: The album must first be emptied!
   notes: Notes not shown with the image
-  originUntouch: "<b>NOTE</b> that there is a difference between images: Green image names do not refer to own <b>original images</b> but to <b>linked images</b> (more simply: <b>links</b>). An image with a green bottom border is actually just a link to its original image in another album. An original image remains untouched even when the link to it is removed."
+  originUntouch: "<b>NOTE</b> that there is a difference between images: Green image names do not refer to own <b>original images</b> but to <b>linked images</b> (or simply: <b>links</b>). An image with a green bottom border is actually just a link to its original image in another album. An original image remains untouched even when the link to it is removed."
   reloadRequired: <br><br>Changed album structure requires restart<br>
   searchTerms: Escribe los términos de búsqueda separados por espacios, no importa si son mayúsculas o minúsculas, ni tampoco diacríticos excepto üåäö (elija a continuación en qué textos buscar)
   set0: Choose settings

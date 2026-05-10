@@ -367,7 +367,7 @@ write:
   doErased: "{n} Bilder aus ”{a}” entfernt"
   doErased1: Ein Bild aus ”{a}” entfernt
   doLinked: "{n} Bilder zu ”{a}” verlinkt"
-  doLinked1: Ein Bild aus ”{a}” verlinkt
+  doLinked1: Ein Bild zu ”{a}” verlinkt
   doMoved:  "{n} Bilder zu ”{a}” verschiebt"
   doMoved1:  Ein Bild zu ”{a}” verschiebt
   eraseFunc: LÖSCHEN von Originalbildern kann nicht rückgängig gemacht werden

@@ -55,46 +55,42 @@ export class DialogText extends Component {
     // There are 2 subdialogs
     if (tmp1.open) {
       this.z.closeDialog(tmp1.id);
-      await new Promise (z => setTimeout(z, 9)); // detectEscClose
+      await new Promise (z => setTimeout(z, 9)); // in detectEscClose
     } else if (tmp2.open) {
       this.z.closeDialog(tmp2.id);
-      await new Promise (z => setTimeout(z, 9)); // detectEscClose
+      await new Promise (z => setTimeout(z, 9)); // in detectEscClose
     } else {
       this.z.closeDialog(dialogTextId);
     }
   }
 
   picName = () => { // failed when async/await was required
-      this.z.loli('picName = ' + this.z.picName, 'color:yellow');
-      this.z.loli('picIndex = ' + this.z.picIndex, 'color:yellow');
-      this.z.loli('allFiles = ' + this.z.allFiles, 'color:yellow');
-      console.log(this.z.allFiles);
+      // this.z.loli('picName = ' + this.z.picName, 'color:yellow');
+      // this.z.loli('picIndex = ' + this.z.picIndex, 'color:yellow');
+      // this.z.loli('allFiles:', 'color:yellow');
+      // console.log(this.z.allFiles);
     if (!this.z.picName) return; // Dismiss initial reactivity
     // if (this.z.picIndex < 0) return; // Dismiss initial reactivity
-    if (!this.z.allFiles) return; // Dismiss initial reactivity
+    // if (!this.z.allFiles) return; // Dismiss initial reactivity
     let name = this.z.picName;
-      this.z.loli(name, 'color:pink');
-    let item = this.z.allFiles; // reference only
-    this.z.picIndex = this.items.findIndex(item => {return item.name === name;});
+    this.z.picIndex = this.z.allFiles.findIndex(item => {return item.name === name;});
     let text = '';
     let path = this.z.allFiles[this.z.picIndex].linkto;
-    let nodeMess = document.querySelector('#dialogText main .diaMess b');
-      this.z.loli(path, 'color:pink');
-      console.log(nodeMess);
+      // this.z.loli('Path from allFiles = ' + path, 'color:yellow');
+    let gifMess = document.querySelector('#dialogText main .diaMess b');
     if (/\.gif$/i.test(path)) {
-      // Insert after '#dialogText main .diaMess'
       // Gif image! Cannot be given permanent text and it can just be saved temporarily
       text = this.intl.t('txtGif');
-        console.log(text);
+        // console.log(text);
       // Disable the Notes and Keyword buttons
       document.getElementById('dialogTextButton4').setAttribute('disabled', '');
       document.getElementById('dialogTextButton5').setAttribute('disabled', '');
-      nodeMess.textContent = text;
+      gifMess.textContent = text;
     } else {
       // Enable the Notes and Keyword buttons
       document.getElementById('dialogTextButton4').removeAttribute('disabled');
       document.getElementById('dialogTextButton5').removeAttribute('disabled');
-      nodeMess.textContent = '';
+      gifMess.textContent = '';
     }
     return this.z.picName;
   }
@@ -111,7 +107,7 @@ export class DialogText extends Component {
     return this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt2.toString());
   }
 
-  texts = async () => { // *************************KOLLA
+  texts = async () => { // ********* Check this, what is it for?
     if (!this.z.picName) return;
     let desc = document.getElementById('dialogTextDescription');
       // this.z.loli('picName = ' + this.z.picName, 'color:red');
@@ -140,7 +136,9 @@ export class DialogText extends Component {
       <dialog id="dialogText" style="width:min(calc(100vw - 1rem),700px)">
         <header data-dialog-draggable >
           <p>&nbsp;</p>
-          <p><b>{{t 'dialog.text.header'}} <span style="color:blue;cursor:pointer" type="button" {{on 'click' this.texts}} title="{{t 'dialog.text.reset'}}">{{this.z.picName}}</span></b></p>
+          <p><b>{{t 'dialog.text.header'}}<span style="color:blue;cursor:pointer" type="button" {{on 'click' this.texts}} title="{{t 'dialog.text.reset'}}">
+            {{this.picName}}</span></b></p>
+          {{!-- ^^^Here^^^  'this.picName' did some settings for GIFs etc.!!! --}}
           <button class="close" type="button" {{on 'click' (fn this.z.closeDialog dialogTextId)}}>×</button>
         </header>
         <main>

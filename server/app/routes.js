@@ -1073,35 +1073,32 @@ export default function(app) { // Start module.exports
     const items = await readdir(IMDB + dirName) // items are file || dir names
       // console.log('items:', items.length,items)
     let files = []
-    // await new Promise(z => setTimeout(z, 5222)) // so log is written before catch
+      // await new Promise(z => setTimeout(z, 2222)) // so log is written before catch
     try {
       for (let i=0;i<items.length;i++) {
-          // await new Promise(z => setTimeout(z, 2222)) //log is written before catch
+          // await new Promise(z => setTimeout(z, 122)) // so log is written before catch
         var filepath = path.join(IMDB + dirName, items[i]) //refers to server (not web) root
         files[i] = filepath
           // console.log('filepath:', i, files[i])
-        var brli = brokenLink(filepath)
+        var brli = brokenLink(files[i])
         if (brli) {
-          rmPic(filepath) // may hopefully also work for removing any single file ...
-          files[i] = path.join(path.dirname(filepath), '.ignore') // fake dotted file
+          rmPic(files[i]) // may hopefully also work for removing any single file ...
+          files[i] = path.join(path.dirname(files[i]), '.ignore') // fake dotted file
             // console.log('    >>>>', i, files[i])
         } else { // Check if this is a regular file:
-          fs.stat(filepath, (err, stat) => {
+          fs.stat(files[i], (err, stat) => {
             // if (stat.mode & 0o100000) {
             if (stat.mode & constants.S_IFREG) {
               // See 'man 2 stat': S_IFREG bitmask for 'Regular file', and google more!
             } else {
-              files[i] = path.join(path.dirname(filepath), '.ignore') // fake dotted file
+              files[i] = path.join(path.dirname(files[i]), '.ignore') // fake dotted file
                 // console.log('    >>>>', i, files[i])
             }
           })
-         /*let stat = fs.stat(filepath)
-          if (stat.mode & 0o100000) {
-            // See 'man 2 stat': S_IFREG bitmask for 'Regular file', and google more!
-            files.push(filepath)
-          } else {
-            files.push(path.join(path.dirname(filepath), '.ignore')) // fake dotted file
-          }*/
+          // An attempt to distinguish empty files
+          // if (items[i].slice(0,1) !== '.') {
+          //   let tmp = (await exec('du -Ld0 ' + files[i])).stdout.toString().trim()
+          //   tmp = tmp.replace(/\s+.*$/, '') ... etc... if tmp==='0' then empty }
         }
       }
         // console.log('return:', files)
@@ -1109,53 +1106,21 @@ export default function(app) { // Start module.exports
     } catch(err) {
       const tmp = IMDB_ROOT + dirName
       console.error(RED + 'Error in findFiles, dirName = "' + tmp + '"'+ RSET)
-      // console.error(RED + 'Error in findFiles, filepath = "' + filepath + '"'+ RSET)
+      // console.error(RED + 'Error in findFiles, files[i] = "' + files[i] + '"'+ RSET)
       console.log(RED + err.toString() + RSET)
       return ''
     }
-    /*****************************old code**************************************
-    return fs.readdirAsync(IMDB + dirName).map(function(fileName) { // Cannot use mapSeries here(why?)
-        var filepath = path.join(IMDB + dirName, fileName)
-
-      // console.log('filepath:', filepath)
-
-      var brli = brokenLink(filepath) // refers to server root
-      if (brli) {
-        rmPic(filepath) // may hopefully also work for removing any single file ...
-        return path.join(path.dirname(filepath), '.ignore') // fake dotted file
-      }
-      return fs.stat(filepath).then(function(stat) {
-        if (stat.mode & 0o100000) {
-          // See 'man 2 stat': S_IFREG bitmask for 'Regular file', and google more!
-          return filepath
-        } else {
-          return path.join(path.dirname(filepath), ".ignore") // fake dotted file
-        }
-      })
-    })
-    .reduce(function(a, b) {
-      //return a.concat(b)
-      if (b) {a = a.concat(b)} // Discard undefined, from brokenLink check!
-      return a
-    }, [])
-    .catch(err => {
-      console.log("£RR", err.toString())
-    })**********/
   }
 
   // ===== Make a package of orig, show, mini, and plain filenames, metadata,
   //       and symlink flag = origin (see above!)
   //#region pkgfilenames
   async function pkgfilenames(origlist) {
-
           // console.log('PKGFILENAMES')
           // console.log('origlist: \n' + origlist)
-
-    if (origlist) {
-      let files = origlist.split('\n')
-
-      // console.log('origlist:', files)
-
+    let files = []
+    if (origlist) files = origlist.split('\n')
+          // console.log('origlist:', files)
       allfiles = ''
       for (let file of files) {
         execSync('pentaxdebug ' + file) // Pentax metadata bug fix is done here
@@ -1165,9 +1130,9 @@ export default function(app) { // Start module.exports
       }
       console.log('Showfiles•minifiles•metadata...')
       return allfiles.trim()
-    } else {
-      return ''
-    }
+    // } else {
+    //   return ''
+    // }
   }
   async function pkgonefile(file) {
 

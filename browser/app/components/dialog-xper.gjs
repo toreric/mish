@@ -62,7 +62,8 @@ export class DialogXper extends Component {
     <dialog id="dialogXper" {{on 'keydown' this.detectEscClose}}>
       <header data-dialog-draggable>
         <div style="width:99%">
-          <p>Experimental dialog<span></span></p>
+          <p>Experimental dialog for special use<br>
+            <span style="color:brown"><b>Please close if opened by mistake!</b></span></p>
         </div>
         <div>
           <button class="close" type="button" {{on 'click' (fn this.z.closeDialog dialogXperId)}}>×</button>

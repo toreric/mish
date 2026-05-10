@@ -186,7 +186,6 @@ class AllImages extends Component {
   @service intl;
 
   // @tracked lastDragged; // for ember-sortable
-  @tracked items = []; // NOTE: Used for allFiles duplication, below
 
   @tracked infoVisible = false; // for DialogInfo and MenuImage
   toggleInfo = () => {
@@ -209,7 +208,7 @@ class AllImages extends Component {
   // // For ember-sortable:
 
   // reorderItems = (itemModels, draggedModel) => {
-  //   this.items = itemModels;
+  //   this.z.imgItems = itemModels;
   //   this.lastDragged = draggedModel;
   // }
 
@@ -229,15 +228,15 @@ class AllImages extends Component {
   // }
 
 
-  // copyAllFiles: Copies 'allFiles' to 'items' by real-value duplication
+  // copyAllFiles: Copies 'allFiles' to 'imgItems' by real-value duplication
   // NOTE: This function is only called from the hidden preload button,
   //  with id="loadMiniImages", used for album load by z.openAlbum().
   copyAllFiles = () => {
-    this.items = [...this.z.allFiles];
-    // this.items = [];
+    this.z.imgItems = [...this.z.allFiles];
+    // this.z.imgItems = [];
     // for (let file of this.z.allFiles) {
         // this.z.loli(file.show, 'color:red');
-    //  this.items.push(file);
+    //  this.z.imgItems.push(file);
     // }
   }
 
@@ -265,15 +264,15 @@ class AllImages extends Component {
 
   // The image caption texts (from metadata)
   txt = (no, name) => {
-    let i = this.items.findIndex(item => {return item.name === name;});
+    let i = this.z.imgItems.findIndex(item => {return item.name === name;});
     this.z.picIndex = i; // Do not forget to update picIndex!
       // this.z.loli('picIndex = ' + i, 'color:orange');
     let r = '';
     if (i > -1) {
       if (no === 1) {
-        r = this.items[i].txt1;
+        r = this.z.imgItems[i].txt1;
       } else {
-        r = this.items[i].txt2;
+        r = this.z.imgItems[i].txt2;
       }
     }
     // if (!r.trim()) r = '&nbsp;';
@@ -348,12 +347,12 @@ class AllImages extends Component {
   // Requires: ember install ember-draggable-modifiers (before: ember-sortable)
   //============================================================
   move = ({ source: { data: draggedItem }, target: { data: dropTarget, edge } }) => {
-    this.items = removeItem(this.items, draggedItem);
+    this.z.imgItems = removeItem(this.z.imgItems, draggedItem);
 
     if (edge === 'top') {
-      this.items = insertBefore(this.items, dropTarget, draggedItem);
+      this.z.imgItems = insertBefore(this.z.imgItems, dropTarget, draggedItem);
     } else {
-      this.items = insertAfter(this.items, dropTarget, draggedItem);
+      this.z.imgItems = insertAfter(this.z.imgItems, dropTarget, draggedItem);
     }
   }
   //============================================================
@@ -434,7 +433,7 @@ class AllImages extends Component {
         >
           {{!-- The thumnail images are displayed --}}
           <RefreshThis @for={{this.z.refreshTexts}}>
-          {{#each this.items as |item|}}
+          {{#each this.z.imgItems as |item|}}
             <div class="img_mini {{item.symlink}}" id="i{{item.name}}"
               {{sortableItem data=item onDrop=this.move}}
               {{on 'mousedown' this.z.resetBorders}}
@@ -472,9 +471,9 @@ class AllImages extends Component {
               </div>
 
               {{!-- The image menu --}}
-                <MenuImage @toggleInfo={{this.toggleInfo}} />
-              {{#if this.infoVisible}}
-              {{/if}}
+              <MenuImage @toggleInfo={{this.toggleInfo}} />
+              {{!-- {{#if this.infoVisible}}
+              {{/if}} --}}
 
             </div>
           {{/each}}
@@ -483,14 +482,10 @@ class AllImages extends Component {
 
         {{!-- Preload the show images --}}
         <section info="PRELOAD" style="display:none">
-          {{#each this.items as |item|}}
+          {{#each this.z.imgItems as |item|}}
             <img src="{{item.show}}" style="width:1px;height:1px;display:none">
           {{/each}}
         </section>
-
-        {{!-- {{#if this.infoVisible}}
-          <DialogInfo @toggleInfo={{this.toggleInfo}} />
-        {{/if}} --}}
 
       </div>
 

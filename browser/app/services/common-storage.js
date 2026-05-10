@@ -93,7 +93,7 @@ export default class CommonStorageService extends Service {
   // which needs permission for access
 
   initialize = async () => { // Called from routes/application.js
-    // idempotent: safe to call multiple times, but should be called ONCE
+    // idempotent: safe to call multiple times, but should be called once
     if (this.imdbRoots === null) this.imdbRoots = this.imdbRootsPrep;
     if (this.intlCodeCurr === null) this.intlCodeCurr = this.intlCode;
     if (this.picFound === null) this.picFound = this.picFoundBaseName + '.' + this.RID;
@@ -128,6 +128,10 @@ export default class CommonStorageService extends Service {
   selectChoice = (nr) => {
     this.buttonNumber = nr;
   }
+
+  // Used for allFiles duplication in AllImages of ViewMain (former local)
+  // Must be reached for reset, also from the MenuMain component
+  @tracked imgItems = [];
 
   //   #region ALOWANCE
   //== Allowances variables/properties/methods
@@ -254,6 +258,16 @@ export default class CommonStorageService extends Service {
   deNormalize2LF = (str) =>{
     return str.replace(/<br>/g, LF);
   }
+  // Replace \n with <br> and remove excess spaces
+  // Used in saveDialog('dialogText'), cf. deNormalize2LF
+  normalize2br = (str, leaveEnd) => {
+    if (leaveEnd) {
+      str = str.trimStart();
+    } else {
+      str = str.trim();
+    }
+    return str.replace(/\n +/g, LF).replace(/\n/g, ' <br>').replace(/ +/g, ' ');
+  }
 
   // Neutralize dots for CSS, e.g. in the querySelector() argument
   escapeDots = (textString) => { // Cf. CSS.escape()
@@ -271,17 +285,6 @@ export default class CommonStorageService extends Service {
     if (tmp[0] === '§') tmp = tmp.replace(/\.[^.]+$/, '').slice(1);
       // this.loli('tmp. = ' + tmp, 'color:yellow');
     return tmp;
-  }
-
-  // Replace \n with <br> and remove excess spaces
-  // Used in saveDialog('dialogText'), cf. deNormalize2LF
-  normalize2br = (str, leaveEnd) => {
-    if (leaveEnd) {
-      str = str.trimStart();
-    } else {
-      str = str.trim();
-    }
-    return str.replace(/\n +/g, LF).replace(/\n/g, ' <br>').replace(/ +/g, ' ');
   }
 
   // Remove HTML tags from text and decode HTML entities
@@ -412,8 +415,12 @@ export default class CommonStorageService extends Service {
     this.numMarked = 0;
 
     i = Number(i); // important!
-    //if (i === 0) this.albumHistory = [0]; // Recover from possible "browser disorder"
     this.imdbDir = this.imdbDirs[i];
+    // if (this.imdbDir == this.picFound) {
+    //   document.getElementById('imgWrapper').innerHTML = ''
+    // }
+    this.imgItems = [];  // remove any old thumbnails
+    this.clearMiniImgs();
     this.imdbDirIndex = i;
     let h = this.albumHistory;
     if (h.length > 0 && h[h.length - 1] !== i) this.albumHistory.push(i);
@@ -457,7 +464,8 @@ export default class CommonStorageService extends Service {
     this.numImages = newFiles.length;
     this.allFiles = [...newFiles]; // copy back ¤¤¤
 
-    this.clearMiniImgs(); // remove any old thumbnails
+    this.imgItems = []; // remove any old thumbnails
+    // this.clearMiniImgs();
     // Hide the subalbums etc.
     document.querySelector('#upperButtons').style.display = 'none';
     document.querySelector('.albumsHdr').style.display = 'none';
@@ -772,7 +780,14 @@ export default class CommonStorageService extends Service {
 
   //#region clearMiniImgs
   clearMiniImgs = () => { // Remove any displayed
-    for (let pic of document.querySelectorAll('div.img_mini')) pic.remove();
+    this.imgItems = [];
+    // for (let pic of document.querySelectorAll('div.img_mini')) {
+    //     console.log(pic);
+    //   pic.remove();
+    // }
+    // let elements = document.querySelectorAll('div.img_mini');
+    //   console.log('Number of pictures =', elements.length);
+    // elements.forEach(pic => pic.remove());
   }
 
 
@@ -857,9 +872,10 @@ export default class CommonStorageService extends Service {
     // NOTE: No escapeDots for getElementById:
     let p = document.getElementById('i' + namepic);
       // this.loli('p=' + p, 'color:red');
-    let y = p.offsetTop ? p.offsetTop : 0;
+    let y = 0;
+    if (p) y = p.offsetTop ? p.offsetTop : 0;
       // this.loli('y=' + y, 'color:red');
-    y = p.offsetHeight ? y + p.offsetHeight/2 : y;
+    if (p) y = p.offsetHeight ? y + p.offsetHeight/2 : y;
       // this.loli('y=' + y, 'color:red');
     let t = document.getElementById('highUp').offsetTop;
       // this.loli('top=' + t, 'color:red');

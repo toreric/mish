@@ -564,19 +564,6 @@ export class MenuImage extends Component {
     return;
   }
 
-  // @tracked eraseOrig = false;
-  // get toggleEraseOrig() {   // SHOULD BE ACTION??
-  //   eraseOrig = !eraseOrig; // THIS MISSING???
-  // }
-
-  // @tracked infoVisible = false;
-  // toggleInfo = () => {  // @action
-  //   this.infoVisible = !this.infoVisible;
-  // }
-  // toggleInfo = () => {
-  //   this.args.toggleInfo?.();
-  // }
-
   // MenuImage
   <template>
     <button class='menu_img' type="button" title="{{t 'imageMenu'}}"
@@ -723,11 +710,11 @@ export class ChooseAlbum extends Component {
   }
 
   // NOTE: See next note!
-  closeChooseAlbum = (doit) => {
+  closeChooseAlbum = async (doit) => {
     document.querySelector('#chooseAlbum main button').disabled = true;
     document.getElementById('putWhere').style.display = 'none'; // putWhere, planned
     this.z.closeDialog('chooseAlbum');
-    if (doit) this.doLinkMove();
+    if (doit) await this.doLinkMove();
     else this.which = -1;
   }
 
@@ -757,13 +744,18 @@ export class ChooseAlbum extends Component {
         let linkto = lpath + '/' + picNames[i];
         linkto += linkfrom.match(/\.[^.]*$/);
         cmd.push('ln -sf ' + linkfrom + ' ' + linkto);
+          this.z.loli('linkto: ' + cmd[i], 'color:pink');
       }
         // this.z.loli(LF + cmd.join(LF), 'color:pink');
       for (let i=0;i<pics.length;i++) {
         let r = await this.z.execute(cmd[i]);
         if (r) this.z.loli('Not linked: ' + picNames[i]);
       }
-      this.z.alertMess(this.intl.t('write.doLinked', {n: pics.length, a: this.chosenAlbum}));
+      if (pics.length === 1) {
+        this.z.alertMess(this.intl.t('write.doLinked1', {a: this.chosenAlbum}));
+      } else {
+        this.z.alertMess(this.intl.t('write.doLinked', {n: pics.length, a: this.chosenAlbum}));
+      }
       // Refresh the album tree:
       // let selEl = document.getElementById('rootSel');
       // selEl.value = this.z.imdbRoot;
@@ -836,10 +828,12 @@ export class ChooseAlbum extends Component {
         // If 'move' contains 'picFound' the file name's random (4 ch) suffix must
         // be removed, since normally its files are symlinks with such suffixes.
         if (move.indexOf(this.z.picFound) > -1)
-            moveto = moveto.replace(/^(.+\.)([^.]{4}\.)([^.]+)$/, '$1'+'$3');
+          //NOTE does not work commonly when file names are dotted inside!
+          moveto = moveto.replace(/^(.+\.)([^.]{4}\.)([^.]+)$/, '$1'+'$3');
 
-          // this.z.loli(cmd.replace(/;/g, ';\n').replace(/\nthen /g, 'then\n').replace(/else /g, 'else\n'), 'color:red');
+            this.z.loli(cmd.replace(/;/g, ';\n').replace(/\nthen /g, 'then\n').replace(/else /g, 'else\n'), 'color:red');
         let r = await this.z.execute(cmd);
+          this.z.loli('moveto: ' + cmd, 'color:pink');
         if (r) this.z.loli('Not moved: ' + picNames[i] + '\n' + r);
           // console.log('>>>moved from:', move);
           // console.log('  >>>moved to:', moveto);
