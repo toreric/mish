@@ -2,13 +2,14 @@
 
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
+import { cached, tracked } from '@glimmer/tracking';
 // import { action } from '@ember/object';
 import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
 import { htmlSafe } from '@ember/template';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
 import he from 'he';
 // USE: <div title={{he.decode 'text'}}></div> he = HTML entities
 // or  txt = he.decode('text')  or  txt = he.encode('text')
@@ -334,12 +335,11 @@ class AllImages extends Component {
     }
   }
 
-  // prettyDirName = () => { // alternative
-  //   let name = this.z.imdbDirName;
-  //     // this.z.loli('name = ' + name, 'color:red');
-  //   let tmp = this.z.handsomize2sp(name);
-  //   return tmp;
+  // @cached
+  // shwImg = (name, path) => {
+  //   return getPromiseState(this.showImage(name, path));
   // }
+
 
   // itemVisualClass = 'sortable-item--active';
   //  *** NEXT check ember-sortable 5.0 on NPM 2025-01-24
@@ -392,7 +392,6 @@ class AllImages extends Component {
           {{#if this.z.imdbDir}}
 
             <p><b title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}">”{{this.z.handsomize2sp this.z.imdbDirName}}”</b>
-            {{!-- <p><b title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}">”{{this.prettyDirName}}”</b> --}}
 
             {{#if this.z.numHidden}}
               — {{this.z.numShown}}&nbsp;{{t 'shown'}},
@@ -407,7 +406,6 @@ class AllImages extends Component {
           {{else}} {{!-- root --}}
 
             <p><b>”{{this.z.handsomize2sp this.z.imdbDirName}}”</b>
-            {{!-- <p><b>”{{this.prettyDirName}}”</b> --}}
 
             {{#if this.z.numHidden}}
               — {{this.z.numShown}}&nbsp;{{t 'shown'}},

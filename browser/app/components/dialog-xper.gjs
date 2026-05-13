@@ -92,8 +92,12 @@ export class DialogXper extends Component {
         </button> --}}
 
         <div>
+          <div title-1="The CSS-generated ”title-1” is shown here">
+          <br>
+            For display of CSS: title-1
+          </div>
+          <br>
           <div title-2="The CSS-generated ”title-2” is shown here">
-          <br>&nbsp; <br>
             For display of CSS: title-2
           </div>
         </div>

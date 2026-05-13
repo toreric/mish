@@ -298,18 +298,11 @@ export class DialogFind extends Component {
     this.z.openAlbum(this.ixFound);
   }
 
-  openAlbumMark = async (i) => {
+  openAlbumAll = async (i) => {
     this.z.openAlbum(i);
-
     // Allow for the rendering of mini images and preload of view images
     let size = this.z.albumAllImg(i);
     await new Promise (z => setTimeout (z, size*120 + 100));
-
-    let names = this.inames[i].split(' ');
-    for (let j=0;j<names.length;j++) {
-      // this.z.markBorders(names[j]);
-      this.z.gotoMinipic(names[j]);
-    }
   }
 
   <template>
@@ -433,7 +426,7 @@ export class DialogFind extends Component {
               </a> &nbsp;&nbsp;&nbsp;&nbsp;
 
               <a class="hoverDark" style="font-family:Arial,Helvetica,sans-serif;font-size:70%;font-variant:small-caps;text-decoration:none"
-              {{on 'click' (fn this.openAlbumMark i)}}>
+              {{on 'click' (fn this.openAlbumAll i)}}>
                 {{t 'allInAlbum'}}
               </a><br>
 

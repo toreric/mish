@@ -330,7 +330,7 @@ export class MenuImage extends Component {
       } // if another button: leave and close
     } else {
       // a single img needs no confirmation but we border-mark it
-      this.z.markBorders(this.z.picName);
+      this.z.markBorders(this.z.picName, 'MenuImage.linkFunc');
       this.z.chooseText = this.intl.t('button.linkFunc');
       this.z.openModalDialog('chooseAlbum');
       // The outcome is processed in chooseAlbum, see closeChooseAlbum
@@ -364,7 +364,7 @@ export class MenuImage extends Component {
     } else {
       // a single img needs no confirmation but we border-mark it
       this.z.chooseText = this.intl.t('button.moveFunc');
-      this.z.markBorders(this.z.picName);
+      this.z.markBorders(this.z.picName, 'MenuImage.moveFunc');
       this.z.openModalDialog('chooseAlbum');
       // The outcome is processed in chooseAlbum, see closeChooseAlbum
     }

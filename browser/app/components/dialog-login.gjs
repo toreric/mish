@@ -46,7 +46,6 @@ export class DialogLogin extends Component {
       this.clearInput('user_');
       this.clearInput('password_');
       if (user !== oldUser) {
-        this.z.clearMiniImgs();   // remove from display
         this.z.hasImages = false; // Don't show any old remains
         // User change measures: name, credentials, reselect album root:
         this.z.userName = user;

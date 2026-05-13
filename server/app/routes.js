@@ -1117,7 +1117,7 @@ export default function(app) { // Start module.exports
   //#region pkgfilenames
   async function pkgfilenames(origlist) {
           // console.log('PKGFILENAMES')
-          // console.log('origlist: \n' + origlist)
+          // console.log('origlist:\n' + origlist)
     let files = []
     if (origlist) files = origlist.split('\n')
           // console.log('origlist:', files)
@@ -1130,9 +1130,6 @@ export default function(app) { // Start module.exports
       }
       console.log('Showfiles•minifiles•metadata...')
       return allfiles.trim()
-    // } else {
-    //   return ''
-    // }
   }
   async function pkgonefile(file) {
 

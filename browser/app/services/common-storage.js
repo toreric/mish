@@ -87,7 +87,7 @@ export default class CommonStorageService extends Service {
   @tracked  userStatus = ''; // A logged in user has a certain allowance status
   @tracked  wwwDir = '/path/to/www';
 
-  // (*) imdbCoco format is "(<npics>[+<nlinked>]) [<nsubdirs>] [<flag>]"
+  // (*) imdbCoco format is "(<npics>[+<nlinks>]) [<nsubdirs>‡] [<flag>]"
   // where <npics> = images, <nlinks> = linked images, <nsubdirs> = subalbums,
   // and <flag> is empty or "*". The <flag> indicates a hidden album,
   // which needs permission for access
@@ -390,7 +390,7 @@ export default class CommonStorageService extends Service {
   }
 
   //#region openAlbum
-  openAlbum = async (i) => {
+  openAlbum = async (i) => { // paremeter may be text!
     this.picName = '';
     this.picIndex = -1;
     // Close dialogs without reuse potential:
@@ -416,11 +416,7 @@ export default class CommonStorageService extends Service {
 
     i = Number(i); // important!
     this.imdbDir = this.imdbDirs[i];
-    // if (this.imdbDir == this.picFound) {
-    //   document.getElementById('imgWrapper').innerHTML = ''
-    // }
-    this.imgItems = [];  // remove any old thumbnails
-    this.clearMiniImgs();
+    this.imgItems = [];  // remove any old thumbnails (does it work?)
     this.imdbDirIndex = i;
     let h = this.albumHistory;
     if (h.length > 0 && h[h.length - 1] !== i) this.albumHistory.push(i);
@@ -464,8 +460,6 @@ export default class CommonStorageService extends Service {
     this.numImages = newFiles.length;
     this.allFiles = [...newFiles]; // copy back ¤¤¤
 
-    this.imgItems = []; // remove any old thumbnails
-    // this.clearMiniImgs();
     // Hide the subalbums etc.
     document.querySelector('#upperButtons').style.display = 'none';
     document.querySelector('.albumsHdr').style.display = 'none';
@@ -778,22 +772,6 @@ export default class CommonStorageService extends Service {
     }
   }
 
-  //#region clearMiniImgs
-  clearMiniImgs = () => { // Remove any displayed
-    this.imgItems = [];
-    // for (let pic of document.querySelectorAll('div.img_mini')) {
-    //     console.log(pic);
-    //   pic.remove();
-    // }
-    // let elements = document.querySelectorAll('div.img_mini');
-    //   console.log('Number of pictures =', elements.length);
-    // elements.forEach(pic => pic.remove());
-  }
-
-
-
-
-
   // Setting sec to 0 doesn't hinder `inherited Timeout` to close!
   //#region alertMess
   alertMess = async (mess, sec) => {
@@ -850,9 +828,9 @@ export default class CommonStorageService extends Service {
   //#region markBorders
   // Flashing white thumbnail borders, highly temporary
   markBorders = async (namepic, from) => { // Mark a mini-image border
-    // console.trace();
+      // console.trace();
     // await new Promise (z => setTimeout (z, 25)); // Allow the dom to settle
-      // this.loli('markBorders ' + namepic + ' ' + from, 'color:red');
+      this.loli('markBorders ' + namepic + ' ' + from, 'color:red');
       // console.log((new Error()).stack?.split("\n")[2]?.trim().split(" ")[1]);
       // console.log((new Error()).stack?.split("\n")[1]?.trim().split(" ")[1]);
     document.querySelector('#i' + this.escapeDots(namepic) + ' img.left-click').classList.add('dotted');
@@ -864,7 +842,7 @@ export default class CommonStorageService extends Service {
       // this.loli('>' + namepic, 'color:red');
     if (!namepic) return;
       // this.loli(namepic, 'color:red');
-    await new Promise (z => setTimeout (z, 39)); // gotoMinipic
+    await new Promise (z => setTimeout (z, 39)); // in gotoMinipic
     let hs = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     // this.loli('hs=' + hs, 'color:red');
     let h2 = hs/2;
@@ -1086,7 +1064,7 @@ export default class CommonStorageService extends Service {
       if (this.picIndex > -1) {
         this.picName = nextName;
         path = allFiles[this.picIndex].show;
-        this.showImage(nextName, path);
+        await this.showImage(nextName, path);
       }
       // NOTE: The order of 'allFiles' may not reflect DOM content which may be rearranged
       this.edgeImage = '';
@@ -1851,11 +1829,9 @@ export default class CommonStorageService extends Service {
         }
       }
       list.style.display = '';
-      // this.markBorders(name);
       this.loli('opened menu of image ' + name + ' in album ' + this.imdbRoot + this.imdbDir);
 
     } else { // 0 == do close
-      // this.markBorders(name); // Since this was the most recent image menu
       list.style.display = 'none';
       loliClose(name);
     }
