@@ -103,7 +103,9 @@ export default class CommonStorageService extends Service {
   //   #region VIEW VARS
   //== Miniature and show images etc. information
 
-  @tracked  albumTools = undefined; // For DialogUtil choice (tools for the album or common)
+  @tracked  albumTools = false; // For DialogTools choice
+  @tracked  toolsVisible = false; // For DialogTools
+
   @tracked  chooseText = ' Choose what?'; // Choice text
   @tracked  displayNames = 'none'; // Image name display switch
   @tracked  edgeImage = '';  // Text indicating first/last image

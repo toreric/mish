@@ -15,6 +15,7 @@ import he from 'he';
 // or  txt = he.decode('text')  or  txt = he.encode('text')
 import { MenuImage } from './menu-image';
 import { DialogInfo } from './dialog-info';
+import { DialogTools } from './dialog-tools';
 
 import RefreshThis from './refresh-this';
 
@@ -124,16 +125,8 @@ class SubAlbums extends Component {
   }
 
   toggDia = async () => {
-    let id = 'dialogUtil';
     this.z.albumTools = true;
-    let diaObj = document.getElementById(id);
-    if (diaObj.hasAttribute('open')) {
-      document.getElementById(id).focus();
-      this.z.closeDialog(id);
-    } else {
-      await this.z.openDialog(id);
-      await new Promise (z => setTimeout (z, 322));
-    }
+    this.z.toolsVisible = !this.z.toolsVisible;
   }
 
   //SubAlbums
@@ -191,6 +184,11 @@ class AllImages extends Component {
   @tracked infoVisible = false; // for DialogInfo and MenuImage
   toggleInfo = () => {
     this.infoVisible = !this.infoVisible;
+  };
+
+  @tracked toolsVisible = true; // for DialogInfo and MenuImage
+  toggleTools = () => {
+    this.z.toolsVisible = !this.z.toolsVisible;
   };
 
   detectEsc = (event) => {
@@ -418,7 +416,7 @@ class AllImages extends Component {
 
           {{/if}}
 
-          {{!-- Don't put </span></p> terminators for #if/else here!
+          {{!-- Don't put </span> or </p> terminators for #if/else here!
                 Each #if/else-block needs it's own terminator! --}}
 
         </div>
@@ -491,6 +489,10 @@ class AllImages extends Component {
 
     {{#if this.infoVisible}}
       <DialogInfo @toggleInfo={{this.toggleInfo}} />
+    {{/if}}
+
+    {{#if this.z.toolsVisible}}
+      <DialogTools @toggleTools={{this.toggleTools}} />
     {{/if}}
 
     {{!-- ================================================ --}}

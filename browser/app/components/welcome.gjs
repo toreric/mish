@@ -19,10 +19,10 @@ import { DialogAlert } from './dialog-alert';
 import { DialogChoose } from './dialog-choose';
 import { DialogFind } from './dialog-find';
 import { DialogHelp } from './dialog-help';
-import { DialogInfo } from './dialog-info';
+// import { DialogInfo } from './dialog-info';
 import { DialogLogin } from './dialog-login';
 import { DialogText } from './dialog-text';
-import { DialogUtil } from './dialog-util';
+// import { DialogTools } from './dialog-tools';
 import { DialogXper } from './dialog-xper';
 import Header from './header';
 import { Language } from './language';
@@ -45,7 +45,7 @@ import he from 'he';
 // USE: <div title={{he.decode 'text'}}></div> ['he' = HTML entities]
 // or  txt = he.decode('text')  or  txt = he.encode('text')
 
-// The DialogSettings dialog is ihe last of this code
+// The DialogSettings dialog is ending this code
 
 const returnValue = cell(''); // Never used?
 const LF = '\n';
@@ -439,11 +439,11 @@ export default class extends Welcome {
     <DialogText />
     <DialogFind />
     <DialogHelp />
-    {{!-- <DialogInfo /> --}}
+    {{!-- <DialogInfo /> moved to ViewMain --}}
     <DialogAlert />
     <DialogChoose />
     <DialogXper @content={{this.album}} />
-    <DialogUtil />
+    {{!-- <DialogTools /> moved to ViewMain --}}
     <DialogSettings />
     <Spinner />
 

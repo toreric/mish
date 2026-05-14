@@ -12,7 +12,6 @@ import { htmlSafe } from '@ember/template';
 
 import { dialogAlertId } from './dialog-alert';
 import { dialogFindId } from './dialog-find';
-import { dialogUtilId } from './dialog-util';
 
 import RefreshThis from './refresh-this'
 

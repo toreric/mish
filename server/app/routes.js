@@ -212,13 +212,14 @@ export default function(app) { // Start module.exports
     file = IMDB + file
     // This is an emergency solution, which was necessary since the 'filstat'
     // server address seems to be excessively triggered by the reactive behaviour
-    // started by the 'DialogInfo' component. It is used by the 'MenuImage' component
-    // when the menu's 'Information' entry is clicked:
+    // started by the 'DialogInfo' component. It is used by the 'MenuImage' browser
+    // component when the menu's 'Information' entry is clicked:
     if (await notFile(file)) {
         // console.error('Illegal filestat call, file =', file)
       return
     }
       // NOTE: See with this log-print that /filestat is mostly 'doubly triggered'!
+      // console.log(BGRE + '/filestat' + RSET)
       // console.log('.' + file.slice(IMDB_HOME.length))
     var LT = req.get('intlcode') // Language tag for dateTime
     if (!LT) LT = 'sv-se' // Swedish (ISO) date order

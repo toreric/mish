@@ -52,19 +52,12 @@ export class ButtonsLeft extends Component {
     else this.z.displayNames = 'none';
   }
 
-  toggDia = async () => {
-    let id = 'dialogUtil';
+  toggDia = () => {
     this.z.albumTools = false;
-    let diaObj = document.getElementById(id);
-    if (diaObj.hasAttribute('open')) {
-      document.getElementById(id).focus();
-      this.z.closeDialog(id);
-      return;
-    }
-    await this.z.openDialog(id);
-    await new Promise (z => setTimeout (z, 322));
+    this.z.toolsVisible = !this.z.toolsVisible;
   }
 
+  // ButtonsLeft
   <template>
 
     {{!-- <iframe class="intro" src="start.html" style="display:none"></iframe> --}}

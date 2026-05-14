@@ -16,7 +16,6 @@ import { UploadFile } from 'ember-file-upload';
 import FileQueueService from 'ember-file-upload/services/file-queue';
 import fileQueue from 'ember-file-upload/helpers/file-queue';
 
-export const dialogUtilId = 'dialogUtil';
 const LF = '\n';
 // var fileList;
 // var fileNames;
@@ -28,7 +27,7 @@ let cnTools = 0; // common tools flag
 let tool = ''; // utility tool id
 let resRad = 0; // to trigger rerender/reset of radio buttons
 
-export class DialogUtil extends Component {
+export class DialogTools extends Component {
   @service('common-storage') z;
   @service intl;
   @service fileQueue;
@@ -77,7 +76,7 @@ uploadPhoto = async (file) => {
   detectEscClose = (e) => {
     e.stopPropagation();
     if (e.code === 'Escape') { // Esc key
-      if (document.getElementById(dialogUtilId).open) this.closeDialogUtil();
+      // ESCAPE-close the dialog?
     }
   }
 
@@ -95,8 +94,8 @@ uploadPhoto = async (file) => {
   detectRadio = async (e) => {
     var elRadio = e.target;
       // this.z.loli(`${elRadio.id} ${elRadio.checked}`, 'color:red');
-    this.tool = elRadio.id;
-    if (this.tool === 'util3') this.z.displayNames = 'block'; //sort by name
+    tool = elRadio.id;
+    if (tool === 'util3') this.z.displayNames = 'block'; //sort by name
   }
 
   clearInput = (id) => {
@@ -118,13 +117,13 @@ uploadPhoto = async (file) => {
     return '<br><div style="text-align:center"><button class="unclosable" type="button" onclick="location.reload(true);return false">' + this.intl.t('button.restart') + '</utton></div>'
   }
 
-  // Album tools
+  // Tools
   get okDelete() { // true if delete album is allowed
       // this.z.loli('imdbDir: ' +  this.z.imdbDir.slice(1), 'color:yellow');
       // this.z.loli('picFound: ' +  this.z.picFound, 'color:yellow');
     let found = this.z.imdbDir.slice(1) === this.z.picFound;
     if (this.z.albumTools && !found && this.z.allow.albumEdit && this.z.imdbDir) { // Don't erase ''=root
-      this.tool = '';
+      tool = '';
       return true
     } else {
       return false;
@@ -134,7 +133,7 @@ uploadPhoto = async (file) => {
   get okTextSheet() { // true if images shown
       // this.z.loli('numShown ' + this.z.numShown, 'color:brown ');
     if (this.z.albumTools && this.z.numShown > 0) {
-      this.tool = '';
+      tool = '';
       return true;
     } else {
       return false;
@@ -143,7 +142,7 @@ uploadPhoto = async (file) => {
 
   get okSubalbum() { // true if subalbums allowed
     if (this.z.albumTools && this.z.imdbDir.slice(1) !== this.z.picFound && this.z.allow.albumEdit) {
-      this.tool = '';
+      tool = '';
       return true;
     } else {
       return false;
@@ -152,7 +151,7 @@ uploadPhoto = async (file) => {
 
   get okSort() { // true if sorting by name is possible
     if (this.z.albumTools && this.z.numShown > 1) {
-      this.tool = '';
+      tool = '';
       return true;
     } else {
       return false;
@@ -161,7 +160,7 @@ uploadPhoto = async (file) => {
 
     get okUpload() {
       if (this.z.albumTools && this.z.imdbDir.slice(1) !== this.z.picFound && this.z.allow.deleteImg) {
-        this.tool = '';
+        tool = '';
         return true;
       } else {
         return false;
@@ -172,7 +171,7 @@ uploadPhoto = async (file) => {
     if (this.z.albumTools) {
       return false;
     } else {
-      this.tool = '';
+      tool = '';
       return true
     }
   }
@@ -181,7 +180,7 @@ uploadPhoto = async (file) => {
     if (this.z.albumTools) {
       return false;
     } else {
-      this.tool = '';
+      tool = '';
       return true
     }
   }
@@ -190,7 +189,7 @@ uploadPhoto = async (file) => {
     if (this.z.albumTools) {
       return false;
     } else {
-      this.tool = '';
+      tool = '';
       return true;
     }
   }
@@ -199,7 +198,7 @@ uploadPhoto = async (file) => {
     if (this.z.albumTools && this.z.allow.textEdit) {
       return false;
     } else {
-      this.tool = '';
+      tool = '';
       return true;
     }
   }
@@ -458,7 +457,7 @@ uploadPhoto = async (file) => {
       this.z.openDialog('dialogDupResult');
       document.querySelector('img.spinner').style.display = 'none';
     } catch (err) {
-      console.error('doDupNames of DialogUtil:', err.message);
+      console.error('doDupNames of DialogTools:', err.message);
     } // End try
       // }) // End promise
       // The Promise way makes 'async' superfluous but hides 'this'
@@ -492,27 +491,33 @@ uploadPhoto = async (file) => {
   // }
 
   get resetRadio() { // trigger
+    this.z.loli('resetRadio: ' + resRad)
     resRad ++;
+    this.z.loli('resetRadio: ' + resRad)
     return '';
   }
 
   get zeroTools1() {
     amTools = 0;
+    this.z.loli('zeroTools1: ' + amTools)
     return '';
   }
 
   get addTools1() {
     amTools ++;
+    this.z.loli('addTools1: ' + amTools)
     return '';
   }
 
   get zeroTools2() {
     cnTools = 0;
+    this.z.loli('zeroTools2: ' + cnTools)
     return '';
   }
 
   get addTools2() {
     cnTools ++;
+    this.z.loli('addTools2: ' + cnTools)
     return '';
   }
 
@@ -536,9 +541,10 @@ uploadPhoto = async (file) => {
   // NOTE, within the <template></template>:
   // *** The utility numbering is not always in sequence ***
 
+  // DialogTools
   <template>
 
-    <dialog id="dialogUtil" style="width:min(calc(100vw - 2rem),auto);max-width:480px" {{on 'keydown' this.detectEscClose}} {{on 'mousedown' this.detectMouseDown}} {{on 'mouseup' this.detectMouseUp}}>
+    <dialog id="dialogTools" style="width:min(calc(100vw - 2rem),auto);max-width:480px" {{on 'keydown' this.detectEscClose}} {{on 'mousedown' this.detectMouseDown}} {{on 'mouseup' this.detectMouseUp}} open>
       <header data-dialog-draggable>
 
         {{!-- Placeholder for
@@ -553,7 +559,7 @@ uploadPhoto = async (file) => {
           <p><b>{{t 'write.utilHeader0'}} <span>{{this.z.imdbRoot}}</span></b></p>
         {{/if}}
 
-        <button class="close" type="button" {{on 'click' this.closeDialogUtil}}>×</button>
+        <button class="close" type="button" {{on 'click' @toggleTools}}>×</button>
 
       </header>
       <main style="padding:0 0.75rem;max-height:24rem" width="99%">
@@ -636,18 +642,18 @@ uploadPhoto = async (file) => {
             {{#if amTools}}
               {{!-- {{t 'write.chooseTool'}}<br> --}}
             {{else}}
-              {{t 'write.tool99'}}
+              {{t 'write.tool99'}} {{amTools}}
             {{/if}}
           {{else}}
             {{#if cnTools}}
               {{!-- {{t 'write.chooseTool'}}<br> --}}
             {{else}}
-              {{t 'write.tool99'}}
+              {{t 'write.tool99'}} {{cnTools}}
             {{/if}}
           {{/if}}
 
           {{!-- === Delete the album === --}}
-          {{#if (eq this.tool 'util1')}}
+          {{#if (eq tool 'util1')}}
               <b>{{t 'write.tool1'}}</b>
             {{#if this.notEmpty}}
               <br><span style="color:blue">{{t 'write.notEmpty'}}</span>
@@ -657,12 +663,12 @@ uploadPhoto = async (file) => {
             {{/if}}
 
           {{!-- === Make text list === --}}
-          {{else if (eq this.tool 'util8')}}
+          {{else if (eq tool 'util8')}}
 
               <button type="button" {{on 'click' (fn this.doTextSheet)}}>{{{t 'write.tool8' a=this.imdbDirName}}}</button>
 
           {{!-- === Make a new subalbum === --}}
-          {{else if (eq this.tool 'util2')}}
+          {{else if (eq tool 'util2')}}
             <b>{{t 'write.tool2'}}</b><br>
 
             <input id="newAlbNam" type="text" class="cred user nameNew" size="36" title="" placeholder="{{t 'write.albumName'}}" style="margin:0.2rem 0 0.5rem 0" {{on 'keydown' (fn this.doSubalbum 2)}} autofocus autocomplete="off"><a title={{t 'erase'}} {{on 'click' (fn this.clearInput 'newAlbNam')}}> ×&nbsp;</a><br>
@@ -671,7 +677,7 @@ uploadPhoto = async (file) => {
             <button type="button" {{on 'click' (fn this.doSubalbum 3)}} disabled>{{t 'button.dosub'}}</button>
 
           {{!-- === Sort images by names === --}}
-          {{else if (eq this.tool 'util3')}}
+          {{else if (eq tool 'util3')}}
             <b>{{t 'write.tool3'}}</b><br>
 
             <button type="button" {{on 'click' (fn this.doSort)}}>{{t 'write.tool3'}}</button>
@@ -688,7 +694,7 @@ uploadPhoto = async (file) => {
             </form>
 
           {{!-- === Find duplicate image names === --}}
-          {{else if (eq this.tool 'util4')}}
+          {{else if (eq tool 'util4')}}
             <b>{{t 'write.tool4'}}</b><br>
 
             {{!-- {{#if this.z.imdbDir}} subtree OVERRIDE!
@@ -698,12 +704,12 @@ uploadPhoto = async (file) => {
             {{!-- {{/if}} --}}
 
           {{!-- === Find duplicate images === --}}
-          {{else if (eq this.tool 'util7')}}
+          {{else if (eq tool 'util7')}}
 
               <button type="button" {{on 'click' (fn this.doDupImages)}}>{{{t 'write.tool7' a=this.imdbDirName}}}</button>
 
           {{!-- === Upload images === --}}
-          {{else if (eq this.tool 'util5')}}
+          {{else if (eq tool 'util5')}}
             {{!-- <span style="display:none">{{this.doUpload true}}</span> --}}
 
             <b title-2="{{t 'fileNameRules'}}" style="width:100%">{{t 'write.tool5'}}</b> <br><br><br><br><br>
@@ -745,13 +751,13 @@ uploadPhoto = async (file) => {
             <div id="uplCand" style="width:auto"></div>
 
           {{!-- === Update search data for the entire album collection === --}}
-          {{else if (eq this.tool 'util6')}}
+          {{else if (eq tool 'util6')}}
 
             <button type="button" {{on 'click' (fn this.doDbUpdate)}}>{{t 'write.tool6'}}</button>
 
           {{!-- === Manage personal favorites === --}}
           {{!-- Tip: util9 is free to replace util91 --}}
-          {{else if (eq this.tool 'util91')}}
+          {{else if (eq tool 'util91')}}
 
             <button type="button" {{on 'click' (fn this.z.futureNotYet 'write.tool91')}}>{{t 'write.tool91'}}</button>
 
@@ -768,7 +774,7 @@ uploadPhoto = async (file) => {
 
       </main>
       <footer data-dialog-draggable>
-        <button type="button" {{on 'click' this.closeDialogUtil}}>{{t 'button.close'}}</button>&nbsp;
+        <button type="button" {{on 'click' @toggleTools}}>{{t 'button.close'}}</button>&nbsp;
       </footer>
     </dialog>
 
