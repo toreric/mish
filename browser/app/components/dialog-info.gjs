@@ -13,7 +13,6 @@ import { htmlSafe } from '@ember/template';
 import { getPromiseState } from 'reactiveweb/get-promise-state';
 // import { MenuImage } from './menu-image';
 // import { cached } from '@glimmer/tracking';
-import { TrackedAsyncData } from 'ember-async-data';
 import { dialogAlertId } from './dialog-alert';
 
 export const dialogInfoId = 'dialogInfo';
@@ -72,7 +71,7 @@ export class DialogInfo extends Component {
 
   // the cached here is important, else each access re-invokes
   // this.stat(), and you lose your stable reference
-  // and: don't set something tracked in a getter (may spoil the browser!)
+  // Own NOTE: don't set something tracked in a getter (may spoil the browser!)
   @cached get currentStat() {
     let tmp = getPromiseState(this.stat());
       // console.log(tmp);

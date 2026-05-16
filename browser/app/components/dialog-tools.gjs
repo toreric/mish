@@ -2,13 +2,13 @@
 
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
+import { cached, tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
-import { cached } from '@glimmer/tracking';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 import RefreshThis from './refresh-this';
 
@@ -22,9 +22,9 @@ const LF = '\n';
 // var passedFiles;
 
 // const queue = this.fileQueue.find('your-queue-name');
-let amTools = 0; // album tools flag
-let cnTools = 0; // common tools flag
-let tool = ''; // utility tool id
+let amTools = 0; // album tools counter
+// let cnTools = 0; // common tools counter
+// let tool = ''; // utility tool id (text)
 let resRad = 0; // to trigger rerender/reset of radio buttons
 
 export class DialogTools extends Component {
@@ -32,10 +32,10 @@ export class DialogTools extends Component {
   @service intl;
   @service fileQueue;
 
-  // @tracked tool = ''; // utility tool id
+  @tracked tool = ''; // utility tool id (text)
   @tracked countImgs = 0; // duplicate image name counter
-  // @tracked amTools = 0; // album tools flag
-  // @tracked cnTools = 0; // common tools flag
+  // @tracked amTools = 0; // album tools counter
+  @tracked cnTools = 0; // common tools counter
   // @tracked resRad = 0; // to trigger rerender/reset of radio buttons
 
   @tracked nFail = 0; // no of illegal file(name)s
@@ -91,11 +91,11 @@ uploadPhoto = async (file) => {
   }
 
   // Which tool was selected?
-  detectRadio = async (e) => {
-    var elRadio = e.target;
+  detectRadio = (e) => {
+    let elRadio = e.target;
       // this.z.loli(`${elRadio.id} ${elRadio.checked}`, 'color:red');
-    tool = elRadio.id;
-    if (tool === 'util3') this.z.displayNames = 'block'; //sort by name
+    this.tool = elRadio.id;
+    if (this.tool === 'util3') this.z.displayNames = 'block'; //sort by name
   }
 
   clearInput = (id) => {
@@ -123,7 +123,7 @@ uploadPhoto = async (file) => {
       // this.z.loli('picFound: ' +  this.z.picFound, 'color:yellow');
     let found = this.z.imdbDir.slice(1) === this.z.picFound;
     if (this.z.albumTools && !found && this.z.allow.albumEdit && this.z.imdbDir) { // Don't erase ''=root
-      tool = '';
+      this.tool = '';
       return true
     } else {
       return false;
@@ -133,7 +133,7 @@ uploadPhoto = async (file) => {
   get okTextSheet() { // true if images shown
       // this.z.loli('numShown ' + this.z.numShown, 'color:brown ');
     if (this.z.albumTools && this.z.numShown > 0) {
-      tool = '';
+      this.tool = '';
       return true;
     } else {
       return false;
@@ -142,7 +142,7 @@ uploadPhoto = async (file) => {
 
   get okSubalbum() { // true if subalbums allowed
     if (this.z.albumTools && this.z.imdbDir.slice(1) !== this.z.picFound && this.z.allow.albumEdit) {
-      tool = '';
+      this.tool = '';
       return true;
     } else {
       return false;
@@ -151,7 +151,7 @@ uploadPhoto = async (file) => {
 
   get okSort() { // true if sorting by name is possible
     if (this.z.albumTools && this.z.numShown > 1) {
-      tool = '';
+      this.tool = '';
       return true;
     } else {
       return false;
@@ -160,7 +160,7 @@ uploadPhoto = async (file) => {
 
     get okUpload() {
       if (this.z.albumTools && this.z.imdbDir.slice(1) !== this.z.picFound && this.z.allow.deleteImg) {
-        tool = '';
+        this.tool = '';
         return true;
       } else {
         return false;
@@ -171,7 +171,7 @@ uploadPhoto = async (file) => {
     if (this.z.albumTools) {
       return false;
     } else {
-      tool = '';
+      this.tool = '';
       return true
     }
   }
@@ -180,7 +180,7 @@ uploadPhoto = async (file) => {
     if (this.z.albumTools) {
       return false;
     } else {
-      tool = '';
+      this.tool = '';
       return true
     }
   }
@@ -189,17 +189,20 @@ uploadPhoto = async (file) => {
     if (this.z.albumTools) {
       return false;
     } else {
-      tool = '';
+      this.tool = '';
       return true;
     }
   }
 
   get okDbUpdate() {
-    if (this.z.albumTools && this.z.allow.textEdit) {
+    if (this.z.albumTools) {
       return false;
-    } else {
-      tool = '';
+    } else if (this.z.allow.textEdit) {
+      this.tool = '';
       return true;
+    } else {
+      this.tool = '';
+      return false;
     }
   }
 
@@ -490,57 +493,76 @@ uploadPhoto = async (file) => {
   //   this.z.doFindText();
   // }
 
-  get resetRadio() { // trigger
+  reRa = async () => {this.resRad++;}
+  @cached get resetRadio() { // trigger
+    getPromiseState(this.reRa());
     this.z.loli('resetRadio: ' + resRad)
-    resRad ++;
-    this.z.loli('resetRadio: ' + resRad)
+  }
+  // get resetRadio() { // trigger
+  //   this.z.loli('resetRadio: ' + resRad)
+  //   resRad ++;
+  //   this.z.loli('resetRadio: ' + resRad)
+  //   return '';
+  // }
+
+  zeTo1 = () => {this.amTools = 0;}
+  @cached get zeroTools1() {
+    getPromiseState(this.zeTo1());
+    this.z.loli('zeroTools1: ' + this.amTools)
     return '';
   }
 
-  get zeroTools1() {
-    amTools = 0;
-    this.z.loli('zeroTools1: ' + amTools)
+  adTo1 = () => {this.amTools++;}
+  @cached get addTools1() {
+    getPromiseState(this.adTo1());
+    this.z.loli('addTools1: ' + this.amTools)
     return '';
   }
 
-  get addTools1() {
-    amTools ++;
-    this.z.loli('addTools1: ' + amTools)
+  zeTo2 = () => {this.cnTools = 0;}
+  @cached get zeroTools2() {
+    getPromiseState(this.zeTo2());
+    this.z.loli('zeroTools2: ' + this.cnTools);
     return '';
   }
+  // get zeroTools2() {
+  //   cnTools = 0;
+  //   this.z.loli('zeroTools2: ' + cnTools);
+  //   return '';
+  // }
 
-  get zeroTools2() {
-    cnTools = 0;
-    this.z.loli('zeroTools2: ' + cnTools)
+  adTo2 = () => {this.cnTools++;}
+  @cached get addTools2() {
+    getPromiseState(this.adTo2());
+    this.z.loli('addTools2: ' + this.cnTools);
     return '';
   }
+  // get addTools2() {
+  //   cnTools++;
+  //   this.z.loli('addTools2: ' + cnTools);
+  //   return '';
+  // }
 
-  get addTools2() {
-    cnTools ++;
-    this.z.loli('addTools2: ' + cnTools)
-    return '';
-  }
 
   // This kind of ”cross-close” by toggle-close causes, by
   // coincidence, reset of ALL the dialog's radio buttons.
   // NOTE: Doesn't work formally at direct manual ”non-cross”
   // tool toggle when a radio button is selected.
   // The two variants of the tool dialog made this possible.
-  closeDialogUtil = () => {
-    // It is an 'reset-radio-buttons' advantage to toggle(close)
-    // with the other alternative button, if avaliable:
-    let album = document.getElementById('albumTools');
-    let common = document.getElementById('commonTools');
-    if (this.z.albumTools && common) common.click();
-    else if (album) album.click();
-    // If still open (may happen with an absent button) then the
-    // last used will, but'only formally', remain selected):
-    this.z.closeDialog('dialogUtil');
-  }
+  // closeDialogUtil = () => {
+  //   // It is an 'reset-radio-buttons' advantage to toggle(close)
+  //   // with the other alternative button, if avaliable:
+  //   let album = document.getElementById('albumTools');
+  //   let common = document.getElementById('commonTools');
+  //   if (this.z.albumTools && common) common.click();
+  //   else if (album) album.click();
+  //   // If still open (may happen with an absent button) then the
+  //   // last used will, but'only formally', remain selected):
+  //   this.z.closeDialog('dialogUtil');
+  // }
 
-  // NOTE, within the <template></template>:
+  // NOTE, within the DialogTools template:
   // *** The utility numbering is not always in sequence ***
-
   // DialogTools
   <template>
 
@@ -639,21 +661,21 @@ uploadPhoto = async (file) => {
         <div style="padding:0.5rem 0">
 
           {{#if this.z.albumTools}}
-            {{#if amTools}}
+            {{#if this.amTools}}
               {{!-- {{t 'write.chooseTool'}}<br> --}}
             {{else}}
-              {{t 'write.tool99'}} {{amTools}}
+              {{t 'write.tool99'}}
             {{/if}}
           {{else}}
-            {{#if cnTools}}
+            {{#if this.cnTools}}
               {{!-- {{t 'write.chooseTool'}}<br> --}}
             {{else}}
-              {{t 'write.tool99'}} {{cnTools}}
+              {{t 'write.tool99'}}
             {{/if}}
           {{/if}}
 
           {{!-- === Delete the album === --}}
-          {{#if (eq tool 'util1')}}
+          {{#if (eq this.tool 'util1')}}
               <b>{{t 'write.tool1'}}</b>
             {{#if this.notEmpty}}
               <br><span style="color:blue">{{t 'write.notEmpty'}}</span>
@@ -663,12 +685,12 @@ uploadPhoto = async (file) => {
             {{/if}}
 
           {{!-- === Make text list === --}}
-          {{else if (eq tool 'util8')}}
+          {{else if (eq this.tool 'util8')}}
 
               <button type="button" {{on 'click' (fn this.doTextSheet)}}>{{{t 'write.tool8' a=this.imdbDirName}}}</button>
 
           {{!-- === Make a new subalbum === --}}
-          {{else if (eq tool 'util2')}}
+          {{else if (eq this.tool 'util2')}}
             <b>{{t 'write.tool2'}}</b><br>
 
             <input id="newAlbNam" type="text" class="cred user nameNew" size="36" title="" placeholder="{{t 'write.albumName'}}" style="margin:0.2rem 0 0.5rem 0" {{on 'keydown' (fn this.doSubalbum 2)}} autofocus autocomplete="off"><a title={{t 'erase'}} {{on 'click' (fn this.clearInput 'newAlbNam')}}> ×&nbsp;</a><br>
@@ -677,7 +699,7 @@ uploadPhoto = async (file) => {
             <button type="button" {{on 'click' (fn this.doSubalbum 3)}} disabled>{{t 'button.dosub'}}</button>
 
           {{!-- === Sort images by names === --}}
-          {{else if (eq tool 'util3')}}
+          {{else if (eq this.tool 'util3')}}
             <b>{{t 'write.tool3'}}</b><br>
 
             <button type="button" {{on 'click' (fn this.doSort)}}>{{t 'write.tool3'}}</button>
@@ -694,22 +716,24 @@ uploadPhoto = async (file) => {
             </form>
 
           {{!-- === Find duplicate image names === --}}
-          {{else if (eq tool 'util4')}}
-            <b>{{t 'write.tool4'}}</b><br>
+          {{else if (eq this.tool 'util4')}}
+            {{!-- <b>{{t 'write.tool4'}}</b><br> --}}
 
             {{!-- {{#if this.z.imdbDir}} subtree OVERRIDE!
               <button type="button" {{on 'click' (fn this.doDupNames)}}>{{{t 'write.tool41' a=this.imdbDirName}}}</button>
             {{else}} root --}}
-              <button type="button" {{on 'click' (fn this.doDupNames)}}>{{{t 'write.tool42'}}}</button>
+              <b>{{t 'write.tool42'}}</b>:&nbsp;
+              <button type="button" {{on 'click' (fn this.doDupNames)}}>{{{t 'button.ok'}}}</button>
             {{!-- {{/if}} --}}
 
           {{!-- === Find duplicate images === --}}
-          {{else if (eq tool 'util7')}}
+          {{else if (eq this.tool 'util7')}}
 
-              <button type="button" {{on 'click' (fn this.doDupImages)}}>{{{t 'write.tool7' a=this.imdbDirName}}}</button>
+              <b>{{t 'write.tool7' a=this.imdbDirName}}</b>:&nbsp;
+              <button type="button" {{on 'click' (fn this.doDupImages)}}>{{{t 'button.ok'}}}</button>
 
           {{!-- === Upload images === --}}
-          {{else if (eq tool 'util5')}}
+          {{else if (eq this.tool 'util5')}}
             {{!-- <span style="display:none">{{this.doUpload true}}</span> --}}
 
             <b title-2="{{t 'fileNameRules'}}" style="width:100%">{{t 'write.tool5'}}</b> <br><br><br><br><br>
@@ -751,13 +775,14 @@ uploadPhoto = async (file) => {
             <div id="uplCand" style="width:auto"></div>
 
           {{!-- === Update search data for the entire album collection === --}}
-          {{else if (eq tool 'util6')}}
+          {{else if (eq this.tool 'util6')}}
 
-            <button type="button" {{on 'click' (fn this.doDbUpdate)}}>{{t 'write.tool6'}}</button>
+            <b>{{t 'write.tool6'}}</b>:&nbsp;
+            <button type="button" {{on 'click' (fn this.doDbUpdate)}}>{{t 'button.ok'}}</button>
 
           {{!-- === Manage personal favorites === --}}
           {{!-- Tip: util9 is free to replace util91 --}}
-          {{else if (eq tool 'util91')}}
+          {{else if (eq this.this.tool 'util91')}}
 
             <button type="button" {{on 'click' (fn this.z.futureNotYet 'write.tool91')}}>{{t 'write.tool91'}}</button>
 
