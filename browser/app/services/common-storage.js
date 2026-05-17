@@ -58,13 +58,8 @@ export default class CommonStorageService extends Service {
   @tracked  picFound = null; //this.picFoundBaseName + '.' + this.RID;
         get picFoundBaseName() { return this.intl.t('picfound'); }
   @tracked  picFoundIndex = -1; //set in MenuMain, the index may vary by language
-  @tracked  picName = ''; //actual/current image name
-  @tracked  picIndex = -1 //the index of picName's file info.object in allFiles
-            // picIndex = async () => { //the index of picName's file info.object in allFiles
-            //   while (!this.allFiles) await new Promise (z => setTimeout (z,99));
-            //   let index = this.allFiles.findIndex(a => {return a.name === this.picName;});
-            //   return index;
-            // }
+  @tracked  picName = ''; //actual/current image name, when set: carefully det picIndex
+  @tracked  picIndex = -1 //too, the index of picName's file info.object in allFiles
   @tracked  sortOrder = '';    //file order information table of 'imdbDir'
   @tracked  subColor = '#aef'; //subalbum legends color
         get subaIndex() {      //subalbum index array for imdbLabels
@@ -400,7 +395,7 @@ export default class CommonStorageService extends Service {
     this.closeDialog('dialogChoose');
     this.closeDialog('dialogInfo');
     this.closeDialog('dialogText');
-    // this.closeDialog('dialogUtil'); // Tools
+    // this.closeDialog('dialogTools');
     // Close the show image view
     document.querySelector('.img_show').style.display = 'none'; //was 'table'
     // Open the thumbnail view
@@ -430,6 +425,15 @@ export default class CommonStorageService extends Service {
       tmp.style.color = '';
     }
 
+    // Resets ViewMain reactively, hopefully... didn't:
+    this.imgItems = [];
+    // Have to 'manually' remove all thumbnails:
+    let minis = document.querySelectorAll('#imgWrapper div.img_mini');
+    let m = minis.length;
+    let wrap = document.getElementById('imgWrapper');
+    for (let i=0;i<m;i++) { // Remove all minis (thumbnails)
+      if (wrap) wrap.firstElementChild.remove();
+    }
     // Retreive information for every image file from the server:
     this.allFiles = [];
     this.allFiles = await this.getImages();

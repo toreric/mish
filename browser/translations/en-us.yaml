@@ -154,7 +154,7 @@ button:
   close:     Close
   confirm:   Confirm
   continue:  Continue
-  delete:    Delete <b>{name}</b>
+  delete:    Delete ”{name}”
   dosub:     Make a new subalbum
   findIn:    Search in
   findDupNames: Find duplicate names
@@ -292,7 +292,7 @@ erase: erase
 fav:
   images: Favorite images
   manage: Manage favorite images
-fileNameRules: "A file name may only contain »A« to »Z«, »a« to »z«, ».«, »_« and »0« to »9« but not blanks/spaces, and it may not start with ».«, »_imdb_«, »_mini_« or »_show_«."
+fileNameRules: "A file name may only contain ›A‹ to ›Z‹, ›a‹ to ›z‹, ›.‹, ›_‹ and ›0‹ to ›9‹ but not blanks/spaces, and it may not start with ›.‹, ›_imdb_‹, ›_mini_‹ or ›_show_‹."
 filesFailed: "Number failed: {n}"
 filesPassed: "Number of approved: {n}"
 filesProceed: with the approved

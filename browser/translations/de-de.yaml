@@ -153,7 +153,7 @@ button:
   close:     Schließen
   confirm:   Bestätigen
   continue:  Weitermachen
-  delete:    <b>{name}</b> löschen
+  delete:    ”{name}” löschen
   dosub:     Ein neues Unteralbum erstellen
   findIn:    Suche in
   findDupNames: Doppelte Namen finden
@@ -290,7 +290,7 @@ erase: löschen
 fav:
   images: Bildfavoriten
   manage: Bildfavoriten verwalten
-fileNameRules: "Ein Dateiname darf nur »A« bis »Z«, »a« bis »z«, ».«, »_« und »0« bis »9« enthalten, jedoch keine Leerzeichen und darf nicht mit ».«, »_imdb_«, »_mini_« oder »_show_« beginnen."
+fileNameRules: "Ein Dateiname darf nur ›A‹ bis ›Z‹, ›a‹ bis ›z‹, ›.‹, ›_‹ und ›0‹ bis ›9‹ enthalten, jedoch keine Leerzeichen und darf nicht mit ›.‹, ›_imdb_‹, ›_mini_‹ oder ›_show_‹ beginnen."
 filesFailed: "Nicht genehmigte: {n}"
 filesPassed: "Anzahl genehmigte: {n}"
 filesProceed: mit genehmigte

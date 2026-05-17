@@ -10,7 +10,7 @@ import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
 import { getPromiseState } from 'reactiveweb/get-promise-state';
 
-import RefreshThis from './refresh-this';
+// import RefreshThis from './refresh-this';
 
 import { UploadFile } from 'ember-file-upload';
 import FileQueueService from 'ember-file-upload/services/file-queue';
@@ -22,10 +22,6 @@ const LF = '\n';
 // var passedFiles;
 
 // const queue = this.fileQueue.find('your-queue-name');
-let amTools = 0; // album tools counter
-// let cnTools = 0; // common tools counter
-// let tool = ''; // utility tool id (text)
-let resRad = 0; // to trigger rerender/reset of radio buttons
 
 export class DialogTools extends Component {
   @service('common-storage') z;
@@ -33,11 +29,12 @@ export class DialogTools extends Component {
   @service fileQueue;
 
   @tracked tool = ''; // utility tool id (text)
-  @tracked countImgs = 0; // duplicate image name counter
-  // @tracked amTools = 0; // album tools counter
+  // The following two 'counters' do work only as switches,
+  // since they count to 1 only, depending of some reactivety:
+  @tracked amTools = 0; // album tools counter
   @tracked cnTools = 0; // common tools counter
-  // @tracked resRad = 0; // to trigger rerender/reset of radio buttons
 
+  @tracked countImgs = 0; // duplicate image name counter
   @tracked nFail = 0; // no of illegal file(name)s
   @tracked nPass = 0; // no of passed files
 
@@ -91,7 +88,8 @@ uploadPhoto = async (file) => {
   }
 
   // Which tool was selected?
-  detectRadio = (e) => {
+  detectRadio = async (e) => {
+    await new Promise (z => setTimeout (z, 198));
     let elRadio = e.target;
       // this.z.loli(`${elRadio.id} ${elRadio.checked}`, 'color:red');
     this.tool = elRadio.id;
@@ -227,7 +225,7 @@ uploadPhoto = async (file) => {
 
   doSort = async () => {
     document.querySelector('img.spinner').style.display = '';
-    let minis = document.querySelectorAll('div.miniImgs.imgs div.img_mini');
+    let minis = document.querySelectorAll('#imgWrapper div.img_mini');
     let names = [];
     for (let minisi of minis) {
       names.push(minisi.id.slice(1));
@@ -249,10 +247,14 @@ uploadPhoto = async (file) => {
 
     // When you add an element that is already in the DOM,
     // this element will be moved, not copied.
+    // This is not fully true any longer (Vite?)
     let wrap = document.getElementById('imgWrapper');
-    for (let i=0;i<minis.length;i++) {
+    for (let i=0;i<names.length;i++) {
       wrap.appendChild(document.getElementById('i' + names[i]));
     }
+    // for (let i=0;i<names.length;i++) {
+    //   wrap.firstElementChild.remove();
+    // }
     this.z.closeDialogs(); // Why this?
     await new Promise (z => setTimeout (z, 399)); // doSort
     document.querySelector('img.spinner').style.display = 'none';
@@ -493,18 +495,6 @@ uploadPhoto = async (file) => {
   //   this.z.doFindText();
   // }
 
-  reRa = async () => {this.resRad++;}
-  @cached get resetRadio() { // trigger
-    getPromiseState(this.reRa());
-    this.z.loli('resetRadio: ' + resRad)
-  }
-  // get resetRadio() { // trigger
-  //   this.z.loli('resetRadio: ' + resRad)
-  //   resRad ++;
-  //   this.z.loli('resetRadio: ' + resRad)
-  //   return '';
-  // }
-
   zeTo1 = () => {this.amTools = 0;}
   @cached get zeroTools1() {
     getPromiseState(this.zeTo1());
@@ -586,10 +576,9 @@ uploadPhoto = async (file) => {
       </header>
       <main style="padding:0 0.75rem;max-height:24rem" width="99%">
 
-        <RefreshThis @for={{resRad}}>
         <div style="padding:0.5rem 0;line-height:1.4rem">
         {{#if this.z.albumTools}}
-        {{!-- Album tools --}}{{this.zeroTools1}}
+        {{!-- Album tools{{this.zeroTools1}} --}}
 
           {{!-- Here are tools specific for the actual album --}}
           {{{t 'write.tool0' a=this.imdbDirName}}}<br>
@@ -626,7 +615,7 @@ uploadPhoto = async (file) => {
           {{/if}}
 
         {{else}}
-        {{!-- Common tools --}}{{this.zeroTools2}}
+        {{!-- Common tools{{this.zeroTools2}} --}}
 
           {{!-- Here are tools for the entire album collection --}}
           <div style="margin:0.5rem 0 0 0">{{{t 'write.tool01'}}}</div>
@@ -645,7 +634,7 @@ uploadPhoto = async (file) => {
           {{#if this.okDupImages}}
             <span class="glue">
               <input id="util7" {{this.addTools2}} name="albumUtility" type="radio" {{on 'click' (fn this.detectRadio)}}>
-              <label for="util7"> &nbsp;{{{t 'write.tool7'}}}</label>
+              <label for="util7"> &nbsp;{{t 'write.tool7'}}</label>
             </span>
           {{/if}}
           {{#if this.okDbUpdate}}
@@ -676,18 +665,20 @@ uploadPhoto = async (file) => {
 
           {{!-- === Delete the album === --}}
           {{#if (eq this.tool 'util1')}}
-              <b>{{t 'write.tool1'}}</b>
+              {{t 'write.tool1'}}
             {{#if this.notEmpty}}
               <br><span style="color:blue">{{t 'write.notEmpty'}}</span>
             {{else}}
               – {{t 'write.isEmpty'}}<br>
-              <button type="button" {{on 'click' (fn this.doDelete)}}>{{{t 'button.delete' name=this.imdbDirName}}}</button>
+              <b>{{t 'button.delete' name=this.imdbDirName}}?</b>&nbsp;
+              <button type="button" {{on 'click' (fn this.doDelete)}}>{{t 'button.ok'}}</button>
             {{/if}}
 
           {{!-- === Make text list === --}}
           {{else if (eq this.tool 'util8')}}
 
-              <button type="button" {{on 'click' (fn this.doTextSheet)}}>{{{t 'write.tool8' a=this.imdbDirName}}}</button>
+              <b>{{t 'write.tool8'}}?</b>&nbsp;
+              <button type="button" {{on 'click' (fn this.doTextSheet)}}>{{t 'button.ok'}}</button>
 
           {{!-- === Make a new subalbum === --}}
           {{else if (eq this.tool 'util2')}}
@@ -700,9 +691,7 @@ uploadPhoto = async (file) => {
 
           {{!-- === Sort images by names === --}}
           {{else if (eq this.tool 'util3')}}
-            <b>{{t 'write.tool3'}}</b><br>
-
-            <button type="button" {{on 'click' (fn this.doSort)}}>{{t 'write.tool3'}}</button>
+            {{t 'write.tool3'}}<br>
 
             <form style="line-height:1.35rem">
               <span class="glue">
@@ -715,6 +704,9 @@ uploadPhoto = async (file) => {
               </span>
             </form>
 
+            <b>{{t 'write.tool3'}}?</b>&nbsp;
+            <button type="button" {{on 'click' (fn this.doSort)}}>{{t 'button.ok'}}</button>
+
           {{!-- === Find duplicate image names === --}}
           {{else if (eq this.tool 'util4')}}
             {{!-- <b>{{t 'write.tool4'}}</b><br> --}}
@@ -722,15 +714,15 @@ uploadPhoto = async (file) => {
             {{!-- {{#if this.z.imdbDir}} subtree OVERRIDE!
               <button type="button" {{on 'click' (fn this.doDupNames)}}>{{{t 'write.tool41' a=this.imdbDirName}}}</button>
             {{else}} root --}}
-              <b>{{t 'write.tool42'}}</b>:&nbsp;
-              <button type="button" {{on 'click' (fn this.doDupNames)}}>{{{t 'button.ok'}}}</button>
+              <b>{{t 'write.tool42'}}?</b>&nbsp;
+              <button type="button" {{on 'click' (fn this.doDupNames)}}>{{t 'button.ok'}}</button>
             {{!-- {{/if}} --}}
 
           {{!-- === Find duplicate images === --}}
           {{else if (eq this.tool 'util7')}}
 
-              <b>{{t 'write.tool7' a=this.imdbDirName}}</b>:&nbsp;
-              <button type="button" {{on 'click' (fn this.doDupImages)}}>{{{t 'button.ok'}}}</button>
+              <b>{{t 'write.tool7' a=this.imdbDirName}}?</b>&nbsp;
+              <button type="button" {{on 'click' (fn this.doDupImages)}}>{{t 'button.ok'}}</button>
 
           {{!-- === Upload images === --}}
           {{else if (eq this.tool 'util5')}}
@@ -777,7 +769,7 @@ uploadPhoto = async (file) => {
           {{!-- === Update search data for the entire album collection === --}}
           {{else if (eq this.tool 'util6')}}
 
-            <b>{{t 'write.tool6'}}</b>:&nbsp;
+            <b>{{t 'write.tool6'}}?</b>&nbsp;
             <button type="button" {{on 'click' (fn this.doDbUpdate)}}>{{t 'button.ok'}}</button>
 
           {{!-- === Manage personal favorites === --}}
@@ -793,13 +785,12 @@ uploadPhoto = async (file) => {
           {{/if}}
 
         </div>
-        </RefreshThis>
 
-        {{this.resetRadio}}
+        {{!-- {{this.resetRadio}} --}}
 
       </main>
       <footer data-dialog-draggable>
-        <button type="button" {{on 'click' @toggleTools}}>{{t 'button.close'}}</button>&nbsp;
+        <button type="button" {{on 'click' @toggleTools}}>{{t 'button.cancel'}}</button>&nbsp;
       </footer>
     </dialog>
 

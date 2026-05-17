@@ -154,7 +154,7 @@ button:
   close:     Stäng
   confirm:   Bekräfta
   continue:  Fortsätt
-  delete:    Radera <b>{name}</b>
+  delete:    Radera ”{name}”
   dosub:     Gör ett nytt underalbum
   findIn:    Sök i
   findDupNames: Finn dublettnamn
@@ -290,7 +290,7 @@ erase: radera
 fav:
   images: Favoritbilder
   manage: Favoritbildhantering
-fileNameRules: "Ett filnamn får bara innehålla »A« till »Z«, »a« till »z«, ».«, »_« och »0« till »9« men inte blank/mellanslag, och det får inte börja med ».«, »_imdb_«, »_mini_« eller »_show_«."
+fileNameRules: "Ett filnamn får bara innehålla ›A‹ till ›Z‹, ›a‹ till ›z‹, ›.‹, ›_‹ och ›0‹ till ›9‹ men inte blank/mellanslag, och det får inte börja med ›.‹, ›_imdb_‹, ›_mini_‹ eller ›_show_‹."
 filesFailed: "Underkända: {n}"
 filesPassed: "Antal godkända: {n}"
 filesProceed: med godkända
