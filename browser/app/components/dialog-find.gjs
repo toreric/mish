@@ -50,11 +50,11 @@ export class DialogFind extends Component {
   @tracked countAlbs = []; // appears never used
 
   @tracked nchk = 0;       // tot no found
-  @tracked keepIndex = []; // indices of albums where found
+  @tracked keepIndex = []; // indices of subalbums where found
   @tracked inames = [];    // found image names
-  @tracked counts = [];    // counts of found images/album
+  @tracked counts = [];    // counts of found images/subalbum
   @tracked commands = [];  // creating links to found images
-  @tracked ixFound = -2;   // index to picFound album
+  @tracked ixFound = -2;   // index to picFound subalbum
 
   iname = (i) => {
     return this.inames[i];
@@ -86,9 +86,11 @@ export class DialogFind extends Component {
     return this.z.handsomize2sp(this.z.picFound);
   }
 
-  // ''/_imdb_order.txt'' finds texts in the database (file _imdb_images.sqlite)
+  // 'doFindText' finds texts in the database (file _imdb_images.sqlite)
   // and populates the 'picFound' album with the corresponding images
+  // NOTE: There is also another z.doFindText!
   doFindText = async () => {
+    this.z.closeDialog('dialogFindResult'); // ...and close the result
     let sTxt = document.querySelector('textarea[name="searchtext"]').value + '\n';
     let and = document.querySelectorAll('.orAnd input[type="radio"]')[0].checked;
     let sWhr = [];
@@ -115,9 +117,10 @@ export class DialogFind extends Component {
     NOTE: Negative ´exact´, -1 = called from the find? dialog, -2 = do nothing,
           else (non-negative) = called from and return to the favorites? dialog
     Example: Find pictures by exact matching of image names (file basenames), e.g.
-      doFindText ("img_0012 img_0123", false, [false, false, false, false, true], -1)
+      searchText("img_0012 img_0123", false, [false, false, false, false, true], -1)
     **/
     let data = await this.z.searchText(sTxt, and, sWhr, 0);
+      // console.log('from z.searchText, data =', data)
     // Hide the spinner
     document.querySelector('img.spinner').style.display = 'none';
     if (!data) {
@@ -129,11 +132,11 @@ export class DialogFind extends Component {
     this.commands = []; // Commands to create links in picFound
     let paths = []; // The found paths
     let albs = [];  // The list of found albums
-    let lpath = this.z.imdbPath + '/' + this.z.picFound; // The path to picFound
+    let pifopath = this.z.imdbPath + '/' + this.z.picFound; // The path to picFound
     // Maximum number of pictures from the search results to show:
     let nLimit = 100;
     let filesFound = 0;
-    let chalbs = this.z.imdbDirs;
+    let albDirs = this.z.imdbDirs;
     if (data) {
       // Don't sort, order may be important if this is a search for duplicates. Then
       // this is the final re-search by image names in sequence. The result is presented
@@ -142,30 +145,33 @@ export class DialogFind extends Component {
       // Remove possibly empty values:
       paths = paths.filter(a => {if (a.trim()) return true; else return false});
       // NOTE: 'paths' is the basis of the innerHTML content of 'dialogFindResult'
-        // this.z.loli('paths:\n' + paths.join('\n'), 'color:pink');
+        // this.z.loli('doFindText paths:\n' + paths.join('\n'), 'color:pink');
         // console.log(paths);
 
       // Prepare to display the result in the 'picFound' album
       // Find the index of the 'picFound' album (may vary by language)
-      this.ixFound = chalbs.indexOf('/' + this.z.picFound);
+      this.ixFound = albDirs.indexOf('/' + this.z.picFound);
+      if (this.ixFound !== this.z.picFoundIndex) this.z.loli('picFoundIndex ERROR', 'color:deeppink') // just checking... it should already be initially set
         // this.z.loli('picFound index = ' + this.ixFound + ' (cf. menu tree)', 'color:red');
       // -- Prepare counters and imgnames (inames) for all albums
-      this.counts = '0'.repeat(chalbs.length + 1).split('').map(Number); // +1 for skipped
-      this.inames = ' '.repeat(chalbs.length).split('');
+      this.counts = '0'.repeat(albDirs.length).split('').map(Number); // +1 for skipped???
+      this.inames = ' '.repeat(albDirs.length).split('');
       for (let i=0; i<paths.length; i++) {
         let chalb = paths[i].replace(/^[^/]+(.*)\/[^/]+$/, '$1'); // in imdbDirs format
-        // -- Allow only files/pictures in the albums of #imdbDirs (chalbs):
+          // this.z.loli(paths[i] + ' => ' + chalb, 'color:yellow');
+        // -- Allow only files/pictures in the albums of #imdbDirs (albDirs):
         let okay0 = true;
-        let idx = chalbs.indexOf(chalb);
+        let idx = albDirs.indexOf(chalb);
         // Do not find images in
         if (idx > -1  && idx !== this.ixFound) {okay0 = true;} else {
           okay0 = false;
-          idx = chalbs.length; // Count the dismissed/skipped, perhaps not further used?
+          idx = albDirs.length; // Count the dismissed/skipped, perhaps not further used?
         }
         this.counts[idx]++; // -- A hit in this album
         let fname = paths[i].replace(/^.*\/([^/]+$)/, '$1');
-        if (idx < chalbs.length) {
-          this.inames[idx] = (this.inames[idx] + ' ' + fname.replace(/\.[^./].*$/, '')).trim();
+        if (idx < albDirs.length) {
+            // this.z.loli(fname + '=>' + fname.replace(/(^.*)(\.[^.]*$)/, '$1'), 'color:yellow');
+          this.inames[idx] = (this.inames[idx] + ' ' + fname.replace(/(^.*)(\.[^.]*$)/, '$1')).trim();
         }
         let linkfrom = '../' + paths[i].replace(/^[^/]*\//, '');
         let okay1 = this.z.acceptedFileName(fname);
@@ -197,7 +203,7 @@ export class DialogFind extends Component {
           if (okay0 && okay1) { // Only approved files are counted as 'filesFound'
             filesFound++;
             nameOrder.push(n1 + '.' + r4 + ',0,0');
-            let linkto = lpath + '/' + fname;
+            let linkto = pifopath + '/' + fname;
             // Arrange links of found pictures into the picFound album:
             this.commands.push ('ln -sf ' + linkfrom + ' ' + linkto);
           } else if (n1.length > 0) {
@@ -209,42 +215,43 @@ export class DialogFind extends Component {
       // 'nameOrder' will be the 'sortOrder' for 'picFound':
       nameOrder = nameOrder.join('§¤').trim ();
       nameOrder = nameOrder.replace(/§¤/g, '\\n');
-      // nameOrder = '"' + nameOrder + '"';
-        // this.z.loli('nameOrder:\n' + nameOrder, 'color:pink');
-        // this.z.loli('commands:\n' + this.commands.join('\n'), 'color:pink');
-        // this.z.loli('albs:\n' + albs.join('\n'), 'color:pink');
-        // console.log('counts:', this.counts);
-        // console.log('inames:', this.inames);
+        // this.z.loli('doFindText, nameOrder:\n' + nameOrder, 'color:pink');
+        // this.z.loli('doFindText, commands:\n' + this.commands.join('\n'), 'color:pink');
+        // this.z.loli('doFindText, albs:\n' + albs.join('\n'), 'color:pink');
+        // console.log('doFindText, counts:', this.counts);
+        // console.log('doFindText, inames:', this.inames);
 
       // Prepare the alternative album list 'countAlbs' for the 'filesFound > nLimit' case:
       this.countAlbs = [];
       let keepOld = false;
 
+      this.keepIndex = null;
       this.nchk = 0;
       this.keepIndex = [];
-      for (let i=0; i<chalbs.length-1; i++) {
+      for (let i=0; i<albDirs.length; i++) {
         if (this.counts [i]) {
           this.nchk += this.counts[i];
           this.keepIndex.push(i);
+            // this.z.loli(i + ' keepIndex = ' + this.keepIndex, 'color:red');
         }
       }
-        // this.z.loli(this.keepIndex, 'color:red');
+        // console.log(this.keepIndex); // in doFindText
 
       // Clean the 'picFound' album
-      let err = await this.z.execute('rm -rf ' + lpath + '/*');
+      let err = await this.z.execute('rm -rf ' + pifopath + '/*');
         // this.z.loli(err, 'color:red');
       // Recreate the '.imdb' file
-      await this.z.execute('touch ' + lpath + '/.imdb');
+      await this.z.execute('touch ' + pifopath + '/.imdb');
 
       // Create the sortOrder file with the found images. The 'echo' command
       // should or should not have the '-e' parameter (shell dependent, here not).
       // The within "" inclusion is important for the '\n' interpretation!
-      await this.z.execute('echo "' + nameOrder + '" > ' + lpath + '/_imdb_order.txt');
+      await this.z.execute('echo "' + nameOrder + '" > ' + pifopath + '/_imdb_order.txt');
     }
     this.z.closeDialog(dialogFindId);
     this.z.openDialog('dialogFindResult');
     // document.querySelector('#dialogFindResult').style.zIndex = Number(document.querySelector('#dialogFind').style.zIndex) + 1;
-      // this.z.loli('Ignored: ' + this.counts[chalbs.length], 'color:lime');
+      // this.z.loli('Ignored: ' + this.counts[albDirs.length], 'color:lime');
       // this.z.loli('N, max: ' + this.nchk + ', ' + this.z.maxWarning, 'color:lime');
     let butt = document.querySelector('#dialogFindResult button.show');
     if (this.nchk > this.z.maxWarning) {
@@ -259,18 +266,17 @@ export class DialogFind extends Component {
   // openFound(i) opens 'picFound' with images found in album 'i'
   openFound = async (i) => {
     document.querySelector('img.spinner').style.display = '';
-    let lpath = this.z.imdbPath + '/' + this.z.picFound; // The path to picFound
+    let pifopath = this.z.imdbPath + '/' + this.z.picFound; // The path to picFound
     // Clean up picFound:
-    await this.z.execute('rm -rf ' + lpath + '/*');
-    await this.z.execute('touch ' + lpath + '/.imdb');
-    // await this.z.execute('touch ' + lpath + '/_imdb_order.txt');
+    await this.z.execute('rm -rf ' + pifopath + '/*');
+    await this.z.execute('touch ' + pifopath + '/.imdb');
     if (i < 0) {
       // Create links to all found images
-      // for (let j=0; j<this.commands.length; j++) { // forwards
       for (let j=this.commands.length; j>0; j--) { // work backwards
         await this.z.execute(this.commands[j-1]);
       }
     } else {
+      // (re)search for the found image names in this specific album
       let sWhr = [false, false, false, false, true];
       // NOTE: The names and uses are mostly copied from 'doFindText' below.
       // 'this.inames[i]' are pic names, now to be found with exact match.
@@ -278,33 +284,32 @@ export class DialogFind extends Component {
       // NO! WE WON'T! WHY DON'T WE FIND DUPLICATE NAMES???
       // The function 'z.searchText' code is in '#region search/' of z.
       let data = await this.z.searchText(this.inames[i], false, sWhr, -1);
-      // Don't! Hide the spinner
-      // document.querySelector('img.spinner').style.display = 'none';
       let paths = data.trim ().split ('\n');
         // console.log(paths);
       // for (let i=0; i<paths.length; i++) { // forwards
       for (let i=paths.length; i>0; i--) { // work backwards
         let linkfrom = '../' + paths[i-1].replace(/^[^/]*\//, ''); // make relative
         let fname = paths[i-1].replace(/^.*\/([^/]+$)/, '$1'); // clean from directories
-        // Make a four character random 'intrusion' in the file name
+        // Make a four character random 'intrusion' at the end of the file name
         fname = this.z.addRandom(fname)
-        let linkto = lpath + '/' + fname; // absolute path
+        let linkto = pifopath + '/' + fname; // absolute path
         // Create a link to this found image
         let command = 'ln -sf ' + linkfrom + ' ' + linkto;
         await this.z.execute(command);
       }
     }
     this.z.closeDialog(dialogFindId);
-    this.z.openAlbum(this.ixFound);
+    await this.z.openAlbum(this.ixFound);
   }
 
   openAlbumAll = async (i) => {
-    this.z.openAlbum(i);
+    await this.z.openAlbum(i);
     // Allow for the rendering of mini images and preload of view images
     let size = this.z.albumAllImg(i);
     await new Promise (z => setTimeout (z, size*120 + 100));
   }
 
+  // DialogFind
   <template>
     <div style="display:flex" {{on 'keydown' this.detectEscClose}}>
 

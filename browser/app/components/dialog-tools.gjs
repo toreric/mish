@@ -490,65 +490,44 @@ uploadPhoto = async (file) => {
     this.z.alertMess(this.intl.t('write.dbUpdated'));
   }
 
-  // doFindText = () => {
-  //   this.z.closeDialog('dialogUtil');
-  //   this.z.doFindText();
-  // }
-
-  zeTo1 = () => {this.amTools = 0;}
+  zeTo1 = () => {this.amTools = 0; return this.amTools;}
   @cached get zeroTools1() {
-    getPromiseState(this.zeTo1());
-    this.z.loli('zeroTools1: ' + this.amTools)
+    let tmp = getPromiseState(this.zeTo1());
+    this.z.loli('zeroTools1: ' + tmp);
     return '';
   }
 
-  adTo1 = () => {this.amTools++;}
+  adTo1 = () => {this.amTools++; return this.amTools;}
   @cached get addTools1() {
-    getPromiseState(this.adTo1());
-    this.z.loli('addTools1: ' + this.amTools)
+    let tmp = getPromiseState(this.adTo1());
+    this.z.loli('addTools1: ' + tmp);
     return '';
   }
 
-  zeTo2 = () => {this.cnTools = 0;}
+  zeTo2 = () => {this.cnTools = 0; return this.cnTools;}
   @cached get zeroTools2() {
-    getPromiseState(this.zeTo2());
-    this.z.loli('zeroTools2: ' + this.cnTools);
+    let tmp = getPromiseState(this.zeTo2());
+    this.z.loli('zeroTools2: ' + tmp);
     return '';
   }
+
+  adTo2 = () => {this.cnTools++; return this.cnTools;}
+  @cached get addTools2() {
+    let tmp = getPromiseState(this.adTo2());
+    this.z.loli('addTools2: ' + tmp);
+    return '';
+  }
+
   // get zeroTools2() {
   //   cnTools = 0;
   //   this.z.loli('zeroTools2: ' + cnTools);
   //   return '';
   // }
 
-  adTo2 = () => {this.cnTools++;}
-  @cached get addTools2() {
-    getPromiseState(this.adTo2());
-    this.z.loli('addTools2: ' + this.cnTools);
-    return '';
-  }
   // get addTools2() {
   //   cnTools++;
   //   this.z.loli('addTools2: ' + cnTools);
   //   return '';
-  // }
-
-
-  // This kind of ”cross-close” by toggle-close causes, by
-  // coincidence, reset of ALL the dialog's radio buttons.
-  // NOTE: Doesn't work formally at direct manual ”non-cross”
-  // tool toggle when a radio button is selected.
-  // The two variants of the tool dialog made this possible.
-  // closeDialogUtil = () => {
-  //   // It is an 'reset-radio-buttons' advantage to toggle(close)
-  //   // with the other alternative button, if avaliable:
-  //   let album = document.getElementById('albumTools');
-  //   let common = document.getElementById('commonTools');
-  //   if (this.z.albumTools && common) common.click();
-  //   else if (album) album.click();
-  //   // If still open (may happen with an absent button) then the
-  //   // last used will, but'only formally', remain selected):
-  //   this.z.closeDialog('dialogUtil');
   // }
 
   // NOTE, within the DialogTools template:
@@ -776,11 +755,12 @@ uploadPhoto = async (file) => {
           {{!-- Tip: util9 is free to replace util91 --}}
           {{else if (eq this.this.tool 'util91')}}
 
-            <button type="button" {{on 'click' (fn this.z.futureNotYet 'write.tool91')}}>{{t 'write.tool91'}}</button>
+            <b>{{t 'write.tool91'}}?</b>&nbsp;
+            <button type="button" {{on 'click' (fn this.z.futureNotYet 'write.tool91')}}>{{t 'button.ok'}}</button><br>
 
-            {{!-- <p onclick="return false" draggable="false" ondragstart="return false" title-2={{t 'fav.manage'}}>
+            <span onclick="return false" draggable="false" ondragstart="return false" title-2={{t 'fav.manage'}}>
               <a id ="favorites" {{on "click" (fn this.seeFavorites)}}>{{t 'fav.images'}}</a>
-            </p><br> --}}
+            </span><br> <br> <br>
 
           {{/if}}
 

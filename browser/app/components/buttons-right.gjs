@@ -23,16 +23,31 @@ export class ButtonsRight extends Component {
   doGetFullSize = async () => {
     if (this.z.picIndex < 0) return; // Dismiss initial reactivity
     if (!this.z.allFiles) return; // Dismiss initial reactivity
-
+    var tempDir = false
     var fileName = this.z.allFiles[this.z.picIndex].linkto;
+
     // If the file name begins with e.g. 'Vbm' or 'CPR'
     // then !fileName.search(/^vbm|^cpr/i) is !0 === true:
-    if (!fileName.search(/^vbm|^cpr/i) && !this.z.allow.deleteImg) {
+    if (!fileName.replace(/.*\/([^/]+)$/, "$1").search(/^vbm|^cpr/i) && !this.z.allow.deleteImg) {
       this.z.alertMess(this.intl.t('blockCopyright'));
       return;
     }
+
     document.querySelector('img.spinner').style.display = '';
+    var oldFileName = fileName;
+    // Convert tiff files to jpeg in a temporary directory
+    if ( /\.tiff?$/i.test(fileName.replace(/.*(\.[^.]+)$/, "$1")) ) {
+      fileName = '/' + this.z.picFound + '/012345.jpeg'; // Use picFound as temp dir
+      tempDir = true;
+      let cmd = 'convert ' + this.z.imdbPath + oldFileName +' '+ this.z.imdbPath + fileName;
+      this.z.execute(cmd);
+    }
+      // this.z.loli('getFullSize fileName: ' + oldFileName + ':' + fileName, 'color:yellow');
+
     var path = this.z.imdbPath + fileName;
+      // this.z.loli('getFullSize path: ' + path, 'color:yellow');
+
+    await new Promise (z => setTimeout (z, 999)); // in doGetFullSize
     let file = await fetch(path).then(r => r.blob()).then(blobFile => new File([blobFile],  fileName, { type: blobFile.type, lastModified: blobFile.lastModified }));
     var url = URL.createObjectURL(file);
     var wiName = window.open('', 'w012345', 'menubar=no,popup=true,status=no,titlebar=no,toolbar=no');
@@ -48,9 +63,10 @@ export class ButtonsRight extends Component {
     divObj.appendChild(imgObj);
     divObj.style.width = '100vw';
     divObj.style.height = 'auto';
-    await new Promise (z => setTimeout (z, 199));
+    await new Promise (z => setTimeout (z, 199)); // in doGetFullSize
     document.querySelector('img.spinner').style.display = 'none';
     URL.revokeObjectURL(file);
+    if (tempDir) this.z.execute('rm ' + path);
 
     /*/ !this.z.picName.search(/^vbm|^cpr/i) is !0 === true
     // if the file name is e.g. 'Vbm_...' or 'CPR...':

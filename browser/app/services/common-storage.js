@@ -42,7 +42,7 @@ export default class CommonStorageService extends Service {
             }
   @tracked  imdbDirs = [''];        //all available album paths at imdbRoot
   @tracked  imdbLabels = [''];      //thumbnail labels for 'imdbDirs' (paths to)
-        get imdbPath() { // userDir/imdbRoot = absolut path to album root
+        get imdbPath() { // userDir/imdbRoot = absolut path to this album root
               return this.userDir + '/' + this.imdbRoot;
             }
   @tracked  imdbRoot = '';          //chosen album root directory (= collection)
@@ -58,7 +58,7 @@ export default class CommonStorageService extends Service {
   @tracked  picFound = null; //this.picFoundBaseName + '.' + this.RID;
         get picFoundBaseName() { return this.intl.t('picfound'); }
   @tracked  picFoundIndex = -1; //set in MenuMain, the index may vary by language
-  @tracked  picName = ''; //actual/current image name, when set: carefully det picIndex
+  @tracked  picName = ''; //actual/current image name, when set: also set picIndex!
   @tracked  picIndex = -1 //too, the index of picName's file info.object in allFiles
   @tracked  sortOrder = '';    //file order information table of 'imdbDir'
   @tracked  subColor = '#aef'; //subalbum legends color
@@ -338,7 +338,7 @@ export default class CommonStorageService extends Service {
 
   // Browswer back arrow
   //#region goBack
-  goBack = () => {
+  goBack = async () => {
     if (!this.imdbRoot) return;
     this.albumHistory.pop();
     let index = this.albumHistory.length - 1;
@@ -349,7 +349,7 @@ export default class CommonStorageService extends Service {
     }
     index = this.albumHistory[index];
     if (this.albumHistory.length > 1) this.albumHistory.pop();
-    this.openAlbum(index);
+    await this.openAlbum(index);
   }
 
   //#region homeAlbum
@@ -378,16 +378,16 @@ export default class CommonStorageService extends Service {
         this.alertMess(this.intl.t('albumMissing') + ':<br><br><p style="width:100%;text-align:center;margin:0">”' + this.removeUnderscore(name) + '”</p>', 0);
       }
     } else {
-      this.openAlbum(i);
+      await this.openAlbum(i);
       // Allow for the rendering of mini images and preload of view images
-      let size = this.albumAllImg(i);
-      await new Promise (z => setTimeout (z, size*120 + 100)); // album load in homeAlbum
+      // let size = this.albumAllImg(i);
+      // await new Promise (z => setTimeout (z, size*120 + 100)); // album load in homeAlbum
       this.gotoMinipic(picName);
     }
   }
 
   //#region openAlbum
-  openAlbum = async (i) => { // paremeter may be text!
+  openAlbum = async (i) => { // parameter may be text, e.g. '0' or '12'
     this.picName = '';
     this.picIndex = -1;
     // Close dialogs without reuse potential:
@@ -403,7 +403,7 @@ export default class CommonStorageService extends Service {
     // Hide the right side buttons
     document.querySelector('.nav_links').style.display = 'none';
     // Show left buttons, language buttons, subalbums
-    document.querySelector('#smallButtons1').style.display = '';
+    document.querySelector('#smallButtons').style.display = '';
     document.querySelector('#upperButtons').style.display = '';
     document.querySelector('.albumsHdr').style.display = '';
     // Display the spinner
@@ -844,8 +844,9 @@ export default class CommonStorageService extends Service {
 
   // Position to a minipic and highlight its border
   //#region gotoMinipic
-  gotoMinipic = async (namepic) => {
+  gotoMinipic = async (namepic, e) => {
       // this.loli('>' + namepic, 'color:red');
+      if (e) console.log(e);
     if (!namepic) return;
       // this.loli(namepic, 'color:red');
     await new Promise (z => setTimeout (z, 39)); // in gotoMinipic
@@ -1087,6 +1088,7 @@ export default class CommonStorageService extends Service {
 
   // Search album texts to find images
   //#region doFindText
+  // NOTE: There is also another DialogFind.doFindText!
   doFindText = () => {
     if (this.missingRoot()) return;
     this.openDialog('dialogFind');
@@ -1610,7 +1612,7 @@ export default class CommonStorageService extends Service {
           statusText: xhr.statusText
         });
       }
-        console.log(data);
+        // console.log(data);
       xhr.send (data);
     });
   }
@@ -1638,11 +1640,11 @@ export default class CommonStorageService extends Service {
     if (and) {AO = ' AND '} else {AO = ' OR '};
     if (sTxt === "") {sTxt = undefined;}
     let cmt = '';
-    // The first line may be a comment, to ignore:
+    // The first line may be a comment, to ignore in searh:
     if (sTxt.slice (0, 1) === '#') {
-      let l = sTxt.indexOf('\n');
-      cmt = sTxt.slice(1, l); // comment line, may be used as header
-      sTxt = sTxt.slice(l + 1);
+      let cmtEnd = sTxt.indexOf('\n');
+      cmt = sTxt.slice(1, cmtEnd); // comment line, may be used as header
+      sTxt = sTxt.slice(cmtEnd + 1);
         // this.loli(cmt, 'color:yellow');
     }
     let txt = sTxt.trim();
@@ -1673,10 +1675,12 @@ export default class CommonStorageService extends Service {
         if (i > 0) {andor = AO}
         str += andor + "txtstr LIKE " + arr[i].trim ();
       }
-        // // A double printout clarifies the %-autosubstitution of console.log
+        // // A double printout clarifies the %-autosubstitution by console.log
+        // // which occurs when '%' is followed by an item having one of the
+        // // letters 'sdifoc' as its first!
         // this.loli(str, 'color:orange  ');
         // this.loli(str.replace(/%/g, '*'), 'color:yellow');
-        // console.log(searchWhere);
+
       // var srchData = new FormData();
       // srchData.append("like", str);
       // srchData.append("cols", searchWhere);
@@ -1687,7 +1691,7 @@ export default class CommonStorageService extends Service {
         cols: searchWhere,
         info: exact === 0 ? '' : 'exact'
       });
-        console.log(srchData);
+        console.log(srchData); // debug printout
       return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
         xhr.open('POST', 'search/', true, null, null);
@@ -1736,7 +1740,7 @@ export default class CommonStorageService extends Service {
             });
           }
         }
-          console.log(srchData);
+          console.log(srchData); // debug printout
         xhr.send(srchData);
       });
     }

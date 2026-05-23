@@ -39,10 +39,10 @@ export class ButtonsLeft extends Component {
     }
   }
 
-  reloadAlbum = (e) => {
+  reloadAlbum = async (e) => {
     if (e) e.stopPropagation();
     // this.z.hideHidden();
-    this.z.openAlbum(this.z.imdbDirIndex);
+    await this.z.openAlbum(this.z.imdbDirIndex);
   }
 
   toggleNameView = (e) => {

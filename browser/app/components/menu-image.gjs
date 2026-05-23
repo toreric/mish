@@ -549,7 +549,7 @@ export class MenuImage extends Component {
         this.z.updateTree();
         await new Promise (z => setTimeout (z, 88));
         // Go back to the album we came from after root load
-        this.z.openAlbum(fromIndex);
+        await this.z.openAlbum(fromIndex);
         document.querySelector('img.spinner').style.display = 'none';
         await new Promise (z => setTimeout (z, 666*n));
         this.z.countNumbers();
@@ -764,7 +764,7 @@ export class ChooseAlbum extends Component {
       // selEl.dispatchEvent(new Event('change'));
       // await new Promise (z => setTimeout (z, 888));
       // Back to the album we came from
-      this.z.openAlbum(fromIndex);
+      await this.z.openAlbum(fromIndex);
     // ******************************************************
     // chooseText starts with ”0” if ”doMove”, ”doMove” here:
     } else {
@@ -831,9 +831,9 @@ export class ChooseAlbum extends Component {
           //NOTE does not work commonly when file names are dotted inside!
           moveto = moveto.replace(/^(.+\.)([^.]{4}\.)([^.]+)$/, '$1'+'$3');
 
-            this.z.loli(cmd.replace(/;/g, ';\n').replace(/\nthen /g, 'then\n').replace(/else /g, 'else\n'), 'color:red');
+            // this.z.loli(cmd.replace(/;/g, ';\n').replace(/\nthen /g, 'then\n').replace(/else /g, 'else\n'), 'color:red');
         let r = await this.z.execute(cmd);
-          this.z.loli('moveto: ' + cmd, 'color:pink');
+          // this.z.loli('moveto: ' + cmd, 'color:pink');
         if (r) this.z.loli('Not moved: ' + picNames[i] + '\n' + r);
           // console.log('>>>moved from:', move);
           // console.log('  >>>moved to:', moveto);
@@ -847,12 +847,12 @@ export class ChooseAlbum extends Component {
       await new Promise (z => setTimeout (z, 88));
 
       // Go back to the album we came from after root load
-      this.z.openAlbum(fromIndex);
+      await this.z.openAlbum(fromIndex);
       // Go to the destination album
-      // this.z.openAlbum(this.which);
+      // await this.z.openAlbum(this.which);
     }
     this.which = -1;
-    // this.z.openAlbum(this.z.imdbDirIndex); // Reloads current album
+    // await this.z.openAlbum(this.z.imdbDirIndex); // Reloads current album
     this.z.countNumbers();
   }
 

@@ -96,6 +96,7 @@ no: inga
 notAvailable: Ej tillgänglig
 numbererror: V A R N I N G<br><br>Bildantalet stämmer inte!
 Original: Original
+Originalexpl: Originalbilden är albumets basbild, troligen med högre upplösning
 own: egna original
 Phototime: Fototid
 placeFirst: Placera i början av albumet
@@ -295,7 +296,7 @@ filesFailed: "Underkända: {n}"
 filesPassed: "Antal godkända: {n}"
 filesProceed: med godkända
 foundExplain: Funna bilder
-fullSize: "Full storlek\ni nytt fönster"
+fullSize: "Originalstorlek\ni nytt fönster"
 gomini: "Återgå\n
         [Esc]"
 gonext: "Nästa\n

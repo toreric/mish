@@ -757,7 +757,7 @@ export default function(app) { // Start module.exports
     // await new Promise(z => setTimeout(z, 277))
     let like = removeDiacritics (req.body.like)
     if (req.body.info != "exact") like = like.toLowerCase() // if not e.g. file name compare
-      // console.log("like",like)
+      // console.log("like =", like)
     let cols = eval ("[" + req.body.cols + "]")
     // Table columns:
     let taco = ["description", "creator", "source", "album", "name"]
@@ -766,8 +766,10 @@ export default function(app) { // Start module.exports
       if (cols[i]) {columns += "||" + taco[i]}
     }
     columns = columns.slice (2)
+      // console.log("columns =", columns)
 
     try { // Start try ----------
+        // console.log("start try, like =", like)
       if (like === '') {
         res.send ('')
       } else {
@@ -777,7 +779,7 @@ export default function(app) { // Start module.exports
         const rows = db.prepare('SELECT id, filepath, ' + columns + ' AS txtstr FROM imginfo WHERE ' + like).all()
         setTimeout(() => {
           var foundpaths = "", n = 0
-            // console.log(rows)
+            // console.log(rows) // NOTE: Shows the entire search result
           rows.forEach((row) => {
               // console.log("row.filepath",row.filepath.trim())
             // In certain situations, dotted directories may
@@ -788,6 +790,7 @@ export default function(app) { // Start module.exports
             }
           })
           console.log('Gross count found: ' + n) // Iincludes images from hidden albums etc.
+            // console.log('foundpaths =', foundpaths.trim())
           res.send(foundpaths.trim())
         }, 1000)
         db.close()
@@ -795,8 +798,7 @@ export default function(app) { // Start module.exports
     } catch (err) {
       console.error("€RR", err.message)
     } // End try ----------
-
-      })
+  })
 
   // ##### Upload image(s)
   //region upload

@@ -96,6 +96,7 @@ no: keine
 notAvailable: Nicht verfügbar
 numbererror: W A R N U N G<br><br>Nicht übereinstimmende Bildanzahl!
 Original: Original
+Originalexpl: Das Originalbild ist das Basisbild im Album, wahrscheinlich in höherer Auflösung
 own: eigene Originale
 Phototime: Fotozeit
 placeFirst: Am Anfang des Albums platzieren
@@ -295,7 +296,7 @@ filesFailed: "Nicht genehmigte: {n}"
 filesPassed: "Anzahl genehmigte: {n}"
 filesProceed: mit genehmigte
 foundExplain: Gefundene Bilder
-fullSize: "Vollbild im\nneuen Fenster"
+fullSize: "Originalbild im\nneuen Fenster"
 gomini: "Zurück\n
         [Esc]"
 gonext: "Nächstes\n

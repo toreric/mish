@@ -32,6 +32,8 @@ export class MenuMain extends Component {
   // and convert them into an object tree with an amended property set.
   // Finally indicate if this album tree has any hidden-without-allowance album.
   selectRoot = async (event) => { // Album root = collection
+    this.z.closeDialog('dialogFindResult'); // may cause trouble if open
+    this.z.closeDialog(dialogAlertId);
     this.z.imdbRoot = event.target.value;
       // console.log(document.getElementById('rootSel'));
       // this.z.loli(document.getElementById('rootSel').selectedIndex, 'color:red');
@@ -142,7 +144,7 @@ export class MenuMain extends Component {
       return hidden;
     }
     this.hasHidden = anyHidden(); // if there are any hidden-but-allowed albums
-    this.z.openAlbum(0); // Select the root album
+    await this.z.openAlbum(0); // Select the root album
 
     // Copy the 'text' directory from the album root to  the web root which
     // makes available to be linked to within the image captions by writing
@@ -231,7 +233,7 @@ export class MenuMain extends Component {
       <p onclick="return false" draggable="false" ondragstart="return false">
         <a class="" style="color:white;cursor:default">
 
-          <select id="rootSel" title-2={{t 'albumcollinfo'}} {{on 'change' this.selectRoot}} {{on 'mousedown' (fn this.z.closeDialog this.dialogAlertId)}}>
+          <select id="rootSel" title-2={{t 'albumcollinfo'}} {{on 'change' this.selectRoot}} {{on 'mousedown' (this.cleanWindows)}}>
             <option value="" selected>{{t 'selalbumcoll'}}</option>
             {{#each this.z.imdbRoots as |rootChoice|}}
               <option value={{rootChoice}} selected={{eq this.z.imdbRoot rootChoice}}>{{rootChoice}}</option>

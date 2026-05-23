@@ -96,6 +96,7 @@ no: no
 notAvailable: Not available
 numbererror: W A R N I N G<br><br>Image count mismatch!
 Original: Original
+Originalexpl: The original image is the base image of the album, probably with a higher resolution
 own: own original
 Phototime: Photo time
 placeFirst: Place at the beginning of the album
@@ -297,7 +298,7 @@ filesFailed: "Number failed: {n}"
 filesPassed: "Number of approved: {n}"
 filesProceed: with the approved
 foundExplain: Found images
-fullSize: "Full size in\nnew window"
+fullSize: "Original size in\nnew window"
 gomini: "Return\n
         [Esc]"
 gonext: "Next\n
