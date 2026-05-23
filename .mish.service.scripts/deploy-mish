@@ -1,0 +1,59 @@
+#!/bin/bash
+# Script ”deploy-mish” for SCP copy of Mish files to a server
+
+pwd=$PWD
+# The Mish project catalog:
+cd ~/Arbeten/mish-dev
+
+tocopy='app/ public/ _imdb_news.txt _imdb_settings.sqlite _imdb_similarity buildstamp.txt ld_imdb.js .htaccess LICENSE.txt nodestamp.txt package.json robots.txt server.js'
+
+# The 'a' server list should be carefully adapted:
+a=("tore@192.168.0.102:/var/www/mish" "minneadmin@192.168.1.108:/var/www/mish" "minneadmin@mish.hopto.org:/var/www/mish")
+
+echo
+echo "Choose a target server:"
+PS3="Enter a number: "
+COLUMNS=1
+select dest in "${a[@]}"; do
+  copyto=$dest
+  break
+done
+
+if [[ $copyto == "" ]]; then
+  echo "Cancelled"
+  exit
+fi
+
+echo
+echo 'Should Mish be deployed to the server place'
+echo -n "  $copyto? (y/N): "
+read yN
+if [[ $yN != 'y' && $yN != 'yes' ]]; then
+  echo "Nothing copied"
+  cd $pwd
+  exit
+fi
+
+echo
+echo "To copy:"
+for x in $tocopy; do
+  echo " $x"
+done
+echo
+echo -n 'Confirm (y/N): '
+read yN
+if [[ $yN != 'y' && $yN != 'yes' ]]; then
+  echo "Ended with nothing copied"
+  cd $pwd
+  exit
+fi
+
+scp -qr $tocopy $copyto
+if [[ $? == 0 ]]; then
+  echo "Ended with no error"
+else
+  echo "Ended with error code $?"
+fi
+
+cd $pwd
+echo

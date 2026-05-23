@@ -1,0 +1,38 @@
+#! /bin/bash
+
+if [[ $# = 1 ]]; then
+  files=$1
+  for f in $files; do
+    if [ -f $f ]; then
+    if [[ ! $f =~ ^_.* ]]; then
+      fr=`ran4mk.js "$f"`;
+      if [[ $fr != "" ]]; then
+        echo "mv $f $fr"
+        mv $f $fr
+        p=$(echo $f | sed 's/\.[^.]\+$/\.png/')
+        pr=$(echo $fr | sed 's/\.[^.]\+$/\.png/')
+        if [ -f _mini_$p ]; then
+          mv _mini_$p _mini_$pr
+        fi
+        if [ -f _show_$p ]; then
+          mv _show_$p _show_$pr
+        fi
+      fi
+    fi
+    fi
+  done
+else
+  echo "MISH UTILITY SCRIPT changing file names"
+  echo "Usage: "`basename $0` "<string with file basename(s)>"
+  echo "  NOTE: Must be executed in the catalog where the files are present!"
+  echo "  Removes all spaces and characters not belonging to [-._a-zA-Z0-9]"
+  echo "  from each file name, leaving its extension untouched, but extending"
+  echo "  it with four random characters drawn from a-z and 0-9 (or [a-z0-9]),"
+  echo "  which is one out of 1679616 possible."
+  echo "Output: None, exept the changed names of the named files, if found."
+  echo "Note: A file name with a leading dot or underscore is ignored, with"
+  echo "  one exeption: ran4add will also extend corresponding _mini_...png"
+  echo "  and _show_...png file names, if present, assuming (note!) that no"
+  echo "  further character check is needed (for renaming in Mish albums)."
+  echo "Requires: node (aka nodejs), ran4mk.js, sed"
+fi

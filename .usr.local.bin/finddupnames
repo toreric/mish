@@ -1,0 +1,71 @@
+#!/bin/bash
+
+if [[ $# < 1 || $# > 2 || $1 < 0 || $1 > 3 ]]; then
+  scriptname=`basename $0`
+  echo
+  echo " MISH UTILITY SCRIPT"
+  echo "    Use: $scriptname m [<path>]"
+  echo "         lists image names,"
+  echo "  m = 0: including also dotted (.*) directories and files"
+  echo "  m = 1: excluding dotted (.*) directories and files"
+  echo "  m = 2: like 1 but with each uniqe file path only"
+  echo "  m = 3: like 2 but both file names and file paths"
+  echo " <path>: path of the album to be searched (WARNING: if omitted: \".\")"
+  echo "  Lists: found duplicate image names and/or (m = 2 and 3) file paths"
+  echo "  Needs: sqlite3"
+  echo
+  exit 0
+fi
+
+dir=`pwd`
+if [[ $# = 2 ]]; then dir=$2; fi
+shopt -s nocasematch
+
+#if [ ! -f ${dir}/_imdb_images.sqlite ]; then
+if [ ! -f ${dir}/.imdb ]; then
+  echo "'$dir' is not an album directory"
+  exit 1
+fi
+
+if [[ $1 = 0 ]]; then
+sqlite3 -batch ${dir}/_imdb_images.sqlite <<EOF
+.width 80
+.headers off
+.mode columns
+SELECT name FROM imginfo GROUP BY name HAVING COUNT(*) > 1 ORDER BY name;
+.quit
+EOF
+fi
+
+if [[ $1 = 1 ]]; then
+sqlite3 -batch ${dir}/_imdb_images.sqlite <<EOF
+.width 80
+.headers off
+.mode columns
+SELECT name FROM imginfo WHERE filepath NOT LIKE '%/.%' GROUP BY name HAVING COUNT(*) > 1 ORDER BY name;
+.quit
+EOF
+fi
+
+if [[ $1 = 2 ]]; then
+sqlite3 -batch ${dir}/_imdb_images.sqlite <<EOF
+.width 100
+.headers off
+.mode columns
+SELECT a.filepath FROM (SELECT name FROM imginfo WHERE filepath NOT LIKE '%/.%' GROUP BY name HAVING COUNT(*) > 1) AS b JOIN imginfo AS a ON a.name = b.name ORDER BY a.name, a.filepath;
+.quit
+EOF
+fi
+
+if [[ $1 = 3 ]]; then
+sqlite3 -batch ${dir}/_imdb_images.sqlite <<EOF
+.width 28 100
+.headers off
+.mode columns
+SELECT a.name, a.filepath FROM (SELECT name FROM imginfo WHERE filepath NOT LIKE '%/.%' GROUP BY name HAVING COUNT(*) > 1) AS b JOIN imginfo AS a ON a.name = b.name ORDER BY a.name, a.filepath;
+.quit
+EOF
+fi
+
+shopt -u nocasematch
+exit 0

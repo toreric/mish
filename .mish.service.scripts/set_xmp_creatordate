@@ -1,0 +1,30 @@
+#! /bin/bash
+
+EXIF='Exif.Photo.DateTimeOriginal'
+XMP2='Xmp.dc.creator'
+
+if [[ $# = 2 ]]; then
+  files=$1
+  for file in $files; do
+    date=` exiv2 -pa $file 2>/dev/null | grep "$EXIF" | sed 's/^.\{60\}//' \
+    | sed 's/:/-/' | sed 's/:/-/' `
+    if [[ $date == '' ]]; then
+      date='?'
+    fi
+    set_xmp_creator "$file" "$2 $date"
+    echo " $file: $2 $date"
+  done
+else
+  echo " MISH UTILITY SCRIPT"
+  echo " Usage: "`basename $0`" <string with image file name(s)> <text string>"
+  echo "  Sets $XMP2 as the utf-8 text string followed"
+  echo "  by the photo time extracted from $EXIF"
+  echo " Needs: exiv2, set_xmp_creator"
+  echo
+  echo " Use example:"
+  echo "  $ pics=\`ls ~/Downloads/transfer/*.jpg\`"
+  echo "  $ `basename $0` \"\$pics\" \"Photo: Matts Luvberg\""
+  echo " Equivalently:"
+  echo "  $ cd ~/Downloads/transfer/"
+  echo "  $ `basename $0` \"*.jpg\" \"Photo: Matts Luvberg\""
+fi

@@ -1,0 +1,24 @@
+#! /bin/bash
+EXIF1='Exif.Photo.PixelXDimension'
+EXIF2='Exif.Photo.PixelYDimension'
+
+if [[ $# = 1 ]]; then
+  file=$1
+  if [[ `exiv2 -pa $file 2>/dev/null | grep "$EXIF1" | sed 's/^.\{60\}//'` == '' ]]; then
+    EXIF1='Exif.Image.ImageWidth'
+    EXIF2='Exif.Image.ImageLength'
+  fi
+  data=`exiv2 -pa $file 2>/dev/null | grep "$EXIF1" | sed 's/^.\{60\}//'`
+  if [[ $data == '' ]]; then
+    data='?'
+  fi
+  data1=` exiv2 -pa $file 2>/dev/null | grep "$EXIF2" | sed 's/^.\{60\}//'`
+  data=$data'×'$data1' px'
+  if [[ $data1 == '' ]]; then
+    data='missing'
+  fi
+  echo $data
+else
+  echo "Usage: "`basename $0`" <image file name>"
+  echo "  Extracts the picture dimension from Exif.Photo.- or Exif.Image.-"
+fi

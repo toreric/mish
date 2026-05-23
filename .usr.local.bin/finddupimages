@@ -1,0 +1,71 @@
+#!/bin/bash
+
+if [[ $# < 1 || ! ( $1 -ge 0 && $1 -le 5 || (($1 -ge 20) && ($1 -le 100)) ) ]]; then
+  scriptname=`basename $0`
+  echo
+  echo " MISH UTILITY SCRIPT"
+  echo "    Use: $scriptname n [<path>]"
+  echo "  n = 0: include also hidden/dotted (.*) directories and files"
+  echo "  n = 1: exclude dotted/hidden (.*) directories and files from search"
+  echo "  n = 2: like 1 but only generates the fingerprint database for findimagedupes"
+  echo "  n = 3: like 1 but a third argument <picture name> limits search for duplicates of only this picture"
+  echo "  n = 4: like 1 but a third argument <album path> limits search for duplicates of pictures in only this album"
+  echo "  n = 5: like 1 but a third argument <album path> limits search for duplicates of pictures in only this album with subalbums"
+  echo "  n between 20 and 100: like 3 but n is the the image similarity threshold (%, default 98)"
+  echo " <path>: path of the (sub)album (tree) to be searched (WARNING: if omitted: \".\", EXCEPTION: must not be omitted if 4 or 5)"
+  echo "  Makes: a list of found duplicate image file paths/names"
+  echo "  Needs: findimagedupes"
+  echo
+  exit 0
+fi
+
+dir=`pwd`
+if [[ $# > 1 ]]; then
+  dir=$2;
+fi
+
+alb=
+if [[ $# > 2 && ( $1 == 4 || $1 == 5 ) ]]; then
+  alb=$3;  #else $3 is picture, see (3) below
+fi
+
+a=$1
+b=98   #default threshold %
+if [[ $a > 5 ]]; then
+  b=$a #first argument is threshold %
+  a=3
+fi
+
+shopt -s nocasematch
+
+if [ ! -f ${dir}${alb}/.imdb ]; then
+  echo "'$alb' is not an album directory"
+  exit 1
+fi
+
+if [ ! -f ${dir}/_imdb_images.sqlite ]; then
+  if [[ $1 -ne 4 ]]; then
+    echo "'$dir' is not an album collection directory (album root)"
+    exit 1
+  fi
+fi
+
+case $a in
+0)
+  echo $(find $dir -type f -iregex '.*\.\(jpe?g\|tiff?\|png\|gif\)' -not -regex '.*_mini_.*\|.*_show_.*\|.*_imdb_.*' -print0 | findimagedupes -0 -a -t=98% -f=${dir}/_imdb_similarity -- - 2>/dev/null);;
+1)
+  echo $(find $dir -type f -iregex '.*\.\(jpe?g\|tiff?\|png\|gif\)' -not -regex '.*/\..*\|.*_mini_.*\|.*_show_.*\|.*_imdb_.*' -print0 | findimagedupes -0 -a -t=98% -f=${dir}/_imdb_similarity -- - 2>/dev/null);;
+2)
+  echo $(find $dir -type f -iregex '.*\.\(jpe?g\|tiff?\|png\|gif\)' -not -regex '.*/\..*\|.*_mini_.*\|.*_show_.*\|.*_imdb_.*' -print0 | findimagedupes -0 -r -P -n -f=${dir}/_imdb_similarity -- - 2>/dev/null);;
+3)
+  echo $(find $dir -type f -name "${3}.*" -iregex '.*\.\(jpe?g\|tiff?\|png\|gif\)' -not -regex '.*/\..*\|.*_mini_.*\|.*_show_.*\|.*_imdb_.*' -print0 | findimagedupes -0 -a -t=${b}% -f=${dir}/_imdb_similarity -- - 2>/dev/null);;
+4)
+  echo $(find $dir$alb -maxdepth 1 -type f -iregex '.*\.\(jpe?g\|tiff?\|png\|gif\)' -not -regex '.*/\..*\|.*_mini_.*\|.*_show_.*\|.*_imdb_.*' -print | findimagedupes -a -t=98% -f=${dir}/_imdb_similarity -- - 2>/dev/null);;
+5)
+  echo $(find $dir$alb -type f -iregex '.*\.\(jpe?g\|tiff?\|png\|gif\)' -not -regex '.*/\..*\|.*_mini_.*\|.*_show_.*\|.*_imdb_.*' -print | findimagedupes -a -t=98% -f=${dir}/_imdb_similarity -- - 2>/dev/null);;
+*)
+  echo "$scriptname passed without action";;
+esac
+
+shopt -u nocasematch
+exit 0

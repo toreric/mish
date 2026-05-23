@@ -1,0 +1,3 @@
+#!/bin/bash
+find -type l | grep ./_mini_ | xargs rm -f
+find -type l | grep ./_show_ | xargs rm -f

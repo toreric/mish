@@ -1,0 +1,3 @@
+#!/bin/bash
+#ls-pnpm
+pnpm -h > /tmp/tmp && less /tmp/tmp

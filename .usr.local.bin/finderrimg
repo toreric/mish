@@ -1,0 +1,66 @@
+#!/bin/bash
+
+if [[ $# < 1 || $# > 2 || $1 != 0 && $1 != 1 && $1 != 2 ]]; then
+  scriptname=`basename $0`
+  echo
+  echo " MISH UTILITY SCRIPT"
+  echo "    Use: $scriptname n [<path>]"
+  echo "  n = 0: search all image files"
+  echo "  n = 1: search Jpeg image files"
+  echo "  n = 2: search Tiff image files"
+  echo " <path>: path of the album to be searched (WARNING: if omitted: \".\")"
+  echo "  Makes: a list of found image names where a warning or error as regards"
+  echo "         its content is detected (no guarantee for completeness!)"
+  echo "  Needs: jpeginfo and tiffinfo"
+  echo "   Note: Only Jpeg and Tiff files are considered"
+  echo
+  exit 0
+fi
+
+dir=`pwd`
+if [[ $# = 2 ]]; then dir=$2; fi
+
+#files=`find $dir -type f -iregex '.*\.\(jpe?g\|tiff?\|png\)' -not -regex '.*/\..*\|.*/_mini_.*\|.*_show_.*\|.*_imdb_.*'`
+shopt -s nocasematch
+nw=0
+ne=0
+
+if [[ $1 = 0 || $1 = 1 ]]; then
+  # Find files (type f), not symlinks (type l), with extensions Jpeg or Jpg:
+  readarray -d '' files < <(find $dir -regextype grep -type f \( \! -type l \) \( -iname '*.jpeg' -o -iname '*.jpg' \))
+  for f in $files; do
+    g=$( echo `jpeginfo -c $f` )
+    # echo $g
+    if [[ $g =~ WARNING|ERROR ]]; then
+      if [[ $g =~ ERROR ]]; then
+        let $(( ++ne )); else
+        let $(( ++nw )); fi
+      g=`echo $g | sed 's/ .*$//'` #remove all after /path/file
+      g=${g##*/} #file name without path
+      g=${g%%.*} #base name without extension
+      echo $g
+    fi
+  done
+fi
+
+if [[ $1 = 0 || $1 = 2 ]]; then
+  # Find files (type f), not symlinks (type l), with extensions Tiff or Tif:
+  readarray -d '' files < <(find $dir -regextype grep -type f \( \! -type l \) \( -iname '*.tiff' -o -iname '*.tif' \))
+  for f in $files; do
+    g=$( echo `tiffinfo -D $f 2>&1 > /dev/null` ) #catch stderr
+    #if [[ ! $g = "" ]]; then
+    if [[ $g =~ WARNING|ERROR ]]; then
+      if [[ $g =~ ERROR ]]; then
+        let $(( ++ne )); else
+        let $(( ++nw )); fi
+      #fi
+      g=${f##*/} #file name without path
+      g=${g%%.*} #base name without extension
+      echo $g
+    fi
+  done
+fi
+#non-breaking space = \xc2\xa0: (cannot always be used)
+echo "Warnings: "$nw, "Errors: "$ne
+shopt -u nocasematch
+exit 0

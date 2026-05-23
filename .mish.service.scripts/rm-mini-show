@@ -1,0 +1,9 @@
+#!/bin/bash
+echo -n 'Ta bort alla _mini_- och _show_-filer från '$PWD'? (j/N): '
+read jN
+if [[ $jN == "j" || $jN == "ja" ]]; then
+  ls | grep '_mini_\|_show_' | xargs rm
+  echo ' Ok'
+else
+  echo ' Avbrutet'
+fi

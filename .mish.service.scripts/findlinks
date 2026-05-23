@@ -1,0 +1,44 @@
+#!/bin/bash
+
+if [[ $# < 1 || $# > 2 || $1 != 0 && $1 != 1 && $1 != 2 ]]; then
+  scriptname=`basename $0`
+  echo
+  echo " MISH UTILITY SCRIPT"
+  echo "    Use: $scriptname n [<path>]"
+  echo "  n = 0: search both first and second texts"
+  echo "  n = 1: search first text only (Xmp.dc.description)"
+  echo "  n = 2: search second text only (Xmp.dc.creator)"
+  echo " <path>: path of the album to be searched (WARNING: if omitted: \".\")"
+  echo "  Makes: a list of found image names where the images' metadata text(s)"
+  echo "         each contain at least one \"<a href=... \" link"
+  echo "  Needs: find, xmpget"
+  echo "   Note: Only Jpeg, Tiff, and Png files are considered"
+  echo
+  exit 0
+fi
+
+dir=`pwd`
+if [[ $# = 2 ]]; then dir=$2; fi
+
+files=`find $dir -type f -iregex '.*\.\(jpe?g\|tiff?\|png\)' -not -regex '.*/\..*\|.*/_mini_.*\|.*_show_.*\|.*_imdb_.*'`
+
+for f in $files; do
+
+  #https://tldp.org/LDP/LG/issue18/bash.html
+  g=${f##*/} #file name without path
+  g=${g%%.*} #base name without extension
+
+  txt=
+  if [[ $1 = 0 || $1 = 1 ]]; then
+    txt=`xmpget "description" $f`
+  fi
+
+  if [[ $1 = 0 || $1 = 2 ]]; then
+    txt=${txt}`xmpget "creator" $f`
+  fi
+
+  if [[ $txt =~ .*\ href=.* ]]; then
+    echo $g
+  fi
+
+done

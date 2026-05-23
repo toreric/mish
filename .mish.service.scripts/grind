@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Use: grind -r "what" / grep-find
+pwd=$PWD
+if [[ ! $# = 2 ]]; then
+  echo 'Use two grep parameters, typically ´grind -r "something"´!'
+  echo '(the second may contain regular expressions)'
+  exit 1;
+fi
+cd /home/tore/Arbeten/mish-dev/app
+grep --color $1 "$2"
+cd /home/tore/Arbeten/mish-dev/mish-project/app
+grep --color $1 "$2"
+cd /home/tore/Arbeten/mish-dev/mish-project/translations
+grep --color $1 "$2"
+cd $pwd

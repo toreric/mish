@@ -1,0 +1,17 @@
+#! /bin/bash
+
+XMP1=Xmp.dc.description
+XMP2=Xmp.dc.creator
+
+XMP=$XMP2
+
+# Explanation of the new-line (LF) sustitution: see xmpget
+if [[ $# == 1 ]]; then
+  file=$1
+# Substitute line breaks into <br> tags, remove
+# the '60ch-label', and any language marker 
+  echo $(exiv2 -px $file 2>/dev/null | sed -e ':a' -e 'N' -e '$!ba' -e's/\r//g' -e 's/\n/<br>/g' -e "s/.*\($XMP.*\).*/\1/" -e s/\<br\>Xmp.*// | sed -e 's/^.\{60\}//' -e 's/^lang=[^\ ]*\ //')
+else
+  echo "Usage: "`basename $0`" <image file name>"
+  echo "  Extracts the utf-8 text in $XMP (replaces \n with <br>)"
+fi

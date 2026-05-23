@@ -1,0 +1,18 @@
+#! /bin/bash
+
+XMP1='Xmp.dc.description'
+XMP2='Xmp.dc.creator'
+
+if [[ $# = 2 ]]; then
+  files=$1
+  text=$2
+  for file in $files; do
+    exiv2 -M"del $XMP1" $file
+    exiv2 -M"set $XMP1 $text" $file
+  done
+else
+  echo " MISH UTILITY SCRIPT"
+	echo " Usage: "`basename $0`" <string of image file name(s)> <text string>"
+	echo "  Sets $XMP1 as the utf-8 text string"
+	echo " Needs: exiv2"
+fi

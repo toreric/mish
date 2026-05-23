@@ -1,0 +1,19 @@
+#!/bin/bash
+# Gimp may unexpectedly extinct Pentax metadata!
+# This substitution circumvents the error. Who knows why?
+
+if [[ $# == 1 ]]; then
+  file=$1
+  key=Exif.Image.Make
+  camera=$( exiv2 -g $key $file 2>/dev/null | sed -e 's/^\([^\ ]\+[\ \t]\+\)\{3\}//' )
+  echo $camera
+  if [[ $camera == PENTAX*  ]]; then
+    exiv2 -M"del $key" $file
+    exiv2 -M"set $key Pentax" $file
+  fi
+  exit 0
+else
+  echo "Usage: "`basename $0`" <image file name>"
+  echo "  In order to avoid a bug in  metadata from Pentax Corp.:"
+  echo "  If Exif.Image.Make is 'PENTAX...', change it to 'Pentax'."
+fi

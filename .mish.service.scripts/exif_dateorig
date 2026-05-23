@@ -1,0 +1,16 @@
+#! /bin/bash
+EXIF='Exif.Photo.DateTimeOriginal'
+
+if [[ $# = 1 ]]; then
+  file=$1
+  date=` exiv2 -pa $file 2>/dev/null | grep "$EXIF" | sed 's/^.\{60\}//' \
+  | sed 's/:/-/' | sed 's/:/-/' `
+  if [[ $date == '' ]]; then
+    date='?'
+  fi
+  echo $date
+else
+  echo "Usage: "`basename $0`" <image file name>"
+  echo "  Extracts the photo time from $EXIF"
+fi
+
