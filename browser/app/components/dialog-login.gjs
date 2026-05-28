@@ -111,18 +111,6 @@ export class DialogLogin extends Component {
     }
   }
 
-  // // Detect closing click outside a dialog-draggable modal dialog
-  // detectClickOutside = (e) => {
-  //   e.stopPropagation();
-  //   // this.z.loli(navigator.userAgent);
-  //   if (!navigator.userAgent.includes("Firefox")) return; // Only Firefox can do this
-  //   let tgt = e.target.id;
-  //   if (tgt === dialogLoginId || tgt === dialogRightsId ) {
-  //     // Outside a modal dialog, else not!
-  //     this.z.closeDialog(tgt);
-  //   }
-  // }
-
   // Format allowances for dialogRights
   get allowances() {
     let text = this.z.allowances.split(LF);
@@ -132,7 +120,7 @@ export class DialogLogin extends Component {
       // console.log(this.z.allowText);
     var add = this.z.allowText;
       // console.log(add);
-    text[1] +=  this.intl.t('allowed');
+    text[1] += ' '.repeat(19) + this.intl.t('allowed');
     let j = 2;
     for (let i=0;i<add.length;i++) {
       text[j] += av[i] + ' ' + (i + 1) + ' = ' + add[i];

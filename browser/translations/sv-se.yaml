@@ -19,7 +19,7 @@ nsubalbums: antal underalbum
 anyhidden: synligt p.g.a. användarrättighet
 
 # Appendix to the the 'dialog.rights' (allowances)
-allowed: "                Får"
+allowed:      Får
 adminAll:     göra vadsomhelst
 albumEdit:    göra/radera album
 appendixEdit: (arbeta med bilagor +4)¹

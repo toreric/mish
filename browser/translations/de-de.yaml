@@ -19,7 +19,7 @@ nsubalbums: Anzahl der Unteralben
 anyhidden: sichtbar aufgrund Benutzerrecht
 
 # Appendix to the the 'dialog.rights' (allowances)
-allowed: "                Erlaubt zu"
+allowed: "                   Erlaubt zu"
 adminAll:     irgendetwas tun
 albumEdit:    Album erstellen/löschen
 appendixEdit: (mit Anhängen arbeiten +4)¹
