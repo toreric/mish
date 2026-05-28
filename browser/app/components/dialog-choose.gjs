@@ -1,5 +1,5 @@
 //== Mish choose-alert message dialog with two choices and an optional checkbox
-//   NOTE: Most be opened as MODAL with openModalDialog to be properly initiated
+//   NOTE: Must be opened as MODAL with openModalDialog to be properly initiated
 //   INTERACTS with selectChoice setting buttonNumber
 
 import Component from '@glimmer/component';

@@ -479,6 +479,10 @@ export class DialogSettings extends Component {
     }
   }
 
+  get zpicFound() {
+    return this.z.picFoundBaseName.replace(/[§_]/g, ' ');
+  }
+
   <template>
     <dialog id="dialogSettings" {{on 'keydown' this.detectEscClose}}>
       <header data-dialog-draggable>
@@ -497,14 +501,20 @@ export class DialogSettings extends Component {
           {{t 'write.set0'}}:<br>
           {{!-- <button id="dark_light" style="line-height:0.65rem;margin-right:-0.25rem;" type="button" {{on 'click' (fn this.z.toggleBackg)}}>&nbsp;</button>
           <label for="dark_light">{{t 'button.backgtitle'}}: {{t 'dark'}}/{{t 'light'}}</label><br> --}}
-          <span class="glue">
+          <div class="glue" style="margin-top:0.5rem">
             <input id="setPoop" name="settings" value="" type="checkbox" {{on 'click' this.detectCheckbox}}>
             <label for="setPoop"> &nbsp;{{t 'write.setPoop'}}</label>
-          </span>
-          <span class="glue">
+          </div>
+          <div class="glue">
             <input id="setBeep" name="settings" value="" type="checkbox" {{on 'click' this.detectCheckbox}}>
             <label for="setBeep"> &nbsp;{{t 'write.setBeep'}}</label>
-          </span>
+          </div>
+          <form style="display:inline-block;margin-top:0.5rem">
+            {{t 'recommended'}}:&nbsp;
+            <input class="threedig" min="50" max="300" value="100" title="{{t 'select.value'}} 50–300" type="number">
+            <br>(= {{t 'maxfor'}} <b>{{this.zpicFound}}</b>, {{t 'changeWithReason'}})
+          </form>
+
         </div>
 
       </main>

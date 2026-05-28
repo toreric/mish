@@ -1,15 +1,13 @@
 #!/bin/bash
 # Script ”deploy-mish” for SCP copy of Mish files to a server
+# Also copying scripts as project backup
 
 pwd=$PWD
-# The Mish project catalog:
-cd ~/Arbeten/mish-dev
-
-tocopy='app/ public/ _imdb_news.txt _imdb_settings.sqlite _imdb_similarity buildstamp.txt ld_imdb.js .htaccess LICENSE.txt nodestamp.txt package.json robots.txt server.js'
 
 # The 'a' server list should be carefully adapted:
-a=("tore@192.168.0.102:/var/www/mish" "minneadmin@192.168.1.108:/var/www/mish" "minneadmin@mish.hopto.org:/var/www/mish")
-
+#test server at home lan    at remote server lan      remote server on internet
+a=("tore@192.168.0.116:" "minneadmin@192.168.1.108:" "minneadmin@mish.hopto.org:")
+a=("tore@mynta:" "minneadmin@192.168.1.108:" "minneadmin@mish.hopto.org:")
 echo
 echo "Choose a target server:"
 PS3="Enter a number: "
@@ -21,6 +19,7 @@ done
 
 if [[ $copyto == "" ]]; then
   echo "Cancelled"
+  cd $pwd
   exit
 fi
 
@@ -34,6 +33,8 @@ if [[ $yN != 'y' && $yN != 'yes' ]]; then
   exit
 fi
 
+# Project files to be copied to the web root of the server
+tocopy='app/ public/ _imdb_news.txt _imdb_settings.sqlite _imdb_similarity buildstamp.txt ld_imdb.js .htaccess LICENSE.txt nodestamp.txt package.json robots.txt server.js'
 echo
 echo "To copy:"
 for x in $tocopy; do
@@ -47,13 +48,41 @@ if [[ $yN != 'y' && $yN != 'yes' ]]; then
   cd $pwd
   exit
 fi
-
-scp -qr $tocopy $copyto
+echo
+echo "Copying all files to the web root:"
+# The Mish project server directory:
+cd ~/Arbeten/mish/server
+scp -r $tocopy $copyto"/var/www/mish"
 if [[ $? == 0 ]]; then
   echo "Ended with no error"
 else
   echo "Ended with error code $?"
 fi
+echo
+
+# Script files used in the project's javascript code:
+required='finddupimages finderrimg pentaxdebug set_xmp_description xmp_description xmpset finddupnames mkpng set_xmp_creator xmp_creator xmpget'
+# Utility scripts, useful for Mish administration from command line:
+service=' deploy-mish exif_dimension grind ran4add rm-mini-show set_xmp_creatordate exif_dateorig findlinks ls-pnpm ran4mk.js rm-mini-show-symlinks'
+
+# The source directory of required and service Mish scripts:
+cd /usr/local/bin
+echo "Copying scripts to "$copyto
+scp $required$service $copyto"/home/tore/usr.local.bin"
+if [[ $? == 0 ]]; then
+  echo "Ended with no error"
+else
+  echo "Ended with error code $?"
+fi
+echo
+echo "Next, on "$copyto" Move the files in ~/usr.local.bin to /usr/local/bin!"
+echo
+# Copy the scripts also to the project to be later saved by git, must be carefully adapted:
+cp $required /home/tore/Arbeten/mish/.usr.local.bin
+cp $service /home/tore/Arbeten/mish/.mish.service.scripts
+echo "Scripts also saved in the Mish project"
+echo "NOTE: this 'deploy-mish' script has to be"
+echo "much modified for use on another computer!"
 
 cd $pwd
 echo

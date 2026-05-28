@@ -1,5 +1,6 @@
 /* stylelint-disable shorthand-property-no-redundant-values */
 /* stylelint-disable selector-class-pattern */
+/* stylelint-disable comment-empty-line-before */
 /* stylelint-disable rule-empty-line-before */
 * {
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -17,8 +18,8 @@ dialog {
   border: 1px solid white;
   border-radius: 4px;
   padding: 0.1rem;
-/*max-width at least compatible with dialog-help ...*/
-  max-width:  90vw;
+/* max-width at least compatible with dialog-help ... */
+  max-width: 95vw;
   max-height: min(60rem,95vh);
   z-index: 14;
   top: max(3rem,30%);
@@ -56,6 +57,12 @@ dialog footer {
   background-color: #ddd;
   cursor: grabbing;
 }
+/* Stänger av blåmarkering på alla dragbara ytor */
+[data-dialog-draggable] {
+  user-select: none;
+  -webkit-user-select: none; /* För Safari */
+}
+
 header p {
   margin: 0.25rem 0 0 0;
 }
@@ -1377,13 +1384,13 @@ img.mark {
 #dark_light.darkbkg {
   background-image: url(/images/icons8-moon-96.png);
 }
-input.threshold[type="number"] {
+input.threedig[type="number"] {
   width: 1.7em;
   border: 0;
   margin-top: -4px;
   background: #cfeeee;
 }
-input.threshold[type="number"]:hover {
+input.threedig[type="number"]:hover {
   background: #fff;
 }
 input.showTime[type="number"] {

@@ -32,6 +32,9 @@ if [[ $keyname != '' && $# == 2 ]]; then
 
 # Substitute line breaks into <br> tags, remove
 # the '60ch-label', and any language marker
+
+# NOTE: This script invoked by from NodeJS will sometimes log
+# some garbage into the NodeJS logfile (instead of stderr?)
 exiv2 -px -g$XMP $fil 2>/dev/null \
   | sed -e ':a' -e 'N' -e '$!ba' -e's/\r//g' -e 's/\n/<br>/g' \
   | sed 's/^.\{60\}//' \

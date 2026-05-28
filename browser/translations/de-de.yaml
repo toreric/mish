@@ -209,6 +209,7 @@ buttons:
           keine Einladung erforderlich\n
           – einfach hier klicken!"
 
+changeWithReason: mit Vernunft ändern!
 dialog:
   find:
     header: Bilder in der Sammlung finden
@@ -314,15 +315,18 @@ imageMenu: "Bild-\nmenü"
 imageNumber: bild nummer {n}
 infoHeader: Information
 loggedIn: Angemeldet Benutzer⋅in
+maxfor: maximal für
 nameError: Namensfehler
 noCollSelected: Keine Albensammlung ausgewählt
 picfound: §Gefundene_Bilder
 plusExplain: Unteralben haben auch Unteralben!
 printOut: Ausdrucken
+recommended: Empfohlene maximale Anzahl von Bildern pro Album
 reloadApp: Die App neu laden!
 select:
   language: Sprache wählen
   languagetext: Deutsch
+  value: Einen Wert auswählen
 selectAlbumMove: Zu welchem Album verschieben?
 selectAlbumLink: Zu welchem Album verlinken?
 selectTarget: Zielalbum auswählen

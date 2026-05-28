@@ -427,13 +427,8 @@ export default class CommonStorageService extends Service {
 
     // Resets ViewMain reactively, hopefully... didn't:
     this.imgItems = [];
-    // Have to 'manually' remove all thumbnails:
-    let minis = document.querySelectorAll('#imgWrapper div.img_mini');
-    let m = minis.length;
-    let wrap = document.getElementById('imgWrapper');
-    for (let i=0;i<m;i++) { // Remove all minis (thumbnails)
-      if (wrap) wrap.firstElementChild.remove();
-    }
+    // Do it 'manually':
+    this.rmMinis();
     // Retreive information for every image file from the server:
     this.allFiles = [];
     this.allFiles = await this.getImages();
@@ -533,6 +528,17 @@ export default class CommonStorageService extends Service {
       selected = selected.parentElement;
       if (selected.nodeName !== 'DIV') break;
       selected.style.display = '';
+    }
+  }
+
+  //#region rmMinis
+  // Does 'manually' remove all thumbnails:
+  rmMinis = async () => {
+    let minis = document.querySelectorAll('#imgWrapper div.img_mini');
+    let m = minis.length;
+    let wrap = document.getElementById('imgWrapper');
+    for (let i=0;i<m;i++) { // Remove all minis (thumbnails)
+      if (wrap) wrap.firstElementChild.remove();
     }
   }
 

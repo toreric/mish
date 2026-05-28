@@ -122,6 +122,7 @@ export class DialogText extends Component {
   // Detect closing click outside a dialog-draggable modal dialog (Firefox only)
   detectClickOutside = (e) => {
     e.stopPropagation();
+    if (e) return; // even Firefox initiates som complications ...
     if (!navigator.userAgent.includes("Firefox")) return; // Only Firefox can do this
     let tgt = e.target.id;
     if (tgt === dialogTextId || tgt === dialogTextNotesId || tgt === dialogTextKeywordsId) {

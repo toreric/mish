@@ -5,3 +5,6 @@
 #/.*
 /*~*
 vitest/
+
+# Gimp
+*.xcf

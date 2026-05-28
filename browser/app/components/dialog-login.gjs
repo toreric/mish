@@ -111,17 +111,17 @@ export class DialogLogin extends Component {
     }
   }
 
-  // Detect closing click outside a dialog-draggable modal dialog
-  detectClickOutside = (e) => {
-    e.stopPropagation();
-    // this.z.loli(navigator.userAgent);
-    if (!navigator.userAgent.includes("Firefox")) return; // Only Firefox can do this
-    let tgt = e.target.id;
-    if (tgt === dialogLoginId || tgt === dialogRightsId ) {
-      // Outside a modal dialog, else not!
-      this.z.closeDialog(tgt);
-    }
-  }
+  // // Detect closing click outside a dialog-draggable modal dialog
+  // detectClickOutside = (e) => {
+  //   e.stopPropagation();
+  //   // this.z.loli(navigator.userAgent);
+  //   if (!navigator.userAgent.includes("Firefox")) return; // Only Firefox can do this
+  //   let tgt = e.target.id;
+  //   if (tgt === dialogLoginId || tgt === dialogRightsId ) {
+  //     // Outside a modal dialog, else not!
+  //     this.z.closeDialog(tgt);
+  //   }
+  // }
 
   // Format allowances for dialogRights
   get allowances() {
@@ -147,7 +147,7 @@ export class DialogLogin extends Component {
   }
 
   <template>
-    <div style="display:flex" {{on 'keydown' this.detectEscClose}} {{on 'click' this.detectClickOutside}}>
+    <div style="display:flex" {{on 'keydown' this.detectEscClose}}>
 
       <dialog id="dialogLogin" draggable="false" ondragstart="return false">
         <header data-dialog-draggable>

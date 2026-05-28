@@ -211,6 +211,7 @@ buttons:
           no invitation is needed\n
           – you just click here!"
 
+changeWithReason: change with reason!
 dialog:
   find:
     header: Find images in the album collection
@@ -317,14 +318,17 @@ imageMenu: "Image\nmenu"
 infoHeader: Information
 loggedIn: Logged in user
 nameError: Name error
+maxfor: maximum for
 noCollSelected: No album collection selected
 picfound: §Found_images
 plusExplain: Subalbums also have subalbums!
 printOut: Prnt
+recommended: Proposed maximum number of images per album
 reloadApp: Reload the app!
 select:
   language: Choose language
   languagetext: English
+  value: Select a value
 selectAlbumMove: Move to which album?
 selectAlbumLink: Link to which album?
 selectTarget: Select destination album

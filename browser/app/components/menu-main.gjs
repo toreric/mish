@@ -32,8 +32,11 @@ export class MenuMain extends Component {
   // and convert them into an object tree with an amended property set.
   // Finally indicate if this album tree has any hidden-without-allowance album.
   selectRoot = async (event) => { // Album root = collection
-    this.z.closeDialog('dialogFindResult'); // may cause trouble if open
-    this.z.closeDialog(dialogAlertId);
+    await this.z.closeMainMenu();
+    // document.querySelector('div.miniImgs.imgs').style.display = 'none';
+    await this.z.rmMinis();
+    await this.z.closeDialog('dialogFindResult'); // may cause trouble if open
+    await this.z.closeDialog(dialogAlertId);
     this.z.imdbRoot = event.target.value;
       // console.log(document.getElementById('rootSel'));
       // this.z.loli(document.getElementById('rootSel').selectedIndex, 'color:red');

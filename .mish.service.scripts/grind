@@ -2,15 +2,12 @@
 
 # Use: grind -r "what" / grep-find
 pwd=$PWD
+prd=/home/tore/Arbeten/mish # Project directory
 if [[ ! $# = 2 ]]; then
-  echo 'Use two grep parameters, typically ´grind -r "something"´!'
+  echo 'Use two grep parameters, typically ´grind -r something´'
   echo '(the second may contain regular expressions)'
   exit 1;
 fi
-cd /home/tore/Arbeten/mish-dev/app
-grep --color $1 "$2"
-cd /home/tore/Arbeten/mish-dev/mish-project/app
-grep --color $1 "$2"
-cd /home/tore/Arbeten/mish-dev/mish-project/translations
-grep --color $1 "$2"
+cd $prd # (Git) project directory
+grep -n --color --exclude='.*' --exclude='*lock*' --exclude-dir='*public*' --exclude-dir='tmp' --exclude-dir='dist' --exclude-dir='.git*' --exclude-dir='*node_modules*' $1 "$2"
 cd $pwd
