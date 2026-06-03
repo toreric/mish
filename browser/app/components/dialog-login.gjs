@@ -24,7 +24,7 @@ export class DialogLogin extends Component {
     return this.z.picName;
   }
 
-  @cached get inLog() {getPromiseState(this.logIn());}
+  inLog = () => {getPromiseState(this.logIn());}
   logIn = async () => {
     await new Promise (z => setTimeout (z, 999)); // Antihang?
     let user = document.querySelector('input.user_').value.trim();

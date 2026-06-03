@@ -14,6 +14,8 @@ import he from 'he';
 // USE: <div title={{he.decode 'text'}}></div> he = HTML entities
 // or  txt = he.decode('text')  or  txt = he.encode('text')
 import { MenuImage } from './menu-image';
+import { ButtonsLeft } from './buttons-left';
+import { ButtonsRight } from './buttons-right';
 import { DialogInfo } from './dialog-info';
 import { DialogTools } from './dialog-tools';
 import { DialogLogin } from './dialog-login';
@@ -34,8 +36,10 @@ export class ViewMain extends Component {
   @service intl;
 
   <template>
-      <SubAlbums />
-      <AllImages />
+    <ButtonsLeft />
+    <ButtonsRight />
+    <SubAlbums />
+    <AllImages />
   </template>
 
 }

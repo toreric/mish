@@ -14,8 +14,8 @@ import { makeDialogDraggable } from 'dialog-draggable';
 import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 import { Clock } from './clock';
-import { ButtonsLeft } from './buttons-left';
-import { ButtonsRight } from './buttons-right';
+// import { ButtonsLeft } from './buttons-left';
+// import { ButtonsRight } from './buttons-right';
 import { DialogAlert } from './dialog-alert';
 import { DialogChoose } from './dialog-choose';
 import { DialogFind } from './dialog-find';
@@ -27,7 +27,7 @@ import { DialogText } from './dialog-text';
 import { DialogXper } from './dialog-xper';
 import Header from './header';
 import { Language } from './language';
-import { MenuImage } from './menu-image';
+// import { MenuImage } from './menu-image';
 import { ChooseAlbum } from './menu-image';
 import { MenuMain } from './menu-main';
 import { ViewMain } from './view-main';
@@ -212,10 +212,9 @@ class Welcome extends Component {
   @service('common-storage') z;
   @service intl;
 
-  get greet() {
-    console.log('WELCOME TO MISH!');
-    this.getCred();
-  } //
+  greet = () => {
+    getPromiseState(this.getCred());
+  }
 
 
   someFunction = (param) => {this.z.loli(param, 'color:red');}
@@ -225,10 +224,10 @@ class Welcome extends Component {
   }
 
   openRights = () => {
-    this.z.openModalDialog('dialogRights', 0);
+    getPromiseState(this.z.openModalDialog('dialogRights', 0));
   }
   openLogIn = () => {
-    this.z.openModalDialog('dialogLogin', 0);
+    getPromiseState(this.z.openModalDialog('dialogLogin', 0));
   }
 
   // To be executed only once before a user is defined with userStatus
@@ -237,11 +236,12 @@ class Welcome extends Component {
   // geCr = () => {getPromiseState(this.getCred());
   getCred = async () => {
       this.z.loli('getCred count = ' + this.z.refreshTexts, 'color:yellow');
-    if (this.z.refreshTexts) return;
+    if (this.z.refreshTexts) return; // First time if zero
+    this.z.refreshTexts++
     //await new Promise (z => setTimeout (z, 99)); // Allow userStatus to settle
     await new Promise (z => setTimeout (z, 2299)); // With Vite 2026
     if (!this.z.userStatus) { // only once
-        // this.z.loli('getCred 0', 'color:red');
+        this.z.loli('getCred RUNNING', 'color:yellow')
 
       // Various settings
       this.z.displayNames = 'none'; // Hide image names
@@ -316,8 +316,6 @@ class Welcome extends Component {
       this.z.openMainMenu();
     }
 
-    // this.getCred();
-    // this.openLogIn();
   }
 
   // getPromiseState(that.getCred())
@@ -420,11 +418,11 @@ export default class extends Welcome {
 
     </div>
 
-    <ButtonsLeft />
+    {{!-- <ButtonsLeft /> included in ViewMain --}}
     <MenuMain />
     <ChooseAlbum />
     {{!-- <MenuImage /> included in ViewMain --}}
-    <ButtonsRight />
+    {{!-- <ButtonsRight /> included in ViewMain --}}
     <Header />
     <ViewMain />
 
@@ -456,8 +454,8 @@ export default class extends Welcome {
     {{!-- <DialogTools /> moved to ViewMain --}}
     <DialogSettings />
     <Spinner />
- {{this.greet}}
 
+    {{this.greet}}
   </template>;
 }
 

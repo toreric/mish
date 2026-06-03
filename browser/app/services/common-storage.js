@@ -1889,7 +1889,7 @@ export default class CommonStorageService extends Service {
     this.loli(what + dialogId);
   }
 
-  openModalDialog = (dialogId, origPos) => {
+  openModalDialog = async (dialogId, origPos) => {
       // this.loli('dialogId=' + dialogId, 'color:red');
     // Close all dialogs before login change:
     if (dialogId === 'dialogLogin') this.closeDialogs();

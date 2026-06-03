@@ -22,12 +22,14 @@ export class ButtonsRight extends Component {
     }
   }
 
-  @cached get getFullSize() {
+  // @cached
+  // get getFullSize() {
+  getFullSize = () => {
     getPromiseState(this.doGetFullSize());
   }
   doGetFullSize = async () => {
-    if (this.z.picIndex < 0) return ''; // Dismiss initial reactivity
-    if (!this.z.allFiles) return ''; // Dismiss initial reactivity
+    if (this.z.picIndex < 0) return;
+    if (!this.z.allFiles) return;
     var tempDir = false
     var fileName = this.z.allFiles[this.z.picIndex].linkto;
 
@@ -35,9 +37,10 @@ export class ButtonsRight extends Component {
     // then !fileName.search(/^vbm|^cpr/i) is !0 === true:
     if (!fileName.replace(/.*\/([^/]+)$/, "$1").search(/^vbm|^cpr/i) && !this.z.allow.deleteImg) {
       this.z.alertMess(this.intl.t('blockCopyright'));
-      return '';
+      return;
     }
 
+    this.z.loli('Fullsize generation of ' + this.z.picName);
     document.querySelector('img.spinner').style.display = '';
     var oldFileName = fileName;
     // Convert tiff files to jpeg in a temporary directory
@@ -72,9 +75,9 @@ export class ButtonsRight extends Component {
     await new Promise (z => setTimeout (z, 199)); // in doGetFullSize
     document.querySelector('img.spinner').style.display = 'none';
     URL.revokeObjectURL(file);
-    if (tempDir) await this.z.execute('rm ' + path);
+    if (tempDir) await this.z.execute('rm -f ' + path);
   }
-f
+
   // ButtonsRight
   <template>
 
