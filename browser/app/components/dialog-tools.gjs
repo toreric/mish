@@ -432,10 +432,12 @@ uploadPhoto = async (file) => {
       // return new Promise (async function (resolve, reject) {
     document.querySelector('img.spinner').style.display = '';
     this.z.closeDialog('dialogUtil');
-    // let path = this.z.imdbPath + this.z.imdbDir;
+    // let path = this.z.imdbPath + this.z.imdbDir; // if album tool
     let path = this.z.imdbPath; //OVERRIDE! I.e. search all albums.
     try { // Start try
-      let duplist = await this.z.execute('finddupnames 2 ' + path);
+      let cmd = 'finddupnames 2 ' + path;
+      let duplist = await this.z.execute(cmd);
+        this.z.loli(cmd, 'color:yellow');
         // this.z.loli(LF + duplist, 'color:brown');
       let paths = duplist.toString().trim().split(LF);
         // this.z.loli('"'+paths[0]+'"', 'color:red');
@@ -486,49 +488,37 @@ uploadPhoto = async (file) => {
       // this.z.loli(cmd, 'color:red');
     await this.z.execute(cmd);
     document.querySelector('img.spinner').style.display = 'none';
-    this.z.loli('updated text database');
+      // this.z.loli('updated text database');
     this.z.alertMess(this.intl.t('write.dbUpdated'));
   }
+  @cached get doDbUpd() {
+    getPromiseState(this.doDbUpdate);
+  }
 
-  zeTo1 = () => {this.amTools = 0; return this.amTools;}
+  zeTo1 = () => {this.amTools = 0;}
   @cached get zeroTools1() {
-    let tmp = getPromiseState(this.zeTo1());
-    this.z.loli('zeroTools1: ' + tmp);
+    this.zeTo1();
     return '';
   }
 
-  adTo1 = () => {this.amTools++; return this.amTools;}
+  adTo1 = () => {this.amTools++;}
   @cached get addTools1() {
-    let tmp = getPromiseState(this.adTo1());
-    this.z.loli('addTools1: ' + tmp);
+    this.adTo1();
     return '';
   }
 
-  zeTo2 = () => {this.cnTools = 0; return this.cnTools;}
+  zeTo2 = () => {this.cnTools = 0;}
   @cached get zeroTools2() {
-    let tmp = getPromiseState(this.zeTo2());
-    this.z.loli('zeroTools2: ' + tmp);
+    this.zeTo2();
     return '';
   }
 
-  adTo2 = () => {this.cnTools++; return this.cnTools;}
+  adTo2 = () => {this.cnTools++;}
   @cached get addTools2() {
-    let tmp = getPromiseState(this.adTo2());
-    this.z.loli('addTools2: ' + tmp);
+    this.adTo2();
+     // console.log(this.cnTools);
     return '';
   }
-
-  // get zeroTools2() {
-  //   cnTools = 0;
-  //   this.z.loli('zeroTools2: ' + cnTools);
-  //   return '';
-  // }
-
-  // get addTools2() {
-  //   cnTools++;
-  //   this.z.loli('addTools2: ' + cnTools);
-  //   return '';
-  // }
 
   // NOTE, within the DialogTools template:
   // *** The utility numbering is not always in sequence ***
@@ -600,8 +590,8 @@ uploadPhoto = async (file) => {
           <div style="margin:0.5rem 0 0 0">{{{t 'write.tool01'}}}</div>
           {{#if this.okSeeFavorites}}
             <span class="glue">
-              <input id="util91" {{this.addTools2}} name="albumUtility" type="radio" {{on 'click' (fn this.detectRadio)}}>
-              <label for="util91"> &nbsp;{{t 'write.tool91'}}</label>
+              <input id="util9" {{this.addTools2}} name="albumUtility" type="radio" {{on 'click' (fn this.detectRadio)}}>
+              <label for="util9"> &nbsp;{{t 'write.tool9'}}</label>
             </span>
           {{/if}}
           {{#if this.okDupNames}}
@@ -749,14 +739,13 @@ uploadPhoto = async (file) => {
           {{else if (eq this.tool 'util6')}}
 
             <b>{{t 'write.tool6'}}?</b>&nbsp;
-            <button type="button" {{on 'click' (fn this.doDbUpdate)}}>{{t 'button.ok'}}</button>
+            <button type="button" {{on 'click' (fn this.doDbUpd)}}>{{t 'button.ok'}}</button>
 
           {{!-- === Manage personal favorites === --}}
-          {{!-- Tip: util9 is free to replace util91 --}}
-          {{else if (eq this.this.tool 'util91')}}
+          {{else if (eq this.tool 'util9')}}
 
-            <b>{{t 'write.tool91'}}?</b>&nbsp;
-            <button type="button" {{on 'click' (fn this.z.futureNotYet 'write.tool91')}}>{{t 'button.ok'}}</button><br>
+            <b>{{t 'write.tool9'}}?</b>&nbsp;
+            <button type="button" {{on 'click' (fn this.z.futureNotYet 'write.tool9')}}>{{t 'button.ok'}}</button><br>
 
             <span onclick="return false" draggable="false" ondragstart="return false" title-2={{t 'fav.manage'}}>
               <a id ="favorites" {{on "click" (fn this.seeFavorites)}}>{{t 'fav.images'}}</a>
@@ -770,7 +759,7 @@ uploadPhoto = async (file) => {
 
       </main>
       <footer data-dialog-draggable>
-        <button type="button" {{on 'click' @toggleTools}}>{{t 'button.cancel'}}</button>&nbsp;
+        <button type="button" {{on 'click' @toggleTools}}>{{t 'button.close'}}</button>&nbsp;
       </footer>
     </dialog>
 

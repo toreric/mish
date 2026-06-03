@@ -1200,32 +1200,32 @@ export default class CommonStorageService extends Service {
 
   //#region fullsize/
   // Get a full size image
-  getFullSize = async (filePath) => {
-    return new Promise(async (resolve, reject) => {
-      var xhr = new XMLHttpRequest ();
-      xhr.open('GET', 'fullsize/', true, null, null);
-      this.xhrSetRequestHeader(xhr);
-      xhr.setRequestHeader('path', encodeURIComponent(filePath));
-      xhr.onload = function() {
-        if (this.status >= 200 && this.status < 300) {
-          var data = xhr.response.trim();
-          resolve(data);
-        } else {
-          reject({
-            status: this.status,
-            statusText: xhr.statusText
-          });
-        }
-      };
-      xhr.onerror = function() {
-        reject({
-          status: this.status,
-          statusText: xhr.statusText
-        });
-      };
-      xhr.send();
-    });
-  }
+  // getFullSize = async (filePath) => {
+  //   return new Promise(async (resolve, reject) => {
+  //     var xhr = new XMLHttpRequest ();
+  //     xhr.open('GET', 'fullsize/', true, null, null);
+  //     this.xhrSetRequestHeader(xhr);
+  //     xhr.setRequestHeader('path', encodeURIComponent(filePath));
+  //     xhr.onload = function() {
+  //       if (this.status >= 200 && this.status < 300) {
+  //         var data = xhr.response.trim();
+  //         resolve(data);
+  //       } else {
+  //         reject({
+  //           status: this.status,
+  //           statusText: xhr.statusText
+  //         });
+  //       }
+  //     };
+  //     xhr.onerror = function() {
+  //       reject({
+  //         status: this.status,
+  //         statusText: xhr.statusText
+  //       });
+  //     };
+  //     xhr.send();
+  //   });
+  // }
 
   //#region filestat/
   // Get file information
@@ -1788,7 +1788,7 @@ export default class CommonStorageService extends Service {
     await new Promise (z => setTimeout (z, 9)); // in openMainMenu
     menuButton.style.background = "#444 url('/images/cross.png') center 0.6rem/0.9rem no-repeat";
     // Ensure that the main menu behaves
-    let ifshow = this.imdbRoot ? '' : 'none';
+    let ifshow = this.imdbRoot ? '' : 'none'; // imdbRoot required; ''=true 'none'=false
     document.getElementById('albumHead').style.display = ifshow;
     document.querySelector('div.albumTree').style.display = ifshow;
     await new Promise (z => setTimeout (z, 29)); // in openMainMenu
@@ -1865,7 +1865,7 @@ export default class CommonStorageService extends Service {
   openDialog = async (dialogId, origPos) => {
     let diaObj = document.getElementById(dialogId);
     if (!diaObj) return; // stop?
-    await new Promise (z => setTimeout (z, 20)); // openDialog
+    await new Promise (z => setTimeout (z, 20)); // in openDialog
     if (!diaObj.open) {
       diaObj.show();
       if (origPos) diaObj.style = '';
@@ -1882,7 +1882,7 @@ export default class CommonStorageService extends Service {
       diaObj.close();
     } else {
       what = 'opened ';
-      await new Promise (z => setTimeout (z, 20)); // in toggleDialog
+        await new Promise (z => setTimeout (z, 20)); // in toggleDialog
       if (origPos) diaObj.style.display = '';
       diaObj.show();
     }
@@ -1890,10 +1890,13 @@ export default class CommonStorageService extends Service {
   }
 
   openModalDialog = (dialogId, origPos) => {
+      // this.loli('dialogId=' + dialogId, 'color:red');
     // Close all dialogs before login change:
     if (dialogId === 'dialogLogin') this.closeDialogs();
     // Reset this dialogChoose before opening:
     let diaObj = document.getElementById(dialogId);
+      // console.log('diaObj', diaObj);
+    diaObj = document.getElementById(dialogId); // repeated
     if (dialogId === 'dialogChoose') {
       document.getElementById('Choice_3').checked = false;
       document.querySelector('span.Choice_3').style.display = 'none';

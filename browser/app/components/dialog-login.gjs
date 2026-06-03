@@ -1,13 +1,14 @@
 //== Mish login dialog
 
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
+import { cached, tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 // Note: Dialog function in Welcome needs dialog*Id:
 export const dialogLoginId = 'dialogLogin';
@@ -23,7 +24,9 @@ export class DialogLogin extends Component {
     return this.z.picName;
   }
 
+  @cached get inLog() {getPromiseState(this.logIn());}
   logIn = async () => {
+    await new Promise (z => setTimeout (z, 999)); // Antihang?
     let user = document.querySelector('input.user_').value.trim();
     if (!user) user = this.z.userName; // There is always a default user name
     // Get the credentials for user, cred = [password, userStatus, allowvalue, freeUsers]
@@ -112,7 +115,7 @@ export class DialogLogin extends Component {
   }
 
   // Format allowances for dialogRights
-  get allowances() {
+  allowances = () => {
     let text = this.z.allowances.split(LF);
       // console.log(this.z.allowvalue);
     let av = this.z.allowvalue.replace(/0/g, '.').replace(/1/g, 'x');
@@ -170,7 +173,7 @@ export class DialogLogin extends Component {
         </main>
         <footer data-dialog-draggable>
           <button type="button" {{on 'click' (fn this.z.openModalDialog dialogRightsId 0)}}>{{t 'button.rights'}}</button>&nbsp;
-          <button type="submit" autofocus {{on 'click' (fn this.logIn)}}>{{t 'button.login'}}</button>&nbsp;
+          <button type="submit" autofocus {{on 'click' (fn this.inLog)}}>{{t 'button.login'}}</button>&nbsp;
           <button type="button" {{on 'click' (fn this.z.closeDialog dialogLoginId)}}>{{t 'button.close'}}</button>&nbsp;
         </footer>
       </dialog>

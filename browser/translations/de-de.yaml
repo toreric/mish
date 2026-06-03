@@ -19,7 +19,7 @@ nsubalbums: Anzahl der Unteralben
 anyhidden: sichtbar aufgrund Benutzerrecht
 
 # Appendix to the the 'dialog.rights' (allowances)
-allowed: "                   Erlaubt zu"
+allowed:      Erlaubt zu
 adminAll:     irgendetwas tun
 albumEdit:    Album erstellen/löschen
 appendixEdit: (mit Anhängen arbeiten +4)¹
@@ -441,7 +441,7 @@ write:
   tool6: Suchdaten aktualisieren
   tool7: Ähnliche Bilder finden versuchen
   tool8: Textliste für angezeigte Bilder erstellen
-  tool91: Eigene Lieblingsbilder verwalten
+  tool9: Eigene Lieblingsbilder verwalten
   tool99: Hier gibt es nichts zu wählen!
   utilHeader: Werkzeuge für das Album
   utilHeader0: Werkzeuge für die Albensammlung

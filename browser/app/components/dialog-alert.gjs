@@ -9,7 +9,6 @@ import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
 
 export const dialogAlertId = 'dialogAlert';
-import { dialogChooseId } from './dialog-choose';
 
 export class DialogAlert extends Component {
   @service('common-storage') z;
@@ -18,8 +17,8 @@ export class DialogAlert extends Component {
   detectEscClose = (e) => {
     e.stopPropagation();
     if (e.code === 'Escape') { // Esc key
-      if (document.getElementById(dialogAlertId).open) this.z.closeDialog(dialogAlertId);
-      if (document.getElementById(dialogChooseId).open) this.z.closeDialog(dialogChooseId);
+      if (document.getElementById('dialogAlert').open) this.z.closeDialog('dialogAlert');
+      if (document.getElementById('dialogChoose').open) this.z.closeDialog('dialogChoose');
     }
   }
 
@@ -29,7 +28,7 @@ export class DialogAlert extends Component {
     // this.z.loli(navigator.userAgent);
     if (!navigator.userAgent.includes("Firefox")) return; // Only Firefox can do this
     let tgt = e.target.id;
-    if (tgt === dialogLoginId || tgt === dialogRightsId ) {
+    if (tgt === 'dialogLogin' || tgt === 'dialogRights') {
       // Outside a modal dialog, else not!
       this.z.closeDialog(tgt);
     }
@@ -41,7 +40,7 @@ export class DialogAlert extends Component {
         <div style="width:99%">
           <p style="color:blue">{{this.z.infoHeader}}<span></span></p>
         </div><div>
-          <button class="close" type="button" {{on 'click' (fn this.z.closeDialog dialogAlertId)}}>×</button>
+          <button class="close" type="button" {{on 'click' (fn this.z.closeDialog 'dialogAlert')}}>×</button>
         </div>
       </header>
       <main>
@@ -50,7 +49,7 @@ export class DialogAlert extends Component {
 
       </main>
       <footer data-dialog-draggable>
-        <button type="button" {{on 'click' (fn this.z.closeDialog dialogAlertId)}}>{{t 'button.close'}}</button>&nbsp;
+        <button type="button" {{on 'click' (fn this.z.closeDialog 'dialogAlert')}}>{{t 'button.close'}}</button>&nbsp;
       </footer>
     </dialog>
   </template>

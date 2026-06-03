@@ -333,30 +333,30 @@ export default function(app) { // Start module.exports
 
   // ##### Get full-size (djvu?) file   CHECK path
   //#region fullsize
-  app.get('/fullsize', async (req, res) => {
-    console.log(BGRE + '/fullsize' + RSET)
-    var fileName = decodeURIComponent(req.get('path'))
-    // var fileName = req.get('path') // with path but servers may remove first `/`:
-    if (fileName.slice (0, 1) !== "/") fileName = "/" + fileName
-    //console.log (fileName)
-    // Make a temporary .djvu file with the mkdjvu script
-    // Plugins missing for most browsers January 2019
-    //var tmpName = execSync ('mkdjvu ' + fileName)
-    // Make a temporary png file instead (much bigger, sorry!)
-      let pwd0 = await exec('pwd')
-      console.log(pwd0.stdout.trim())
-      console.log(WWW_ROOT)
-    // Now mkpng will deliver the file 'tmpName'
-    // into the pwd directory = WWW_ROOT
-    let cmd = 'mkpng ' + IMDB + fileName
-      console.log(cmd)
-    var tmpName = await exec(cmd) // 'await exec' delivers both stdout and stderr
-      console.log(tmpName.stdout)
-    res.location ('/')
-    res.send (tmpName.stdout)
-    //res.end ()
-    console.log ('Started fullsize image generation')
-  })
+  // app.get('/fullsize', async (req, res) => {
+  //   console.log(BGRE + '/fullsize' + RSET)
+  //   var fileName = decodeURIComponent(req.get('path'))
+  //   // var fileName = req.get('path') // with path but servers may remove first `/`:
+  //   if (fileName.slice (0, 1) !== "/") fileName = "/" + fileName
+  //   //console.log (fileName)
+  //   // Make a temporary .djvu file with the mkdjvu script
+  //   // Plugins missing for most browsers January 2019
+  //   //var tmpName = execSync ('mkdjvu ' + fileName)
+  //   // Make a temporary png file instead (much bigger, sorry!)
+  //     let pwd0 = await exec('pwd')
+  //     console.log(pwd0.stdout.trim())
+  //     console.log(WWW_ROOT)
+  //   // Now mkpng will deliver the file 'tmpName'
+  //   // into the pwd directory = WWW_ROOT
+  //   let cmd = 'mkpng ' + IMDB + fileName
+  //     console.log(cmd)
+  //   var tmpName = await exec(cmd) // 'await exec' delivers both stdout and stderr
+  //     console.log(tmpName.stdout)
+  //   res.location ('/')
+  //   res.send (tmpName.stdout)
+  //   //res.end ()
+  //   console.log ('Started fullsize image generation')
+  // })
 
   // ##### Find subdirs which are album roots
   //#region rootdir

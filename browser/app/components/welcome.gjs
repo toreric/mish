@@ -3,7 +3,7 @@
 
 //   NOTE: 'DialogSettings' ends this file
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
+import { cached, tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
@@ -11,6 +11,7 @@ import t from 'ember-intl/helpers/t';
 import { modifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
 import { makeDialogDraggable } from 'dialog-draggable';
+import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 import { Clock } from './clock';
 import { ButtonsLeft } from './buttons-left';
@@ -20,7 +21,7 @@ import { DialogChoose } from './dialog-choose';
 import { DialogFind } from './dialog-find';
 import { DialogHelp } from './dialog-help';
 // import { DialogInfo } from './dialog-info';
-import { DialogLogin } from './dialog-login';
+// import { DialogLogin } from './dialog-login';
 import { DialogText } from './dialog-text';
 // import { DialogTools } from './dialog-tools';
 import { DialogXper } from './dialog-xper';
@@ -32,14 +33,6 @@ import { MenuMain } from './menu-main';
 import { ViewMain } from './view-main';
 import RefreshThis from './refresh-this';
 import { Spinner } from './spinner';
-
-import { dialogAlertId } from './dialog-alert';
-import { dialogFindId } from './dialog-find';
-import { dialogHelpId } from './dialog-help';
-import { dialogInfoId } from './dialog-info';
-import { dialogLoginId } from './dialog-login';
-import { dialogRightsId } from './dialog-login';
-import { dialogXperId } from './dialog-xper';
 
 import he from 'he';
 // USE: <div title={{he.decode 'text'}}></div> ['he' = HTML entities]
@@ -68,7 +61,7 @@ document.addEventListener('keydown', (event) => {
       resetBorders();
       for (let d of document.querySelectorAll('dialog')) {
         if (d.hasAttribute('open')) {
-          if (d.id === dialogInfoId) d.close();
+          if (d.id === 'dialogInfo') d.close();
           if (d.id === 'dialogUtil') d.close();
           if (d.id === 'dialogHelp') d.close();
           // return;
@@ -97,11 +90,12 @@ document.addEventListener('keydown', (event) => {
       document.getElementById('searchText').click();
       break;
     case 'F1': // F1
-      toggleDialog(dialogHelpId);
+      toggleDialog('dialogHelp');
   }
 });
 
 var aud = new AudioContext();
+// vol: 0 to 100, freq: Hz, duration: milliseconds
 const beep  =  function(vol, freq, duration){
   let v = aud.createOscillator();
   let u = aud.createGain();
@@ -172,6 +166,7 @@ document.body.addEventListener('mouseup', async (event) => {
     // console.log('event:', event);
     // console.log('2target:', tgt.tagName);
   // event.stopPropagation();
+  // beep 50% at 550 Hz in 100 ms
   if (BEEP) beep(50, 550, 100);
   if (POOP) { // The mouse click visual popup spinner
     let poop = document.getElementById('poop');
@@ -217,6 +212,12 @@ class Welcome extends Component {
   @service('common-storage') z;
   @service intl;
 
+  get greet() {
+    console.log('WELCOME TO MISH!');
+    this.getCred();
+  } //
+
+
   someFunction = (param) => {this.z.loli(param, 'color:red');}
 
   get album() {
@@ -224,15 +225,19 @@ class Welcome extends Component {
   }
 
   openRights = () => {
-    this.z.openModalDialog(dialogRightsId, 0);
+    this.z.openModalDialog('dialogRights', 0);
   }
   openLogIn = () => {
-    this.z.openModalDialog(dialogLoginId, 0);
+    this.z.openModalDialog('dialogLogin', 0);
   }
 
   // To be executed only once before a user is defined with userStatus
   // HERE INITIAL actions may be added like the openLogIn() in last line
+  //@cached
+  // geCr = () => {getPromiseState(this.getCred());
   getCred = async () => {
+      this.z.loli('getCred count = ' + this.z.refreshTexts, 'color:yellow');
+    if (this.z.refreshTexts) return;
     //await new Promise (z => setTimeout (z, 99)); // Allow userStatus to settle
     await new Promise (z => setTimeout (z, 2299)); // With Vite 2026
     if (!this.z.userStatus) { // only once
@@ -310,20 +315,24 @@ class Welcome extends Component {
     } else {
       this.z.openMainMenu();
     }
+
+    // this.getCred();
     // this.openLogIn();
   }
 
-  get goHome() {
-    return he.decode(this.intl.t('home'));
+  // getPromiseState(that.getCred())
+
+  goHome = () => {
+    return he.decode(this.intl.t('home')); // allows &nbsp;
   }
-  get mainHome() {
-    return he.decode(this.intl.t('homemain'));
+  mainHome = () => {
+    return he.decode(this.intl.t('homemain')); // allows &nbsp;
   }
 }
 
-const executeOnInsert = modifier((element, [component]) => {
-  component.getCred();
-});
+// const executeOnInsert = modifier((element, [component]) => {
+//   component.geCr();
+// });
 
 export default class extends Welcome {
   <template>
@@ -336,7 +345,8 @@ export default class extends Welcome {
 
     <div id="upperButtons" style="position:relative;top:0;left:0;width:100%;padding-top:0.5rem">
 
-      <div {{executeOnInsert this}} class="" style="display:flex;justify-content:space-between;margin:0 3.25rem 0 4rem">
+      {{!-- <div {{executeOnInsert this}} class="" style="display:flex;justify-content:space-between;margin:0 3.25rem 0 4rem"> --}}
+      <div style="display:flex;justify-content:space-between;margin:0 3.25rem 0 4rem">
 
         <span>
           <Language />
@@ -352,7 +362,7 @@ export default class extends Welcome {
 
           {{#if this.z.allow.deleteImg}}
             {{!-- Open an experimental/test dialog --}}
-            <button type="button" title="Xperimental" style="background:transparent;height:1.1rem;border:0.5px solid #909;border-radius:50%" {{on 'click' (fn this.z.toggleDialog dialogXperId)}}>&nbsp;&nbsp;</button>
+            <button type="button" title="Xperimental" style="background:transparent;height:1.1rem;border:0.5px solid #909;border-radius:50%" {{on 'click' (fn this.z.toggleDialog 'dialogXper')}}>&nbsp;&nbsp;</button>
           {{/if}}
 
           <span id="loggedInUser">
@@ -435,7 +445,7 @@ export default class extends Welcome {
 
     </p>
 
-    <DialogLogin />
+    {{!-- <DialogLogin /> moved to ViewMain --}}
     <DialogText />
     <DialogFind />
     <DialogHelp />
@@ -446,6 +456,7 @@ export default class extends Welcome {
     {{!-- <DialogTools /> moved to ViewMain --}}
     <DialogSettings />
     <Spinner />
+ {{this.greet}}
 
   </template>;
 }
