@@ -24,7 +24,7 @@ export class DialogLogin extends Component {
     return this.z.picName;
   }
 
-  inLog = () => {getPromiseState(this.logIn());}
+  // inLog = () => {getPromiseState(this.logIn());}
   logIn = async () => {
     await new Promise (z => setTimeout (z, 999)); // Antihang?
     let user = document.querySelector('input.user_').value.trim();
@@ -173,7 +173,7 @@ export class DialogLogin extends Component {
         </main>
         <footer data-dialog-draggable>
           <button type="button" {{on 'click' (fn this.z.openModalDialog dialogRightsId 0)}}>{{t 'button.rights'}}</button>&nbsp;
-          <button type="submit" autofocus {{on 'click' (fn this.inLog)}}>{{t 'button.login'}}</button>&nbsp;
+          <button type="submit" autofocus {{on 'click' this.logIn}}>{{t 'button.login'}}</button>&nbsp;
           <button type="button" {{on 'click' (fn this.z.closeDialog dialogLoginId)}}>{{t 'button.close'}}</button>&nbsp;
         </footer>
       </dialog>

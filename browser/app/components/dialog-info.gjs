@@ -73,7 +73,7 @@ export class DialogInfo extends Component {
   // this.stat(), and you lose your stable reference
   // Own NOTE: don't set something tracked in a getter (may spoil the browser!)
   @cached get currentStat() {
-    let tmp = getPromiseState(this.stat());
+    let tmp = getPromiseState(this.stat()); // Get the return value
       // console.log(tmp);
     return tmp;
   }

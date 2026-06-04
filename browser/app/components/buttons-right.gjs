@@ -24,9 +24,9 @@ export class ButtonsRight extends Component {
 
   // @cached
   // get getFullSize() {
-  getFullSize = () => {
-    getPromiseState(this.doGetFullSize());
-  }
+  // getFullSize = () => {
+  //   getPromiseState(this.doGetFullSize());
+  // }
   doGetFullSize = async () => {
     if (this.z.picIndex < 0) return;
     if (!this.z.allFiles) return;
@@ -111,7 +111,7 @@ export class ButtonsRight extends Component {
 
       {{!-- FULL SIZE fullSize --}}
       {{!-- <a class="nav_" id="full_size" title="{{t 'fullSize'}}" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.futureNotYet 'fullSize')}}> </a> &nbsp;<br> --}}
-      <a class="nav_" id="full_size" title="{{t 'fullSize'}}" draggable="false" ondragstart="return false" {{on 'click' this.getFullSize}}> </a> &nbsp;<br>
+      <a class="nav_" id="full_size" title="{{t 'fullSize'}}" draggable="false" ondragstart="return false" {{on 'click' this.doGetFullSize}}> </a> &nbsp;<br>
 
       {{!-- PRINT doPrint  --}}
       <a class="nav_ pnav_" id="do_print" title="{{t 'printOut'}}" {{on 'click' (fn this.z.futureNotYet 'printOut')}}> </a> &nbsp;

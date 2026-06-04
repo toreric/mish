@@ -1008,8 +1008,11 @@ export default function(app) { // Start module.exports
   // ===== Is this file/directory a broken link? Returns its name or false
   // NOTE: Broken links may cause severe problems if not taken care of properly!
   //#region brokenLink
+  // Check if the file path (item) represents a broken link. If not retutn '', else path 
   const brokenLink = item => {
-    return execSync("find '" + item + "' -maxdepth 0 -xtype l 2>/dev/null").toString()
+    let tmp = execSync("find '" + item + "' -maxdepth 0 -xtype l 2>/dev/null").toString()
+      // console.log('Broken =', tmp.length, tmp)
+    return tmp
   }
 
 
@@ -1085,7 +1088,7 @@ export default function(app) { // Start module.exports
           // console.log('filepath:', i, files[i])
         var brli = brokenLink(files[i])
         if (brli) {
-          rmPic(files[i]) // may hopefully also work for removing any single file ...
+          await exec('rm -f ' + files[i])
           files[i] = path.join(path.dirname(files[i]), '.ignore') // fake dotted file
             // console.log('    >>>>', i, files[i])
         } else { // Check if this is a regular file:

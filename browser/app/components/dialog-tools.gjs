@@ -491,9 +491,9 @@ uploadPhoto = async (file) => {
       // this.z.loli('updated text database');
     this.z.alertMess(this.intl.t('write.dbUpdated'));
   }
-  @cached get doDbUpd() {
-    getPromiseState(this.doDbUpdate);
-  }
+  // @cached get doDbUpd() {
+  //   getPromiseState(this.doDbUpdate);
+  // }
 
   zeTo1 = () => {this.amTools = 0;}
   @cached get zeroTools1() {
@@ -739,7 +739,7 @@ uploadPhoto = async (file) => {
           {{else if (eq this.tool 'util6')}}
 
             <b>{{t 'write.tool6'}}?</b>&nbsp;
-            <button type="button" {{on 'click' (fn this.doDbUpd)}}>{{t 'button.ok'}}</button>
+            <button type="button" {{on 'click' (fn this.doDbUpdate)}}>{{t 'button.ok'}}</button>
 
           {{!-- === Manage personal favorites === --}}
           {{else if (eq this.tool 'util9')}}

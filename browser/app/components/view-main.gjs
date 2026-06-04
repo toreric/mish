@@ -335,11 +335,10 @@ class AllImages extends Component {
     }
   }
 
-  @cached
-  showImage = (name, path) => {
-    return getPromiseState(this.z.showImage(name, path));
-  }
-
+  // @cached
+  // showImage = (name, path) => {
+  //   return getPromiseState(this.z.showImage(name, path));
+  // }
 
   // itemVisualClass = 'sortable-item--active';
   //  *** NEXT check ember-sortable 5.0 on NPM 2025-01-24
@@ -446,7 +445,7 @@ class AllImages extends Component {
                 </div>
 
                 {{!-- Here comes the thumbnail --}}
-                <img src="{{item.mini}}" class="left-click" title="{{this.z.imdbRoot}}{{item.linkto}}" draggable="false" ondragstart="return false" {{on 'click' (fn this.showImage item.name item.show)}}>
+                <img src="{{item.mini}}" class="left-click" title="{{this.z.imdbRoot}}{{item.linkto}}" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.showImage item.name item.show)}}>
 
               </div>
               <div {{on 'click' this.ediText}}>
@@ -520,7 +519,7 @@ class AllImages extends Component {
           <div class="toggleNavInfo" style="opacity:0">
 
             {{!-- Outside image: return-to-thumbnails click area --}}
-            <a class="navReturn" style="top:-2.5rem; left:0%; width:100%; border:0" draggable="false" ondragstart="return false" {{on 'click' (fn this.showImage '')}}><p>{{t 'return'}} <span style="font:normal 1rem Arial!important">[Esc]</span></p></a>
+            <a class="navReturn" style="top:-2.5rem; left:0%; width:100%; border:0" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.showImage '')}}><p>{{t 'return'}} <span style="font:normal 1rem Arial!important">[Esc]</span></p></a>
 
             {{!-- Left backwards click area --}}
             <a style="top: 0%; left: 0%; width: 49.5%; height: 99.5%"

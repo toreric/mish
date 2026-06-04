@@ -212,9 +212,7 @@ class Welcome extends Component {
   @service('common-storage') z;
   @service intl;
 
-  greet = () => {
-    getPromiseState(this.getCred());
-  }
+  greet = () => { getPromiseState(this.getCred()); } // avoid "obj" printout
 
 
   someFunction = (param) => {this.z.loli(param, 'color:red');}
@@ -223,15 +221,11 @@ class Welcome extends Component {
     return this.z.imdbRoot + this.z.imdbDir;
   }
 
-  openRights = () => {
-    getPromiseState(this.z.openModalDialog('dialogRights', 0));
-  }
-  openLogIn = () => {
-    getPromiseState(this.z.openModalDialog('dialogLogin', 0));
-  }
+  // openLogIn = () => {
+  //   getPromiseState(this.z.openModalDialog('dialogLogin', 0));
+  // }
 
   // To be executed only once before a user is defined with userStatus
-  // HERE INITIAL actions may be added like the openLogIn() in last line
   //@cached
   // geCr = () => {getPromiseState(this.getCred());
   getCred = async () => {
@@ -315,7 +309,7 @@ class Welcome extends Component {
     } else {
       this.z.openMainMenu();
     }
-
+    // HERE MORE INITIAL ACTIONS may be added as last line(s)
   }
 
   // getPromiseState(that.getCred())
@@ -370,7 +364,7 @@ export default class extends Welcome {
             {{/if}}
 
             {{!-- Open the Login and Rights dialog --}}
-            <button type="button" style="background:url(/images/lawyer.png) center -0.125rem/1.6rem no-repeat;border:0;border-radius:0" title-2="{{t 'button.optchuser'}}" {{on 'click' (fn this.openLogIn)}}> &nbsp; &nbsp;</button>
+            <button type="button" style="background:url(/images/lawyer.png) center -0.125rem/1.6rem no-repeat;border:0;border-radius:0" title-2="{{t 'button.optchuser'}}" {{on 'click' (fn this.z.openModalDialog 'dialogLogin' 0)}}> &nbsp; &nbsp;</button>
 
             {{!-- Present who's logged in with rights --}}
             {{t 'loggedIn'}}: <b>{{this.z.userName}}</b>
