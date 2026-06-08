@@ -65,13 +65,13 @@ export class DialogText extends Component {
   }
 
   picName = () => { // failed when async/await was required
-      // this.z.loli('picName = ' + this.z.picName, 'color:yellow');
+      // this.z.loli('DialogText.picName = ' + this.z.picName, 'color:yellow');
       // this.z.loli('picIndex = ' + this.z.picIndex, 'color:yellow');
       // this.z.loli('allFiles:', 'color:yellow');
       // console.log(this.z.allFiles);
-    if (!this.z.picName) return; // Dismiss initial reactivity
-    // if (this.z.picIndex < 0) return; // Dismiss initial reactivity
-    // if (!this.z.allFiles) return; // Dismiss initial reactivity
+    if (!this.z.picName) return; // Dismiss initial
+    if (this.z.picIndex < 0) return; // Dismiss initial
+    if (!this.z.allFiles.length) return; // Dismiss initial
     let name = this.z.picName;
     this.z.picIndex = this.z.allFiles.findIndex(item => {return item.name === name;});
     let text = '';
@@ -107,17 +107,17 @@ export class DialogText extends Component {
     return this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt2.toString());
   }
 
-  texts = async () => { // ********* Check this, what is it for?
-    if (!this.z.picName) return;
-    let desc = document.getElementById('dialogTextDescription');
-      // this.z.loli('picName = ' + this.z.picName, 'color:red');
-      // this.z.loli('picIndex = ' + this.z.picIndex, 'color:red');
-      // console.log(desc);
-      // console.log(this.z.allFiles[this.z.picIndex()].txt1.toString());
-    desc.value = this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt1.toString());
-    document.getElementById('dialogTextCreator').value = this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt2.toString());
-    document.getElementById('dialogTextDescription').focus();
-  }
+  // texts = async () => { // ********* Check this, what is it for?
+  //   if (!this.z.picName) return;
+  //   let desc = document.getElementById('dialogTextDescription');
+  //     // this.z.loli('picName = ' + this.z.picName, 'color:red');
+  //     // this.z.loli('picIndex = ' + this.z.picIndex, 'color:red');
+  //     // console.log(desc);
+  //     // console.log(this.z.allFiles[this.z.picIndex()].txt1.toString());
+  //   desc.value = this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt1.toString());
+  //   document.getElementById('dialogTextCreator').value = this.z.deNormalize2LF(this.z.allFiles[this.z.picIndex].txt2.toString());
+  //   document.getElementById('dialogTextDescription').focus();
+  // }
 
   // Detect closing click outside a dialog-draggable modal dialog (Firefox only)
   detectClickOutside = (e) => {

@@ -58,7 +58,7 @@ export default class CommonStorageService extends Service {
   @tracked  picFound = null; //this.picFoundBaseName + '.' + this.RID;
         get picFoundBaseName() { return this.intl.t('picfound'); }
   @tracked  picFoundIndex = -1; //set in MenuMain, the index may vary by language
-  @tracked  picName = ''; //actual/current image name, when set: also set picIndex!
+  @tracked  picName = ''; //actual/current image name, when set: also set picIndex
   @tracked  picIndex = -1 //too, the index of picName's file info.object in allFiles
   @tracked  sortOrder = '';    //file order information table of 'imdbDir'
   @tracked  subColor = '#aef'; //subalbum legends color
@@ -382,7 +382,7 @@ export default class CommonStorageService extends Service {
       // Allow for the rendering of mini images and preload of view images
       // let size = this.albumAllImg(i);
       // await new Promise (z => setTimeout (z, size*120 + 100)); // album load in homeAlbum
-      this.gotoMinipic(picName);
+      this.gotoMinipic(picName, 'z.homeAlbum');
     }
   }
 
@@ -413,7 +413,9 @@ export default class CommonStorageService extends Service {
 
     i = Number(i); // important!
     this.imdbDir = this.imdbDirs[i];
-    this.imgItems = [];  // remove any old thumbnails (does it work?)
+    this.allFiles = [];
+    this.imgItems = [];  // remove any old thumbnails (does it work? no)
+    this.rmMinis(); // remove any remaining thumbnails in the DOM
     this.imdbDirIndex = i;
     let h = this.albumHistory;
     if (h.length > 0 && h[h.length - 1] !== i) this.albumHistory.push(i);
@@ -425,14 +427,10 @@ export default class CommonStorageService extends Service {
       tmp.style.color = '';
     }
 
-    // Resets ViewMain reactively, hopefully... didn't:
-    this.imgItems = [];
-    // Do it 'manually':
-    this.rmMinis();
     // Retreive information for every image file from the server:
-    this.allFiles = [];
     this.allFiles = await this.getImages();
-      // console.log(this.allFiles); // LOG WITH
+      // this.loli('allFiles from z.getImages (server):', 'color:red');
+      // console.log(this.allFiles);
 
     // Get the image order information from the server:
     this.sortOrder = await this.requestOrder();
@@ -533,10 +531,11 @@ export default class CommonStorageService extends Service {
 
   //#region rmMinis
   // Does 'manually' remove all thumbnails:
-  rmMinis = async () => {
+  rmMinis = () => {
     let minis = document.querySelectorAll('#imgWrapper div.img_mini');
     let m = minis.length;
     let wrap = document.getElementById('imgWrapper');
+      // console.log('z.rmMinis:', m, wrap);
     for (let i=0;i<m;i++) { // Remove all minis (thumbnails)
       if (wrap) wrap.firstElementChild.remove();
     }
@@ -842,7 +841,7 @@ export default class CommonStorageService extends Service {
   markBorders = async (namepic, from) => { // Mark a mini-image border
       // console.trace();
     // await new Promise (z => setTimeout (z, 25)); // Allow the dom to settle
-      this.loli('markBorders ' + namepic + ' ' + from, 'color:red');
+      this.loli('z.markBorders ' + namepic +', from '+ from, 'color:pink');
       // console.log((new Error()).stack?.split("\n")[2]?.trim().split(" ")[1]);
       // console.log((new Error()).stack?.split("\n")[1]?.trim().split(" ")[1]);
     document.querySelector('#i' + this.escapeDots(namepic) + ' img.left-click').classList.add('dotted');
@@ -850,9 +849,9 @@ export default class CommonStorageService extends Service {
 
   // Position to a minipic and highlight its border
   //#region gotoMinipic
-  gotoMinipic = async (namepic, e) => {
+  gotoMinipic = async (namepic, from) => {
       // this.loli('>' + namepic, 'color:red');
-      if (e) console.log(e);
+      this.loli('z.gotoMinipic ' + namepic +', from '+ from, 'color:pink');
     if (!namepic) return;
       // this.loli(namepic, 'color:red');
     await new Promise (z => setTimeout (z, 39)); // in gotoMinipic
@@ -882,7 +881,7 @@ export default class CommonStorageService extends Service {
   }
 
   // Open or close the named show image, path = its path in the current album
-  // showImage('') will close the show image and reopen the thumbnails
+  // showImage('§close§') will close the show image and reopen the thumbnails
   //#region showImage
   showImage = async (name, path, e) => {
     // Here the thumbnail is clicked: is it with Ctrl or Shift?
@@ -910,7 +909,8 @@ export default class CommonStorageService extends Service {
         }
       }
     }
-    if (name) { //open
+    if (!name) return;
+    if (name !== '§close§') { //open
       await new Promise (z => setTimeout (z, 19)); // Just by suspicion
           // this.loli('show name: ' + name, 'color:red');
           // this.loli('show path: ' + path, 'color:red');
@@ -969,7 +969,7 @@ export default class CommonStorageService extends Service {
       document.querySelector('#upperButtons').style.display = '';
       document.querySelector('.albumsHdr').style.display = '';
       // Outline the closed image
-      this.gotoMinipic(this.picName);
+      this.gotoMinipic(this.picName, 'z.showImage');
       document.querySelector('p.footer').style.display = '';
     }
     await new Promise (z => setTimeout (z, 99)); // in showImage
@@ -1160,6 +1160,7 @@ export default class CommonStorageService extends Service {
     xhr.setRequestHeader('username', encodeURIComponent(this.userName));
     xhr.setRequestHeader('imdbdir', encodeURIComponent(this.imdbDir));
     xhr.setRequestHeader('imdbroot', encodeURIComponent(this.imdbRoot));
+      // this.loli('xhrSetRequestHeader imdbRoot+imdbDir = ' + this.imdbRoot + this.imdbDir, 'color:red');
     xhr.setRequestHeader('picfound', this.picFound); // All 'wihtin 255' characters
   }
 
@@ -1697,7 +1698,7 @@ export default class CommonStorageService extends Service {
         cols: searchWhere,
         info: exact === 0 ? '' : 'exact'
       });
-        console.log(srchData); // debug printout
+        // console.log(srchData); // debug printout
       return new Promise((resolve, reject) => {
         let xhr = new XMLHttpRequest();
         xhr.open('POST', 'search/', true, null, null);
@@ -1746,7 +1747,7 @@ export default class CommonStorageService extends Service {
             });
           }
         }
-          console.log(srchData); // debug printout
+          // console.log(srchData); // debug printout
         xhr.send(srchData);
       });
     }

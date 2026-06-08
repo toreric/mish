@@ -221,17 +221,11 @@ class Welcome extends Component {
     return this.z.imdbRoot + this.z.imdbDir;
   }
 
-  // openLogIn = () => {
-  //   getPromiseState(this.z.openModalDialog('dialogLogin', 0));
-  // }
-
   // To be executed only once before a user is defined with userStatus
-  //@cached
-  // geCr = () => {getPromiseState(this.getCred());
   getCred = async () => {
-      this.z.loli('getCred count = ' + this.z.refreshTexts, 'color:yellow');
+      // this.z.loli('getCred count = ' + this.z.refreshTexts, 'color:yellow');
     if (this.z.refreshTexts) return; // First time if zero
-    this.z.refreshTexts++
+    this.z.refreshTexts++ // this counter/trigger has another use later
     //await new Promise (z => setTimeout (z, 99)); // Allow userStatus to settle
     await new Promise (z => setTimeout (z, 2299)); // With Vite 2026
     if (!this.z.userStatus) { // only once
@@ -368,10 +362,7 @@ export default class extends Welcome {
 
             {{!-- Present who's logged in with rights --}}
             {{t 'loggedIn'}}: <b>{{this.z.userName}}</b>
-            {{t 'with'}} [{{this.z.userStatus}}]-{{t 'rights'}}.&nbsp;&nbsp;
-
-            {{!-- Display the current time
-            <div style="display:inline-block">{{t 'time.text'}}<span style="font:80% monospace"><Clock @locale={{this.z.intlCodeCurr}} /></span></div> --}}
+            {{t 'with'}} [{{this.z.userStatus}}]-{{t 'rights'}}&nbsp;&nbsp;
           </span>
 
         </span>
@@ -402,6 +393,9 @@ export default class extends Welcome {
           </span>
         {{/if}}
         <span>&nbsp;</span>
+
+        {{!-- Display the current time --}}
+        <div style="display:inline-block;font-size:85%">{{t 'time.text'}}&nbsp;<Clock @locale={{this.z.intlCodeCurr}} />&nbsp;&nbsp;</div>
 
         {{!-- NOTE: This extra commented-out  link is for emergency only if the
         browser's back arrow fails due to problems in the initBrowser-goBack

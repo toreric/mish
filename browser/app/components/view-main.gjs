@@ -519,7 +519,7 @@ class AllImages extends Component {
           <div class="toggleNavInfo" style="opacity:0">
 
             {{!-- Outside image: return-to-thumbnails click area --}}
-            <a class="navReturn" style="top:-2.5rem; left:0%; width:100%; border:0" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.showImage '')}}><p>{{t 'return'}} <span style="font:normal 1rem Arial!important">[Esc]</span></p></a>
+            <a class="navReturn" style="top:-2.5rem; left:0%; width:100%; border:0" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.showImage '§close§')}}><p>{{t 'return'}} <span style="font:normal 1rem Arial!important">[Esc]</span></p></a>
 
             {{!-- Left backwards click area --}}
             <a style="top: 0%; left: 0%; width: 49.5%; height: 99.5%"

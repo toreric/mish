@@ -1,0 +1,19 @@
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  unrs-resolver: false
+  esbuild: true
+  '@embroider/core': true
+  '@embroider/compat': true
+  '@embroider/vite': true
+  '@embroider/macros': true
+  '@embroider/shared-internals': true
+minimumReleaseAgeExclude:
+  - '@embroider/compat@4.1.20'
+  - '@embroider/core@4.6.1'
+  - '@embroider/macros@1.20.4'
+  - '@embroider/shared-internals@3.1.1'
+  - '@embroider/vite@1.7.6'
+peerDependencyRules:
+  ignoreMissing:
+    - "@babel/core"

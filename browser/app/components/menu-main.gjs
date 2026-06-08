@@ -32,11 +32,13 @@ export class MenuMain extends Component {
   // and convert them into an object tree with an amended property set.
   // Finally indicate if this album tree has any hidden-without-allowance album.
   selectRoot = async (event) => { // Album root = collection
-    await this.z.closeMainMenu();
+    this.z.closeMainMenu('- prepare for selectRoot');
+    this.z.allFiles = []; // prepare for new root
+    this.z.imgItems = [];  // remove any old thumbnails (does it work?)
+    this.z.rmMinis(); // remove any remaining thumbnails in the DOM
     // document.querySelector('div.miniImgs.imgs').style.display = 'none';
-    await this.z.rmMinis();
-    await this.z.closeDialog('dialogFindResult'); // may cause trouble if open
-    await this.z.closeDialog(dialogAlertId);
+    this.z.closeDialog('dialogFindResult'); // may cause trouble if open
+    this.z.closeDialog(dialogAlertId);
     this.z.imdbRoot = event.target.value;
       // console.log(document.getElementById('rootSel'));
       // this.z.loli(document.getElementById('rootSel').selectedIndex, 'color:red');
@@ -45,7 +47,7 @@ export class MenuMain extends Component {
       document.querySelector('.miniImgs.imgs').style.display = 'none';
       return;
     }
-    this.z.imdbDir = ''; // The root is assumed initially selected
+    this.z.imdbDir = ''; // The root is assumed initially
     this.z.loli('IMDB_ROOT (imdbRoot) set to ' + this.z.imdbRoot, 'color:orange');
     const allow = this.z.allow; // permissions
 
