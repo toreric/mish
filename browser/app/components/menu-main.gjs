@@ -36,17 +36,18 @@ export class MenuMain extends Component {
     this.z.allFiles = []; // prepare for new root
     this.z.imgItems = [];  // remove any old thumbnails (does it work?)
     this.z.rmMinis(); // remove any remaining thumbnails in the DOM
-    // document.querySelector('div.miniImgs.imgs').style.display = 'none';
     this.z.closeDialog('dialogFindResult'); // may cause trouble if open
     this.z.closeDialog(dialogAlertId);
     this.z.imdbRoot = event.target.value;
       // console.log(document.getElementById('rootSel'));
       // this.z.loli(document.getElementById('rootSel').selectedIndex, 'color:red');
-    document.querySelector('.miniImgs.imgs').style.display = 'flex';
-    if (!this.z.imdbRoot)  {
-      document.querySelector('.miniImgs.imgs').style.display = 'none';
-      return;
-    }
+    // if (this.z.hasImages)
+    document.querySelector('.albumsHdr').style.display = 'none'; // else ''
+    document.querySelector('.miniImgs.imgs').style.display = 'none'; // else flex
+    // if (!this.z.imdbRoot)  {
+    //   document.querySelector('.miniImgs.imgs').style.display = 'none';
+    //   return;
+    // }
     this.z.imdbDir = ''; // The root is assumed initially
     this.z.loli('IMDB_ROOT (imdbRoot) set to ' + this.z.imdbRoot, 'color:orange');
     const allow = this.z.allow; // permissions
@@ -150,7 +151,6 @@ export class MenuMain extends Component {
     }
     this.hasHidden = anyHidden(); // if there are any hidden-but-allowed albums
     await this.z.openAlbum(0); // Select the root album
-
     // Copy the 'text' directory from the album root to  the web root which
     // makes available to be linked to within the image captions by writing
     // <a href="text/«file name»" target="_blank">«link text»</a>, where the
@@ -231,6 +231,7 @@ export class MenuMain extends Component {
     return a.toString();
   }
 
+  // MenuMain
   <template>
 
     <div id="menuMain" class="mainMenu" onclick="return false" draggable="false" ondragstart="return false" style="display:none">
@@ -319,6 +320,7 @@ class Tree extends Component {
     }
   }
 
+  // Tree
   <template>
 
     {{!-- The button is invisible but still used! --}}

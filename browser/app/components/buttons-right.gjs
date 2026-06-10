@@ -7,7 +7,6 @@ import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
-import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 // Right buttons, most without href attribute
 export class ButtonsRight extends Component {
@@ -22,11 +21,6 @@ export class ButtonsRight extends Component {
     }
   }
 
-  // @cached
-  // get getFullSize() {
-  // getFullSize = () => {
-  //   getPromiseState(this.doGetFullSize());
-  // }
   doGetFullSize = async () => {
     if (this.z.picIndex < 0) return;
     if (!this.z.allFiles) return;

@@ -221,6 +221,11 @@ class Welcome extends Component {
     return this.z.imdbRoot + this.z.imdbDir;
   }
 
+  setMaxWarning = (event) => {
+    this.z.maxWarning = event.target.value;
+    this.z.loli('maxWarning = ' + this.z.maxWarning);
+  }
+
   // To be executed only once before a user is defined with userStatus
   getCred = async () => {
       // this.z.loli('getCred count = ' + this.z.refreshTexts, 'color:yellow');
@@ -305,8 +310,6 @@ class Welcome extends Component {
     }
     // HERE MORE INITIAL ACTIONS may be added as last line(s)
   }
-
-  // getPromiseState(that.getCred())
 
   goHome = () => {
     return he.decode(this.intl.t('home')); // allows &nbsp;
@@ -506,11 +509,11 @@ export class DialogSettings extends Component {
             <input id="setBeep" name="settings" value="" type="checkbox" {{on 'click' this.detectCheckbox}}>
             <label for="setBeep"> &nbsp;{{t 'write.setBeep'}}</label>
           </div>
-          <form style="display:inline-block;margin-top:0.5rem">
+          <div style="display:inline-block;margin-top:0.5rem">
             {{t 'recommended'}}:&nbsp;
-            <input class="threedig" min="50" max="300" value="100" title="{{t 'select.value'}} 50–300" type="number">
+            <input class="threedig" min="50" max="300" value={{this.z.maxWarning}} title-2="{{t 'select.value'}} 50–300" type="number" {{on 'input' this.setMaxWarning}} />
             <br>(= {{t 'maxfor'}} <b>{{this.zpicFound}}</b>, {{t 'changeWithReason'}})
-          </form>
+          </div>
 
         </div>
 

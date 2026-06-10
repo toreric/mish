@@ -539,6 +539,8 @@ export default class CommonStorageService extends Service {
     for (let i=0;i<m;i++) { // Remove all minis (thumbnails)
       if (wrap) wrap.firstElementChild.remove();
     }
+    // In case something still is visible (shadow-DOM?), hide it
+    // document.querySelector('.miniImgs.imgs').style.display = 'none';
   }
 
   //#region setTreeMax
@@ -1462,11 +1464,7 @@ export default class CommonStorageService extends Service {
         });
       };
       xhr.send ();
-    })
-    .then ()
-    .catch(error => {
-      console.error ("In getImages:", error.message);
-    });
+    }).then ()
   }
 
   //#region sortlist/

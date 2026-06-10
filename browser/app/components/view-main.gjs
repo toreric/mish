@@ -9,7 +9,6 @@ import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
 import { htmlSafe } from '@ember/template';
-import { getPromiseState } from 'reactiveweb/get-promise-state';
 import he from 'he';
 // USE: <div title={{he.decode 'text'}}></div> he = HTML entities
 // or  txt = he.decode('text')  or  txt = he.encode('text')
@@ -334,11 +333,6 @@ class AllImages extends Component {
       }
     }
   }
-
-  // @cached
-  // showImage = (name, path) => {
-  //   return getPromiseState(this.z.showImage(name, path));
-  // }
 
   // itemVisualClass = 'sortable-item--active';
   //  *** NEXT check ember-sortable 5.0 on NPM 2025-01-24

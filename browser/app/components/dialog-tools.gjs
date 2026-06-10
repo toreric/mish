@@ -8,7 +8,6 @@ import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
-import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 // import RefreshThis from './refresh-this';
 
@@ -491,9 +490,6 @@ uploadPhoto = async (file) => {
       // this.z.loli('updated text database');
     this.z.alertMess(this.intl.t('write.dbUpdated'));
   }
-  // @cached get doDbUpd() {
-  //   getPromiseState(this.doDbUpdate);
-  // }
 
   zeTo1 = () => {this.amTools = 0;}
   @cached get zeroTools1() {

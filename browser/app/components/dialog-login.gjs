@@ -8,7 +8,6 @@ import { action } from '@ember/object';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
-import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 // Note: Dialog function in Welcome needs dialog*Id:
 export const dialogLoginId = 'dialogLogin';
@@ -24,7 +23,6 @@ export class DialogLogin extends Component {
     return this.z.picName;
   }
 
-  // inLog = () => {getPromiseState(this.logIn());}
   logIn = async () => {
     await new Promise (z => setTimeout (z, 999)); // Antihang?
     let user = document.querySelector('input.user_').value.trim();
