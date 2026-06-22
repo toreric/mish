@@ -1,7 +1,13 @@
 #!/bin/bash
 
-#" Remember to set the project durectory: "
-#project=/home/tore/Arbeten/mish
+# sleep 28
+
+# Get the environment (if autostart):
+if [ -f "$HOME/.bashrc" ]; then
+  source "$HOME/.bashrc"
+fi
+
+# Remember to set the project directory:
 project=/home/tore/Arbeten/mish/server
 
 port=3000

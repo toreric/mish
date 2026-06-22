@@ -1,0 +1,15 @@
+#!/bin/bash
+#ls-nvm
+
+# Defeniera sökvägen till din användares NVM-katalog
+export NVM_DIR="/home/tore/.nvm" # ~ fungerar inte
+# Läs in nvm-skripten manuellt
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+    . "$NVM_DIR/nvm.sh"
+else
+    echo "Fel: Hittade inte nvm.sh på $NVM_DIR"
+    exit 1
+fi
+# Nu fungerar nvm i resten av skriptet!
+
+nvm | less -R
