@@ -39,6 +39,7 @@ export class MenuMain extends Component {
     this.z.closeDialog('dialogFindResult'); // may cause trouble if open
     this.z.closeDialog(dialogAlertId);
     this.z.imdbRoot = event.target.value;
+    if (!this.z.imdbRoot) return; // We have selected none!
       // console.log(document.getElementById('rootSel'));
       // this.z.loli(document.getElementById('rootSel').selectedIndex, 'color:red');
     // if (this.z.hasImages)

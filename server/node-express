@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# sleep 28
-
 # Get the environment (if autostart):
 if [ -f "$HOME/.bashrc" ]; then
   source "$HOME/.bashrc"

@@ -9,7 +9,7 @@ import { fileURLToPath } from 'url'
 // Get the absolute path for the server environment
 // (not necessary if started from there, see the node-express script)  
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-  console.log('__dirname', __dirname) // is 
+  // console.log('__dirname', __dirname) // is /home/tore/Arbeten/mish/server
 
 // 1 configure our routes
 const app = express()

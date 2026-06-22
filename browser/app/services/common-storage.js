@@ -105,6 +105,7 @@ export default class CommonStorageService extends Service {
   @tracked  displayNames = 'none'; // Image name display switch
   @tracked  edgeImage = '';  // Text indicating first/last image
   @tracked  hasImages = false; // true if 'imdbDir' has at least one image
+  @tracked  ino = 0;
   // 'maxWarning' is set in Welcome (about 100?), more will trigger a warning:
   @tracked  maxWarning = 0;  // Recommended max. number of images in an album
   // Dynamic album information:
@@ -419,9 +420,13 @@ export default class CommonStorageService extends Service {
     this.imdbDirIndex = i;
     let h = this.albumHistory;
     if (h.length > 0 && h[h.length - 1] !== i) this.albumHistory.push(i);
-    let a = this.imdbRoot + this.imdbDir;
     document.getElementById('smallButtons1').style.display = '';
-    this.loli('opened album ' + i + ' ' + a, 'color:lightgreen' );
+
+    let a = this.imdbRoot + this.imdbDir;
+    if (a) { // Avoids meaningless log
+      this.loli('opened album ' + i + ' ' + a, 'color:lightgreen' );
+    }
+
     // Reset colors in the album tree of the main menu
     for (let tmp of document.querySelectorAll('span.album')) {
       tmp.style.color = '';
@@ -466,8 +471,8 @@ export default class CommonStorageService extends Service {
     // Populate the DOM with mini images by using the hidden
     // load button in component(s) 'ViewMain > AllImages' to
     // "push the allFiles content" into the thumbnail template:
-    document.getElementById('loadMiniImages').click();
-
+    let tmpnode = document.getElementById('loadMiniImages');
+    if (tmpnode) tmpnode.click(); // Avoids meaningless error
     // Show the subalbums etc.
     document.querySelector('#upperButtons').style.display = '';
     document.querySelector('.albumsHdr').style.display = '';
@@ -635,7 +640,7 @@ export default class CommonStorageService extends Service {
       // this.loli('imdbTree ' + n + LF + JSON.stringify(result, null, 2)); //human readable
       // this.loli(this.imdbCoco.length, 'color:red');
     // await new Promise (z => setTimeout (z, 33*this.imdbCoco.length)); // in updateTree Wait for album tree
-    this.refreshTree ++;
+    this.refreshTree ++;ww
     await new Promise (z => setTimeout (z, 333)); // in updateTree Wait for album tree
 
     // Set colors in the album tree
@@ -843,7 +848,7 @@ export default class CommonStorageService extends Service {
   markBorders = async (namepic, from) => { // Mark a mini-image border
       // console.trace();
     // await new Promise (z => setTimeout (z, 25)); // Allow the dom to settle
-      this.loli('z.markBorders ' + namepic +', from '+ from, 'color:pink');
+      this.loli('z.markBorders ' + namepic +', from '+ from, 'color:deeppink');
       // console.log((new Error()).stack?.split("\n")[2]?.trim().split(" ")[1]);
       // console.log((new Error()).stack?.split("\n")[1]?.trim().split(" ")[1]);
     document.querySelector('#i' + this.escapeDots(namepic) + ' img.left-click').classList.add('dotted');
@@ -1007,33 +1012,33 @@ export default class CommonStorageService extends Service {
         }
       }
     }
-    var next, nextName, ino = 0;
+    var next, nextName;
     if (!this.picName) this.loli('CommonStorageService error 5', 'color:red');
     var actual = document.getElementById('i' + this.picName);
     var actualParent = actual.parentElement;
     var allFiles = this.allFiles; // Reference, not a copy! Within showNext() ¤¤¤
     if (forward) {
 
-      ino = 0; // börja längst framifrån ??
+      this.ino = 0; // börja längst framifrån ??
       // Ensure that invisibles are skipped over
       while (actual.nextElementSibling && actual.nextElementSibling.classList.contains('invisible')) {
         actual = actual.nextElementSibling;
-        ino++;
+        this.ino++;
       }
       next = actual.nextElementSibling;
 
       if (next) {
         nextName = (next.id).slice(1);
-        ino++;
+        this.ino++;
       } else { // Go to the beginning
         next = actualParent.firstElementChild;
-        ino = 1;
+        this.ino = 0;
 
         // Ensure once again that invisibles are skipped over
         if (next && next.classList.contains('invisible')) {
           while (next.nextElementSibling && next.nextElementSibling.classList.contains('invisible')) {
             next = next.nextElementSibling;
-            ino++;
+            this.ino++;
           }
           next = next.nextElementSibling;
         }
@@ -1042,26 +1047,26 @@ export default class CommonStorageService extends Service {
 
     } else { // backward
 
-      ino = this.numImages + 1; // börja längst bakifrån ??
+      this.ino = this.numImages + 1; // börja längst bakifrån ??
       // Ensure that invisibles are skipped over
       while (actual.previousElementSibling && actual.previousElementSibling.classList.contains('invisible')) {
         actual = actual.previousElementSibling;
-        ino--;
+        this.ino--;
       }
       next = actual.previousElementSibling;
 
       if (next) {
         nextName = (next.id).slice(1);
-        ino--;
+        this.ino--;
       } else { // Go to the beginning
         next = actualParent.lastElementChild;
-        ino = this.numImages + 1;
+        this.ino = this.numImages + 1;
 
         // Ensure once again that invisibles are skipped over
         if (next && next.classList.contains('invisible')) {
           while (next.previousElementSibling && next.previousElementSibling.classList.contains('invisible')) {
             next = next.previousElementSibling;
-            ino--;
+            this.ino--;
           }
           next = next.previousElementSibling;
         }
@@ -1086,7 +1091,7 @@ export default class CommonStorageService extends Service {
       actual = document.querySelector('#i' + this.escapeDots(this.picName));
       if (!actual.nextElementSibling) this.edgeImage = this.intl.t('imageLast');
       else if (!actual.previousElementSibling) this.edgeImage = this.intl.t('imageFirst');
-      // else this.edgeImage = this.intl.t('imageNumber', {n: ino})
+      // else this.edgeImage = this.intl.t('imageNumber', {n: this.ino}); // Always 1!?!
     }
       // this.loli('end of showNext', 'color:red');
     await new Promise (z => setTimeout (z, 99)); // in showNext

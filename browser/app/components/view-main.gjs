@@ -379,6 +379,8 @@ class AllImages extends Component {
       <div class="miniImgs imgs" style="display:flex;flex-wrap:wrap">
 
         {{!-- The heading of the thumbnails' presentation --}}
+        {{!-- Double #ifs: sometimes no imdRoot still hasImages --}}
+        {{#if this.z.imdbRoot}}
         {{#if this.z.hasImages}}
         <div style="width:100%">
 
@@ -416,6 +418,7 @@ class AllImages extends Component {
                 Each #if/else-block needs it's own terminator! --}}
 
         </div>
+        {{/if}}
         {{/if}}
 
         {{!-- The div of the thumnail images --}}
