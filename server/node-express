@@ -33,8 +33,8 @@ echo pwd is $project
 #IMDB_HOME=/mnt/koofrwebdav
 IMDB_HOME=/home/tore
 #IMDB_ROOT=MISH
-IMDB_ROOT=Album-1
 IMDB_ROOT='""'
+IMDB_ROOT=Album-0
 ### NOTE: IMDB_ROOT may be empty in order to force the user to choose
 ### among album collections. Such an 'empty' string argument must be '""'
 ### in order to be passed correctly positioned into `node server.js ...`,

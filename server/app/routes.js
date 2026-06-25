@@ -82,7 +82,7 @@ export default function(app) { // Start module.exports
   let IMDB_HOME = imdbHome() // Root directory where IMDB_ROOTs are found
   //  IMDB_ROOT is the image database root directory:
   let IMDB_ROOT = execSync('echo $IMDB_ROOT').toString().trim()
-  if (IMDB_ROOT === '""') IMDB_ROOT = ''
+  if (IMDB_ROOT === '""') IMDB_ROOT = ''  // See the node-express script!
   let IMDB_DIR = ''  // Actual image database subdirectory
   let IMDB = ''
   let USER = ''
@@ -166,7 +166,7 @@ export default function(app) { // Start module.exports
       // await cmdasync(cmd) // gav direktare diagnos
       await exec(cmd)
       // console.log(BYEL + cmd + RSET)
-      let show_imagedir = false // For debug of directories printout
+      let show_imagedir = false // For directories etc. printout
       if (show_imagedir) {     // and also each ”tmp” printout
         console.log(BLUE + req.originalUrl + RSET)
         console.log('  WWW_ROOT:', WWW_ROOT)
@@ -532,9 +532,9 @@ export default function(app) { // Start module.exports
 
           // *********************************************************************
           // Start with 3 extra lines to be discarded by the receiver: Node
-          // version, userDir=IMDB_HOME, and wwwDir=WWW_ROOT. This is where the
-          // IMDB_HOME server parameter is transferred to the browser!
-          dirtext = "NodeJS " + process.version.trim() + LF + IMDB_HOME + LF + WWW_ROOT + LF + dirtext
+          // version, userDir=IMDB_HOME#imdbRoot=IMDB_ROOT, and wwwDir=WWW_ROOT.
+          // This is where those parameters are transferred to the browser!
+          dirtext = "NodeJS " + process.version.trim() + LF + IMDB_HOME + '#' + IMDB_ROOT + LF + WWW_ROOT + LF + dirtext
           // *********************************************************************
 
           res.location('/')

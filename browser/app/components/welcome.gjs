@@ -232,14 +232,16 @@ class Welcome extends Component {
     if (this.z.refreshTexts) return; // First time if zero
     this.z.refreshTexts++ // this counter/trigger has another use later
     //await new Promise (z => setTimeout (z, 99)); // Allow userStatus to settle
-    await new Promise (z => setTimeout (z, 2299)); // With Vite 2026
+    await new Promise (z => setTimeout (z, 2299)); // getCred: with Vite 2026
     if (!this.z.userStatus) { // only once
-        this.z.loli('getCred RUNNING', 'color:yellow')
+      this.z.loli('getCred RUNNING', 'color:yellow')
 
       // Various settings
       this.z.displayNames = 'none'; // Hide image names
       this.z.initBrowser();         // Manipulate browser back-arrow
       this.z.maxWarning = 100;      // Set recommended album maxsize, about 100
+      this.z.imdbRoot = await this.z.execute('echo -n $IMDB_ROOT'); // Server environment
+      if (this.z.imdbRoot === '""') this.z.imdbRoot = ''; // See the node-express script!
       await new Promise (z => setTimeout (z, 99)); // getCred: before awakening the system
 
       // Read the build stamp files (nodestamp.txt may be initially missing) etc.

@@ -42,14 +42,13 @@ export class MenuMain extends Component {
     if (!this.z.imdbRoot) return; // We have selected none!
       // console.log(document.getElementById('rootSel'));
       // this.z.loli(document.getElementById('rootSel').selectedIndex, 'color:red');
-    // if (this.z.hasImages)
     document.querySelector('.albumsHdr').style.display = 'none'; // else ''
     document.querySelector('.miniImgs.imgs').style.display = 'none'; // else flex
     // if (!this.z.imdbRoot)  {
     //   document.querySelector('.miniImgs.imgs').style.display = 'none';
     //   return;
     // }
-    this.z.imdbDir = ''; // The root is assumed initially
+    this.z.imdbDir = ''; // The album root is assumed initially
     this.z.loli('IMDB_ROOT (imdbRoot) set to ' + this.z.imdbRoot, 'color:orange');
     const allow = this.z.allow; // permissions
 
@@ -72,10 +71,15 @@ export class MenuMain extends Component {
     // First, we get some system information from the server:
     await this.z.execute('echo "' + arr.shift() + '" > nodestamp.txt');
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-    // Secondly, here 'IMDB_HOME' is (finally!) delivered from the server to be
-    // stored in 'userDir', which is our corresponding 'common-storage' variable.
-    // IMDB_HOME is given as an 'Express' server parameter at startup:
-    this.z.userDir = arr.shift();
+    // Secondly, here 'IMDB_HOME' and 'IMDB_ROOT' are finally delivered from the
+    // server to be stored in 'userDir' and 'imdbRoot', which are our corresponding
+    // 'common-storage' variables. They are given as 'Express' server parameters in
+    // the 'node-express' script and are also available as server environment
+    // variables (utilized for IMDB_ROOT in welcome.gjs).
+    tmp = arr.shift().split('#');
+    this.z.userDir = tmp[0];
+    this.z.imdbRoot = tmp[1];
+    // document.getElementById('rootSel').value = this.z.imdbRoot; // Preselected or ''
       // this.z.loli('userDir and imdbPath:  ' + this.z.userDir + '  ' + this.z.imdbPath, 'color:red');
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     // Thirdly, 'IMDB_WWW' also comes from the server to be stored in 'wwwDir':
@@ -241,7 +245,7 @@ export class MenuMain extends Component {
         <a class="" style="color:white;cursor:default">
 
           <select id="rootSel" title-2={{t 'albumcollinfo'}} {{on 'change' this.selectRoot}} {{on 'mousedown' (this.cleanWindows)}}>
-            <option value="" selected>{{t 'selalbumcoll'}}</option>
+            <option value="">{{t 'selalbumcoll'}}</option>
             {{#each this.z.imdbRoots as |rootChoice|}}
               <option value={{rootChoice}} selected={{eq this.z.imdbRoot rootChoice}}>{{rootChoice}}</option>
             {{/each}}
