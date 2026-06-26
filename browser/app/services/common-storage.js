@@ -106,8 +106,8 @@ export default class CommonStorageService extends Service {
   @tracked  edgeImage = '';  // Text indicating first/last image
   @tracked  hasImages = false; // true if 'imdbDir' has at least one image
   @tracked  ino = 0;
-  // 'maxWarning' is set in Welcome (about 100?), more will trigger a warning:
-  @tracked  maxWarning = 0;  // Recommended max. number of images in an album
+  // 'maxWarning' default (may be modified in 'settings'):
+  @tracked  maxWarning = 100;  // Recommended max. number of images in an album
   // Dynamic album information:
   @tracked  numHidden = 0;  // Number of images with hide flag in 'sortOrder'
   @tracked  numImages = 0;  // Total numder of images in the album

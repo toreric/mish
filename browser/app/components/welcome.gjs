@@ -221,11 +221,6 @@ class Welcome extends Component {
     return this.z.imdbRoot + this.z.imdbDir;
   }
 
-  setMaxWarning = (event) => {
-    this.z.maxWarning = event.target.value;
-    this.z.loli('maxWarning = ' + this.z.maxWarning);
-  }
-
   // To be executed only once before a user is defined with userStatus
   getCred = async () => {
       // this.z.loli('getCred count = ' + this.z.refreshTexts, 'color:yellow');
@@ -239,7 +234,6 @@ class Welcome extends Component {
       // Various settings
       this.z.displayNames = 'none'; // Hide image names
       this.z.initBrowser();         // Manipulate browser back-arrow
-      this.z.maxWarning = 100;      // Set recommended album maxsize, about 100
       this.z.imdbRoot = await this.z.execute('echo -n $IMDB_ROOT'); // Server environment
       if (this.z.imdbRoot === '""') this.z.imdbRoot = ''; // See the node-express script!
       await new Promise (z => setTimeout (z, 99)); // getCred: before awakening the system
@@ -485,6 +479,27 @@ export class DialogSettings extends Component {
     return this.z.picFoundBaseName.replace(/[§_]/g, ' ');
   }
 
+  handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      this.setMaxWarning(event);
+      event.target.blur();
+    }
+  };
+
+  get minv() { return 50 }  // This is where minimum of maxWarning is set
+  get maxv() { return 300 } // This is where maximum of maxWarning is set
+  // The default value 100 is set in common-storage.js (z)
+
+  setMaxWarning = (event) => {
+    let value = Number(event.target.value);
+    if (value < this.minv) { value = this.minv; }
+    if (value > this.maxv) { value = this.maxv; }
+    this.z.maxWarning = value;
+    event.target.value = value;
+    document.querySelector('footer button').focus();
+    this.z.loli('maxWarning set to ' + this.z.maxWarning, 'color:pink');
+  }
+
   <template>
     <dialog id="dialogSettings" {{on 'keydown' this.detectEscClose}}>
       <header data-dialog-draggable>
@@ -513,7 +528,7 @@ export class DialogSettings extends Component {
           </div>
           <div style="display:inline-block;margin-top:0.5rem">
             {{t 'recommended'}}:&nbsp;
-            <input class="threedig" min="50" max="300" value={{this.z.maxWarning}} title-2="{{t 'select.value'}} 50–300" type="number" {{on 'input' this.setMaxWarning}} />
+            <input class="threedig" min={{this.minv}} max={{this.maxv}} value={{this.z.maxWarning}} title="50–300" type="number" {{on "keydown" this.handleKeyDown}} {{on "blur" this.setMaxWarning}} />
             <br>(= {{t 'maxfor'}} <b>{{this.zpicFound}}</b>, {{t 'changeWithReason'}})
           </div>
 
