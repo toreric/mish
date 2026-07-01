@@ -63,7 +63,7 @@ echo
 # Script files used in the project's javascript code:
 required='finddupimages finderrimg pentaxdebug set_xmp_description xmp_description xmpset finddupnames mkpng set_xmp_creator xmp_creator xmpget'
 # Utility scripts, useful for Mish administration from command line:
-service=' deploy-mish exif_dimension grind ran4add rm-mini-show set_xmp_creatordate exif_dateorig findlinks ls-pnpm ls-nvm ls-ssd ls-temp ran4mk.js rm-mini-show-symlinks'
+service=' deploy-mish exif_dimension grind ran4add rm-mini-show set_xmp_creatordate exif_dateorig findlinks ls-kill-ssh ls-pnpm ls-nvm ls-ssd ls-temp ran4mk.js rm-mini-show-symlinks'
 
 # The source directory of required and service Mish scripts:
 cd /usr/local/bin

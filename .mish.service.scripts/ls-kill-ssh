@@ -1,0 +1,17 @@
+#!/bin/bash
+#ls-kill-ssh
+
+echo "Kill a hanged SSH-server connection in this way from another SSH login:"
+echo "1. Identify the hanged SSH-connection with 'who'"
+echo "2. Get it's PID with 'ps -t pts/#' where # is a number"
+echo "3. Kill it with 'kill -SIGHUP <pid>' where <pid> is the PID number"
+echo "4. If that failed, use 'pkill -9 -t pts/# instead (forcing immediately)"
+echo
+echo "kill -SIGHUP <pid>: Before Bash shuts itself down, it takes over and"
+echo "forwards the signal to all background jobs and processes that were"
+echo "started in that tab. Everything is cleaned away in the right order."
+echo
+echo "kill <pid>: Bash interprets this as a request to terminate itself"
+echo "immediately. Bash then shuts down immediately, but it may leave the"
+echo "programs you were running in that session (e.g. a forgotten text"
+echo "editor or a script) as 'zombie processes' in the background."
