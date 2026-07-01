@@ -1,0 +1,3 @@
+#!/bin/bash
+#ls-temp (degrees C)
+sensors -A

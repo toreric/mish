@@ -1,0 +1,7 @@
+#!/bin/bash
+#ls-ssd
+
+# your systems SSD:
+device=/dev/nvme0
+echo "SSD $device (modify if improper)"
+sudo smartctl -i $device | grep -E "Firmware| Number"

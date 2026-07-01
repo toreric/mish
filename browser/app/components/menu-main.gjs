@@ -156,8 +156,8 @@ export class MenuMain extends Component {
     }
     this.hasHidden = anyHidden(); // if there are any hidden-but-allowed albums
     await this.z.openAlbum(0); // Select the root album
-    // Copy the 'text' directory from the album root to  the web root which
-    // makes available to be linked to within the image captions by writing
+    // Copy the 'text' directory from the album root to the web root which
+    // makes it available for links within the image captions by writing
     // <a href="text/«file name»" target="_blank">«link text»</a>, where the
     // target attribute is important in order to avoid confusing appearance
     // on the SPA page: Best to shift-click, which opens another browser window.

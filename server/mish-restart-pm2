@@ -31,17 +31,17 @@ fi
 
 appname=mish
 # NOTE imdbhome = server database(datastore) catalog MUST NOT end with slash NOTE
-imdbhome="/media/raid1" # Do not end with '/'
-imdbroot="''"    # user selects, important duoble quoted syntax!
+IMDB_HOME="/media/raid1" # Do not end with '/'
+IMDB_ROOT="''"    # user selects, important duoble quoted syntax!
 # NOTE imdbroot = the preselected album collection MUST NOT have any slashes NOTE
-imdbroot="MISH"  # preselected, without '/'es
+IMDB_ROOT="MISH"  # preselected, without '/'es
 port=3000
 
 echo "##### Delete all PM2 services"
 pm2 delete all
 echo "##### Start $appname service"
 #pm2 start server.js -i 0 --name $appname -- $imdbhome $imdbroot $port
-pm2 start server.js -i max --name $appname -- $imdbhome $imdbroot $port
+pm2 start server.js -i max --name $appname -- $IMDB_HOME $IMDB_ROOT $port
 pm2 flush
 pm2 save
 pm2 restart all
