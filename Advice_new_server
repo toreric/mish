@@ -1,0 +1,26 @@
+ADVICE NEW SERVER efter att ha gjort ett nytt start-
+skript (mish-restart-pm2) med rådgivning av ChatGPT
+
+När det blir dags för flytten är det bara att ta det steg för steg:
+
+1. Förbered mapparna på den nya servern ($IMDB_HOME och $IMDB_ROOT).
+
+2. Installera grundpaketen (build-essential, NVM med Node v22.22.0, och PM2 med mera), så här:
+
+   build-essential (med apt)
+
+   Install nvm (node version manager) using the official install script with curl or wget
+   Then, install node v.22.22.0 with nvm
+   Run npm install pm2 -g
+   Run pm2 startup
+   Then install pnpm with npm
+   Copy pnpm-workspace.yaml (with allowBuilds:/better-sqlite3: true)
+   Copy the start script etc.
+
+   ttf-mscorefonts-installer (med apt; för t.ex. Georgia)
+   imagemagick-6 (med apt; v.6 med convert, nya v.7 har andra kommandon och HDRI)
+   sqlite3 (med apt)
+   exiv2 (med apt)
+   sqlitebrowser (med apt; eventuellt, för debug?)
+
+3. Ladda upp Mish till /var/www/mish (inclusive nödvändiga skript). Kör ditt nya startskript.

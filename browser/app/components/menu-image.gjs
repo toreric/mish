@@ -237,6 +237,8 @@ export class MenuImage extends Component {
   }
 
   downLoad = async () => {
+        this.z.futureNotYet('download');
+        return;
     // var that = this;
     if (this.z.picIndex < 0) return; // Dismiss initial reactivity
     if (!this.z.allFiles) return; // Dismiss initial reactivity
@@ -637,7 +639,7 @@ export class MenuImage extends Component {
             ○</span>{{t 'placelast'}}</p></li>
       {{/if}}
 
-      {{!-- Download images from this album --}}
+      {{!-- Download image from this album --}}
       {{#if this.z.allow.imgOriginal}}
         {{!-- <li><p {{on 'click' (fn this.z.futureNotYet 'download')}}> --}}
         <li><p {{on 'click' this.downLoad}}>

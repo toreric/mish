@@ -9,6 +9,7 @@ albumcoll: Albensammlung
 albumcollshow: Albumliste ein-/ausblenden
 openallalb: Unteralben zeigen/verbergen
 showselected: Gewähltes Album anzeigen
+tmpalbum0: ...und zuletzt eine zufällige .Id
 tmpalbum1: Mit
 tmpalbum2: "zuerst:"
 tmpalbum3: Temporäres Album zur Anzeige gefundener Bilder

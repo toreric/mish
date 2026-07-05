@@ -273,7 +273,7 @@ export class MenuMain extends Component {
         <Tree @tree={{this.tree}} />
         {{#if this.z.imdbRoot}}
           <p style="font-size:77%;vertical-align:top;line-height:1.1rem;margin:0 0.2rem 0 3rem">
-            <span style="color:#cb0;font-size:inherit">{{t 'tmpalbum1'}} § {{t 'tmpalbum2'}}</span> {{t 'tmpalbum3'}}<br>
+            <span style="color:#cb0;font-size:inherit" title-1="{{t 'tmpalbum0'}}">{{t 'tmpalbum1'}} § {{t 'tmpalbum2'}}</span> {{t 'tmpalbum3'}}<br>
             (⋅) {{t 'nimages'}}, (⋅+⋅) {{t 'nlinked'}}<br>
             {{SA}} {{t 'nsubalbums'}}
             {{#if this.hasHidden}}
@@ -325,6 +325,10 @@ class Tree extends Component {
     }
   }
 
+  notPicFound = (name) => {
+    return name === this.z.picFound ? false : true;
+  }
+
   // Tree
   <template>
 
@@ -345,9 +349,11 @@ class Tree extends Component {
           {{node.index}}&nbsp;&nbsp;
         </span>
         <span class="album a{{node.index}}" style="cursor:pointer" {{on "click" (fn this.z.openAlbum node.index)}}{{on "click" (fn this.z.closeMainMenu 'after selection in the album tree')}}>{{node.name}}</span>
-        <span style="font-size:77%;vertical-align:top">
-          &nbsp;&nbsp;{{node.coco}}
-        </span>
+        {{#if (this.notPicFound node.name)}}
+          <span style="font-size:77%;vertical-align:top">
+            &nbsp;&nbsp;{{node.coco}}
+          </span>
+        {{/if}}
         <br>
         {{#if node.children}}
           <Tree @tree={{node.children}} />

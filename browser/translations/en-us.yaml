@@ -9,6 +9,7 @@ albumcoll: Album collection
 albumcollshow: Show/hide album list
 openallalb: Show/hide subalbums
 showselected: Show selected album
+tmpalbum0: ...and a random .id at the end
 tmpalbum1: With
 tmpalbum2: "first:"
 tmpalbum3: Temporary album for displaying found images

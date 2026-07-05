@@ -100,6 +100,26 @@ export class DialogInfo extends Component {
     this.linkName = this.arr[6];
   }
 
+  handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      this.setThreshold(event);
+      event.target.blur();
+    }
+  };
+
+  get minv() { return 40 }  // This is where minimum is set
+  get maxv() { return 100 } // This is where maximum is set
+  get curv() { return 70 }  // This is where default current value is set
+  setThreshold = (event) => {
+    let value = Number(event.target.value);
+    if (value < this.minv) { value = this.minv; }
+    if (value > this.maxv) { value = this.maxv; }
+    this.curv = value;
+    event.target.value = value;
+    // document.querySelector('input.threedig').focus();
+    this.z.loli('Similarity threshold set to ' + value, 'color:pink');
+  }
+
   <template>
     {{!-- <dialog id="dialogInfo" {{on 'keydown' detectEscClose}} open> --}}
     <dialog id="dialogInfo" open>
@@ -149,7 +169,7 @@ export class DialogInfo extends Component {
           <i>{{t 'Moditime'}}</i>: {{{this.moTime}}}<br><br>
 
           {{!-- Find duplicates --}}
-          <a class="hoverDark" title-1="{{t 'findImageDups'}}" style="font-family:sans-serif;font-variant:all-small-caps" {{on 'click' (fn this.inform 'dups')}}>{{t 'findDuplicates'}}</a> {{t 'simiThres'}} = <form style="display:inline-block"><input class="threedig" type="number" min="40" max="100" value="70" title="{{t 'selectTreshold'}} 40&ndash;100%"></form>%
+          <a class="hoverDark" title-1="{{t 'findImageDups'}}" style="font-family:sans-serif;font-variant:all-small-caps" {{on 'click' (fn this.inform 'dups')}}>{{t 'findDuplicates'}}</a> {{t 'simiThres'}} = <form style="display:inline-block"><input class="threedig" type="number" min={{this.minv}} max={{this.maxv}} value={{this.curv}} title="{{t 'selectTreshold'}} {{this.minv}}–{{this.maxv}}%"  {{on "keydown" this.handleKeyDown}} {{on "blur" this.setThreshold}}></form>%
           <br>
 
         {{else if this.currentStat.isLoading}}
