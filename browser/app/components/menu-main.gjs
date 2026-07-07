@@ -30,7 +30,8 @@ export class MenuMain extends Component {
 
   // Choose collection = album root directory and its album (sub)directories
   // and convert them into an object tree with an amended property set.
-  // Finally indicate if this album tree has any hidden-without-allowance album.
+  // NOTE: THE COLLECTIONS 'text' DIRECTORY IS COPIED INTO THE WEB ROOT!
+  // Finally: Indicate if this album tree has any hidden-without-allowance album.
   selectRoot = async (event) => { // Album root = collection
     this.z.closeMainMenu('- prepare for selectRoot');
     this.z.allFiles = []; // prepare for new root
@@ -156,6 +157,7 @@ export class MenuMain extends Component {
     }
     this.hasHidden = anyHidden(); // if there are any hidden-but-allowed albums
     await this.z.openAlbum(0); // Select the root album
+
     // Copy the 'text' directory from the album root to the web root which
     // makes it available for links within the image captions by writing
     // <a href="text/«file name»" target="_blank">«link text»</a>, where the

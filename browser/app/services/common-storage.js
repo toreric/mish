@@ -640,7 +640,7 @@ export default class CommonStorageService extends Service {
       // this.loli('imdbTree ' + n + LF + JSON.stringify(result, null, 2)); //human readable
       // this.loli(this.imdbCoco.length, 'color:red');
     // await new Promise (z => setTimeout (z, 33*this.imdbCoco.length)); // in updateTree Wait for album tree
-    this.refreshTree ++;ww
+    this.refreshTree ++;
     await new Promise (z => setTimeout (z, 333)); // in updateTree Wait for album tree
 
     // Set colors in the album tree

@@ -1,0 +1,4 @@
+#!/bin/bash
+#ls-disk
+lsblk -o NAME,SIZE,ROTA,FSTYPE,FSUSE%,FSUSED,FSAVAIL,MOUNTPOINTS | grep -v 'loop[0123456789]'
+echo "NOTE: loop NAMEs excluded"

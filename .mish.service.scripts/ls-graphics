@@ -1,0 +1,5 @@
+#!/bin/bash
+echo
+echo `date`, ls-graphics:
+echo
+lspci -k 2>/dev/null | grep -iA3 vga

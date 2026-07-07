@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Var bilderna finns:
+katalog=$PWD
+fields='description creator source'
+# DB name       Xmp.dc key       GUI name
+# --------      -----------      ---------------------------------------
+# title     =>  description  =>  Beskrivning (var-vad-vem?)
+# caption   =>  creator      =>  Ursprung/upphovsrätt etc.
+# keywords  =>  subject      =>  Extra nyckelord (avdelade med semikolon)
+# user1     =>  title        =>  Bildidentitet/arkivnummer
+# user2     =>  rights       =>  Copyright
+# user3     =>  source       =>  Preliminär/kompletterande/osäker...
+
+
+if [ ! $1 ] || [ ! -f $1 ]; then
+ echo
+ echo " För listning av Xmp-metadata i bildfiler"
+ echo " Användning: $(basename $0) <textfil med bildfilnamnlista>"
+ echo "  där namnlistans bildfiler förutsätts återfinnas med"
+ echo "  unika filnamn i strukturen $katalog"
+ echo "  och vilkas metadata ska kopieras till Stdout"
+ echo " (listan är anpassad för användning med ld-xmp)"
+ echo
+ exit 0
+fi
+
+# Basename-lista på filerna (namnen är unika):
+files=$(cat $1)
+n=0
+
+for name in $files; do
+echo " ----------------------"
+
+ # Hitta bildens lagringsadress/sökväg:
+ fullname=$(find $katalog -name $name.*)
+ if [ ! $fullname ]; then
+   echo " $name *** FINNS INTE"
+ else
+   let $(( n++ ))
+   echo " $name ($n): $fullname"
+  for x in $fields; do
+	tx=`exiv2 -gXmp.dc.$x $fullname | tr '\n' '|' | sed -e 's/^.\{60\}//' | sed -e 's/^lang=\"x-default\"\ \(.*\)/\1/'`
+    tx=`echo $tx | sed -e 's/||/|/g' -e 's/|/\n/g'`
+    if [[ -z "${tx// }" ]]; then
+      echo -n
+    else
+      echo "$name $x $tx"; #En blank avskiljer
+    fi
+  done
+ fi
+
+done
+echo " ----------------------"
+echo " Antal behandlade: $n"
+
+exit 0

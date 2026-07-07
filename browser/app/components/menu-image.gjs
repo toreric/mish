@@ -237,8 +237,10 @@ export class MenuImage extends Component {
   }
 
   downLoad = async () => {
+        // Lock download until ready
         this.z.futureNotYet('download');
         return;
+
     // var that = this;
     if (this.z.picIndex < 0) return; // Dismiss initial reactivity
     if (!this.z.allFiles) return; // Dismiss initial reactivity

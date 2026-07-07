@@ -26,7 +26,9 @@ for f in $files; do
 
   #https://tldp.org/LDP/LG/issue18/bash.html
   g=${f##*/} #file name without path
-  g=${g%%.*} #base name without extension
+  # This is made for no dots in file names but maybe multiple extension like .tar.gz etc.
+  g=${g%%.*} #base name without extension (does not work with dots in the file name!)
+  # Must be rewritten for Mish Albums use
 
   txt=
   if [[ $1 = 0 || $1 = 1 ]]; then

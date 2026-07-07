@@ -1,0 +1,24 @@
+#! /bin/bash
+# Prints basic system information
+echo
+echo `date`, ls-system:
+echo
+sudo lshw | head | grep -i product: | sed -e 's/^\s*product://'
+echo -n Dator \"`uname -n`\" med `cpuid | grep -m1 'brand = '| sed -e 's/^.*brand = \" *//' -e 's/\".*$//'`
+
+echo \ `nproc --all`-CPU-system och `cat /proc/meminfo | grep MemTotal | sed s/[^0-9]*//` internminne
+
+echo -n Operativsystem `lsb_release -sd` \"`lsb_release -sc`\" \(`uname -m`\)
+
+echo \ baserat på Debian \"`cat /etc/debian_version`\"
+
+echo \ med `uname -o` `uname -rv`
+
+df -h 2>/dev/null | grep '^Fil\|^/dev'
+echo
+echo -n "Vill du veta mer om hårdvaran (j/N)? "
+read jN
+if [[ $jN == "j" || $jN == "ja" ]]; then
+  sudo dmidecode -tsystem | grep : | grep -v '[0-9]:'
+  sudo lshw -C memory | less
+fi

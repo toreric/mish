@@ -1,16 +1,16 @@
-ADVICE NEW SERVER efter att ha gjort ett nytt start-
-skript (mish-restart-pm2) med rådgivning av ChatGPT
+ADVICE NEW SERVER efter att ha gjort ett nytt startskript (mish-restart-pm2)
+baserat på råd från ChatGPT + egna tillägg
 
-När det blir dags för flytten är det bara att ta det steg för steg:
+1. Installera Ubuntu 24.04.4 och förbered mapparna på den nya servern,
+   typ $IMDB_HOME och $IMDB_ROOT enligt startskriptet etc.
 
-1. Förbered mapparna på den nya servern ($IMDB_HOME och $IMDB_ROOT).
-
-2. Installera grundpaketen (build-essential, NVM med Node v22.22.0, och PM2 med mera), så här:
+2. Installera grundpaketen (build-essential, NVM med Node v22.22.0, och PM2 med mera),
+   så här (listan kan vara ofullständig, använd sunt förnuft!):
 
    build-essential (med apt)
 
    Install nvm (node version manager) using the official install script with curl or wget
-   Then, install node v.22.22.0 with nvm
+   Then, install node v.22.22.0, using nvm (node will include npm)
    Run npm install pm2 -g
    Run pm2 startup
    Then install pnpm with npm

@@ -2,8 +2,6 @@
 # Script ”deploy-mish” for SCP copy of Mish files to a server
 # Also copying scripts as project backup
 
-pwd=$PWD
-
 # The 'a' server list should be carefully adapted:
 #test server at home lan    at remote server lan      remote server on internet
 a=("tore@192.168.0.116:" "minneadmin@192.168.1.108:" "minneadmin@mish.hopto.org:")
@@ -19,7 +17,6 @@ done
 
 if [[ $copyto == "" ]]; then
   echo "Cancelled"
-  cd $pwd
   exit
 fi
 
@@ -29,7 +26,6 @@ echo -n "  $copyto? (y/N): "
 read yN
 if [[ $yN != 'y' && $yN != 'yes' ]]; then
   echo "Nothing copied"
-  cd $pwd
   exit
 fi
 
@@ -45,12 +41,15 @@ echo -n 'Confirm (y/N): '
 read yN
 if [[ $yN != 'y' && $yN != 'yes' ]]; then
   echo "Ended with nothing copied"
-  cd $pwd
   exit
 fi
 echo
 echo "Copying all files to the web root:"
-# The Mish project server directory:
+
+# SAVING DIRECTORY
+pwd=$PWD
+
+# CHANGING DIRECTORY to the Mish project, server source directory:
 cd ~/Arbeten/mish/server
 scp -r $tocopy $copyto"/var/www/mish"
 if [[ $? == 0 ]]; then
@@ -63,9 +62,9 @@ echo
 # Script files used in the project's javascript code:
 required='finddupimages finderrimg pentaxdebug set_xmp_description xmp_description xmpset finddupnames mkpng set_xmp_creator xmp_creator xmpget'
 # Utility scripts, useful for Mish administration from command line:
-service=' deploy-mish exif_dimension grind ran4add rm-mini-show set_xmp_creatordate exif_dateorig findlinks ls-kill-ssh ls-pnpm ls-nvm ls-ssd ls-temp ran4mk.js rm-mini-show-symlinks'
+service=' deploy-mish exif_dimension grind ran4add rm-mini-show set_xmp_creatordate exif_dateorig findlinks ls-allusers ls-disk ls-graphics ls-kill-ssh ls-nvm ls-pnpm ls-ssd ls-system ls-temp ls-users ls-xmp ran4mk.js rm-mini-show-symlinks'
 
-# The source directory of required and service Mish scripts:
+# CHANGING DIRECTORY to the source directory of required and service Mish scripts:
 cd /usr/local/bin
 echo "Copying scripts to "$copyto
 scp $required$service $copyto"~/usr.local.bin"
@@ -80,9 +79,10 @@ echo
 # Copy the scripts also to the project to be later saved by git, must be carefully adapted:
 cp $required /home/tore/Arbeten/mish/.usr.local.bin
 cp $service /home/tore/Arbeten/mish/.mish.service.scripts
-echo "Scripts also saved in the Mish project"
+echo "Scripts were also saved in the Mish project"
 echo "NOTE: this 'deploy-mish' script has to be"
 echo "much modified for use on another computer!"
 
+# BACK TO SAVED DIRECTORY
 cd $pwd
 echo

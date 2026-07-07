@@ -13,6 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // 1 configure our routes
 const app = express()
+
 app.use(express.json())
 
 // 3 expose app
@@ -47,9 +48,11 @@ if (process.argv[2] !== '' && !process.argv[2]) {
       res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private')
       res.set('Pragma', 'no-cache')
       res.set('Expires', '0')
+      res.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: http://localhost:3000; font-src 'self' data:;")
     }
   };
   app.use('/', express.static(path.join(__dirname, 'public'), productionNoCache))
+  app.use('/text', express.static(path.join(__dirname, 'text'), productionNoCache))
 
   // Map directly to the translations directory in order to make it always reachable
   app.use('/translations', express.static(path.join(__dirname, '../browser/translations'), productionNoCache))
@@ -57,6 +60,12 @@ if (process.argv[2] !== '' && !process.argv[2]) {
   // Set the static image database files location
   app.use(process.argv[2], express.static(process.argv[2])) // UNSAFE to expose '/' (all!)
   // Can be made even safer through virtualization, see??
+
+  // Set the content security policy (CSP)
+  app.use((req, res, next) => {
+    res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: http://localhost:3000; font-src 'self' data:;")
+    next()
+  })
 
   // 2 start our app
   app.listen(port)

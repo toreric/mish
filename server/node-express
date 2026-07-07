@@ -11,7 +11,7 @@ project=/home/tore/Arbeten/mish/server
 port=3000
 
 prid=`lsof -t -i:$port`
-# If in autostart, this port may be occupied:
+# If autostarted, this port may be occupied:
 if [[ $prid ]]; then
   echo "Port $port is occupied by a process with pid=$prid."
   # Perhaps, kill the process listening to this port:
@@ -21,7 +21,7 @@ if [[ $prid ]]; then
     echo "Cancelled"
     exit
   fi
-  sudo kill $prid
+  sudo kill -SIGHUP $prid
   clear
 fi
 
