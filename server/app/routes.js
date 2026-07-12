@@ -156,7 +156,7 @@ export default function(app) { // Start module.exports
             await exec(cmd + cmd1)
           } catch (err) { // command failed, picFound dir not found
             cmd = 'mkdir ' + IMDB + '/' + picFound
-            await exec(cmd + cmd1)
+            if (RID !== '----') await exec(cmd + cmd1)
           }
         }
       }

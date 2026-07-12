@@ -52,6 +52,7 @@ if (process.argv[2] !== '' && !process.argv[2]) {
     }
   };
   app.use('/', express.static(path.join(__dirname, 'public'), productionNoCache))
+  // Prepare for reference to links in the captions where documents are copied
   app.use('/text', express.static(path.join(__dirname, 'text'), productionNoCache))
 
   // Map directly to the translations directory in order to make it always reachable

@@ -331,7 +331,7 @@ export default class extends Welcome {
     <div id="upperButtons" style="position:relative;top:0;left:0;width:100%;padding-top:0.5rem">
 
       {{!-- <div {{executeOnInsert this}} class="" style="display:flex;justify-content:space-between;margin:0 3.25rem 0 4rem"> --}}
-      <div style="display:flex;justify-content:space-between;margin:0 3.25rem 0 4rem">
+      <div style="display:flex;justify-content:space-between;margin:0 0.75rem 0 4rem">
 
         <span>
           <Language />
@@ -368,7 +368,7 @@ export default class extends Welcome {
 
       </div>
 
-      <div class="" style="display:flex;justify-content:space-between;margin:0.2rem 3.25rem 0.4rem 4rem">
+      <div class="" style="display:flex;justify-content:space-between;margin:0.2rem 0.75rem 0.4rem 4rem">
 
         {{#if this.z.imdbRoot}}
           {{#if this.z.imdbDir}}
