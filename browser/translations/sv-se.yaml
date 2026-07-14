@@ -300,7 +300,7 @@ filesFailed: "Underkända: {n}"
 filesPassed: "Antal godkända: {n}"
 filesProceed: med godkända
 foundExplain: Funna bilder
-fullSize: "Originalstorlek\ni nytt fönster"
+fullSize: "Zooma i nytt fönster\nVid fokus tryck på:\n+ = förstora\n– = förminska\npil = flytta\n0 = anpassa till fönster\n1 = 100 %\n2 = 200 %\nMusklick: visa detaljer"
 gomini: "Återgå\n
         [Esc]"
 gonext: "Nästa\n

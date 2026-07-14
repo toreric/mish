@@ -189,6 +189,14 @@ document.body.addEventListener('mouseup', async (event) => {
   return;
 });
 
+// This disables browser page Ctrl+wheel zoom in the main window
+// May else interfer with independent zooming of other windows
+window.addEventListener('wheel', (e) => {
+    if (e.ctrlKey) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
 const resetBorders = () => { //copy from z
   var minObj = document.querySelectorAll('.img_mini img.left-click');
   for (let min of minObj) {

@@ -299,7 +299,7 @@ filesFailed: "Nicht genehmigte: {n}"
 filesPassed: "Anzahl genehmigte: {n}"
 filesProceed: mit genehmigte
 foundExplain: Gefundene Bilder
-fullSize: "Originalbild im\nneuen Fenster"
+fullSize: "In neuem Fenster zoomen\nBei Fokus drücken:\n+ = vergrößert\n– = verkleinert\n0 = an Fenster anpassen\n1 = 100 %\n2 = 200 %\nMausklick: Details anzeigen"
 gomini: "Zurück\n
         [Esc]"
 gonext: "Nächstes\n

@@ -301,7 +301,7 @@ filesFailed: "Number failed: {n}"
 filesPassed: "Number of approved: {n}"
 filesProceed: with the approved
 foundExplain: Found images
-fullSize: "Original size in\nnew window"
+fullSize: "Zoom in a new window\nWhen focused, press:\n+ = zoom in\n– = zoom out\narrow = move\n0 = fit to window\n1 = 100%\n2 = 200%\nMouse click: show details"
 gomini: "Return\n
         [Esc]"
 gonext: "Next\n

@@ -41,12 +41,10 @@ export class ButtonsRight extends Component {
     document.querySelector('img.spinner').style.display = '';
 
     const ensureViewer = () => { // This is a local function
-      if (this.fullSizeWindow && !this.fullSizeWindow.closed) {
-          return;
-      }
-      const w = Math.round(window.screen.width * 0.95);
-      const h = Math.round(window.screen.height * 0.95);
-      this.fullSizeWindow = window.open('', 'w012345', `width=${w},height=${h},popup=true,menubar=no,status=no,toolbar=no,titlebar=no`);
+      if (this.fullSizeWindow && !this.fullSizeWindow.closed) return;
+      const w = Math.round(window.screen.availWidth * 0.99);
+      const h = Math.round(window.screen.availHeight * 0.99);
+      this.fullSizeWindow = window.open('', 'w012345', `width=${w},height=${h},popup=true,menubar=no,status=no,toolbar=no`);
       this.fullSizeWindow.document.open();
       this.fullSizeWindow.document.write(`
         <!DOCTYPE html>
@@ -54,61 +52,95 @@ export class ButtonsRight extends Component {
         <head>
           <title>EMPTY</title>
           <style>
+            body { display: inline-block; } /* IMPORTANT */
             html, body { margin: 0; padding: 0; background: #000; overflow: auto; }
             img { display: block; transform-origin: top left; width: auto; height: auto; max-width: none; max-height: none; }
-            /* body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-            img { max-width: 95vw; max-height: 95vh; width: auto; height: auto; display: block; transition: transform 0.1s ease; transform-origin: center center; } */
+            #canvas { position: relative; display: inline-block; }
+            img { display: block; }
           </style>
         </head>
         <body>
-          <div><img src="" id="zoom-img" /></div>
+          <div id="canvas">
+            <div><img src="" id="zoom-img" /></div>
+          </div>
           <script>
 
             const img = document.getElementById('zoom-img');
             let scale = 1;
             let fitScale = 1;
+            let docTitle = '----';
 
             img.onload = () => {
               fitScale = Math.min(
                 window.innerWidth / img.naturalWidth,
                 window.innerHeight / img.naturalHeight
               );
-
               scale = fitScale;
               img.style.width = img.naturalWidth * scale + "px";
               img.style.height = "auto";
+              setTitle();
             };
 
             window.onkeydown = (e) => {
-              if (e.key === '+' || e.key === '=') scale += 0.15;
-              else if (e.key === '-' || e.key === '_') scale -= 0.15;
-              else if (e.key === '0') { scale = fitScale; window.scrollTo(0,0); }
+              if (e.ctrlKey) return;
+              if (e.key === '+' || e.key === '=') scale *= 1.05;
+              else if (e.key === '-' || e.key === '_') scale *= 0.95;
+              else if (e.key === '0') { // Recalculate (maybe user resized)
+                fitScale = Math.min(window.innerWidth / img.naturalWidth, window.innerHeight / img.naturalHeight);
+                scale = fitScale;
+              }
               else if (e.key === '1' || e.key === ' ') scale = 1;
-              scale = Math.min(Math.max(0.1, scale), 5);
-              img.style.width = img.naturalWidth * scale + "px";
-              img.style.height = "auto";
-              e.preventDefault();
+              else if (e.key === '2') scale = 2;
+              else if (e.key === '3') scale = 3;
+              else if (!e.key.startsWith('Arrow')) e.preventDefault();
+              limitScaleSet();
             };
 
-            img.addEventListener('click', () => {
-              scale = scale !== 1 ? 1 : 2;
-              img.style.width = img.naturalWidth * scale + "px";
-              img.style.height = "auto";
+            img.addEventListener('click', (e) => {
+              const rect = img.getBoundingClientRect();
+              const imageX = (e.clientX - rect.left) / scale;
+              const imageY = (e.clientY - rect.top) / scale;
+              // ...change scale...
+              if (fitScale > 2) { // No meaning to scale any further
+                scale = fitScale;
+              } else {
+                scale = scale !== 1 ? 1 : 2;
+              }
+              limitScaleSet();
+              // Now scroll the window so the clicked point
+              // appears as close to the pointer as possible
+              requestAnimationFrame(() => {
+                const scrollX = imageX * scale - e.clientX;
+                const scrollY = imageY * scale - e.clientY;
+                window.scrollTo(
+                  Math.max(0, scrollX),
+                  Math.max(0, scrollY)
+                );
+              });
+
             });
 
             window.addEventListener('wheel', (e) => {
               if (!e.ctrlKey) return;
               e.preventDefault();
-              scale *= (e.deltaY < 0) ? 1.1 : 0.9;
-              scale = Math.min(Math.max(scale, 0.3), 5);
-              img.style.width = img.naturalWidth * scale + "px";
-              img.style.height = "auto";
+              scale *= (e.deltaY < 0) ? 1.05 : 0.95;
+              limitScaleSet();
             }, { passive: false });
 
             window.showImage = function(path, title) {
-              document.title = title;
+              docTitle = title;
               img.src = path;
             };
+
+            limitScaleSet = () => {
+              scale = Math.min(Math.max(scale, 0.1), 8);
+              img.style.width = img.naturalWidth * scale + "px";
+              setTitle();
+            }
+
+            setTitle = () => {
+              document.title = docTitle +  ' — ' + Math.round(100*scale) + '  %';
+            }
 
           </script>
         </body>
@@ -134,23 +166,19 @@ export class ButtonsRight extends Component {
       let cmd = 'convert ' + this.z.imdbPath + oldFileName +' '+ this.z.imdbPath + fileName + ' 2>&1';
       let tmp = await this.z.execute(cmd);
         // console.log('Convert output =', tmp); // Should be <empty string>
-      await new Promise (z => setTimeout (z, 999)); // Wait for convert + write
+      await new Promise (z => setTimeout (z, 999)); // Wait for convert + write etc.
     }
 
     const img = this.fullSizeWindow.document.getElementById('zoom-img');
     var path = this.z.imdbPath + fileName;
       // this.z.loli(path, 'color:deeppink')
     this.fullSizeWindow.showImage(path, this.z.picName);
-    // this.fullSizeWindow.document.title = this.z.picName;
-    // img.src = '';
-    // img.src = path;
-    // img.style.transform = 'scale(1)';
+    await new Promise (z => setTimeout (z, 199)); // Prohibit popup warning?
     this.fullSizeWindow.focus();
 
     document.querySelector('img.spinner').style.display = 'none';
 
-    // if (tempDir) this.z.execute('rm -f ' + path).then(()=>{});
-    // Wait some seconds before removing any converted 'TIFF'
+    // Wait some seconds before removing any converted TIFFs
     if (tempDir) {
       setTimeout(async () => { // Absolute file path
         this.z.execute('rm -f ' + path.replace(/(^.*)(.{4}$)/, '$1') + '*').then(()=>{});

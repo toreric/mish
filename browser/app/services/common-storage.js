@@ -520,7 +520,9 @@ export default class CommonStorageService extends Service {
       }
     }
     // THEN: Set color mark on picFound
-    document.querySelector('span.album.a' + this.picFoundIndex).style.color = '#cb0';
+    let tmp = document.querySelector('span.album.a' + this.picFoundIndex);
+    if (!tmp) return; // Prevents error at e.g. speedy login
+    tmp.style.color = '#cb0';
     // THEN: Set color mark on the selected album name and make it visible
     // NOTE: This is the selected album in the ALBUM tree.
     document.querySelector('span.album.a' + isel).style.color = '#e0e';
