@@ -42,18 +42,24 @@ export class ButtonsRight extends Component {
 
     const ensureViewer = () => { // This is a local function
       if (this.fullSizeWindow && !this.fullSizeWindow.closed) return;
-      const w = Math.round(window.screen.availWidth * 0.99);
-      const h = Math.round(window.screen.availHeight * 0.99);
-      this.fullSizeWindow = window.open('', 'w012345', `width=${w},height=${h},popup=true,menubar=no,status=no,toolbar=no`);
+      const w = Math.round(window.screen.width * 0.9);
+      const h = Math.round(window.screen.height * 0.9);
+      this.fullSizeWindow = window.open('', 'w012345', `width=${w},height=${h},menubar=no,status=no,toolbar=no`);
       this.fullSizeWindow.document.open();
+      // console.log(
+      //   this.fullSizeWindow.screenX,
+      //   this.fullSizeWindow.screenY, // should be zero
+      //   this.fullSizeWindow.outerWidth,
+      //   this.fullSizeWindow.outerHeight
+      // );
       this.fullSizeWindow.document.write(`
         <!DOCTYPE html>
         <html>
         <head>
           <title>EMPTY</title>
           <style>
-            body { display: inline-block; } /* IMPORTANT */
             html, body { margin: 0; padding: 0; background: #000; overflow: auto; }
+            body { display: inline-block; } /* IMPORTANT */
             img { display: block; transform-origin: top left; width: auto; height: auto; max-width: none; max-height: none; }
             #canvas { position: relative; display: inline-block; }
             img { display: block; }
@@ -104,7 +110,7 @@ export class ButtonsRight extends Component {
               if (fitScale > 2) { // No meaning to scale any further
                 scale = fitScale;
               } else {
-                scale = scale !== 1 ? 1 : 2;
+                scale = scale !== fitScale ? fitScale : 4*fitScale;
               }
               limitScaleSet();
               // Now scroll the window so the clicked point
