@@ -105,6 +105,7 @@ export default class CommonStorageService extends Service {
   @tracked  displayNames = 'none'; // Image name display switch
   @tracked  edgeImage = '';  // Text indicating first/last image
   @tracked  hasImages = false; // true if 'imdbDir' has at least one image
+  @tracked  ifAuto = false;
   @tracked  ino = 0;
   // 'maxWarning' default (may be modified in 'settings'):
   @tracked  maxWarning = 100;  // Recommended max. number of images in an album
@@ -199,7 +200,7 @@ export default class CommonStorageService extends Service {
     }
     if (allow.deleteImg) {  // NOTE *  If ...
       allow.delcreLink = 1; // NOTE *  then set this too
-      let i = allowance.indexOf("delcreLink");
+      let i = allowance.indexOf('delcreLink');
       // Also set the source value (in this way since allowvalue[i] = "1" isn't allowed: compiler error: "4 is read-only" if 4 = the index value)
       allowvalue = allowvalue.slice(0, i - allowvalue.length) + "1" + allowvalue.slice(i + 1 - allowvalue.length);
     }
@@ -561,6 +562,38 @@ export default class CommonStorageService extends Service {
     if (max < 16) max =16;
       // console.log('setTreeMax max', max);
     atree.style.maxHeight = max + 'px';
+  }
+
+  //#region toggleAuto
+  toggleAuto = () => {
+    this.ifAuto = !this.ifAuto;
+    if (this.ifAuto) {
+      this.closeDialogs(); // Close all <dialog>s except Alert
+      this.loli('START show');
+      (async () => {
+        while (this.ifAuto) {
+          await this.showNext(true);
+        let showSpeed = document.getElementById('showSpeed');
+          // console.log(showSpeed);
+        let showFactor = Number(showSpeed.value);
+        if (showFactor < 1) {showFactor = 0.5;}
+        if (showFactor > 99) {showFactor = 99;}
+          let ms;
+          if (document.querySelector('.nav_links span a.speedBase').style.color === 'deeppink') { // deeppink
+            let picture = document.getElementById('d' + this.picName);
+            let txlen = picture.querySelector('div.img_txt1').innerText.length;
+            txlen += picture.querySelector('div.img_txt2').innerText.length;
+            if (txlen < 100) {txlen = 100;} // 100 char
+            if (txlen > 1000) {txlen = 1000;} // 1000 char
+            ms = 14*txlen;
+          }
+          else  ms = 1000;
+            // this.loli('s = ' + showFactor*ms/1000);
+          await new Promise (z => setTimeout (z, showFactor*ms));
+        }
+        this.loli('END show');
+      })();
+    }
   }
 
  //#region updateTree

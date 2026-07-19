@@ -83,6 +83,7 @@ document.addEventListener('keydown', (event) => {
       break;
     case 'KeyA':  // A
       if (document.activeElement.nodeName === 'TEXTAREA') break;
+      document.querySelector('.nav_.toggleAuto').click();
       break;
     case 'KeyF':  // F
       if (document.activeElement.nodeName === 'TEXTAREA') break;

@@ -299,7 +299,7 @@ filesFailed: "Nicht genehmigte: {n}"
 filesPassed: "Anzahl genehmigte: {n}"
 filesProceed: mit genehmigte
 foundExplain: Gefundene Bilder
-fullSize: "In neuem Fenster zoomen\nBei Fokus drücken:\n+ = vergrößert\n– = verkleinert\nPfeil = bewegen0 = an Fenster anpassen\n1 = 100 %\n2 = 200 %\nMausklick: Details anzeigen"
+fullSize: "In neuem Fenster zoomen\nBei Fokus drücken:\n+ = vergrößert\n– = verkleinert\nPfeil = bewegen\n0 = an Fenster anpassen\n1 = 100 %\n2 = 200 %\nMausklick: Details anzeigen"
 gomini: "Zurück\n
         [Esc]"
 gonext: "Nächstes\n
@@ -325,6 +325,8 @@ plusExplain: Unteralben haben auch Unteralben!
 printOut: Ausdrucken
 recommended: Empfohlene maximale Anzahl von Bildern pro Album
 reloadApp: Die App neu laden!
+seconds: Sekunden pro Bild auswählen
+secprow: Pro Bildunterschrift
 select:
   language: Sprache wählen
   languagetext: Deutsch

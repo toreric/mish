@@ -325,6 +325,8 @@ picfound: §Funna_bilder
 plusExplain: Underalbum har också underalbum!
 printOut: Skriv ut
 reloadApp: Ladda om appen!
+seconds: Välj sekunder per bild
+secprow: Per bildtextrad
 select:
   language: Välj språk
   languagetext: Svenska

@@ -301,7 +301,7 @@ filesFailed: "Number failed: {n}"
 filesPassed: "Number of approved: {n}"
 filesProceed: with the approved
 foundExplain: Found images
-fullSize: "Zoom in a new window\nWhen focused, press:\n+ = zoom in\n– = zoom out\narrow = move\n0 = fit to window\n1 = 100%\n2 = 200%\nMouse click: show details"
+fullSize: "New zoom window\nWhen focused, press:\n+ = zoom in\n– = zoom out\narrow = move\n0 = fit to window\n1 = 100%\n2 = 200%\nMouse click: show details"
 gomini: "Return\n
         [Esc]"
 gonext: "Next\n
@@ -327,6 +327,8 @@ plusExplain: Subalbums also have subalbums!
 printOut: Prnt
 recommended: Proposed maximum number of images per album
 reloadApp: Reload the app!
+seconds: Select seconds per image
+secprow: Per caption line
 select:
   language: Eliga idioma
   languagetext: Español
