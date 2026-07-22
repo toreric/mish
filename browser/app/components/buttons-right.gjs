@@ -169,7 +169,7 @@ export class ButtonsRight extends Component {
       let ranName = await this.z.execute('ran4mk.js 0-9-8-7-.jpeg');
       fileName = '/' + this.z.picFound + '/' + ranName; // Use picFound
       tempDir = true;
-      let cmd = 'convert ' + this.z.imdbPath + oldFileName +' '+ this.z.imdbPath + fileName + ' 2>&1';
+      let cmd = 'convert ' + this.z.imdbPath + oldFileName +'[0] '+ this.z.imdbPath + fileName + ' 2>&1';
       let tmp = await this.z.execute(cmd);
         // console.log('Convert output =', tmp); // Should be <empty string>
       await new Promise (z => setTimeout (z, 999)); // Wait for convert + write etc.

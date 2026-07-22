@@ -7,7 +7,7 @@ import ProMise from 'bluebird'
 // const path = require('path')
 // const ProMise = require('bluebird')
 // import fisy from 'fs'
-import { access, constants, writeFile, readFile, readdir, open } from 'node:fs/promises'
+import { access, chmod, constants, open, readdir, readFile, rename, writeFile } from 'node:fs/promises'
 import fs from 'node:fs'
 
 import multer from 'multer'
@@ -191,16 +191,16 @@ export default function(app) { // Start module.exports
     try {
       // NOTE: exec seems to use ``-ticks, not $()
       // Hence don't pass "`" without escape
-      cmd = cmd.replace (/`/g, "\\`")
-      var resdata = (await exec (cmd)).stdout
-      res.location ('/')
-      res.send (resdata)
+      cmd = cmd.replace(/`/g, "\\`")
+      var resdata = (await exec(cmd)).stdout
+      res.location('/')
+      res.send(resdata)
       //res.end ()
     } catch (err) {
-        console.error ("`" + cmd + "`")
-        console.error (err.message)
-        res.location ('/')
-      res.send (err.message)
+        console.error("`" + cmd + "`")
+        console.error(err.message)
+        res.location('/')
+      res.send(err.message)
     }
   })
 
@@ -899,11 +899,11 @@ export default function(app) { // Start module.exports
   //#region imgErr
   async function imgErr (file) {
     var extn = file.replace (/.*(\.[^. ]+)$/, "$1")
-    if ( /\.jpe?g$/i.test (extn) ) {
+    if ( /\.jpe?g$/i.test(extn) ) {
       // return await cmdasync("finderrimg 1 " + file)
       return (await exec("finderrimg 1 " + file)).stdout
     } else
-    if ( /\.tiff?$/i.test (extn) ) {
+    if ( /\.tiff?$/i.test(extn) ) {
       // return await cmdasync("finderrimg 2 " + file)
       return await exec("finderrimg 2 " + file).stdout
     } else {
@@ -1189,27 +1189,36 @@ export default function(app) { // Start module.exports
     return(origfile.slice(IMDB.length) +'\n'+ showfile + qrn +'\n'+ minifile + qrn +'\n'+ namefile +'\n'+ txt12.trim()).trim() +'\n'+ symlink // NOTE: returns 7 rows, the last often '&'
   }
 
-  // ===== Create minifile or showfile (note: size!), if non-existing
-  // origpath = the file to be resized, filepath = the resized file
+  // ===== Create minifile or showfile (note: size!), if non-existing.
+  // origpath = the file to be resized, filepath = the resized file.
   //#region resizefile
   async function resizefile(origpath, filepath, size) {
     // Check if the file exists, then continue, but note (!): This open will
     // fail if filepath is absolute. Needs web-rel-path to work ...
-    open(filepath, 'r').then(async (fd) => { // async!
-      if (Number(fs.statSync(filepath).mtime) < Number(fs.statSync(origpath).mtime)) {
-        await rzFile(origpath, filepath, size) // await!
-      }
-      fd.close() // Don't leave open!
-    })
-    .catch(async function(error) { // async!
-      // Else if it doesn't exist, make the resized file:
-      if (error.code === "ENOENT") {
-        await rzFile(origpath, filepath, size) // await!
-      } else {
-        console.error('resizefile', error.message)
-        throw error
-      }
-    })
+
+    let fileh = await open(filepath, 'a') // creates if needed
+    await fileh.close()
+    let ifUpdate = (Date.now() - Number(fs.statSync(filepath).mtime))// < 300000
+      // console.log('mtime:', Number(fs.statSync(filepath).mtime), origpath, Number(fs.statSync(origpath).mtime), ifUpdate)
+    if (ifUpdate < 300000) { // 5 minutes
+      await rzFile(origpath, filepath, size)
+    }
+    // fs.open(filepath, 'r', async (err, fd) => { //).then(async (fd) // async!
+    //     console.log(filepath, 'fd =', fd)
+    //   if (Number(fs.statSync(filepath).mtime) < Number(fs.statSync(origpath).mtime)) {
+    //     await rzFile(origpath, filepath, size) // await!
+    //   }
+    //   fd.close() // Don't leave open!
+    // })
+    // .catch(async function(error) { // async!
+    //   // Else if it doesn't exist, make the resized file:
+    //   if (error.code === "ENOENT") {
+    //     await rzFile(origpath, filepath, size) // await!
+    //   } else {
+    //     console.error('resizefile', error.message)
+    //     throw error
+    //   }
+    // })
   }
 
   // ===== Use of ImageMagick: It is no longer true that
@@ -1222,6 +1231,8 @@ export default function(app) { // Start module.exports
   // image file type is still recognized by the system.
   //#region rzFile
   async function rzFile(origpath, filepath, size) {
+    var tifix = ''
+    if ( /\.tiff?$/i.test(origpath) ) tifix = '[0]'
     var filepath1 = filepath // Set 'png' as in filepath
     if (origpath.search(/gif$/i) > 0) {
       filepath1 = filepath.replace(/png$/i, 'gif') // gif to gif
@@ -1229,22 +1240,25 @@ export default function(app) { // Start module.exports
       filepath1 = filepath.replace(/png$/i, 'jpg') // Others to jpg
     }
     var imckcmd
-    imckcmd = "convert " + origpath + " -antialias -quality 80 -resize " + size + " -strip " + filepath1
-      // console.log('imckcmd', imckcmd)
-
-    // NEW EXEC WITH util.promisify
-    var errmsg = await exec(imckcmd)
-    // We have to be careful here since stderr may contain various messages and warnings
-    // regarding irregular metadata field tags, especially among tiff image files, ignore;
-    // if (errmsg.stdout || errmsg.stderr) {
-    if (errmsg.stdout) {
-      console.error('Imagemagick convert error:', errmsg)
-      // this return may prohibit PNG typing, thus remove:
-      //return
+    imckcmd = 'convert ' + origpath + tifix + ' -antialias -quality 80 -resize ' + size + ' -strip ' + filepath1
+      // console.log(imckcmd)
+      // console.log('convert', origpath, 'to', filepath)
+    try {
+      // NEW EXEC WITH util.promisify
+      const { stdout, stderr } = await exec(imckcmd)
+      // We have to be careful here since stderr may contain various messages and warnings
+      // regarding irregular metadata field tags, especially among tiff image files, ignore;
+      // if (errmsg.stdout || errmsg.stderr) {
+      if (stderr) console.log('Imagemagick convert:', stderr)
+    } catch (err) {
+      console.error(err)
     }
     if(filepath1 !== filepath) {
+      // await new Promise(z => setTimeout(z, 1222))
+      await rename(filepath1, filepath)
+      await chmod(filepath, '664')
       // execSync("mv " + filepath1 + " " + filepath + "&&chmod 664 " + filepath)
-      await exec("mv " + filepath1 + " " + filepath + "&&chmod 664 " + filepath)
+      // await exec("mv " + filepath1 + " " + filepath + "&&chmod 664 " + filepath)
     }
       console.log(' .' + filepath.slice(IMDB.length) + ' created') // Hide absolute server path
     // })

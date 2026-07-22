@@ -60,4 +60,4 @@ echo -n "##### Starting the Node server "`date`
 logger "EXPRESS starting"
 logger `echo $PATH`
 logger `whereis node`
-/usr/bin/node server.js $IMDB_HOME $IMDB_ROOT $port
+/usr/bin/node --trace-warnings server.js $IMDB_HOME $IMDB_ROOT $port

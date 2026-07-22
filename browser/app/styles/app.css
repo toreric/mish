@@ -1302,12 +1302,11 @@ img.mark {
 }
 .nav_links span a.speedBase {
   display: inline-block;
-  text-align: center;
   font-family: monospace;
   font-weight: normal;
   background-color: #333;
   color: gray;
-  padding: 0;
+  padding: 0 0.5rem 0 0;
   margin: 0;
   cursor: pointer;
 }

@@ -547,13 +547,14 @@ export default class CommonStorageService extends Service {
     for (let i=0;i<m;i++) { // Remove all minis (thumbnails)
       if (wrap) wrap.firstElementChild.remove();
     }
-    // In case something still is visible (shadow-DOM?), hide it
-    // document.querySelector('.miniImgs.imgs').style.display = 'none';
   }
 
+  // ’DOM’ is either of (in ’lingua franca’ of each time):
+  // ’Deo Optimo Maximo’ (originally Jupiter)
+  // ’Document Object Model’ (mostly on the web)
+
   //#region setTreeMax
-  // Set the maximum display height of the album tree
-  setTreeMax = () => {
+  setTreeMax = () => { // Set the maximum display height of the album tree
     let atree = document.querySelector('div.albumTree');
       // console.log('setTreeMax scrollY', window.scrollY);
       // console.log('setTreeMax innerHeight', window.innerHeight);
