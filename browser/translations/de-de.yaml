@@ -41,6 +41,7 @@ textEdit:     Untertiteln bearbeiten/speichern, ausgeblendete Alben anzeigen³
 all: alle
 allInAlbum: (zum album)
 and: und
+autoShow: "Automatischer\nBildwechsel [A]"
 captionFor: Bildunterschriften für
 captionSaved: gespeichert
 checkuncheck: Alle markieren/abmarkieren
@@ -325,8 +326,8 @@ plusExplain: Unteralben haben auch Unteralben!
 printOut: Ausdrucken
 recommended: Empfohlene maximale Anzahl von Bildern pro Album
 reloadApp: Die App neu laden!
-seconds: Sekunden pro Bild auswählen
-secprow: Pro Bildunterschrift
+seconds: "Sekunden pro\nBild auswählen"
+secprow: "Sekunden pro\nTextzeile"
 select:
   language: Sprache wählen
   languagetext: Deutsch

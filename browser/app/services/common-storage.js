@@ -571,16 +571,17 @@ export default class CommonStorageService extends Service {
     if (this.ifAuto) {
       this.closeDialogs(); // Close all <dialog>s except Alert
       this.loli('START show');
+      document.querySelector('.nav_.toggleAuto').innerText = 'STOP';
       (async () => {
         while (this.ifAuto) {
           await this.showNext(true);
         let showSpeed = document.getElementById('showSpeed');
           // console.log(showSpeed);
         let showFactor = Number(showSpeed.value);
-        if (showFactor < 1) {showFactor = 0.5;}
-        if (showFactor > 99) {showFactor = 99;}
+        if (showFactor < 1) showFactor = 0.5;
+        if (showFactor > 99) showFactor = 99;
           let ms;
-          if (document.querySelector('.nav_links span a.speedBase').style.color === 'deeppink') { // deeppink
+          if (document.querySelector('.nav_.speedBase').checked) {
             let picture = document.getElementById('d' + this.picName);
             let txlen = picture.querySelector('div.img_txt1').innerText.length;
             txlen += picture.querySelector('div.img_txt2').innerText.length;
@@ -592,6 +593,7 @@ export default class CommonStorageService extends Service {
             // this.loli('s = ' + showFactor*ms/1000);
           await new Promise (z => setTimeout (z, showFactor*ms));
         }
+        document.querySelector('.nav_.toggleAuto').innerText = 'AUTO';
         this.loli('END show');
       })();
     }
@@ -1977,11 +1979,8 @@ export default class CommonStorageService extends Service {
       this.allFiles[this.picIndex].txt2 = txt2;
       document.getElementById('dialogTextCreator').value = txt2.replace(/<br>/g, '\n');
 
-      // When the img_mini pictures are visible,
-      if (document.querySelector('.miniImgs.imgs').style.display !== 'none') {
-        // let size = this.albumAllImg(this.imdbDirs.indexOf(this.imdbDir));
-        // await new Promise (z => setTimeout (z, size*6 + 10)); // album rerender in saveDialog, obsolete
-      } else { // else the img_show picture is visible
+      // When the img_mini pictures are not visible, the img_show picture is visible
+      if (document.querySelector('.miniImgs.imgs').style.display === 'none') {
         document.querySelector('#link_texts .img_txt1').innerHTML = txt1;
         document.querySelector('#link_texts .img_txt2').innerHTML = txt2;
       }

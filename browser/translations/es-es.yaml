@@ -41,6 +41,7 @@ textEdit:     edit/save image texts/captions, access hidden albums³
 all: all
 allInAlbum: (to the album)
 and: and
+autoShow: "Automatic\nimage change [A]"
 captionFor: Image captions for
 captionSaved: saved
 checkuncheck: Check or uncheck all
@@ -327,8 +328,8 @@ plusExplain: Subalbums also have subalbums!
 printOut: Prnt
 recommended: Proposed maximum number of images per album
 reloadApp: Reload the app!
-seconds: Select seconds per image
-secprow: Per caption line
+seconds: "Select seconds\nper image"
+secprow: "Seconds per\ncaption line"
 select:
   language: Eliga idioma
   languagetext: Español

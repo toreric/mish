@@ -41,6 +41,7 @@ textEdit:     redigera/spara bildtexter, se dolda album³
 all: alla
 allInAlbum: (till albumet)
 and: och
+autoShow: "Automatiskt\nbildbyte [A]"
 captionFor: Bildtexter för
 captionSaved: sparade
 checkuncheck: Markera/avmarkera alla
@@ -325,8 +326,8 @@ picfound: §Funna_bilder
 plusExplain: Underalbum har också underalbum!
 printOut: Skriv ut
 reloadApp: Ladda om appen!
-seconds: Välj sekunder per bild
-secprow: Per bildtextrad
+seconds: "Välj sekunder\nper bild"
+secprow: "Sekunder per\nbildtextrad"
 select:
   language: Välj språk
   languagetext: Svenska

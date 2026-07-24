@@ -193,9 +193,9 @@ export class ButtonsRight extends Component {
   }
 
   toggSpeedBase = () => {
-    let speedBase = document.querySelector('.nav_links span a.speedBase');
-    if (speedBase.style.color === 'deeppink') speedBase.style.color = 'gray';
-    else speedBase.style.color = 'deeppink';
+    let speedBase = document.querySelector('.nav_.speedBase');
+    if (speedBase.checked) speedBase.checked = false;
+    else speedBase.checked = true;
   }
 
   // ButtonsRight
@@ -218,21 +218,24 @@ export class ButtonsRight extends Component {
       {{!-- NAVIGATION question mark --}}
       <a class="nav_ qnav_" draggable="false" {{on 'click' (fn this.toggleNavInfo)}}>?</a> &nbsp;<br>
 
-      {{!-- AUTO-SLIDE-SHOW SELECT --}}
-      <a class="nav_ toggleAuto" draggable="false" ondragstart="return false" {{on 'click' this.z.toggleAuto}} style="font-size:0.7em;font-family:monospace" title="Automatiskt
-    bildbyte [A]">AUTO</a><br>
-      <!-- AUTO-SLIDE-SHOW SPEED SELECT -->
-      <span class="nav_" draggable="false" ondragstart="return false" style="margin:0 0.4rem 2rem 0">
-        <input id="showSpeed" class="showTime" type="number" min="0" max="99" value="2" title={{t 'seconds'}}>s&nbsp;&nbsp;<br>
-        <!-- CHOOSE AUTO-SHOW sec/text-line OR sec/slide -->
-        <a class="speedBase nav_" {{on 'click' this.toggSpeedBase}} title={{t 'secprow'}}>×</a>
-      </span><br>
-
       {{!-- FULL SIZE fullSize --}}
       <a class="nav_" id="full_size" title="{{t 'fullSize'}}" draggable="false" ondragstart="return false" {{on 'click' this.doGetFullSize}}> </a> &nbsp;<br>
 
       {{!-- PRINT doPrint  --}}
-      <a class="nav_ pnav_" id="do_print" title="{{t 'printOut'}}" {{on 'click' (fn this.z.futureNotYet 'printOut')}}> </a> &nbsp;
+      <a class="nav_ pnav_" id="do_print" title="{{t 'printOut'}}" {{on 'click' (fn this.z.futureNotYet 'printOut')}}> </a> &nbsp;<br>
+
+      {{!-- AUTO-SLIDE-SHOW SELECT --}}
+      <a class="nav_ toggleAuto" draggable="false" ondragstart="return false" {{on 'click' this.z.toggleAuto}} style="font-size:0.8rem;font-family:monospace" title={{t 'autoShow'}}>AUTO</a><br>
+      <!-- AUTO-SLIDE-SHOW SPEED SELECT -->
+      <span class="nav_" draggable="false" ondragstart="return false" style="margin:0 0.4rem 0 0" title={{t 'seconds'}}>
+        <input id="showSpeed" class="showTime" type="number" min="0" max="99" value="2">&nbsp;s&nbsp;<br>
+      </span>
+        <!-- CHOOSE AUTO-SHOW sec/text-line OR sec/slide -->
+        <span class="nav_ glueInline" title={{t 'secprow'}} {{on 'click' this.toggSpeedBase}} style="cursor:pointer;display:block;margin:-0.35rem 0.4rem 0 2px">
+          &nbsp;&nbsp;
+          <input id="selSpd" class="nav_ speedBase" type="checkbox" style="display:none">
+          <label for="selSpd">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        </span>
     </div>
 
   </template>

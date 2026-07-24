@@ -1292,7 +1292,7 @@ img.mark {
 }
 .nav_links .nav_.toggleAuto {
   padding: 0.75rem 0.25rem 0.6rem 0.3rem;
-  margin: 0 0.4rem 0 0;
+  margin: -0.2rem 0.4rem 0 0;
 }
 .nav_links span#showSpeed {
   font-size: 130%;
@@ -1315,9 +1315,10 @@ img.mark {
   text-decoration: none;
 }
 .nav_links #full_size {
-  padding: 0.3em 0em 0.45em 0em;
-  font-family: "Arial";
+  padding: 0.3rem 0 0.45rem 0;
+  font-family: Arial;
   font-size: 1.5rem;
+  margin-bottom: 1.15rem;
 }
 .uplFiles {
   display: flex;
@@ -1337,18 +1338,16 @@ img.mark {
 #do_print,
 #full_size,
 #go_back {
-  /* .nav_links */
-  /* padding: 0 0.3em 0.1em 0.4em; */
   background-size: 2.4rem !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  /*font-family: sans!important; /* quirk for Chrome */
 }
 
 #do_print {
   height: 2.4rem;
   width: 1.6rem;
   background-image: url(/images/icons8-print-96.png);
+  margin: 0.25rem 0 1.25rem 0;
 }
 #full_size {
   height: 1.5rem;
@@ -1394,8 +1393,8 @@ input.showTime[type="number"] {
   height: 1.1em;
   color: deeppink;
   border-radius: 3px;
-  margin: 0 0 5px 0;
-  padding: 0 0 3px 0;
+  margin: 0;
+  padding: 0 0.1rem 0.15rem 0.1rem;
   background: transparent;
 }
 input[type="number"] {
@@ -1421,18 +1420,18 @@ input[type="checkbox"] {
 input[type="checkbox"] + label::before {
   content: "";
   display: inline-block;
-  border: 1px solid white;
+  border: 2px solid white;
   border-radius: 2px;
-  margin: 0 -0.1em 0 0;
-  width: 0.5em;
-  height: 0.5em;
+  margin: .7rem 0 0.2rem 0;
+  width: 0.45em;
+  height: 0.45em;
 }
 /* styling the checked 'checkbox': */
 input[type="checkbox"]:checked + label::before {
   background-color: #df1837;
 }
 input[type="checkbox"] + label::before {
-  background-color: #ddd;
+  background-color: transparent;
 }
 input[type="checkbox"] + label {
   cursor: pointer;
@@ -1447,8 +1446,8 @@ input[type="radio"] + label::before {
   border: 2px solid white;
   border-radius: 50%;
   margin: 0;
-  width: 0.4em;
-  height: 0.4em;
+  width: 0.48em;
+  height: 0.48em;
 }
 /* styling the checked 'radio': */
 input[type="radio"]:checked + label::before {

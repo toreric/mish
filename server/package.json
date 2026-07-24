@@ -12,12 +12,12 @@
   "license": "MIT",
   "dependencies": {
     "@glimmer/runtime": "^0.94.11",
-    "better-sqlite3": "^12.10.0",
+    "better-sqlite3": "^12.11.1",
     "bluebird": "^3.7.2",
-    "body-parser": "^2.2.2",
+    "body-parser": "^2.3.0",
     "express": "^5.2.1",
     "multer": "2.0.2",
-    "tar": "^7.5.16"
+    "tar": "^7.5.20"
   },
   "scripts": {
     "start": "node server.js"

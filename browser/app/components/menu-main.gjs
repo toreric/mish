@@ -26,7 +26,7 @@ export class MenuMain extends Component {
   @service('common-storage') z;
   @service intl;
   @tracked hasHidden = false;
-  @tracked opcl = CL;
+  @tracked opcl = CL; // open/close symbol
 
   // Choose collection = album root directory and its album (sub)directories
   // and convert them into an object tree with an amended property set.
