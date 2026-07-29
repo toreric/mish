@@ -916,14 +916,16 @@ img[alt] {
   z-index: 7;
 }
 /* *** CSS tooltip title-2 for multiliners */
-[title-2] {
+[title-2],
+[title-3] {
   opacity: 1;
   position: relative;
   display: inline-block;
+  max-width: 20rem;
 }
-.hoverDark[title-2] {
+.hoverDark[title-2],
+.hoverDark[title-3] {
   opacity: 1;
-  min-width: 6rem;
 }
 [title-2]:hover::after,
 [title-2]:active::after {
@@ -931,8 +933,9 @@ img[alt] {
   content: attr(title-2);
   position: absolute;
   left: 0;
-  top: 100%;
+  width: max-content;
   text-align: left;
+  top: 100%;
   border: 0.5px #888 solid;
   border-radius: 3px;
   background-color: #bef;
@@ -945,10 +948,35 @@ img[alt] {
   font-variant: normal;
   word-break: keep-all;
   white-space: break-spaces;
-  float: left;
   z-index: 22222;
 }
-.rootQuest[title-2]:hover::after {
+[title-3]:hover::after,
+[title-3]:active::after {
+  opacity: 1;
+  content: attr(title-3);
+  position: absolute;
+  /* --- THE CRITICAL CHANGES --- */
+  right: 0;
+  width: max-content;
+  /* ---------------------------- */
+  text-align: left;
+  top: 100%; /* Keeps it directly below the button */
+  border: 0.5px #888 solid;
+  border-radius: 3px;
+  background-color: #bef;
+  padding: 1.5px 2px 3px 3px;
+  color: #000;
+  font-family: Georgia, "Times New Roman", Times, serif !important;
+  font-weight: normal;
+  font-size: 0.95rem;
+  line-height: 1rem;
+  font-variant: normal;
+  word-break: keep-all;
+  white-space: break-spaces;
+  z-index: 22222;
+}
+.rootQuest[title-2]:hover::after,
+.rootQuest[title-3]:hover::after {
   opacity: 1;
   width: 160px;
 }
@@ -1280,8 +1308,8 @@ img.mark {
   text-decoration: none;
 }
 .nav_links .qnav_ {
-  padding: 0 0.55rem;
-  font: 2.2rem Arial;
+  padding: 0.2rem 0.5rem 0 0.5rem;
+  font: 2.1rem Arial;
 }
 .nav_links a {
   font-size: 2em;
@@ -1291,8 +1319,8 @@ img.mark {
   color: deeppink;
 }
 .nav_links .nav_.toggleAuto {
-  padding: 0.75rem 0.25rem 0.6rem 0.3rem;
-  margin: -0.2rem 0.4rem 0 0;
+  padding: 0.75rem 0.2rem 0.6rem 0.2rem;
+  margin: 0 0.4rem 0 0;
 }
 .nav_links span#showSpeed {
   font-size: 130%;
@@ -1338,31 +1366,31 @@ img.mark {
 #do_print,
 #full_size,
 #go_back {
-  background-size: 2.4rem !important;
+  background-size: 2rem !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
 }
 
 #do_print {
   height: 2.4rem;
-  width: 1.6rem;
+  width: 1.5rem;
   background-image: url(/images/icons8-print-96.png);
-  margin: 0.25rem 0 1.25rem 0;
+  margin: 0 0 1.25rem 0;
 }
 #full_size {
   height: 1.5rem;
-  width: 2.5rem;
+  width: 2.2rem;
   background-image: url(/images/icons8-expand-96.png);
 }
 #go_back {
   height: 2.4rem;
-  width: 1.6rem;
+  width: 1.5rem;
   background-image: url(/images/icons8-return-96.png);
 }
 #togg_text {
   height: 2.4rem;
-  width: 1.6rem;
-  background-size: 1.6rem !important;
+  width: 1.5rem;
+  background-size: 1.5rem !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-image: url(/images/icons8-text-96.png);
@@ -1389,7 +1417,7 @@ input.threedig[type="number"]:hover {
   background: #fff;
 }
 input.showTime[type="number"] {
-  width: 1.3em;
+  width: 1.15em;
   height: 1.1em;
   color: deeppink;
   border-radius: 3px;
@@ -1422,7 +1450,7 @@ input[type="checkbox"] + label::before {
   display: inline-block;
   border: 2px solid white;
   border-radius: 2px;
-  margin: .7rem 0 0.2rem 0;
+  margin: 0.4rem -0.15rem 0.2rem 0;
   width: 0.45em;
   height: 0.45em;
 }

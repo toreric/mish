@@ -41,7 +41,7 @@ textEdit:     edit/save image texts/captions, access hidden albums³
 all: all
 allInAlbum: (to the album)
 and: and
-autoShow: "Automatic\nimage change [A]"
+autoShow: "Automatic [A]\nimage change"
 captionFor: Image captions for
 captionSaved: saved
 checkuncheck: Check or uncheck all
@@ -170,7 +170,7 @@ button:
   #the initial 0 means link==false, move==true
   moveFunc:  0Transfer to the selected album
   notes:     Notes
-  optchuser: "About\xa0rights Change\xa0user"
+  optchuser: "About rights\nChange user"
   restart:   "Reload the browser\n
              by clicking here!"
   rights:    About rights
@@ -182,37 +182,22 @@ button:
 
 buttons:
   left:
-    main: "Main menu: Album collection"
+    main: "Main menu:\nAlbum collection"
 
-    find: "Find in captions\n
-           and more [F]"
+    find: "Find in captions\nand more [F]"
 
-    help: "User guide\n
-          [F1]"
+    help: "User guide\n[F1]"
 
-    reload: "Reload album\n
-            (reset unsaved changes)"
+    reload: "Reload album\n(reset unsaved\nchanges)"
 
-    name: Show/hide image names
-    hide: "At least one image is hidden:\n
-          show/hide hidden images"
+    name: "Show/hide\nimage names"
+    hide: "At least one image\nis hidden: show/hide\nhidden images"
     save: Save changes
-    mail: "Please mail a question\n
-          or send a message with\n
-          additional information\n
-          (or corrections!)"
-          #NOTE: The '\n's are for standard HTML title="...", just in case!
+    mail: "Please mail a question\nor send a message with\nadditional information\n(or corrections!)"
 
-    up: "To top (show\n
-        first line)\n
-        [pgUp]"
+    up: "To top (show\nfirst line)\n[pgUp]"
 
-    meet: "Meeting: See you on\n
-          Internet (in new window).\n
-          Please agree whith the\n
-          people you will see. Then,\n
-          no invitation is needed\n
-          – you just click here!"
+    meet: "Meeting: See you on\nInternet (in new window).\nPlease agree whith the\npeople you will see. Then,\nno invitation is needed\n– you just click here!"
 
 changeWithReason: change with reason!
 dialog:
@@ -321,15 +306,16 @@ imageMenu: "Image\nmenu"
 infoHeader: Information
 loggedIn: Logged in user
 nameError: Name error
+navHelp: "Alternative\nimage swap.\nFor further\nassistance:\nPress F1!"
 maxfor: maximum for
 noCollSelected: No album collection selected
 picfound: §Found_images
 plusExplain: Subalbums also have subalbums!
-printOut: Prnt
+printOut: "Print\nimage"
 recommended: Proposed maximum number of images per album
 reloadApp: Reload the app!
 seconds: "Select seconds\nper image"
-secprow: "Seconds per\ncaption line"
+secprow: "or seconds per\ncaption line"
 select:
   language: Choose language
   languagetext: English

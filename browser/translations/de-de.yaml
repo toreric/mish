@@ -169,7 +169,7 @@ button:
   #the initial 0 means link==false, move==true
   moveFunc:  0Verschieben in das ausgewählte Album
   notes:     Anmerkungen
-  optchuser: "Rechteinformation Benutzer\xa0wechseln"
+  optchuser: "Rechteinformation\nBenutzer wechseln"
   restart:   "Den Browser neuladen\n
              durch hier klicken!"
   rightsinfo: Rechteinformation
@@ -181,36 +181,22 @@ button:
 
 buttons:
   left:
-    main: "Hauptmenü: Albensammlung"
+    main: "Hauptmenü:\nAlbensammlung"
 
-    find: "In Untertiteln und\n
-           mehr finden [F]"
+    find: "In Untertiteln (und\nmehr) finden [F]"
 
-    help: "Anweisungen\n
-          [F1]"
+    help: "Anweisungen\n[F1]"
 
-    reload: "Album neuladen (ungespeicherte\n
-            Änderungen zurücksetzen)"
+    reload: "Album neuladen\n(ungespeicherte\nÄnderungen\nzurücksetzen)"
 
-    name: Bildnamen zeigen/verbergen
-    hide: "Mindestens ein verstecktes Bild:\n
-          versteckte Bilder zeigen/verbergen"
+    name: "Bildnamen\nzeigen/verbergen"
+    hide: "Mindestens ein\nverstecktes Bild:\nversteckte Bilder\nzeigen/verbergen"
     save: Änderungen speichern
-    mail: "Bitte Frage(n) mailen, oder\n
-          Nachricht mit weitere\n
-          Informationen (vielleicht\n
-          Korrekturen!)"
+    mail: "Bitte Frage(n) mailen, oder\nNachricht mit weitere\nInformationen (vielleicht\nKorrekturen!)"
 
-    up: "Nach oben (erste\n
-        Zeile zeigen)\n
-        [pgUp]"
+    up: "Nach oben (erste\nZeile zeigen)\n[pgUp]"
 
-    meet: "Meeting: Wir sehen uns im\n
-          Internet (im neuen Fenster).\n
-          Bitte stimmen dem/denen zu\n
-          die getroffen werden. Dann ist\n
-          keine Einladung erforderlich\n
-          – einfach hier klicken!"
+    meet: "Meeting: Wir sehen uns im\nInternet (im neuen Fenster).\nBitte stimmen dem/denen zu\ndie getroffen werden. Dann ist\nkeine Einladung erforderlich\n– einfach hier klicken!"
 
 changeWithReason: mit Vernunft ändern!
 dialog:
@@ -320,14 +306,15 @@ infoHeader: Information
 loggedIn: Angemeldet Benutzer⋅in
 maxfor: maximal für
 nameError: Namensfehler
+navHelp: "Alternativer\nBildwechseln.\nFür andere Hilfe:\nF1 drücken!"
 noCollSelected: Keine Albensammlung ausgewählt
 picfound: §Gefundene_Bilder
 plusExplain: Unteralben haben auch Unteralben!
-printOut: Ausdrucken
+printOut: "Das Bild\nausdrucken"
 recommended: Empfohlene maximale Anzahl von Bildern pro Album
 reloadApp: Die App neu laden!
 seconds: "Sekunden pro\nBild auswählen"
-secprow: "Sekunden pro\nTextzeile"
+secprow: "oder Sekunden\npro Textzeile"
 select:
   language: Sprache wählen
   languagetext: Deutsch

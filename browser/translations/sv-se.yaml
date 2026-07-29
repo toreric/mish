@@ -171,7 +171,7 @@ button:
   #the initial 0 means link==false, move==true
   moveFunc:  0Flytta till det valda albumet
   notes:     Anteckningar
-  optchuser: "Om\xa0rättigheter Byt\xa0användare"
+  optchuser: "Om rättigheter\nByt användare"
   restart:   "Ladda om webbläsaren\n
              genom att klicka här!"
   rights:    Om rättigheter
@@ -183,35 +183,22 @@ button:
 
 buttons:
   left:
-    main: "Huvudmeny: Albumsamling"
+    main: "Huvudmeny:\nAlbumsamling"
 
-    find: "Finn bildtexter\n
-           med mera [F]"
+    find: "Finn bildtexter\nmed mera [F]"
 
-    help: "Användarhand-\n
-          ledning [F1]"
+    help: "Användarhand-\nledning [F1]"
 
-    reload: "Ladda om albumet\n
-            (återställ osparade ändringar)"
+    reload: "Ladda om albumet\n(återställ osparade\nändringar)"
 
-    name: Visa/dölj bildnamnen
-    hide: "Minst en bild är gömd:\n
-          visa/dölj gömda bilder"
+    name: "Visa/dölj\nbildnamnen"
+    hide: "Minst en bild\när gömd: visa/dölj\ngömda bilder"
     save: Spara ändringar
-    mail: "Mejla gärna en fråga\n
-          eller skicka andra\n
-          upplysningar (eller\n
-          kanske en rättelse!)"
+    mail: "Mejla gärna en fråga\neller skicka andra\nupplysningar (eller\nkanske en rättelse!)"
 
-    up: "Gå upp (visa\n
-        översta raden)\n
-        [pgUp]"
+    up: "Gå upp (visa\növersta raden)\n[pgUp]"
 
-    meet: "Internetmöte:\n
-          Kom överens med de(n)\n
-          du vill träffa. Det behövs\n
-          inga inbjudningar – ni\n
-          bara klickar här!"
+    meet: "Internetmöte:\nKom överens med de(n)\ndu vill träffa. Det behövs\ninga inbjudningar – ni\nbara klickar här!"
 
 changeWithReason: ändra med förstånd!
 dialog:
@@ -321,13 +308,14 @@ infoHeader: Information
 loggedIn: Inloggad användare
 maxfor: maximum för
 nameError: Namnfel
+navHelp: "Hur man kan\nbyta bild.\nFör annat:\ntryck F1!"
 noCollSelected: Ingen albumsamling har valts
 picfound: §Funna_bilder
 plusExplain: Underalbum har också underalbum!
-printOut: Skriv ut
+printOut: "Skriv ut\nbilden"
 reloadApp: Ladda om appen!
 seconds: "Välj sekunder\nper bild"
-secprow: "Sekunder per\nbildtextrad"
+secprow: "eller sekunder\nper bildtextrad"
 select:
   language: Välj språk
   languagetext: Svenska

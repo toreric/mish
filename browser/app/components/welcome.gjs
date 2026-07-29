@@ -198,13 +198,13 @@ window.addEventListener('wheel', (e) => {
     }
 }, { passive: false });
 
-const resetBorders = () => { //copy from z
+const resetBorders = () => { //this is a copy from common-storage (z)
   var minObj = document.querySelectorAll('.img_mini img.left-click');
   for (let min of minObj) {
     min.classList.remove('dotted');
   }
 }
-const toggleDialog = (dialogId, origPos) => { //copy from common-storage (z)
+const toggleDialog = (dialogId, origPos) => { //a copy from common-storage (z)
   let diaObj = document.getElementById(dialogId);
   let what = 'closed ';
   if (diaObj.hasAttribute('open')) {

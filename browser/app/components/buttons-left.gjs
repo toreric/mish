@@ -69,21 +69,21 @@ export class ButtonsLeft extends Component {
 
     <div id="smallButtons1" draggable="false" ondragstart="return false" style="display:none">
 
-      <a id="commonTools" class="smBu" title="{{t 'tools'}}" draggable="false" ondragstart="return false" {{on 'click' (fn this.toggDia)}} style="background:#444 url(/images/tools.png) center 0rem/2.2rem no-repeat"></a>
+      <a id="commonTools" class="smBu" title-2="{{t 'tools'}}" draggable="false" ondragstart="return false" {{on 'click' (fn this.toggDia)}} style="background:#444 url(/images/tools.png) center 0rem/2.2rem no-repeat"></a>
 
-      <a id="findTxt" class="smBu" title={{t 'buttons.left.find'}} draggable="false" ondragstart="return false" {{on 'click' (fn this.z.toggleDialog 'dialogFind')}} style="background:#444 url(/images/find_icon.png) center 0.1rem/1.9rem no-repeat"></a>
+      <a id="findTxt" class="smBu" title-2={{t 'buttons.left.find'}} draggable="false" ondragstart="return false" {{on 'click' (fn this.z.toggleDialog 'dialogFind')}} style="background:#444 url(/images/find_icon.png) center 0.1rem/1.9rem no-repeat"></a>
 
-      <a id="reLd" class="smBu" title={{t 'buttons.left.reload'}} draggable="false" ondragstart="return false" {{on 'click' (fn this.reloadAlbum)}} src="/images/reload.png"></a>
+      <a id="reLd" class="smBu" title-2={{t 'buttons.left.reload'}} draggable="false" ondragstart="return false" {{on 'click' (fn this.reloadAlbum)}} src="/images/reload.png"></a>
 
-      <a id="toggleHide" class="smBu" title={{t 'buttons.left.hide'}} draggable="false" ondragstart="return false" style="display:none" {{on 'click' (fn this.toggleHideFlagged)}}></a>
+      <a id="toggleHide" class="smBu" title-2={{t 'buttons.left.hide'}} draggable="false" ondragstart="return false" style="display:none" {{on 'click' (fn this.toggleHideFlagged)}}></a>
 
-      <a id="saveOrder" class="smBu" title={{t 'buttons.left.save'}} draggable="false" ondragstart="return false" {{on 'click' (fn this.z.saveOrder)}} style="background:#444 url(/images/floppy1.png) center 0.15rem/1.7rem no-repeat"></a>
+      <a id="saveOrder" class="smBu" title-2={{t 'buttons.left.save'}} draggable="false" ondragstart="return false" {{on 'click' (fn this.z.saveOrder)}} style="background:#444 url(/images/floppy1.png) center 0.15rem/1.7rem no-repeat"></a>
 
-      <a id="toggleName" class="smBu" title={{t 'buttons.left.name'}} draggable="false" ondragstart="return false" {{on 'click' (fn this.toggleNameView)}} style="display:none;background:#444 url(/images/img-name.png) center 0.44rem/1.6rem no-repeat"></a>
+      <a id="toggleName" class="smBu" title-2={{t 'buttons.left.name'}} draggable="false" ondragstart="return false" {{on 'click' (fn this.toggleNameView)}} style="display:none;background:#444 url(/images/img-name.png) center 0.44rem/1.6rem no-repeat"></a>
 
-      <a id="questionMark" class="smBu" title={{t 'buttons.left.help'}} draggable="false" ondragstart="return false" {{on 'click' (fn this.z.toggleDialog dialogHelpId false)}}>?</a>
+      <a id="questionMark" class="smBu" title-2={{t 'buttons.left.help'}} draggable="false" ondragstart="return false" {{on 'click' (fn this.z.toggleDialog dialogHelpId false)}}>?</a>
 
-      <a id="arrUp" class="smBu" draggable="false" ondragstart="return false" title={{t 'buttons.left.up'}} style="background:#444 url(/images/arrow.png) center 0.2rem/1.6rem no-repeat" onclick="window.scrollTo(0,0)"></a>
+      <a id="arrUp" class="smBu" draggable="false" ondragstart="return false" title-2={{t 'buttons.left.up'}} style="background:#444 url(/images/arrow.png) center 0.2rem/1.6rem no-repeat" onclick="window.scrollTo(0,0)"></a>
 
     </div>
     </div>

@@ -22,22 +22,20 @@ export default app
 import routes from './app/routes.js'
 routes(app)
 
-if (process.argv[2] !== '' && !process.argv[2]) {
+if (process.argv.length < 3) {
   console.log('Usage: ' + process.argv[1] + ' home[ root [port] ]')
   console.log("  home = albums' home directory (default /home/<user>)")
   console.log('  root = chosen album root (within the home dirctory; default = not chosen)')
   console.log('  port = server port (default 3000)')
-  console.log("Note: Parameter position is significant; use '' for default")
+  console.log("Note: Parameter position is significant!")
 } else {
 
   // Image databases home directory and default album
-  process.env.IMDB_HOME = process.argv[2] // albums' home
-  process.env.IMDB_ROOT = process.argv[3] // album root
-  process.env.PORT = process.argv[4]      // server port
-  // set our port
-  const port = process.env.PORT || 3000
-  // app.use('/', express.static('public')) NA
-  // app.use('/', express.static(__dirname)) NA
+  process.env.IMDB_HOME = process.argv[2]       // albums' home
+  process.env.IMDB_ROOT = process.argv[3] || '' // album root
+  process.env.PORT = process.argv[4] || 3000    // server port
+
+  const port = process.env.PORT // set our port
 
   // Configuration that completely disables the browser cache for production static files
   const productionNoCache = {
@@ -51,16 +49,19 @@ if (process.argv[2] !== '' && !process.argv[2]) {
       res.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: http://localhost:3000; font-src 'self' data:;")
     }
   };
+
+  // Static routes
   app.use('/', express.static(path.join(__dirname, 'public'), productionNoCache))
   // Prepare for reference to links in the captions where documents are copied
   app.use('/text', express.static(path.join(__dirname, 'text'), productionNoCache))
-
   // Map directly to the translations directory in order to make it always reachable
   app.use('/translations', express.static(path.join(__dirname, '../browser/translations'), productionNoCache))
 
   // Set the static image database files location
-  app.use(process.argv[2], express.static(process.argv[2])) // UNSAFE to expose '/' (all!)
-  // Can be made even safer through virtualization, see??
+  if (process.env.IMDB_HOME && process.env.IMDB_HOME !== 'undefined') {
+    app.use(process.argv[2], express.static(process.argv[2])) 
+  }
+  // Can be made even safer through virtualization, how, see ??
 
   // Set the content security policy (CSP)
   app.use((req, res, next) => {
@@ -68,9 +69,9 @@ if (process.argv[2] !== '' && !process.argv[2]) {
     next()
   })
 
-  // 2 start our app
-  app.listen(port)
-
-  console.log('\nExpress server, port ' + port + '\n')
+  // start our app
+  app.listen(port, () => {
+    console.log('\nExpress server, port ' + port + '\n')
+  })
 
 }

@@ -206,32 +206,32 @@ export class ButtonsRight extends Component {
       ondragstart="return false" style="display:none">
 
       {{!-- NEXT-ARROW-BUTTONS --}}
-      <a class="nav_ next" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.showNext true)}} title="{{t 'gonext'}}">&gt;</a> &nbsp;<br>
-      <a class="nav_ prev" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.showNext false)}} title="{{t 'goprev'}}">&lt;</a> &nbsp;<br>
+      <a class="nav_ next" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.showNext true)}} title-3="{{t 'gonext'}}">&gt;</a> &nbsp;<br>
+      <a class="nav_ prev" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.showNext false)}} title-3="{{t 'goprev'}}">&lt;</a> &nbsp;<br>
 
       {{!-- CLOSE AND GO BACK TO MINIPICS:  this.z.showImage '§close§' closes! --}}
-      <a class="nav_" id="go_back" title="{{t 'gomini'}}" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.showImage '§close§')}}> </a> &nbsp;<br>
+      <a class="nav_" id="go_back" title-3="{{t 'gomini'}}" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.showImage '§close§')}}> </a> &nbsp;<br>
 
       {{!-- HIDE or SHOW caption texts --}}
-      <a class="nav_" id="togg_text" title="{{t 'toggtext'}}" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.toggleText)}}> </a> &nbsp;<br>
+      <a class="nav_" id="togg_text" title-3="{{t 'toggtext'}}" draggable="false" ondragstart="return false" {{on 'click' (fn this.z.toggleText)}}> </a> &nbsp;<br>
 
       {{!-- NAVIGATION question mark --}}
-      <a class="nav_ qnav_" draggable="false" {{on 'click' (fn this.toggleNavInfo)}}>?</a> &nbsp;<br>
+      <a class="nav_ qnav_" title-3={{t 'navHelp'}} draggable="false" {{on 'click' (fn this.toggleNavInfo)}}>?</a> &nbsp;<br>
 
       {{!-- FULL SIZE fullSize --}}
-      <a class="nav_" id="full_size" title="{{t 'fullSize'}}" draggable="false" ondragstart="return false" {{on 'click' this.doGetFullSize}}> </a> &nbsp;<br>
+      <a class="nav_" id="full_size" title-3="{{t 'fullSize'}}" draggable="false" ondragstart="return false" {{on 'click' this.doGetFullSize}}> </a> &nbsp;<br>
 
       {{!-- PRINT doPrint  --}}
-      <a class="nav_ pnav_" id="do_print" title="{{t 'printOut'}}" {{on 'click' (fn this.z.futureNotYet 'printOut')}}> </a> &nbsp;<br>
+      <a class="nav_ pnav_" id="do_print" title-3="{{t 'printOut'}}" {{on 'click' (fn this.z.futureNotYet 'printOut')}}> </a> &nbsp;<br>
 
       {{!-- AUTO-SLIDE-SHOW SELECT --}}
-      <a class="nav_ toggleAuto" draggable="false" ondragstart="return false" {{on 'click' this.z.toggleAuto}} style="font-size:0.8rem;font-family:monospace" title={{t 'autoShow'}}>AUTO</a><br>
+      <a class="nav_ toggleAuto" draggable="false" ondragstart="return false" {{on 'click' this.z.toggleAuto}} style="font-size:0.8rem;font-family:monospace" title-3={{t 'autoShow'}}>AUTO</a><br>
       <!-- AUTO-SLIDE-SHOW SPEED SELECT -->
-      <span class="nav_" draggable="false" ondragstart="return false" style="margin:0 0.4rem 0 0" title={{t 'seconds'}}>
+      <span class="nav_" draggable="false" ondragstart="return false" style="margin:0 0.4rem 0 0" title-3={{t 'seconds'}}>
         <input id="showSpeed" class="showTime" type="number" min="0" max="99" value="2">&nbsp;s&nbsp;<br>
       </span>
         <!-- CHOOSE AUTO-SHOW sec/text-line OR sec/slide -->
-        <span class="nav_ glueInline" title={{t 'secprow'}} {{on 'click' this.toggSpeedBase}} style="cursor:pointer;display:block;margin:-0.35rem 0.4rem 0 2px">
+        <span class="nav_ glueInline" title-3={{t 'secprow'}} {{on 'click' this.toggSpeedBase}} style="cursor:pointer;display:block;margin:0 0.4rem 1.25rem 0">
           &nbsp;&nbsp;
           <input id="selSpd" class="nav_ speedBase" type="checkbox" style="display:none">
           <label for="selSpd">&nbsp;&nbsp;&nbsp;&nbsp;</label>

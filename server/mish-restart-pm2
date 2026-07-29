@@ -1,51 +1,65 @@
-
 #!/bin/bash
+
+# This is the production server version of 'mish-restart-pm2'
 
 pwd=$PWD
 echo
 # Go to the web home directory:
-cd /var/www/mish/
+cd /var/www/mish/ || exit 1 # Break if the directory is missing
 
-# NOTE that the 'node' version must "match the build", use 'nvm'!
+# NOTE that the 'node' version must match the build version, use 'nvm'! AND:
+# You may need 'pm2 stop mish' followed by 'pm2 kill' in order to convince
+# 'pm2' at 'pm2 start...' to forget the most recently used 'node' version!
+# (or even some cached forgotten 'node' version, hidden by who knows, and where?)
 
-# This must be modified  to reflect whether NPM or PNPM is used:
+# Ensure that the script finds the NVM environment
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# Force the use of your specific Node version
+nvm use 22.22.0
+
+# Below, modify to reflect whether NPM or PNPM is used:
 # Pnpm has been used since 2024 or earlier
 # Generally, pnpm is superior, and don't mix!
 echo -n "  Run pnpm install? (y/N): " # NOTE: for PNPM
-#echo -n "  Run npm install? (y/N): "  # NOTE: for NPM
+#echo -n "  Run npm install? (y/N): " # NOTE: for NPM
 read yN
 
 echo
 if [[ $yN == "y" || $yN == "yes" ]]; then
-  rm -rf node_modules/
-  pnpm install # Update node_modules using package.json # NOTE: for PNPM, producing a pnp-lock.yaml file
-#  npm install # Update node_modules using package.json # NOTE: for NPM, producing another file
-  # ... changed dec.2018 to yarn, reverted july 2019
+
+  # Clean all for PNPM install
+  rm -rf node_modules pnpm-lock.yaml tmp dist
+  #pnpm store prune
+  #pnpm store prune clears pnpm's global cache on the server. The whole point of pnpm is
+  # that it saves all the packages in a central cache so that the next pnpm install is
+  # lightning fast (since it just hardlinks the files). Clearing the cache with prune on
+  # every reinstall will force the server to download all packages from the internet again.
+  # It eats up bandwidth and takes much longer.
+  #rm -rf node_modules # Minimum(?) clean for npm
+
+  pnpm install # Install node_modules with PNPM, using package.json, producing the pnpm-lock.yaml file
+  #npm install # Install node_modules with NPM, using package.json, producing another file
+  # ... changed dec.2018 to YARN, reverted july 2019, later (2023?) changed to PNPM
   #sudo yarn  # Update node_modules using package.json
   echo "##### Deployment is complete if no errors or severe complains appeared"
 fi
 
-#TODO elsewhere?: Add link to the text (document) directory (if present in imdbroot)
-#textdir=$imdbhome/$imdbroot/text
-#if [ -d $textdir ]; then ln -sTf $textdir public/text; fi
-
 appname=mish
-# NOTE imdbhome = server database(datastore) catalog MUST NOT end with slash NOTE
-IMDB_HOME="/media/raid1" # Do not end with '/'
-IMDB_ROOT="''"    # user selects, important duoble quoted syntax!
-# NOTE imdbroot = the preselected album collection MUST NOT have any slashes NOTE
-IMDB_ROOT="MISH"  # preselected, without '/'es
+# IMDB_HOME and IMDB_ROOT will be used as server environment settings
+# NOTE: IMDB_HOME='server database (datastore) directory' MUST NOT end with slash
+export IMDB_HOME='/media/raid1' # Do not end with '/'
+export IMDB_ROOT='""' # Means that user selects, important duoble quoted syntax (don´t use '' or "")!
+# NOTE: IMDB_ROOT='the preselected album collection' MUST NOT have any slashes
+export IMDB_ROOT='MISH'  # preselected, without '/'es
 port=3000
 
-echo "##### Delete all PM2 services"
-pm2 delete all
-echo "##### Start $appname service"
-#pm2 start server.js -i 0 --name $appname -- $imdbhome $imdbroot $port
-pm2 start server.js -i max --name $appname -- $IMDB_HOME $IMDB_ROOT $port
+echo "##### Restarting $appname service with new environment"
+# Ensures right Node environment at restart, or starts if missing
+pm2 restart $appname --update-env || pm2 start server.js -i max --name $appname -- $IMDB_HOME $IMDB_ROOT $port
 pm2 flush
 pm2 save
-pm2 restart all
 
-cd $pwd
+cd $pwd || exit
 #pm2 logs --lines 24 $appname
 pm2 logs
