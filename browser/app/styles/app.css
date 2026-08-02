@@ -921,7 +921,7 @@ img[alt] {
   opacity: 1;
   position: relative;
   display: inline-block;
-  max-width: 20rem;
+  max-width: none;
 }
 .hoverDark[title-2],
 .hoverDark[title-3] {

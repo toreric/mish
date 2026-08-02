@@ -7,15 +7,26 @@ echo
 # Go to the web home directory:
 cd /var/www/mish/ || exit 1 # Break if the directory is missing
 
-# NOTE that the 'node' version must match the build version, use 'nvm'! AND:
-# You may need 'pm2 stop mish' followed by 'pm2 kill' in order to convince
-# 'pm2' at 'pm2 start...' to forget the most recently used 'node' version!
-# (or even some cached forgotten 'node' version, hidden by who knows, and where?)
+# ==============================================================================
+# TROUBLESHOOTING / COLD START CLEANUP
+# ==============================================================================
+# If the server, at cold start, falls back into using outdated compiled files
+# (e.g., node module/binary mismatches after major system/node upgrades):
+#
+# 1. pm2 unstartup (and follow the printed sudo env command advice)
+# 2. pm2 kill
+# 3. rm -rf ~/.pm2/dump.pm2 ~/.pm2/dump.pm2.bak
+# 4. pm2 startup (and follow the printed sudo env command advice)
+# 5. Ensure the symlink /usr/bin/node points to the actual used node version
+#    (perhaps run: sudo ln -sf $(which node) /usr/bin/node,
+#    perhaps after running: nvm use <version>, cf. below)
+# 6. Run this start script from scratch (after adjustings for the upgrade)
+# ==============================================================================
 
 # Ensure that the script finds the NVM environment
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# Force the use of your specific Node version
+# Force the use of the specific Node version
 nvm use 22.22.0
 
 # Below, modify to reflect whether NPM or PNPM is used:
@@ -42,7 +53,7 @@ if [[ $yN == "y" || $yN == "yes" ]]; then
   #npm install # Install node_modules with NPM, using package.json, producing another file
   # ... changed dec.2018 to YARN, reverted july 2019, later (2023?) changed to PNPM
   #sudo yarn  # Update node_modules using package.json
-  echo "##### Deployment is complete if no errors or severe complains appeared"
+  echo "##### Installation of node_modules is complete if no errors or severe complains appeared"
 fi
 
 appname=mish

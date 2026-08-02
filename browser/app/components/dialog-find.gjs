@@ -134,7 +134,7 @@ export class DialogFind extends Component {
     let albs = [];  // The list of found albums
     let pifopath = this.z.imdbPath + '/' + this.z.picFound; // The path to picFound
     // Maximum number of pictures from the search results to show:
-    let nLimit = 100;
+    let nLimit = this.z.maxWarning;
     let filesFound = 0;
     let albDirs = this.z.imdbDirs;
     if (data) {
@@ -194,15 +194,15 @@ export class DialogFind extends Component {
             // console.log('i paths[i]',i,paths[i],okay0,okay1);
           paths[i] = '<span style="color:#d00">🢒&nbsp;</span>' + n0 + n1 + n2;
         }
-        // -- In order to make possible show duplicates: Make the link names
-        // unique by adding four random characters (r4) to the picname (n1),
-        // equivalent with what is done in 'this.z.addRandom':
-        let r4 = Math.random().toString(36).substr(2,4);
-        fname = n1 + '.' + r4 + n2;
+        // -- In order to make possible to show duplicates: Make the link names
+        // unique by adding a dot and four random characters (dr4) to the picname
+        // (n1), equivalent with what is done in 'this.z.addRandom':
+        let dr4 = Math.random().toString(36).slice(1,6);
+        fname = n1 + dr4 + n2;
         if (filesFound < nLimit) {
           if (okay0 && okay1) { // Only approved files are counted as 'filesFound'
             filesFound++;
-            nameOrder.push(n1 + '.' + r4 + ',0,0');
+            nameOrder.push(n1 + dr4 + ',0,0');
             let linkto = pifopath + '/' + fname;
             // Arrange links of found pictures into the picFound album:
             this.commands.push ('ln -sf ' + linkfrom + ' ' + linkto);
@@ -252,10 +252,10 @@ export class DialogFind extends Component {
     this.z.openDialog('dialogFindResult');
     // document.querySelector('#dialogFindResult').style.zIndex = Number(document.querySelector('#dialogFind').style.zIndex) + 1;
       // this.z.loli('Ignored: ' + this.counts[albDirs.length], 'color:lime');
-      // this.z.loli('N, max: ' + this.nchk + ', ' + this.z.maxWarning, 'color:lime');
+      // this.z.loli('N, max: ' + this.nchk + ', ' + nLimit, 'color:lime');
     let butt = document.querySelector('#dialogFindResult button.show');
-    if (this.nchk > this.z.maxWarning) {
-      this.z.alertMess(this.intl.t('write.maxWarning', {n: this.z.maxWarning}), 6);
+    if (this.nchk > nLimit) {
+      this.z.alertMess(this.intl.t('write.maxWarning', {n: nLimit}), 6);
       butt.setAttribute('disabled', '');
     } else if (this.nchk) butt.removeAttribute('disabled');
     if (!this.nchk) butt.setAttribute('disabled', '');

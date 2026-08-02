@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $# < 1 || $# > 2 || $1 != 0 && $1 != 1 && $1 != 2 ]]; then
+if [[ $# < 1 || $# > 2 || $1 < 0 || $1 > 5 ]]; then
   scriptname=`basename $0`
   echo
   echo " MISH UTILITY SCRIPT"
@@ -8,6 +8,7 @@ if [[ $# < 1 || $# > 2 || $1 != 0 && $1 != 1 && $1 != 2 ]]; then
   echo "  n = 0: search both first and second texts"
   echo "  n = 1: search first text only (Xmp.dc.description)"
   echo "  n = 2: search second text only (Xmp.dc.creator)"
+  echo "  n = 3 4 5: like 0 1 2 but also print the links"
   echo " <path>: path of the album/collection to be searched (WARNING: if omitted: \".\")"
   echo "  Makes: a list of found image names where the images' metadata text(s)"
   echo "         each contain at least one \"<a href=... \" link"
@@ -27,21 +28,34 @@ for f in $files; do
   #https://tldp.org/LDP/LG/issue18/bash.html
   g=${f##*/} #file name without path
   g=${g%.*}  #base name without extension, i.e. removes all from the last dot
-  
+
   #For no dots in file names but maybe multiple extension like .tar.gz etc.:
   #g=${g%%.*} #base name without extensions, i.e. removes all from the first dot
 
   txt=
-  if [[ $1 = 0 || $1 = 1 ]]; then
+  if [[ $1 = 0 || $1 = 1 || $1 = 3 || $1 = 4 ]]; then
     txt=`xmpget "description" $f`
   fi
 
-  if [[ $1 = 0 || $1 = 2 ]]; then
+  if [[ $1 = 0 || $1 = 2 || $1 = 3 || $1 = 5 ]]; then
     txt=${txt}`xmpget "creator" $f`
   fi
 
   if [[ $txt =~ .*\ href=.* ]]; then
     echo $g
+
+    if [[ $1 > 2 ]]; then
+      regex='href="([^"]+)"'
+      links_array=()
+      while [[ $txt =~ $regex ]]; do
+        links_array+=("${BASH_REMATCH[0]}")
+        txt="${txt#*"${BASH_REMATCH[0]}"}" # Remove the match
+      done
+      for link in "${links_array[@]}"; do
+        echo "$g: $link"
+      done
+    fi
+
   fi
 
 done

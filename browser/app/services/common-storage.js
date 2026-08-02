@@ -106,7 +106,7 @@ export default class CommonStorageService extends Service {
   @tracked  edgeImage = '';  // Text indicating first/last image
   @tracked  hasImages = false; // true if 'imdbDir' has at least one image
   @tracked  ifAuto = false;
-  @tracked  ino = 0;
+  @tracked  imiix = 0; // Shown image index within the DOM array of thumbnails
   // 'maxWarning' default (may be modified in 'settings'):
   @tracked  maxWarning = 100;  // Recommended max. number of images in an album
   // Dynamic album information:
@@ -1058,26 +1058,26 @@ export default class CommonStorageService extends Service {
     var allFiles = this.allFiles; // Reference, not a copy! Within showNext() ¤¤¤
     if (forward) {
 
-      this.ino = 0; // börja längst framifrån ??
+      this.imiix = 0;
       // Ensure that invisibles are skipped over
       while (actual.nextElementSibling && actual.nextElementSibling.classList.contains('invisible')) {
         actual = actual.nextElementSibling;
-        this.ino++;
+        this.imiix++;
       }
       next = actual.nextElementSibling;
 
       if (next) {
         nextName = (next.id).slice(1);
-        this.ino++;
+        this.imiix++;
       } else { // Go to the beginning
         next = actualParent.firstElementChild;
-        this.ino = 0;
+        this.imiix = 0;
 
         // Ensure once again that invisibles are skipped over
         if (next && next.classList.contains('invisible')) {
           while (next.nextElementSibling && next.nextElementSibling.classList.contains('invisible')) {
             next = next.nextElementSibling;
-            this.ino++;
+            this.imiix++;
           }
           next = next.nextElementSibling;
         }
@@ -1086,26 +1086,26 @@ export default class CommonStorageService extends Service {
 
     } else { // backward
 
-      this.ino = this.numImages + 1; // börja längst bakifrån ??
+      this.imiix = this.numImages + 1;
       // Ensure that invisibles are skipped over
       while (actual.previousElementSibling && actual.previousElementSibling.classList.contains('invisible')) {
         actual = actual.previousElementSibling;
-        this.ino--;
+        this.imiix--;
       }
       next = actual.previousElementSibling;
 
       if (next) {
         nextName = (next.id).slice(1);
-        this.ino--;
+        this.imiix--;
       } else { // Go to the beginning
         next = actualParent.lastElementChild;
-        this.ino = this.numImages + 1;
+        this.imiix = this.numImages + 1;
 
         // Ensure once again that invisibles are skipped over
         if (next && next.classList.contains('invisible')) {
           while (next.previousElementSibling && next.previousElementSibling.classList.contains('invisible')) {
             next = next.previousElementSibling;
-            this.ino--;
+            this.imiix--;
           }
           next = next.previousElementSibling;
         }
@@ -1130,7 +1130,7 @@ export default class CommonStorageService extends Service {
       actual = document.querySelector('#i' + this.escapeDots(this.picName));
       if (!actual.nextElementSibling) this.edgeImage = this.intl.t('imageLast');
       else if (!actual.previousElementSibling) this.edgeImage = this.intl.t('imageFirst');
-      // else this.edgeImage = this.intl.t('imageNumber', {n: this.ino}); // Always 1!?!
+      // else this.edgeImage = this.intl.t('imageNumber', {n: this.imiix}); // Always 1!?!
     }
       // this.loli('end of showNext', 'color:red');
     await new Promise (z => setTimeout (z, 99)); // in showNext
