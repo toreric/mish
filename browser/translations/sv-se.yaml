@@ -200,7 +200,7 @@ buttons:
 
     meet: "Internetmöte:\nKom överens med de(n)\ndu vill träffa. Det behövs\ninga inbjudningar – ni\nbara klickar här!"
 
-changeWithReason: ändra med förstånd!
+changeWithReason: "ändra med<br>&nbsp;förstånd: föreslaget högsta antal är omkring <b>100</b>"
 dialog:
   find:
     header: Finn bilder i hela albumsamlingen

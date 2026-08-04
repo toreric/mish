@@ -307,124 +307,124 @@ uploadPhoto = async (file) => {
     this.z.futureNotYet('write.tool8');
   }
 
-  /*doUpload = async (select) => {
-    if (select) {
-      var that = this;
-      this.nPass = 0;
-      this.nFail = 0;
-      var preview = [];
-      var goodf = [];
-      fileList = [];
-      fileNames = [];
-      passedFiles = [];
-      var filcodis = ''; //color display
-      let tmp = document.getElementById('uplCand');
-      // await new Promise (z => setTimeout (z, 549));
-      if (tmp) { // when the dialog is rendered
-        tmp.innerHTML = '';
-        let imUpLd;
-        imUpLd = document.createElement('input');
-        imUpLd.type = 'file';
-        imUpLd.multiple = true;
-        imUpLd.accept = 'image/png,image/jpeg,image/tiff,image/gif';
+  // doUpload = async (select) => {
+  //   if (select) {
+  //     var that = this;
+  //     this.nPass = 0;
+  //     this.nFail = 0;
+  //     var preview = [];
+  //     var goodf = [];
+  //     fileList = [];
+  //     fileNames = [];
+  //     passedFiles = [];
+  //     var filcodis = ''; //color display
+  //     let tmp = document.getElementById('uplCand');
+  //     // await new Promise (z => setTimeout (z, 549));
+  //     if (tmp) { // when the dialog is rendered
+  //       tmp.innerHTML = '';
+  //       let imUpLd;
+  //       imUpLd = document.createElement('input');
+  //       imUpLd.type = 'file';
+  //       imUpLd.multiple = true;
+  //       imUpLd.accept = 'image/png,image/jpeg,image/tiff,image/gif';
 
-        let handleFiles = async () => {
-          fileList = imUpLd.files;
-            console.log(fileList);
-            const selectedFiles = [...imUpLd.files];
-            console.log(selectedFiles);
-          this.z.loli(' After download', 'color:red');
-          for (let i=0;i<fileList.length;i++) {
-            let f = fileList[i];
-            // this.z.loli(f.type, 'color:pink');
+  //       let handleFiles = async () => {
+  //         fileList = imUpLd.files;
+  //           console.log(fileList);
+  //           const selectedFiles = [...imUpLd.files];
+  //           console.log(selectedFiles);
+  //         this.z.loli(' After download', 'color:red');
+  //         for (let i=0;i<fileList.length;i++) {
+  //           let f = fileList[i];
+  //           // this.z.loli(f.type, 'color:pink');
 
-            preview[i] = URL.createObjectURL(f);
-            // Initial 'vbm' or 'cpr' (case ignored) in
-            // file names MUST NOT be investigated here:
-            goodf.push(that.z.acceptedFileName(f.name)); // boolean
-          }
-          if (fileList) {
-            for (let i=0; i<fileList.length; i++) {
-              let back = goodf[i] ? '"' : ' style="background:pink"';
-              let mipi = goodf[i] ? ' <img class="flexEnd" src="' + preview[i] + '" style="background:#fff" height="32">':'<div class="flexEnd">' + that.intl.t('nameError') + '</div>';
-              // TIFF special:
-              if (goodf[i] && fileList[i].type === 'image/tiff') {
-                // goodf[i] = false;
-                back = ' style="background:#ffc"'; //yellowish
-                // mipi = '&nbsp;<button type="button" style="margin:0;border:0;height:90%"><b>?</b></button>';
-              }
-              filcodis += '<div class="uplFiles"' + back + '><b>' + fileList[i].name + '</b><div>(' + fileList[i].type + ')</div>' + mipi + '</div>';
-              if (goodf[i]) {
-                  // that.z.loli(fileList[i].name, 'color:#dfd');
-                passedFiles.push(fileList[i]);
-                fileNames.push(fileList[i].name);
-                that.nPass ++;
-                // URL.revokeObjectURL(fileList[i]);
-                document.querySelector('button.up1').style.display = 'none';
-                document.querySelector('button.up2').style.display = '';
-              } else {
-                  // that.z.loli(fileList[i].name, 'color:pink');
-                that.nFail ++;
-              }
-            }
+  //           preview[i] = URL.createObjectURL(f);
+  //           // Initial 'vbm' or 'cpr' (case ignored) in
+  //           // file names MUST NOT be investigated here:
+  //           goodf.push(that.z.acceptedFileName(f.name)); // boolean
+  //         }
+  //         if (fileList) {
+  //           for (let i=0; i<fileList.length; i++) {
+  //             let back = goodf[i] ? '"' : ' style="background:pink"';
+  //             let mipi = goodf[i] ? ' <img class="flexEnd" src="' + preview[i] + '" style="background:#fff" height="32">':'<div class="flexEnd">' + that.intl.t('nameError') + '</div>';
+  //             // TIFF special:
+  //             if (goodf[i] && fileList[i].type === 'image/tiff') {
+  //               // goodf[i] = false;
+  //               back = ' style="background:#ffc"'; //yellowish
+  //               // mipi = '&nbsp;<button type="button" style="margin:0;border:0;height:90%"><b>?</b></button>';
+  //             }
+  //             filcodis += '<div class="uplFiles"' + back + '><b>' + fileList[i].name + '</b><div>(' + fileList[i].type + ')</div>' + mipi + '</div>';
+  //             if (goodf[i]) {
+  //                 // that.z.loli(fileList[i].name, 'color:#dfd');
+  //               passedFiles.push(fileList[i]);
+  //               fileNames.push(fileList[i].name);
+  //               that.nPass ++;
+  //               // URL.revokeObjectURL(fileList[i]);
+  //               document.querySelector('button.up1').style.display = 'none';
+  //               document.querySelector('button.up2').style.display = '';
+  //             } else {
+  //                 // that.z.loli(fileList[i].name, 'color:pink');
+  //               that.nFail ++;
+  //             }
+  //           }
 
-            let tiffImg = (tiffName, e) => {
-              if (e) e.stopPropagation();
-              // this.z.alertMess(this.intl.t(''));
-              this.z.alertMess(tiffName + ' &nbsp; är en bildfil av typ image/tiff som är godkänd,\nmen som måste kopieras till albumet manuellt\n\n(Det kan komma att ändras i framtiden)');
-            }
+  //           let tiffImg = (tiffName, e) => {
+  //             if (e) e.stopPropagation();
+  //             // this.z.alertMess(this.intl.t(''));
+  //             this.z.alertMess(tiffName + ' &nbsp; är en bildfil av typ image/tiff som är godkänd,\nmen som måste kopieras till albumet manuellt\n\n(Det kan komma att ändras i framtiden)');
+  //           }
 
-            document.getElementById('uplCand').innerHTML = filcodis;
-            await new Promise (z => setTimeout (z, fileList.length*20 + 50)); // handleFiles1
-            let imgLine = document.querySelectorAll('#uplCand .uplFiles');
-              console.log(imgLine); // Ok!
-            document.querySelector('img.spinner').style.display = 'none';
-            if (that.nPass === 0) {
-              document.querySelector('button.up1').style.display = 'none';
-              document.querySelector('button.up2').style.display = 'none';
-              document.querySelector('button.up3').innerHTML = 'Please cancel and redo!';
-            }
-            that.z.loli('nPass=' + that.nPass + ' nFail=' + that.nFail, 'color:red');
-            await new Promise (z => setTimeout (z, fileList.length*20 + 50)); // handleFiles2
-            // for (let i=0; i<fileList.length; i++) {
-            //   if (fileList[i].type === 'image/tiff') {
-            //     imgLine[i].querySelector('button')
-            //       .addEventListener('mouseup', tiffImg(fileList[i].name));
-            //       console.log(fileList[i], imgLine[i]);
-            //   }
-            // }
-          }
-        }
+  //           document.getElementById('uplCand').innerHTML = filcodis;
+  //           await new Promise (z => setTimeout (z, fileList.length*20 + 50)); // handleFiles1
+  //           let imgLine = document.querySelectorAll('#uplCand .uplFiles');
+  //             console.log(imgLine); // Ok!
+  //           document.querySelector('img.spinner').style.display = 'none';
+  //           if (that.nPass === 0) {
+  //             document.querySelector('button.up1').style.display = 'none';
+  //             document.querySelector('button.up2').style.display = 'none';
+  //             document.querySelector('button.up3').innerHTML = 'Please cancel and redo!';
+  //           }
+  //           that.z.loli('nPass=' + that.nPass + ' nFail=' + that.nFail, 'color:red');
+  //           await new Promise (z => setTimeout (z, fileList.length*20 + 50)); // handleFiles2
+  //           // for (let i=0; i<fileList.length; i++) {
+  //           //   if (fileList[i].type === 'image/tiff') {
+  //           //     imgLine[i].querySelector('button')
+  //           //       .addEventListener('mouseup', tiffImg(fileList[i].name));
+  //           //       console.log(fileList[i], imgLine[i]);
+  //           //   }
+  //           // }
+  //         }
+  //       }
 
-        let cancelUpload = () => {
-          document.querySelector('img.spinner').style.display = 'none';
-          return;
-        }
+  //       let cancelUpload = () => {
+  //         document.querySelector('img.spinner').style.display = 'none';
+  //         return;
+  //       }
 
-        await new Promise (z => setTimeout (z, 99)); // doUpload
+  //       await new Promise (z => setTimeout (z, 99)); // doUpload
 
-        imUpLd.addEventListener('change', handleFiles, false);
-        imUpLd.addEventListener('cancel', cancelUpload, false);
-        imUpLd.click();
-        document.querySelector('img.spinner').style.display = '';
-          this.z.loli('Before download', 'color:red');
-        imUpLd.remove();
-        for (const f of fileList) URL.revokeObjectURL(f);
-          // this.  z.futureNotYet('write.tool5'); // TO BE REMOVED
-      }
-    } else {
-        // File instances are also valid Blobs (e.g. passedFiles)
-        console.log(passedFiles);
-        for (let f of passedFiles) {
-          this.z.loli(f.name + ' ' + f.type, 'color:red');
-        }
-      document.getElementById('commonTools').click(); // closes the component
-      if (this.nPass > 0) await this.z.upload(passedFiles);
-      if (!this.nPass) this.z.loli('no file accepted', 'color:red');
-      else if(this.nPass === 1) this.z.loli('one file accepted', 'color:lightgreen');
-      else this.z.loli(this.nPass + ' files accepted', 'color:lightgreen');
-    }
-  } */
+  //       imUpLd.addEventListener('change', handleFiles, false);
+  //       imUpLd.addEventListener('cancel', cancelUpload, false);
+  //       imUpLd.click();
+  //       document.querySelector('img.spinner').style.display = '';
+  //         this.z.loli('Before download', 'color:red');
+  //       imUpLd.remove();
+  //       for (const f of fileList) URL.revokeObjectURL(f);
+  //         // this.  z.futureNotYet('write.tool5'); // TO BE REMOVED
+  //     }
+  //   } else {
+  //       // File instances are also valid Blobs (e.g. passedFiles)
+  //       console.log(passedFiles);
+  //       for (let f of passedFiles) {
+  //         this.z.loli(f.name + ' ' + f.type, 'color:red');
+  //       }
+  //     document.getElementById('commonTools').click(); // closes the component
+  //     if (this.nPass > 0) await this.z.upload(passedFiles);
+  //     if (!this.nPass) this.z.loli('no file accepted', 'color:red');
+  //     else if(this.nPass === 1) this.z.loli('one file accepted', 'color:lightgreen');
+  //     else this.z.loli(this.nPass + ' files accepted', 'color:lightgreen');
+  //   }
+  // }
 
   // Common tools
   doDupNames = async () => {

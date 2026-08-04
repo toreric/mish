@@ -96,7 +96,7 @@ export default class CommonStorageService extends Service {
   }
 
   //   #region VIEW VARS
-  //== Miniature and show images etc. information
+  //== Miniature and show images, login etc. information
 
   @tracked  albumTools = false; // For DialogTools choice
   @tracked  toolsVisible = false; // For DialogTools
@@ -108,8 +108,7 @@ export default class CommonStorageService extends Service {
   @tracked  ifAuto = false;
   @tracked  imiix = 0; // Shown image index within the DOM array of thumbnails
   // 'maxWarning' default (may be modified in 'settings'):
-  @tracked  maxWarning = 100;  // Recommended max. number of images in an album
-  // Dynamic album information:
+  @tracked  maxWarning = 150;  // Recommended max. number of images in an album
   @tracked  numHidden = 0;  // Number of images with hide flag in 'sortOrder'
   @tracked  numImages = 0;  // Total numder of images in the album
   @tracked  numInvisible = 0; // Number of invisible images
@@ -423,11 +422,6 @@ export default class CommonStorageService extends Service {
     if (h.length > 0 && h[h.length - 1] !== i) this.albumHistory.push(i);
     document.getElementById('smallButtons1').style.display = '';
 
-    let a = this.imdbRoot + this.imdbDir;
-    if (a) { // Avoids meaningless log
-      this.loli('opened album ' + i + ' ' + a, 'color:lightgreen' );
-    }
-
     // Reset colors in the album tree of the main menu
     for (let tmp of document.querySelectorAll('span.album')) {
       tmp.style.color = '';
@@ -489,9 +483,6 @@ export default class CommonStorageService extends Service {
     let size = this.albumAllImg(i);
     await new Promise (z => setTimeout (z, size*2)); // album load in openAlbum
 
-    // Then hide the spinner
-    document.querySelector('img.spinner').style.display = 'none';
-
     // Set classes and different background on hidden images
     await this.paintHideFlags(true);
     // Reset the show/hide button since hidden images are not shown initially
@@ -506,6 +497,12 @@ export default class CommonStorageService extends Service {
       this.picName = '';
       this.picIndex = -1;
     }
+
+    let a = this.imdbRoot + this.imdbDir;
+    if (a) { // Avoids meaningless log
+      this.loli('opened album ' + i + ' ' + a, 'color:lightgreen' );
+    }
+    document.querySelector('img.spinner').style.display = 'none';
 
     // Set colors in the album tree
     this.paintTree(i);
@@ -1007,6 +1004,8 @@ export default class CommonStorageService extends Service {
       // if (document.querySelector('.img_show').style.display === 'none') return;??
       // Close the show image view
       document.querySelector('.img_show').style.display = 'none'; //was 'table'
+      // Open the subalbum view
+      document.querySelector('.miniImgs.albs').style.display = '';
       // Open the thumbnail view and update any selection mark changes
       document.querySelector('.miniImgs.imgs').style.display = 'flex';
       this.numMarked = document.querySelectorAll('.img_mini.selected').length;
@@ -1481,8 +1480,6 @@ export default class CommonStorageService extends Service {
             allfiles.push(f);
           }
 
-          // ///document.querySelector('.showCount:first').style.display = '';
-          document.querySelector('.miniImgs').style.display = '';
           if (n_files < 1) {
             document.getElementById('toggleName').style.display = 'none';
             document.getElementById('toggleHide').style.display = 'none';

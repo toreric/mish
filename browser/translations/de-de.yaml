@@ -198,7 +198,7 @@ buttons:
 
     meet: "Meeting: Wir sehen uns im\nInternet (im neuen Fenster).\nBitte stimmen dem/denen zu\ndie getroffen werden. Dann ist\nkeine Einladung erforderlich\n– einfach hier klicken!"
 
-changeWithReason: mit Vernunft ändern!
+changeWithReason: "mit Vernunft ändern:<br>&nbsp;die vorgeschlagene Höchstzahl liegt bei etwa <b>100</b>"
 dialog:
   find:
     header: Bilder in der Sammlung finden

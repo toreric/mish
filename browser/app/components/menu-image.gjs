@@ -378,7 +378,7 @@ export class MenuImage extends Component {
 
   // Deletes a single checked, or a number of checked images. If ALL are symlinks
   // and a certain checkbox is checked, the files LINKED FROM are ALSO DELETED,
-  // which may be convenient for caefully cleaning out duplicates.
+  // which may be convenient for carefully cleaning out duplicates.
   eraseFunc = async () => {
     let fromIndex = this.z.imdbDirIndex;
       // this.z.loli(this.z.picName, 'color:red');
@@ -697,7 +697,7 @@ export class ChooseAlbum extends Component {
   whichAlbum = (e) => {
     var elRadio = e.target;
       // this.z.loli(`${elRadio.id} ${elRadio.checked}`, 'color:red');
-    this.which = Number(elRadio.id.slice(5));
+    this.which = Number(elRadio.id.slice(5)); // id="album<number>"
     document.querySelector('#chooseAlbum main button').disabled = false;
     document.getElementById('putWhere').style.display = ''; // putWhere, planned
   }

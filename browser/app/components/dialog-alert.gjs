@@ -22,19 +22,7 @@ export class DialogAlert extends Component {
     }
   }
 
-  // Detect closing click outside a dialog-draggable modal dialog
-  detectClickOutside = (e) => {
-    e.stopPropagation();
-    // this.z.loli(navigator.userAgent);
-    if (!navigator.userAgent.includes("Firefox")) return; // Only Firefox can do this
-    let tgt = e.target.id;
-    if (tgt === 'dialogLogin' || tgt === 'dialogRights') {
-      // Outside a modal dialog, else not!
-      this.z.closeDialog(tgt);
-    }
-  }
-
-  <template>
+    <template>
     <dialog id="dialogAlert" style="z-index:999" {{on 'keydown' this.detectEscClose}}>
       <header data-dialog-draggable>
         <div style="width:99%">

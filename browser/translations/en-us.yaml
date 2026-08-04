@@ -199,7 +199,7 @@ buttons:
 
     meet: "Meeting: See you on\nInternet (in new window).\nPlease agree whith the\npeople you will see. Then,\nno invitation is needed\n– you just click here!"
 
-changeWithReason: change with reason!
+changeWithReason: "change with<br>&nbsp;reason: suggested maximum number is around <b>100</b>"
 dialog:
   find:
     header: Find images in the album collection

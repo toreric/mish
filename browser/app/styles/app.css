@@ -915,13 +915,20 @@ img[alt] {
   white-space: nowrap;
   z-index: 7;
 }
-/* *** CSS tooltip title-2 for multiliners */
-[title-2],
+/* *** CSS tooltip title-2 and 3 for multiliners */
+[title-2] {
+  opacity: 1;
+  position: relative;
+  display: inline-block;
+}
+.img_txt1[title-2],
+.img_txt2[title-2] {
+  width: 150px;
+}
 [title-3] {
   opacity: 1;
   position: relative;
   display: inline-block;
-  max-width: none;
 }
 .hoverDark[title-2],
 .hoverDark[title-3] {
@@ -933,8 +940,7 @@ img[alt] {
   content: attr(title-2);
   position: absolute;
   left: 0;
-  width: max-content;
-  text-align: left;
+    text-align: left;
   top: 100%;
   border: 0.5px #888 solid;
   border-radius: 3px;

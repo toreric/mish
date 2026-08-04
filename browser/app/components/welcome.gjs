@@ -226,7 +226,7 @@ class Welcome extends Component {
 
   someFunction = (param) => {this.z.loli(param, 'color:red');}
 
-  get album() {
+  get getAlbum() {
     return this.z.imdbRoot + this.z.imdbDir;
   }
 
@@ -446,7 +446,7 @@ export default class extends Welcome {
     {{!-- <DialogInfo /> moved to ViewMain --}}
     <DialogAlert />
     <DialogChoose />
-    <DialogXper @content={{this.album}} />
+    <DialogXper @content={{this.getAlbum}} />
     {{!-- <DialogTools /> moved to ViewMain --}}
     <DialogSettings />
     <Spinner />
@@ -484,7 +484,7 @@ export class DialogSettings extends Component {
     }
   }
 
-  get zpicFound() {
+  get zPicFound() {
     return this.z.picFoundBaseName.replace(/[§_]/g, ' ');
   }
 
@@ -538,7 +538,7 @@ export class DialogSettings extends Component {
           <div style="display:inline-block;margin-top:0.5rem">
             {{t 'recommended'}}:&nbsp;
             <input class="threedig" min={{this.minv}} max={{this.maxv}} value={{this.z.maxWarning}} title-1="{{t 'select.value'}} 50–300" type="number" {{on "keydown" this.handleKeyDown}} {{on "blur" this.setMaxWarning}} />
-            <br>(= {{t 'maxfor'}} <b>{{this.zpicFound}}</b>, {{t 'changeWithReason'}})
+            <br>(= {{t 'maxfor'}} <b>{{this.zPicFound}}</b>, {{{t 'changeWithReason'}}})
           </div>
 
         </div>
