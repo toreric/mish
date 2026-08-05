@@ -329,6 +329,7 @@ time:
   text: Klockan är
   buildstamp: Ember development server
 tools: Verktyg
+toolsAlbum: Albumverktyg
 totalImgNumber: Antal bilder i samlingen
 write:
   afterSort: Dra-och-släpp-flyttning av bilder är<br>

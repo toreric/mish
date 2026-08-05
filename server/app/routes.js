@@ -692,7 +692,11 @@ export default function(app) { // Start module.exports
       body = Buffer.concat(body).toString()
       // Here `body` has the entire request body stored in it as a string
       var tmp = body.split('\n')
+        // console.log('tmp:', tmp)
       var fileName = IMDB_HOME + '/' + tmp[0].trim() // All path included here @***
+        // console.log('IMDB_HOME:', IMDB_HOME)
+        // console.log('tmp[0]:', tmp[0])
+        // console.log('fileName:', fileName)
       var msgName = fileName.slice(IMDB_HOME.length)
       let okay = constants.W_OK | constants.R_OK
       try {
@@ -709,6 +713,7 @@ export default function(app) { // Start module.exports
         //console.log (typeof mtime, mtime)
         await exec('set_xmp_description ' + fileName + " '" + body + "'") // for txt1
         body = tmp [2].trim() // These trimmings are probably superfluous
+        // See above for explanation:
         body = body.replace(/'/g, "'\\''")
         //console.log (fileName + " '" + body + "'")
         if (open)
@@ -1326,12 +1331,14 @@ export default function(app) { // Start module.exports
   }
 
   // ===== Check and add|remove|update an image file record in the database
-  // Se vidare filestat -- get file information  etc.
-  // och search -- search text  etc.
-  // Funkar ej om 'filepaths' är mer än en fil ... (async hell)
+  // Se further filestat -- get file information  etc.
+  // and search -- search text  etc.
+  // Doesn't work if 'filepaths' is more than one file ... (async hell)
   // NOTE: filepaths.length MUST be 1 only, caused by sync/async problem!
   // That is, filepaths must have only one (hypothetically LF-separated) line
   // (designed for many but never fulfilled successfully with more than one)
+  // NOTE: more than one is not yet (july 2026) tried with 'await open',
+  // please look below the next 'try {'!
   //#region sqlUpdate
   function sqlUpdate(filepaths) { // Album server paths, complete Absolute
     return new Promise(async function(resolve, reject) {
@@ -1347,11 +1354,14 @@ export default function(app) { // Start module.exports
         let xmpParams = [], dbValues = {}
         let fileExists = false
         try {
-          let fd = fs.openSync(pathlist[i], 'r+') // Complete server path
-          if (fd) {
-            fileExists = true
-            fs.closeSync(fd)
-          }
+          fileExists = true
+          let fileh = await open(pathlist[i], 'r+') // Complete server path
+          await fileh.close()
+          // let fd = fs.openSync(pathlist[i], 'r+') // Complete server path
+          // if (fd) {
+          //   fileExists = true
+          //   fs.closeSync(fd)
+          // }
         } catch (err) {
           fileExists = false
         }

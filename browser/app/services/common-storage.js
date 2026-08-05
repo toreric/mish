@@ -1613,7 +1613,7 @@ export default class CommonStorageService extends Service {
       xhr.open('POST', 'savetext/', true, null, null);
       this.xhrSetRequestHeader(xhr);
       xhr.onload = async function() {
-          console.log('xhr.response = ' + xhr.response);
+          // console.log('xhr.response = ' + xhr.response);
         if (xhr.response !== 'ok') {
           that.loli('Xmp.dc metadata not saved for ' + that.picName, 'color:red');
           let edpn = that.escapeDots(that.picName);
@@ -1943,7 +1943,7 @@ export default class CommonStorageService extends Service {
     }
     if (!diaObj.open) {
       if (origPos) diaObj.style = '';
-      if (!diaObj.style.top) diaObj.style.top = '-40vh';
+      if (!diaObj.style.top) diaObj.style.top = '-15vh';
       diaObj.showModal();
       this.loli('opened ' + dialogId + ' (modal)');
     }
@@ -1958,12 +1958,17 @@ export default class CommonStorageService extends Service {
       let path = '';
       if (f.symlink) {
         path = f.orig; //** see below
-          // this.loli(path, 'color:red');
+          // this.loli(path, 'color:brown');
       } else {
         path = f.linkto;
-          // this.loli(path,'color:yellow');
+          // this.loli(path, 'color:yellow');
       }
+      if (path[0] !== '.') path = './' + path // Is occationaly incomplete
+      // since at some point it may be omitted for symlinks in the album root
+      // (not always needed but here: in order to pass a certain regex!)
+
       let gif = /\.gif$/i.test(path);
+
       let txt1 = document.getElementById('dialogTextDescription').value;
       txt1 = this.normalize2br(txt1, true); // true: leave end untrimmed
         // this.loli(txt1,'color:yellow');
@@ -1986,7 +1991,9 @@ export default class CommonStorageService extends Service {
       let size = this.albumAllImg(this.imdbDirs.indexOf(this.imdbDir));
       await new Promise (z => setTimeout (z, size*6 + 10)); // album rerender in saveDialog
       this.paintHideFlags(); // AFTER RERENDER!
-      this.markBorders(this.picName, 'z.saveDialog');
+      this.markBorders(this.picName, 'z.saveDialog'); // sec param for debug
+        // this.loli(this.imdbRoot, 'color:red');
+        // this.loli(path, 'color:red');
       // Remove the initial '../..etc.' if 'path' is from 'f.orig' //**
       path = this.imdbRoot + path.replace(/^\.*(\/\.+)*/, '');
         // this.loli(path, 'color:red');

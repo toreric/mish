@@ -329,6 +329,7 @@ time:
   text: The time is
   buildstamp: Ember development server
 tools: Tools
+toolsAlbum: Album tools
 totalImgNumber: Number of images in the collection
 write:
   afterSort: Drag-and-drop moving of images<br>
