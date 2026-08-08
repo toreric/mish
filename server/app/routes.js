@@ -59,7 +59,8 @@ export default function(app) { // Start module.exports
   // exec is imported as execute (now exec will appear like an "execAsync")
   // Now exec use is ({stdout, stderr} = await exec(cmdstring)); note ()s!
   // Or: result = await exec(cmdstring).stdout
-  // Or: temp = await exec(cmdstring); result = temp.stdout 
+  // Or: temp = await exec(cmdstring); result = temp.stdout
+  
   const exec = util.promisify(execute) // modern exec replaces execP
   
   // const cpUpload = upload.fields([{ name: 'file' }]) // default fileKey name
@@ -108,8 +109,8 @@ export default function(app) { // Start module.exports
 
   const LF = '\n'   // Line Feed == New Line
   const BR = '<br>' // HTML line break
-  // Max lifetime(minutes) after last access of a temporary search result album:
-  const toold = 60
+  // Max lifetime after last access of a temporary search result album:
+  const toold = 60 // minutes
 
   //#Region = code regions, only for the editors's minilist in the right margin!
   // ##### R O U T I N G  E N T R I E S
@@ -163,11 +164,11 @@ export default function(app) { // Start module.exports
       // The server automatically removes old search result temporary albums:
       // Remove too old picFound directories (with added random .01yz)
       cmd = 'find -L ' + IMDB + ' -type d -name "§*" -amin +' + toold + ' | xargs rm -rf'
-      // await cmdasync(cmd) // gav direktare diagnos
+      // await cmdasync(cmd)
       await exec(cmd)
       // console.log(BYEL + cmd + RSET)
       let show_imagedir = false // For directories etc. printout
-      if (show_imagedir) {     // and also each ”tmp” printout
+      if (show_imagedir) {
         console.log(BLUE + req.originalUrl + RSET)
         console.log('  WWW_ROOT:', WWW_ROOT)
         console.log(' IMDB_HOME:', IMDB_HOME)
@@ -794,7 +795,7 @@ export default function(app) { // Start module.exports
               n++
             }
           })
-          console.log('Gross count found: ' + n) // Iincludes images from hidden albums etc.
+          console.log('Gross count found: ' + n) // Includes images from hidden albums etc.
             // console.log('foundpaths =', foundpaths.trim())
           res.send(foundpaths.trim())
         }, 1000)
@@ -807,7 +808,7 @@ export default function(app) { // Start module.exports
 
   // ##### Upload image(s)
   //region upload
-  // ##### This must not be confused with the Multer upload which is, by now
+  // ##### This must not be confused with former Multer upload which is, by now
   // deprecated, if not abandoned (associated with Dropzone, also abandoned)
   app.post('/upload', async (req, res) => {
     console.log(BGRE + '/upload' + RSET)
@@ -1265,7 +1266,7 @@ export default function(app) { // Start module.exports
       // execSync("mv " + filepath1 + " " + filepath + "&&chmod 664 " + filepath)
       // await exec("mv " + filepath1 + " " + filepath + "&&chmod 664 " + filepath)
     }
-      console.log(' .' + filepath.slice(IMDB.length) + ' created') // Hide absolute server path
+      console.log(' .' + filepath.slice(IMDB.length) + ' created') // Hide absolute s-path
     // })
     return
   }
@@ -1566,7 +1567,7 @@ function removeDiacritics(str) {
  * @see Unit Test https://jsfiddle.net/Victornpb/5axuh96u/
  * @see http://stackoverflow.com/questions/4009756/how-to-count-string-occurrence-in-string/7924240#7924240
  */
-//#region occurences
+//#region occurrences
 function occurrences(string, subString, allowOverlapping) {
   string += "";
   subString += "";

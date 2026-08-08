@@ -247,7 +247,7 @@ class AllImages extends Component {
 
   // Are we within the temporary album?
   get isPicFound() {
-    if (this.z.imdbDir.slice(1) === this.z.picFound) return true;
+    if (this.z.imdbDir === this.z.picFound) return true;
     else return false;
   }
 

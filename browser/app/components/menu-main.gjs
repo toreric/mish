@@ -50,7 +50,7 @@ export class MenuMain extends Component {
     //   return;
     // }
     this.z.imdbDir = ''; // The album root is assumed initially
-    this.z.loli('IMDB_ROOT (imdbRoot) set to ' + this.z.imdbRoot, 'color:orange');
+      // this.z.loli('IMDB_ROOT (imdbRoot) set to ' + this.z.imdbRoot, 'color:orange');
     const allow = this.z.allow; // permissions
 
     // Display the spinner already (will be hidden somewhere else)

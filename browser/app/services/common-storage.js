@@ -26,12 +26,31 @@ export default class CommonStorageService extends Service {
 
   @tracked  aboutThis = '«Mish»'; //info (to be changed) about Mish build version etc.
   @tracked  albumHistory = [0];   //album index visit history
-  @tracked  allFiles = [];     // Image file information objects, changes with 'imdbDir'
+  @tracked  allFiles = []; // Image file information objects, changes with 'imdbDir'
   @tracked  bkgrColor = '#111';   //default background color
-  @tracked  credentials = '';     //user credentials: \n-string from db
+  @tracked  credentials = '';       //user credentials: \n-string from db
   @tracked  freeUsers = 'guest...'; //user names without passwords (set by DialogLogin)
-  @tracked  imdbCoco = '';    //content counters etc. for 'imdbDirs', see (*) below
-  @tracked  imdbDir = '';     //actual/current (sub)album directory (IMDB_DIR)
+  @tracked  imdbCoco = ''; //content counters etc. for 'imdbDirs', see (*) below
+
+  @tracked  imdbDir = ''; //actual/current (sub)album directory (IMDB_DIR)
+  //  THIS IS THE ULTIMATE WAY TO SEE EACH CHANGE OF A TRACKED VARIABLE
+  //  The example below is for imdbDir: Uncomment 1.to 3. and
+  //  comment out @tracked imdbDir to see what happens!
+  // // 1. Maintain a private tracked shadow variable
+  // @tracked _imdbDir = '';
+  // // 2. Intercept reads (optional log)
+  // get imdbDir() {
+  //   return this._imdbDir;
+  // }
+  // // 3. Intercept and log writes
+  // set imdbDir(newValue) {
+  //   console.log(`%c[Service Update] imdbDir changed:`, 'color: #1e90ff', {
+  //     oldValue: this._imdbDir,
+  //     newValue
+  //   });
+  //   this._imdbDir = newValue;
+  // }
+
   @tracked  imdbDirIndex = 0; //actual/current (sub)album directory index
         get imdbDirName() {   //the last-in-path album name of 'imdbRoot+imdbDir'
               if (this.imdbRoot) {
@@ -1205,7 +1224,6 @@ export default class CommonStorageService extends Service {
     xhr.setRequestHeader('username', encodeURIComponent(this.userName));
     xhr.setRequestHeader('imdbdir', encodeURIComponent(this.imdbDir));
     xhr.setRequestHeader('imdbroot', encodeURIComponent(this.imdbRoot));
-      // this.loli('xhrSetRequestHeader imdbRoot+imdbDir = ' + this.imdbRoot + this.imdbDir, 'color:red');
     xhr.setRequestHeader('picfound', this.picFound); // All 'wihtin 255' characters
   }
 
@@ -1421,7 +1439,7 @@ export default class CommonStorageService extends Service {
       xhr.onload = function() {
         var allow = that.allow;
         var allfiles = [];
-       if (this.status >= 200 && this.status < 300) {
+        if (this.status >= 200 && this.status < 300) {
           var NEPF = 7; // Number of rows per file in xhr.response
           var result = xhr.response;
           result = result.trim ().split (LF); // result is vectorised
@@ -1600,7 +1618,7 @@ export default class CommonStorageService extends Service {
 
   //#region savetext/
   //saving image captions as metadata: saveText(filePath +'\n'+ txt1 +'\n'+ txt2);
-  placeMess = () => {
+  placeMess = () => { // Place the message here too
     let textel = document.getElementById('dialogText');
     let messel = document.getElementById('dialogAlert');
     // Copy the screen coordinates to keep them close

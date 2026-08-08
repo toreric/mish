@@ -521,7 +521,7 @@ uploadPhoto = async (file) => {
   // DialogTools
   <template>
 
-    <dialog id="dialogTools" style="width:min(calc(100vw - 2rem),auto);max-width:480px" {{on 'keydown' this.detectEscClose}} {{on 'mousedown' this.detectMouseDown}} {{on 'mouseup' this.detectMouseUp}} open>
+    <dialog id="dialogTools" style="width:min(calc(100vw - 2rem),auto);max-width:480px;z-index:15" {{on 'keydown' this.detectEscClose}} {{on 'mousedown' this.detectMouseDown}} {{on 'mouseup' this.detectMouseUp}} open>
       <header data-dialog-draggable>
 
         {{!-- Placeholder for
@@ -741,7 +741,7 @@ uploadPhoto = async (file) => {
           {{else if (eq this.tool 'util9')}}
 
             <b>{{t 'write.tool9'}}?</b>&nbsp;
-            <button type="button" {{on 'click' (fn this.z.futureNotYet 'write.tool9')}}>{{t 'button.ok'}}</button><br>
+            <button type="button" {{on 'click' (fn this.z.openDialog 'dialogFavorites')}}>{{t 'button.ok'}}</button><br>
 
             <span onclick="return false" draggable="false" ondragstart="return false" title-2={{t 'fav.manage'}}>
               <a id ="favorites" {{on "click" (fn this.seeFavorites)}}>{{t 'fav.images'}}</a>
