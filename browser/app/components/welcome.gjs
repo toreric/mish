@@ -19,7 +19,7 @@ import { Clock } from './clock';
 import { DialogAlert } from './dialog-alert';
 import { DialogChoose } from './dialog-choose';
 import { DialogFind } from './dialog-find';
-import { DialogFavorites } from './dialog-favorites'
+// import { DialogFavorites } from './dialog-favorites'
 import { DialogHelp } from './dialog-help';
 // import { DialogInfo } from './dialog-info';
 // import { DialogLogin } from './dialog-login';
@@ -442,6 +442,7 @@ export default class extends Welcome {
 
     {{!-- <DialogLogin /> moved to ViewMain --}}
     <DialogText />
+    {{!-- <DialogFavorites /> moved to DialogTools --}}
     <DialogFind />
     <DialogHelp />
     {{!-- <DialogInfo /> moved to ViewMain --}}
@@ -451,7 +452,6 @@ export default class extends Welcome {
     {{!-- <DialogTools /> moved to ViewMain --}}
     <DialogSettings />
     <Spinner />
-    <DialogFavorites />
 
     {{this.greet}}
   </template>;

@@ -24,7 +24,7 @@ export class DialogHelp extends Component {
 
 <template>
 
-<dialog id="dialogHelp" style="width:min(calc(100vw - 1rem),38rem);height:min(calc(100vh - 1rem,40rem))" {{on 'keydown' this.detectEscClose}}>
+<dialog id="dialogHelp" style="width:min(calc(100vw - 1rem),38rem);height:min(calc(100vh - 1rem,40rem));z-index:18;transform:none" {{on 'keydown' this.detectEscClose}}>
   <header data-dialog-draggable>
     <div style="width:99%">
       <p><b>{{t 'dialog.help.header'}}</b><br>{{t 'dialog.help.header1'}}<span></span></p>

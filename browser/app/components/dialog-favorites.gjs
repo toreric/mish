@@ -22,36 +22,25 @@ export class DialogFavorites extends Component {
   // Detect closing Esc key
   detectEscClose = (e) => {
     e.stopPropagation();
-    if (e.code === 'Escape') { // Esc key
-      if (document.getElementById('dialogFindHelp').open) {
-        this.z.closeDialog('dialogFindHelp');
-      } else if (document.getElementById('dialogFavorites').open) {
-        this.z.closeDialog('dialogFavorites');
-      }
-    }
+    if (e.code === 'Escape') this.z.toolsVisible = !this.z.toolsVisible;
   }
 
   <template>
-    <div style="display:flex" {{on 'keydown' this.detectEscClose}}>
-    <dialog id="dialogFavorites">
+    <dialog id="dialogFavorites" style="width:min(calc(100vw - 2rem),auto);max-width:480px;z-index:16;transform:none" {{on 'keydown' this.detectEscClose}} open>
       <header data-dialog-draggable>
-        <div style="width:99%">
-          &nbsp; <p>{{t 'write.tool9'}}</p>
-        </div>
-        <div>
-          <button class="close" type="button" {{on 'click' (fn this.z.closeDialog 'dialogFavorites')}}>×</button>
-        </div>
+        <p>&nbsp;</p>
+        <p>{{t 'write.tool9'}}</p>
+        <button class="close" type="button" {{on 'click' @toggleFavorites}}>×</button>
       </header>
 
-      <main style="padding:1rem 1rem 1.5rem 1rem;text-align:left;min-height:10rem;color:blue">
+      <main style="padding:0 0.75rem;min-height:14rem" width="99%">
 
       </main>
 
       <footer data-dialog-draggable>
-        <button type="button" {{on 'click' (fn this.z.closeDialog 'dialogFavorites')}}>{{t 'button.close'}}</button>&nbsp;
+        <button type="button" {{on 'click' @toggleFavorites}}>{{t 'button.close'}}</button>&nbsp;
       </footer>
     </dialog>
-    </div>
   </template>
 
 }

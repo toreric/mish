@@ -117,8 +117,8 @@ export default class CommonStorageService extends Service {
   //   #region VIEW VARS
   //== Miniature and show images, login etc. information
 
-  @tracked  albumTools = false; // For DialogTools choice
-  @tracked  toolsVisible = false; // For DialogTools
+  @tracked  albumTools = false; // For DialogTools: abum|common tools
+  @tracked  toolsVisible = false; // For DialogTools, used from two components
 
   @tracked  chooseText = ' Choose what?'; // Choice text
   @tracked  displayNames = 'none'; // Image name display switch

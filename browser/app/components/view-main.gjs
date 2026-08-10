@@ -137,10 +137,12 @@ class SubAlbums extends Component {
       <div class="miniImgs albs">
         {{#if this.z.imdbRoot}}
 
+          <RefreshThis @for={{this.z.toolsVisible}}>
           {{#if this.ifTool}}
             {{!-- Open the Tools dialog --}}
             <button id="albumTools" type="button" title-2="{{t 'toolsAlbum'}}" style="border:0;background:url(/images/tool0.png) center 0/2rem no-repeat" {{on 'click' (fn this.toggDia)}}> &nbsp; &nbsp; &nbsp;</button>
           {{/if}}
+          </RefreshThis>
 
           {{#if this.z.imdbDir}}
             <span title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}">
@@ -182,13 +184,13 @@ class AllImages extends Component {
 
   // @tracked lastDragged; // for ember-sortable
 
-  @tracked infoVisible = false; // for DialogInfo and MenuImage
-  toggleInfo = () => {
+  @tracked infoVisible = false;
+  toggleInfo = () => { // for DialogInfo
     this.infoVisible = !this.infoVisible;
   };
 
-  @tracked toolsVisible = true; // for DialogInfo and MenuImage
-  toggleTools = () => {
+  //@tracked toolsVisible = false; //in common-storage (z)
+  toggleTools = () => { // for DialogTools
     this.z.toolsVisible = !this.z.toolsVisible;
   };
 
@@ -196,7 +198,7 @@ class AllImages extends Component {
     event.stopPropagation();
     if (event.code === 'Escape') { // Esc
       if (this.infoVisible) this.toggleInfo();
-      ul = querySelector('.img_mini ul.menu_img_list');
+      let ul = querySelector('.img_mini ul.menu_img_list');
       if (ul.style.display !== 'none') {
         ul.style.display = 'none';
         return
@@ -247,7 +249,7 @@ class AllImages extends Component {
 
   // Are we within the temporary album?
   get isPicFound() {
-    if (this.z.imdbDir === this.z.picFound) return true;
+    if (this.z.imdbDir.slice(1) === this.z.picFound) return true; //remove /
     else return false;
   }
 

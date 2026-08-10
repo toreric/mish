@@ -9,8 +9,9 @@ import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import t from 'ember-intl/helpers/t';
 
-// import RefreshThis from './refresh-this';
+import RefreshThis from './refresh-this';
 
+import { DialogFavorites } from './dialog-favorites'
 import { UploadFile } from 'ember-file-upload';
 import FileQueueService from 'ember-file-upload/services/file-queue';
 import fileQueue from 'ember-file-upload/helpers/file-queue';
@@ -36,6 +37,11 @@ export class DialogTools extends Component {
   @tracked countImgs = 0; // duplicate image name counter
   @tracked nFail = 0; // no of illegal file(name)s
   @tracked nPass = 0; // no of passed files
+
+  @tracked favoritesVisible = false;
+  toggleFavorites = () => {
+    this.favoritesVisible = !this.favoritesVisible;
+  };
 
   // @action
   // async uploadPhoto(file) {
@@ -71,9 +77,7 @@ uploadPhoto = async (file) => {
   // Detect closing Esc key
   detectEscClose = (e) => {
     e.stopPropagation();
-    if (e.code === 'Escape') { // Esc key
-      // ESCAPE-close the dialog?
-    }
+    if (e.code === 'Escape') this.z.toolsVisible = !this.z.toolsVisible;
   }
 
   // Detect
@@ -92,7 +96,7 @@ uploadPhoto = async (file) => {
     let elRadio = e.target;
       // this.z.loli(`${elRadio.id} ${elRadio.checked}`, 'color:red');
     this.tool = elRadio.id;
-    if (this.tool === 'util3') this.z.displayNames = 'block'; //sort by name
+    if (this.tool === 'util3') this.z.displayNames = 'block'; //sort by name=>show names
   }
 
   clearInput = (id) => {
@@ -118,7 +122,7 @@ uploadPhoto = async (file) => {
   get okDelete() { // true if delete album is allowed
       // this.z.loli('imdbDir: ' +  this.z.imdbDir.slice(1), 'color:yellow');
       // this.z.loli('picFound: ' +  this.z.picFound, 'color:yellow');
-    let found = this.z.imdbDir.slice(1) === this.z.picFound;
+    let found = this.z.imdbDir.slice(1) === this.z.picFound; //remove /
     if (this.z.albumTools && !found && this.z.allow.albumEdit && this.z.imdbDir) { // Don't erase ''=root
       this.tool = '';
       return true
@@ -491,11 +495,11 @@ uploadPhoto = async (file) => {
     this.z.alertMess(this.intl.t('write.dbUpdated'));
   }
 
-  zeTo1 = () => {this.amTools = 0;}
-  @cached get zeroTools1() {
-    this.zeTo1();
-    return '';
-  }
+  // zeTo1 = () => {this.amTools = 0;}
+  // @cached get zeroTools1() {
+  //   this.zeTo1();
+  //   return '';
+  // }
 
   adTo1 = () => {this.amTools++;}
   @cached get addTools1() {
@@ -503,11 +507,11 @@ uploadPhoto = async (file) => {
     return '';
   }
 
-  zeTo2 = () => {this.cnTools = 0;}
-  @cached get zeroTools2() {
-    this.zeTo2();
-    return '';
-  }
+  // zeTo2 = () => {this.cnTools = 0;}
+  // @cached get zeroTools2() {
+  //   this.zeTo2();
+  //   return '';
+  // }
 
   adTo2 = () => {this.cnTools++;}
   @cached get addTools2() {
@@ -521,7 +525,11 @@ uploadPhoto = async (file) => {
   // DialogTools
   <template>
 
-    <dialog id="dialogTools" style="width:min(calc(100vw - 2rem),auto);max-width:480px;z-index:15" {{on 'keydown' this.detectEscClose}} {{on 'mousedown' this.detectMouseDown}} {{on 'mouseup' this.detectMouseUp}} open>
+    {{#if this.favoritesVisible}}
+      <DialogFavorites @toggleFavorites={{this.toggleFavorites}} />
+    {{/if}}
+
+    <dialog id="dialogTools" style="width:min(calc(100vw - 2rem),auto);max-width:480px;z-index:15;transform:none" {{on 'keydown' this.detectEscClose}} {{on 'mousedown' this.detectMouseDown}} {{on 'mouseup' this.detectMouseUp}} open>
       <header data-dialog-draggable>
 
         {{!-- Placeholder for
@@ -728,7 +736,6 @@ uploadPhoto = async (file) => {
             </form>
 
             {{!-- List of upload-candidates --}}
-
             <div id="uplCand" style="width:auto"></div>
 
           {{!-- === Update search data for the entire album collection === --}}
@@ -741,11 +748,7 @@ uploadPhoto = async (file) => {
           {{else if (eq this.tool 'util9')}}
 
             <b>{{t 'write.tool9'}}?</b>&nbsp;
-            <button type="button" {{on 'click' (fn this.z.openDialog 'dialogFavorites')}}>{{t 'button.ok'}}</button><br>
-
-            <span onclick="return false" draggable="false" ondragstart="return false" title-2={{t 'fav.manage'}}>
-              <a id ="favorites" {{on "click" (fn this.seeFavorites)}}>{{t 'fav.images'}}</a>
-            </span><br> <br> <br>
+            <button type="button" {{on 'click' this.toggleFavorites}}>{{t 'button.ok'}}</button><br>
 
           {{/if}}
 
