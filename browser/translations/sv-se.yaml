@@ -171,7 +171,7 @@ button:
   #the initial 0 means link==false, move==true
   moveFunc:  0Flytta till det valda albumet
   notes:     Anteckningar
-  optchuser: "Om rättigheter\nByt användare"
+  optchuser: "Om\xa0rättigheter\nByt\xa0användare"
   restart:   "Ladda om webbläsaren\n
              genom att klicka här!"
   rights:    Om rättigheter
@@ -185,20 +185,20 @@ buttons:
   left:
     main: "Huvudmeny:\nAlbumsamling"
 
-    find: "Finn bildtexter\nmed mera [F]"
+    find: "Finn\xa0bildtexter\nmed\xa0mera\xa0[F]"
 
     help: "Användarhand-\nledning [F1]"
 
-    reload: "Ladda om albumet\n(återställ osparade\nändringar)"
+    reload: "Ladda\xa0om\xa0albumet\n(återställ\xa0osparade\nändringar)"
 
     name: "Visa/dölj\nbildnamnen"
-    hide: "Minst en bild\när gömd: visa/dölj\ngömda bilder"
+    hide: "Minst\xa0en\xa0bild\xa0är\ngömd:\xa0visa/dölj\ngömda\xa0bilder"
     save: Spara ändringar
-    mail: "Mejla gärna en fråga\neller skicka andra\nupplysningar (eller\nkanske en rättelse!)"
+    mail: "Mejla\xa0gärna\xa0en\xa0fråga\neller\xa0skicka\xa0andra\nupplysningar\xa0(eller\nkanske en rättelse!)"
 
-    up: "Gå upp (visa\növersta raden)\n[pgUp]"
+    up: "Gå\xa0upp\xa0(visa\növersta\xa0raden)\n[pgUp]"
 
-    meet: "Internetmöte:\nKom överens med de(n)\ndu vill träffa. Det behövs\ninga inbjudningar – ni\nbara klickar här!"
+    meet: "Internetmöte:\nKom\xa0överens\xa0med\xa0de(n)\ndu\xa0vill\xa0träffa.\xa0Det\xa0behövs\ninga\xa0inbjudningar\xa0–\xa0ni\nbara klickar här!"
 
 changeWithReason: "ändra med<br>&nbsp;förstånd: föreslaget högsta antal är omkring <b>100</b>"
 dialog:

@@ -65,7 +65,8 @@ document.addEventListener('keydown', (event) => {
           if (d.id === 'dialogInfo') d.close();
           if (d.id === 'dialogUtil') d.close();
           if (d.id === 'dialogHelp') d.close();
-          // return;
+          if (d.id === 'dialogTools') d.close();
+          if (d.id === 'dialogFavorites') d.close();
         }
       }
       if (!document.getElementById('menuMain').style.display)

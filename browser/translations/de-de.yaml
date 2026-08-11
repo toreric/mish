@@ -183,20 +183,20 @@ buttons:
   left:
     main: "Hauptmenü:\nAlbensammlung"
 
-    find: "In Untertiteln (und\nmehr) finden [F]"
+    find: "In\xa0Untertiteln\xa0(und\nmehr)\xa0finden\xa0[F]"
 
     help: "Anweisungen\n[F1]"
 
-    reload: "Album neuladen\n(ungespeicherte\nÄnderungen\nzurücksetzen)"
+    reload: "Album\xa0neuladen\n(ungespeicherte\nÄnderungen\nzurücksetzen)"
 
-    name: "Bildnamen\nzeigen/verbergen"
-    hide: "Mindestens ein\nverstecktes Bild:\nversteckte Bilder\nzeigen/verbergen"
+    name: "Bildnamen\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\nzeigen/verbergen"
+    hide: "Mindestens\xa0ein\nverstecktes\xa0Bild:\nversteckte\xa0Bilder\xa0\xa0\xa0\nzeigen/verbergen"
     save: Änderungen speichern
-    mail: "Bitte Frage(n) mailen, oder\nNachricht mit weitere\nInformationen (vielleicht\nKorrekturen!)"
+    mail: "Bitte\xa0Frage(n)\xa0mailen,\xa0oder\nNachricht\xa0mit\xa0weitere\nInformationen\xa0(vielleicht\nKorrekturen!)"
 
-    up: "Nach oben (erste\nZeile zeigen)\n[pgUp]"
+    up: "Nach\xa0oben\xa0(erste\nZeile\xa0zeigen)\n[pgUp]"
 
-    meet: "Meeting: Wir sehen uns im\nInternet (im neuen Fenster).\nBitte stimmen dem/denen zu\ndie getroffen werden. Dann ist\nkeine Einladung erforderlich\n– einfach hier klicken!"
+    meet: "Meeting:\xa0Wir\xa0sehen\xa0uns\xa0im\nInternet\xa0(im\xa0neuen\xa0Fenster).\nBitte stimmen\xa0dem/denen\xa0zu\ndie\xa0getroffen\xa0werden.\xa0Dann\xa0ist\nkeine\xa0Einladung\xa0erforderlich\n–\xa0einfach\xa0hier\xa0klicken!"
 
 changeWithReason: "mit Vernunft ändern:<br>&nbsp;die vorgeschlagene Höchstzahl liegt bei etwa <b>100</b>"
 dialog:

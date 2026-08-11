@@ -19,18 +19,12 @@ export class DialogFavorites extends Component {
   @service('common-storage') z;
   @service intl;
 
-  // Detect closing Esc key
-  detectEscClose = (e) => {
-    e.stopPropagation();
-    if (e.code === 'Escape') this.z.toolsVisible = !this.z.toolsVisible;
-  }
-
   <template>
-    <dialog id="dialogFavorites" style="width:min(calc(100vw - 2rem),auto);max-width:480px;z-index:16;transform:none" {{on 'keydown' this.detectEscClose}} open>
+    <dialog id="dialogFavorites" style="width:min(calc(100vw - 2rem),auto);max-width:480px;z-index:16;transform:none">
       <header data-dialog-draggable>
         <p>&nbsp;</p>
         <p>{{t 'write.tool9'}}</p>
-        <button class="close" type="button" {{on 'click' @toggleFavorites}}>×</button>
+        <button class="close" type="button" {{on 'click' (fn this.z.closeDialog 'dialogFavorites')}}>×</button>
       </header>
 
       <main style="padding:0 0.75rem;min-height:14rem" width="99%">
@@ -38,7 +32,9 @@ export class DialogFavorites extends Component {
       </main>
 
       <footer data-dialog-draggable>
-        <button type="button" {{on 'click' @toggleFavorites}}>{{t 'button.close'}}</button>&nbsp;
+        <button type="button" {{on 'click' (fn this.z.closeDialog 'dialogFavorites')}}>{{t 'button.cancel'}}</button>&nbsp;
+        <button type="button" {{on 'click' (fn this.z.closeDialog 'dialogFavorites')}}>{{t 'button.close'}}</button>&nbsp;
+        <button type="button" {{on 'click' (fn this.z.closeDialog 'dialogFavorites')}}>{{t 'button.save'}}</button>&nbsp;
       </footer>
     </dialog>
   </template>

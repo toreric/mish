@@ -11,7 +11,6 @@ import t from 'ember-intl/helpers/t';
 
 import RefreshThis from './refresh-this';
 
-import { DialogFavorites } from './dialog-favorites'
 import { UploadFile } from 'ember-file-upload';
 import FileQueueService from 'ember-file-upload/services/file-queue';
 import fileQueue from 'ember-file-upload/helpers/file-queue';
@@ -38,10 +37,10 @@ export class DialogTools extends Component {
   @tracked nFail = 0; // no of illegal file(name)s
   @tracked nPass = 0; // no of passed files
 
-  @tracked favoritesVisible = false;
-  toggleFavorites = () => {
-    this.favoritesVisible = !this.favoritesVisible;
-  };
+  // @tracked favoritesVisible = false;
+  // toggleFavorites = () => {
+  //   this.favoritesVisible = !this.favoritesVisible;
+  // };
 
   // @action
   // async uploadPhoto(file) {
@@ -74,28 +73,16 @@ uploadPhoto = async (file) => {
   //   return this.fileQueue.findOrCreate('photos');
   // }
 
-  // Detect closing Esc key
-  detectEscClose = (e) => {
-    e.stopPropagation();
-    if (e.code === 'Escape') this.z.toolsVisible = !this.z.toolsVisible;
-  }
-
-  // Detect
-  detectMouseDown = (e) => {
-    e.stopPropagation();
-  }
-
-  // Detect
-  detectMouseUp = (e) => {
-    e.stopPropagation();
-  }
-
   // Which tool was selected?
   detectRadio = async (e) => {
     await new Promise (z => setTimeout (z, 198));
     let elRadio = e.target;
       // this.z.loli(`${elRadio.id} ${elRadio.checked}`, 'color:red');
     this.tool = elRadio.id;
+    if (this.tool === 'util9') { // Manage own favorite images
+      this.z.toolsVisible = !this.z.toolsVisible; //close this dialog
+      this.z.openDialog('dialogFavorites'); //open the favorites dialog
+    }
     if (this.tool === 'util3') this.z.displayNames = 'block'; //sort by name=>show names
   }
 
@@ -525,11 +512,7 @@ uploadPhoto = async (file) => {
   // DialogTools
   <template>
 
-    {{#if this.favoritesVisible}}
-      <DialogFavorites @toggleFavorites={{this.toggleFavorites}} />
-    {{/if}}
-
-    <dialog id="dialogTools" style="width:min(calc(100vw - 2rem),auto);max-width:480px;z-index:15;transform:none" {{on 'keydown' this.detectEscClose}} {{on 'mousedown' this.detectMouseDown}} {{on 'mouseup' this.detectMouseUp}} open>
+    <dialog id="dialogTools" style="width:min(calc(100vw - 2rem),auto);max-width:480px;z-index:15;transform:none" open>
       <header data-dialog-draggable>
 
         {{!-- Placeholder for
@@ -748,7 +731,7 @@ uploadPhoto = async (file) => {
           {{else if (eq this.tool 'util9')}}
 
             <b>{{t 'write.tool9'}}?</b>&nbsp;
-            <button type="button" {{on 'click' this.toggleFavorites}}>{{t 'button.ok'}}</button><br>
+            <button type="button" {{on 'click' (fn this.z.openDialog 'dialogFavorites')}}>{{t 'button.ok'}}</button><br>
 
           {{/if}}
 
@@ -762,7 +745,7 @@ uploadPhoto = async (file) => {
       </footer>
     </dialog>
 
-    <dialog id="dialogDupResult" style="max-width:calc(100vw - 2rem);z-index:15;max-width:480px"{{on 'keydown' this.detectEscClose}}>
+    <dialog id="dialogDupResult" style="max-width:calc(100vw - 2rem);z-index:15;max-width:480px">
       <header data-dialog-draggable>
         <p>&nbsp;</p>
         {{!-- <p>{{{t 'write.dialogDupResult' a=this.imdbDirName}}}</p> --}}

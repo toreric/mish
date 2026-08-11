@@ -182,22 +182,22 @@ button:
 
 buttons:
   left:
-    main: "Main menu:\nAlbum collection"
+    main: "Main\xa0menu:\nAlbum\xa0collection"
 
-    find: "Find in captions\nand more [F]"
+    find: "Find\xa0in\xa0captions\nand\xa0more\xa0[F]"
 
-    help: "User guide\n[F1]"
+    help: "User\xa0guide\n[F1]"
 
-    reload: "Reload album\n(reset unsaved\nchanges)"
+    reload: "Reload\xa0album\n(reset\xa0unsaved\nchanges)"
 
-    name: "Show/hide\nimage names"
-    hide: "At least one image\nis hidden: show/hide\nhidden images"
+    name: "Show/hide\nimage\xa0names"
+    hide: "At\xa0least\xa0one\xa0image\xa0\xa0\xa0\xa0\xa0\xa0\nis\xa0hidden:\xa0show/hide\nhidden\xa0mages"
     save: Save changes
-    mail: "Please mail a question\nor send a message with\nadditional information\n(or corrections!)"
+    mail: "Please\xa0mail\xa0a\xa0question\nor\xa0end\xa0a\xa0essage\xa0with\nadditional\xa0information\n(or\xa0corrections!)"
 
-    up: "To top (show\nfirst line)\n[pgUp]"
+    up: "To\xa0top\xa0(show\nfirst\xa0line)\n[pgUp]"
 
-    meet: "Meeting: See you on\nInternet (in new window).\nPlease agree whith the\npeople you will see. Then,\nno invitation is needed\n– you just click here!"
+    meet: "Meeting:\xa0See\xa0you\xa0on\nInternet\xa0(in\xa0new\xa0window).\nPlease\xa0agree\xa0whith\xa0the\npeople\xa0you\xa0will\xa0see.\xa0Then,\nno\xa0invitation\xa0is\xa0needed\n–\xa0you\xa0just\xa0click\xa0here!"
 
 changeWithReason: "change with<br>&nbsp;reason: suggested maximum number is around <b>100</b>"
 dialog:

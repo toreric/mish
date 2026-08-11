@@ -13,11 +13,12 @@ import he from 'he';
 // USE: <div title={{he.decode 'text'}}></div> he = HTML entities
 // or  txt = he.decode('text')  or  txt = he.encode('text')
 import { MenuImage } from './menu-image';
-import { ButtonsLeft } from './buttons-left';
-import { ButtonsRight } from './buttons-right';
+import { DialogFavorites } from './dialog-favorites'
 import { DialogInfo } from './dialog-info';
-import { DialogTools } from './dialog-tools';
+import { ButtonsLeft } from './buttons-left';
 import { DialogLogin } from './dialog-login';
+import { ButtonsRight } from './buttons-right';
+import { DialogTools } from './dialog-tools';
 
 import RefreshThis from './refresh-this';
 
@@ -39,6 +40,8 @@ export class ViewMain extends Component {
     <ButtonsRight />
     <SubAlbums />
     <AllImages />
+
+    <DialogFavorites />
   </template>
 
 }
