@@ -313,7 +313,7 @@ export class DialogFind extends Component {
   <template>
     <div style="display:flex">
 
-      <dialog id="dialogFind" style="width:min(calc(100vw - 1rem),650px);z-index:14;transform:none" {{on 'keydown' this.detectEscClose}}>
+      <dialog id="dialogFind" style="width:min(calc(100vw - 1rem),670px);z-index:14;transform:none" {{on 'keydown' this.detectEscClose}}>
         <header data-dialog-draggable >
           <p>&nbsp;</p>
           <p><b>{{t 'dialog.find.header'}}</b> <span style="color:#080">

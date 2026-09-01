@@ -45,6 +45,7 @@ const returnValue = cell(''); // Never used?
 const LF = '\n';
 const CRLF = '&#13;&#10;'; // May be used in 'title': the only mod.possible!
 let BEEP = 0, POOP = 0;    // Mousedown beep and poopup
+let LOGIN = 0; // Do(1) or don't(0) open login dialog initially
 
 // NOTE: Here makeDialogDraggable() declares 'data-dialog-draggable'
 // so it may be further referenced in child elements of any <dialog>
@@ -256,6 +257,20 @@ class Welcome extends Component {
       let allowances = await this.z.getCredentials('Get allowances');
         // console.log(allowances); // this is the text table of rights
       this.z.allowances = allowances;
+
+      // Check login cookie (e.g. change user early)
+      if (this.z.getCookie('mish_sett')) {
+        let sets = this.z.getCookie('mish_sett').split(',');
+        if (Number(sets[2])) {
+          this.z.openModalDialog('dialogLogin');
+          document.getElementById('setLogin').checked = true;
+        } else {
+          document.getElementById('setLogin').checked = false;
+        }
+        if (sets[3]) {
+          this.z.maxWarning = Number(sets[3]);
+        }
+      }
 
       // Language cookie
       let lng = this.z.getCookie('mish_lang');
@@ -470,6 +485,8 @@ export class DialogSettings extends Component {
     }
   }
 
+  // Settings cookie: 0 show mouse, 1 mouse beep, 2 login first, 3 maxWarning
+  // comma separated, for example '0,0,1,120'
   detectCheckbox = (e) => {
     const elCheckbox = e.target.closest('input[type="checkbox"]');
     if (!elCheckbox) return; // Not a checkbox element
@@ -478,12 +495,16 @@ export class DialogSettings extends Component {
     for (let cbs of cboxes) {
       switch(cbs.id) {
         case 'setPoop':
-          if (cbs.checked) POOP = 1; // Keydown poop on (visual popup)
+          if (cbs.checked) POOP = 1; // Keydown, poop on (temporary visual mouse popup)
           else POOP = 0; break;
         case 'setBeep':
-          if (cbs.checked) BEEP = 1; // Keydown beep on
+          if (cbs.checked) BEEP = 1; // Keydown, beep on (temporary mouse beep)
           else BEEP = 0; break;
+        case 'setLogin':
+          if (cbs.checked) LOGIN = 1; // Keydown, login as a first offer
+          else LOGIN = 0; break;
       }
+      this.z.setCookie('mish_sett', '0,0,' + LOGIN + ',' + this.z.maxWarning);
     }
   }
 
@@ -502,14 +523,24 @@ export class DialogSettings extends Component {
   get maxv() { return 300 } // This is where maximum of maxWarning is set
   // The default value 100 is set in common-storage.js (z)
 
+  // Change maxWarning in the settings cookie
   setMaxWarning = (event) => {
     let value = Number(event.target.value);
     if (value < this.minv) { value = this.minv; }
     if (value > this.maxv) { value = this.maxv; }
     this.z.maxWarning = value;
     event.target.value = value;
+    let sets = this.z.getCookie('mish_sett').split(',');
+    if (!sets) sets = [''];
+    sets[3] = this.z.maxWarning;
+    this.z.setCookie('mish_sett', sets.join(','));
     document.querySelector('footer button').focus();
     this.z.loli('maxWarning set to ' + this.z.maxWarning, 'color:pink');
+  }
+
+  get loginSet() {
+    if (Number(this.z.getCookie('mish_sett').split(',')[2])) return true;
+    else return false;
   }
 
   <template>
@@ -531,18 +562,28 @@ export class DialogSettings extends Component {
           {{!-- <button id="dark_light" style="line-height:0.65rem;margin-right:-0.25rem;" type="button" {{on 'click' (fn this.z.toggleBackg)}}>&nbsp;</button>
           <label for="dark_light">{{t 'button.backgtitle'}}: {{t 'dark'}}/{{t 'light'}}</label><br> --}}
           <div class="glue" style="margin-top:0.5rem">
-            <input id="setPoop" name="settings" value="" type="checkbox" {{on 'click' this.detectCheckbox}}>
+            <input id="setPoop" name="settings" type="checkbox" {{on 'click' this.detectCheckbox}}>
             <label for="setPoop"> &nbsp;{{t 'write.setPoop'}}</label>
           </div>
           <div class="glue">
-            <input id="setBeep" name="settings" value="" type="checkbox" {{on 'click' this.detectCheckbox}}>
+            <input id="setBeep" name="settings" type="checkbox" {{on 'click' this.detectCheckbox}}>
             <label for="setBeep"> &nbsp;{{t 'write.setBeep'}}</label>
           </div>
-          <div style="display:inline-block;margin-top:0.5rem">
+          <div class="glue">
+            {{#if this.checked}}
+              <input id="setLogin" name="settings" type="checkbox" checked {{on 'click' this.detectCheckbox}}>
+            {{else}}
+              <input id="setLogin" name="settings" type="checkbox" {{on 'click' this.detectCheckbox}}>
+            {{/if}}
+            <label for="setLogin"> &nbsp;{{t 'write.setLogin'}}</label>
+          </div>
+
+          <div style="display:inline-block;margin-top:0.5rem" title-3="{{t 'select.value'}} 50–300">
             {{t 'recommended'}}:&nbsp;
-            <input class="threedig" min={{this.minv}} max={{this.maxv}} value={{this.z.maxWarning}} title-1="{{t 'select.value'}} 50–300" type="number" {{on "keydown" this.handleKeyDown}} {{on "blur" this.setMaxWarning}} />
+            <input class="threedig" min={{this.minv}} max={{this.maxv}} value={{this.z.maxWarning}} type="number" {{on "keydown" this.handleKeyDown}} {{on "blur" this.setMaxWarning}} />
             <br>(= {{t 'maxfor'}} <b>{{this.zPicFound}}</b>, {{{t 'changeWithReason'}}})
           </div>
+          <br><br>
 
         </div>
 

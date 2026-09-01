@@ -208,7 +208,7 @@ export default function(app) { // Start module.exports
   // ##### Return file information
   //#region filestat
   app.get('/filestat', async (req, res) => {
-    // console.log(BGRE + '/filestat' + RSET) // Too much?
+    // console.log(BGRE + '/filestat' + RSET) // Too much?!!
     var file = decodeURIComponent(req.get('path'))
     file = IMDB + file
     // This is an emergency solution, which was necessary since the 'filstat'
@@ -693,11 +693,11 @@ export default function(app) { // Start module.exports
       body = Buffer.concat(body).toString()
       // Here `body` has the entire request body stored in it as a string
       var tmp = body.split('\n')
-        // console.log('tmp:', tmp)
+        console.log('tmp:', tmp)
       var fileName = IMDB_HOME + '/' + tmp[0].trim() // All path included here @***
-        // console.log('IMDB_HOME:', IMDB_HOME)
-        // console.log('tmp[0]:', tmp[0])
-        // console.log('fileName:', fileName)
+        console.log('IMDB_HOME:', IMDB_HOME)
+        console.log('tmp[0]:', tmp[0])
+        console.log('fileName:', fileName)
       var msgName = fileName.slice(IMDB_HOME.length)
       let okay = constants.W_OK | constants.R_OK
       try {
@@ -717,7 +717,6 @@ export default function(app) { // Start module.exports
         // See above for explanation:
         body = body.replace(/'/g, "'\\''")
         //console.log (fileName + " '" + body + "'")
-        if (open)
         await exec('set_xmp_creator ' + fileName + " '" + body + "'") // for txt2
         // Reset modification time, this was metadata only:
         await exec('touch -d "' + mtime + '" "' + fileName + '"')
@@ -1116,7 +1115,7 @@ export default function(app) { // Start module.exports
         // console.log('return:', files)
       return files
     } catch(err) {
-      const tmp = IMDB_ROOT + dirName
+      const tmp = $IMDB_ROOT + dirName
       console.error(RED + 'Error in findFiles, dirName = "' + tmp + '"'+ RSET)
       // console.error(RED + 'Error in findFiles, files[i] = "' + files[i] + '"'+ RSET)
       console.log(RED + err.toString() + RSET)
@@ -1300,9 +1299,9 @@ export default function(app) { // Start module.exports
     .then()
     .catch(function(error) {
       if (error.code === "ENOENT") {
-        tmp = 'FILE NOT FOUND by ' + IMDB_ROOT + IMDB_DIR + '/' + picfile
+        tmp = 'FILE NOT FOUND: ' + IMDB_ROOT + IMDB_DIR + '/' + picfile
       } else {
-        tmp = 'NO PERMISSION to ' + IMDB_ROOT + IMDB_DIR + '/' + picfile
+        tmp = 'NO PERMISSION for ' + IMDB_ROOT + IMDB_DIR + '/' + picfile
         console.error(tmp)
         return tmp
       }

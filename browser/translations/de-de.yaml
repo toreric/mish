@@ -95,8 +95,10 @@ moveto: Umzug nach...
 Name: Name
 next: nächstes
 no: keine
+noneMarked: Kein Bild ist ausgewählt!
 notAvailable: Nicht verfügbar
 numbererror: W A R N U N G<br><br>Nicht übereinstimmende Bildanzahl!
+numMarked: Ausgewählte Bilder
 Original: Original
 Originalexpl: Das Originalbild ist das Basisbild im Album, wahrscheinlich in höherer Auflösung
 own: eigene Originale
@@ -149,8 +151,8 @@ blockCopyright1: "Herunterladen aus urheberrechtlichen Gründen gesperrt.\n
                 Bitte an den Urheberrechtsinhaber wenden!"
 blockFirefox: "Leider können Bilder in voller Größe derzeit nicht mit Firefox-\n
               Browsern angezeigt werden. Hoffentlich wird dies bald behoben."
-blockPopup: POPUP-Fenster wird vom Browser blockiert
 button:
+  add:        Zufügen
   ok:         Ja
   backgtitle: Hintergrund ändern
   cancel:    Absagen
@@ -170,6 +172,7 @@ button:
   moveFunc:  0Verschieben in das ausgewählte Album
   notes:     Anmerkungen
   optchuser: "Rechteinformation\nBenutzer wechseln"
+  remove:    Entfernen
   restart:   "Den Browser neuladen\n
              durch hier klicken!"
   rightsinfo: Rechteinformation
@@ -316,7 +319,7 @@ reloadApp: Die App neu laden!
 seconds: "Sekunden pro\nBild auswählen"
 secprow: "oder Sekunden\npro Textzeile"
 select:
-  language: Sprache wählen
+  language: "Sprache\xa0wählen"
   languagetext: Deutsch
   value: Einen Wert auswählen
 selectAlbumMove: Zu welchem Album verschieben?
@@ -353,6 +356,8 @@ write:
               <br>Zumindest das angeklickte Bild muss auch markiert sein.
               <br>Es ist eine Sicherheitsmaßnahme beim Löschen.
   chooseOne:  Soll dieses Bild
+  chooseRemove:  Sollten alle {n} Bilder<br>aus der Liste entfernt werden?
+  chooseRemove1: Soll das ausgewählte Bild<br>aus der Liste entfernt werden?
   chooseThis: "Ausgewähltes Album: <b>{a}</b>"
 #  chooseTool: Werkzeug wählen
   confirm: Nicht verwendet, melden!
@@ -416,8 +421,9 @@ write:
   reloadRequired: <br><br>Geänderte Albumstruktur erfordert Neustart<br>
   searchTerms: Suchbegriffe eingeben, durch Leerzeichen getrennt, Groß-/Kleinschreibung spielt keine Rolle, ebenso diakritische Zeichen außer üåäö (unten auswählen, in welchen Texten gesucht werden soll)
   set0: Einstellungen wählen
-  setBeep: Piepton bei Mausklicks
-  setPoop: Mausklicks anzeigen
+  setBeep: Piepton bei Mausklicks (vorübergehend)
+  setLogin: Mit Benutzerwechsel beginnen
+  setPoop: Mausklicks anzeigen (vorübergehend)
   setEraseOriginal: Original mit Link löschen (WARNUNG!)
   tool0: "Für <b>{a}</b> wählen:"
   tool01: "Für <b>alle Alben</b> dieser Sammlung wählen:"

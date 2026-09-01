@@ -95,8 +95,10 @@ moveto: Flytta till...
 Name: Namn
 next: nästa
 no: inga
+noneMarked: Ingen bild är vald!
 notAvailable: Ej tillgänglig
 numbererror: V A R N I N G<br><br>Bildantalet stämmer inte!
+numMarked: Antal valda bilder
 Original: Original
 Originalexpl: Originalbilden är albumets basbild, troligen med högre upplösning
 own: egna original
@@ -151,8 +153,8 @@ blockCopyright1: "Nedladdning blockerad av upphovsrättsskäl.\n
                 Vänligen kontakta upphovsrättsinnehavaren!"
 blockFirefox: "Tyvärr kan fullstora bilder ännu inte ses med Firefox-webbläsare.\n
               Förhoppningsvis kommer det snart att kunna åtgärdas."
-blockPopup: POPUP-fönster blockerat av webbläsaren
 button:
+  add:       Lägg till
   ok:        Ja
   backgtitle: "Byt\xa0bakgrund"
   cancel:    Avbryt
@@ -172,9 +174,10 @@ button:
   moveFunc:  0Flytta till det valda albumet
   notes:     Anteckningar
   optchuser: "Om\xa0rättigheter\nByt\xa0användare"
+  remove:    Ta bort
   restart:   "Ladda om webbläsaren\n
              genom att klicka här!"
-  rights:    Om rättigheter
+  rights:    "Om\xa0rättigheter"
   rightsinfo: Rättighetsinformation
   save:      Spara
   saveclose: Spara och stäng
@@ -354,6 +357,8 @@ write:
               <br>Åtminstone den bild du klickar måste också markeras.
               <br>Det gäller för radering som en säkerhetsåtgärd.
   chooseOne:  Ska den här bilden
+  chooseRemove:  Ska alla {n} bilderna<br>tas bort ur listan?
+  chooseRemove1: Ska den markerade bilden<br>tas bort ur listan?
   chooseThis: "Valt album: <b>{a}</b>"
 #  chooseTool: Välj verktyg
   confirm: Används inte, rapportera!
@@ -390,7 +395,7 @@ write:
   findHelp0: Sök i bildtexter med mera
   findHelp1: <span>Sök i:</span>-raden används för att markera vilka textfält som tillsammans ska ingå i sökningen (röd = markerad).
   findHelp2: "<span>I nedersta</span> raden kan du välja ett av två alternativ:"
-  findHelp3: "<span>1</span>. Du markerar att <span>alla ska hittas...</span> och skriver sedan i textrutan ovanför, några exempel (blåmarkerade):
+  findHelp3: "<span>1</span>. Du markerar att <span>alla ska hittas...</span> och skriver sedan i textrutan ovanför; några exempel (blåmarkerade):
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (två sökbegrepp) som hittar alla bilder med text ’Nils Jacobsson’ men även andra bilder med både ’Nils’ och ’Jacobss’ i texten, till exempel ’Nils Jonasson och Bertil Jacobsson’.<br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (ett sökbegrepp) som hittar bilder med till exempel ’Nils Jacobsson’ eller ’Nils Jacobsen’."
@@ -418,8 +423,9 @@ write:
   reloadRequired: <br><br>Ändrad albumstruktur kräver omstart<br>
   searchTerms: Skriv sökbegrepp åtskilda av blanktecken, små/stora bokstäver är betydelselöst, liksom diakritiska tecken förutom üåäö (välj nedan vilka texter du vill söka i)
   set0: Välj inställningar
-  setBeep: Pip vid musklick
-  setPoop: Visa musklick
+  setBeep: Pip vid musklick (tillfälligt)
+  setLogin: Börja med att byta användare
+  setPoop: Visa musklick (tillfälligt)
   setEraseOriginal: Radera original med länk (VARNING!)
   tool0: "Välj för <b>{a}</b>:"
   tool01: "För <b>alla album</b> i den här samlingen, välj:"

@@ -78,7 +78,7 @@ export default class CommonStorageService extends Service {
         get picFoundBaseName() { return this.intl.t('picfound'); }
   @tracked  picFoundIndex = -1; //set in MenuMain, the index may vary by language
   @tracked  picName = ''; //actual/current image name, when set: also set picIndex
-  @tracked  picIndex = -1 //too, the index of picName's file info.object in allFiles
+  @tracked  picIndex = -1 // too, the index of picName's file info.object in allFiles
   @tracked  sortOrder = '';    //file order information table of 'imdbDir'
   @tracked  subColor = '#aef'; //subalbum legends color
         get subaIndex() {      //subalbum index array for imdbLabels
@@ -127,7 +127,7 @@ export default class CommonStorageService extends Service {
   @tracked  ifAuto = false;
   @tracked  imiix = 0; // Shown image index within the DOM array of thumbnails
   // 'maxWarning' default (may be modified in 'settings'):
-  @tracked  maxWarning = 150;  // Recommended max. number of images in an album
+  @tracked  maxWarning = 100;  // Recommended max. number of images in an album
   @tracked  numHidden = 0;  // Number of images with hide flag in 'sortOrder'
   @tracked  numImages = 0;  // Total numder of images in the album
   @tracked  numInvisible = 0; // Number of invisible images
@@ -139,8 +139,10 @@ export default class CommonStorageService extends Service {
   @tracked  refreshTexts = 0; // Refresh trigger for RefreshThis
   @tracked  refreshTree = 0; // Refresh trigger for RefreshThis
 
-  // For the DialogChoose dialog component, where
-  // generally 0=no, 1=ok, and 2=cancel button selected
+  // For the DialogChoose dialog component, where, generally, 0=no button
+  // selected, 1=confirm, and 2=cancel button. PLEASE see menu-image.gjs
+  // for use examples. There is also a number 3 checkbox, normally hidden,
+  // which is also fairly well explained in menu-image.gjs:
   @tracked buttonNumber = 0;
   selectChoice = (nr) => {
     this.buttonNumber = nr;
@@ -900,10 +902,10 @@ export default class CommonStorageService extends Service {
 
   //#region markBorders
   // Flashing white thumbnail borders, highly temporary
-  markBorders = async (namepic, from) => { // Mark a mini-image border
-      // console.trace();
+  markBorders = async (namepic, from) => { // Mark a mini-image border; from is for debug
     // await new Promise (z => setTimeout (z, 25)); // Allow the dom to settle
-      this.loli('z.markBorders ' + namepic +', from '+ from, 'color:deeppink');
+      // console.trace();
+      // this.loli('z.markBorders ' + namepic +', from '+ from, 'color:deeppink');
       // console.log((new Error()).stack?.split("\n")[2]?.trim().split(" ")[1]);
       // console.log((new Error()).stack?.split("\n")[1]?.trim().split(" ")[1]);
     document.querySelector('#i' + this.escapeDots(namepic) + ' img.left-click').classList.add('dotted');
@@ -913,7 +915,7 @@ export default class CommonStorageService extends Service {
   //#region gotoMinipic
   gotoMinipic = async (namepic, from) => {
       // this.loli('>' + namepic, 'color:red');
-      this.loli('z.gotoMinipic ' + namepic +', from '+ from, 'color:pink');
+      // this.loli('z.gotoMinipic ' + namepic +', from '+ from, 'color:pink');
     if (!namepic) return;
       // this.loli(namepic, 'color:red');
     await new Promise (z => setTimeout (z, 39)); // in gotoMinipic
@@ -1179,6 +1181,19 @@ export default class CommonStorageService extends Service {
       return true;
     }
     return false;
+  }
+
+  //#region markOnOff
+  // TODO: this.z.markOff(pic) DONE
+  // ALSO: this.z.markOn(pic)
+  // pic has its id == pic.id.slice(1)
+  markOn = (pic) => {
+    pic.classList.add('selected');
+    pic.querySelector('div[alt="MARKER"]').className = 'markTrue';
+  }
+  markOff = (pic) => {
+    pic.classList.remove('selected');
+    pic.querySelector('div[alt="MARKER"]').className = 'markFalse';
   }
 
   //#region COOKIES
@@ -1906,8 +1921,10 @@ export default class CommonStorageService extends Service {
       this.loli('opened menu of image ' + name + ' in album ' + this.imdbRoot + this.imdbDir);
 
     } else { // 0 == do close
-      list.style.display = 'none';
-      loliClose(name);
+      if (!list.style.display) {
+        list.style.display = 'none';
+        loliClose(name);
+      }
     }
   }
 
@@ -1976,12 +1993,16 @@ export default class CommonStorageService extends Service {
       let path = '';
       if (f.symlink) {
         path = f.orig; //** see below
-          // this.loli(path, 'color:brown');
+          this.loli('1 '+path, 'color:brown');
       } else {
         path = f.linkto;
-          // this.loli(path, 'color:yellow');
+          this.loli('2 '+path, 'color:yellow');
       }
-      if (path[0] !== '.') path = './' + path // Is occationaly incomplete
+      if (path[0] !== '.') { // Is occationaly incomplete
+        if (path[0] === '/') path = '.' + path;
+        else path = './' + path;
+      }
+          this.loli('3 '+path, 'color:yellow');
       // since at some point it may be omitted for symlinks in the album root
       // (not always needed but here: in order to pass a certain regex!)
 
@@ -2011,10 +2032,10 @@ export default class CommonStorageService extends Service {
       this.paintHideFlags(); // AFTER RERENDER!
       this.markBorders(this.picName, 'z.saveDialog'); // sec param for debug
         // this.loli(this.imdbRoot, 'color:red');
-        // this.loli(path, 'color:red');
+        this.loli('4 '+path, 'color:red');
       // Remove the initial '../..etc.' if 'path' is from 'f.orig' //**
       path = this.imdbRoot + path.replace(/^\.*(\/\.+)*/, '');
-        // this.loli(path, 'color:red');
+        this.loli('5 '+path, 'color:red');
       if (!gif) {
         await this.saveText(path + LF + txt1 + LF + txt2);
         // this.loli('saved ' + dialogId); // is confirmed by 'saveText'

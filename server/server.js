@@ -5,22 +5,18 @@
 import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import routes from './app/routes.js'
 
 // Get the absolute path for the server environment
-// (not necessary if started from there, see the node-express script)  
+// (not necessary if started from there, see the node-express script)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
   // console.log('__dirname', __dirname) // is /home/tore/Arbeten/mish/server
 
-// 1 configure our routes
+// Configure our routes
 const app = express()
-
 app.use(express.json())
-
-// 3 expose app
+// Expose app
 export default app
-
-import routes from './app/routes.js'
-routes(app)
 
 if (process.argv.length < 3) {
   console.log('Usage: ' + process.argv[1] + ' home[ root [port] ]')
@@ -34,7 +30,6 @@ if (process.argv.length < 3) {
   process.env.IMDB_HOME = process.argv[2]       // albums' home
   process.env.IMDB_ROOT = process.argv[3] || '' // album root
   process.env.PORT = process.argv[4] || 3000    // server port
-
   const port = process.env.PORT // set our port
 
   // Configuration that completely disables the browser cache for production static files
@@ -51,8 +46,9 @@ if (process.argv.length < 3) {
   };
 
   // Static routes
+  app.use(express.static(path.join(__dirname, 'public'), productionNoCache))
   app.use('/', express.static(path.join(__dirname, 'public'), productionNoCache))
-  // Prepare for reference to links in the captions where documents are copied
+  // Prepare for reference to links (in the captions) where documents reside
   app.use('/text', express.static(path.join(__dirname, 'text'), productionNoCache))
   // Map directly to the translations directory in order to make it always reachable
   app.use('/translations', express.static(path.join(__dirname, '../browser/translations'), productionNoCache))
@@ -69,7 +65,10 @@ if (process.argv.length < 3) {
     next()
   })
 
-  // start our app
+  // Add our routing details
+  routes(app)
+
+  // Start our app
   app.listen(port, () => {
     console.log('\nExpress server, port ' + port + '\n')
   })

@@ -95,8 +95,10 @@ moveto: Move to...
 Name: Name
 next: next
 no: no
+noneMarked: No image is selected!
 notAvailable: Not available
 numbererror: W A R N I N G<br><br>Image count mismatch!
+numMarked: Selected images
 Original: Original
 Originalexpl: The original image is the base image of the album, probably with a higher resolution
 own: own original
@@ -150,8 +152,8 @@ blockCopyright1: "Download blocked for copyright reasons.\n
                 Please contact the copyright owner!"
 blockFirefox: "Unfortunately, full-size images cannot yet be viewed with\n
               Firefox browsers. Hopefully this will be fixed soon."
-blockPopup: POPUP window blocked by the browser
 button:
+  add:       Add
   ok:        "Yes"
   backgtitle: Change background
   cancel:    Cancel
@@ -170,7 +172,8 @@ button:
   #the initial 0 means link==false, move==true
   moveFunc:  0Transfer to the selected album
   notes:     Notes
-  optchuser: "About rights\nChange user"
+  optchuser: "About\xa0rights\nChange\xa0user"
+  remove:    Remove
   restart:   "Reload the browser\n
              by clicking here!"
   rights:    About rights
@@ -193,7 +196,7 @@ buttons:
     name: "Show/hide\nimage\xa0names"
     hide: "At\xa0least\xa0one\xa0image\xa0\xa0\xa0\xa0\xa0\xa0\nis\xa0hidden:\xa0show/hide\nhidden\xa0mages"
     save: Save changes
-    mail: "Please\xa0mail\xa0a\xa0question\nor\xa0end\xa0a\xa0essage\xa0with\nadditional\xa0information\n(or\xa0corrections!)"
+    mail: "Please\xa0mail\xa0a\xa0question\nor\xa0send\xa0a\xa0message\xa0with\nadditional\xa0information\n(or\xa0corrections!)"
 
     up: "To\xa0top\xa0(show\nfirst\xa0line)\n[pgUp]"
 
@@ -317,7 +320,7 @@ reloadApp: Reload the app!
 seconds: "Select seconds\nper image"
 secprow: "or seconds per\ncaption line"
 select:
-  language: Choose language
+  language: "Choose\xa0language"
   languagetext: English
   value: Select a value
 selectAlbumMove: Move to which album?
@@ -354,6 +357,8 @@ write:
               <br>At least the image you click must also be marked.
               <br>This applies to deletion as a security measure.
   chooseOne:  Should this image
+  chooseRemove:  Should all {n} images<br>be removed from the list?
+  chooseRemove1: Should the selected image<br>be removed from the list?
   chooseThis: "Selected album: <b>{a}</b>"
 #  chooseTool: Choose tool
   confirm: Not used, report!
@@ -384,7 +389,7 @@ write:
   find7: "Select rule for separate words/pieces of text/search terms:"
   find8: "&nbsp;all&nbsp;to&nbsp;be&nbsp;found&nbsp;in&nbsp;one&nbsp;image"
   find9: "&nbsp;at&nbsp;least&nbsp;one&nbsp;of&nbsp;them&nbsp;must&nbsp;be&nbsp;found&nbsp;in&nbsp;an&nbsp;image"
-  findHelpHeader: How to find images
+  findHelpHeader: How to search for images
   findHelpHeader1: (no links)
   findResultHeader: Summary of {n} images, found in <b>{c}</b>
   findHelp0: Search in captions etc.
@@ -417,8 +422,9 @@ write:
   reloadRequired: <br><br>Changed album structure requires restart<br>
   searchTerms: Enter search terms separated by spaces, lower/uppercase do not matter, nor diacritics except üåäö (choose below which texts to search in)
   set0: Choose settings
-  setBeep: Beep at mouse clicks
-  setPoop: Show mouse clicks
+  setBeep: Beep at mouse clicks (temporary)
+  setLogin: Start by switching user
+  setPoop: Show mouse clicks (temporary)
   setEraseOriginal: Erase original with link (WARNING!)
   # To use 'a' instead of 'album' as parameter did HANG
   # both FF and Chromium (UNBELIEVABLE!):

@@ -60,7 +60,7 @@ if [[ $1 = 0 || $1 = 2 ]]; then
     fi
   done
 fi
-#non-breaking space = \xc2\xa0: (cannot always be used)
-echo "Warnings: "$nw, "Errors: "$ne
+nbsp=$'\u00A0'
+echo "Warnings:${nbsp}"$nw, "Errors:${nbsp}"$ne
 shopt -u nocasematch
 exit 0

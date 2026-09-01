@@ -336,6 +336,7 @@ class AllImages extends Component {
         thisPic.querySelector('div[alt="MARKER"]').className = 'markTrue';
         clicked.className = 'markTrueShow';
       }
+      this.z.countNumbers();
     }
   }
 
@@ -509,7 +510,7 @@ class AllImages extends Component {
           {{!-- A midpoint mark (ᵛ) on the slideshow image top border --}}
           <p style="margin:0;line-height:0;font-family:sans-serif;user-select:none">ᵛ</p>
 
-          {{!-- The slideshow image comes here, src loaded at runtime --}}
+          {{!-- The slideshow image comes here, src inserted at runtime --}}
           <img src="" draggable="false" ondragstart="return false" style="user-select:none">
 
           {{!-- The check mark in the slideshow image's upper right corner --}}

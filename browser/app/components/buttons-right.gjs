@@ -32,7 +32,7 @@ export class ButtonsRight extends Component {
     // Copyright control
     // If the file name begins with e.g. 'Vbm' or 'CPR'
     // then !fileName.search(/^vbm|^cpr/i) is !0 === true:
-    if (!fileName.replace(/.*\/([^/]+)$/, "$1").search(/^vbm|^cpr/i) && !this.z.allow.deleteImg) {
+    if (!fileName.replace(/.*\/([^/]+)$/, "$1").search(/^vbm|^cpr/i) && !this.z.allow.delcreLink) {
       this.z.alertMess(this.intl.t('blockCopyright'));
       return;
     }

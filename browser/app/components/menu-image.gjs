@@ -137,8 +137,7 @@ export class MenuImage extends Component {
         pic.classList.add('selected');
         pic.querySelector('div[alt="MARKER"]').className = 'markTrue';
       } else {
-        pic.classList.remove('selected');
-        pic.querySelector('div[alt="MARKER"]').className = 'markFalse';
+        this.z.markOff(pic);
       }
     }
     this.z.countNumbers();
@@ -155,8 +154,7 @@ export class MenuImage extends Component {
     if (document.getElementById('i' + this.z.picName).classList.contains('selected')) {
       let pics =  document.querySelectorAll('.img_mini.selected');
       for (let pic of pics) {
-        pic.classList.remove('selected');
-        pic.querySelector('div[alt="MARKER"]').className = 'markFalse';
+        this.z.markOff(pic);
       }
     } else {
       let pics = document.querySelectorAll('.img_mini');
@@ -176,8 +174,7 @@ export class MenuImage extends Component {
     }
     for (let pic of document.querySelectorAll('.img_mini')) {
       if (pic.classList.contains('selected')) {
-        pic.classList.remove('selected');
-        pic.querySelector('div[alt="MARKER"]').className = 'markFalse';
+        this.z.markOff(pic);
       } else {
         pic.classList.add('selected');
         pic.querySelector('div[alt="MARKER"]').className = 'markTrue';
@@ -188,8 +185,8 @@ export class MenuImage extends Component {
   }
 
   // Move (within the screen) one, or some checked, thumbnail image(s),
-  // if (isTrue === true): to the beginning, placeFirst
-  // if (isTrue === false):  to   the   end, placeLast
+  // if (isTrue === true): to the beginning, placeFirst(true)
+  // if (isTrue === false):  to   the   end, placeLast = placeFirst(false)
   placeFirst = async (isTrue) => { // NOTE: 'placeLast()' is 'placeFirst(false)'!
 
     // begin local function ---------
@@ -252,7 +249,7 @@ export class MenuImage extends Component {
       // this.z.loli(this.z.allow.deleteImg, 'color:red');
     // If the file name begins with e.g. 'Vbm' or 'CPR'
     // then !fileName.search(/^vbm|^cpr/i) is !0 === true:
-    if (!fileName.search(/^vbm|^cpr/i) && !this.z.allow.deleteImg) {
+    if (!fileName.search(/^vbm|^cpr/i) && !this.z.allow.delcreLink) {
       this.z.alertMess(this.intl.t('blockCopyright1'));
       return;
     }
@@ -383,7 +380,7 @@ export class MenuImage extends Component {
     let fromIndex = this.z.imdbDirIndex;
       // this.z.loli(this.z.picName, 'color:red');
     let imgs = selMinImgs(this.z.picName);
-    await new Promise (z => setTimeout (z, 29)); // @eraseFunc 1
+    await new Promise (z => setTimeout (z, 29)); // eraseFunc 1st Timeout
     this.z.toggleMenuImg(0); //close image menu
     if (document.getElementById('i' + this.z.picName).classList.contains('selected')) {
       // From toggleDisplayNames in ButtonsLeft:
@@ -438,7 +435,7 @@ export class MenuImage extends Component {
       this.z.buttonNumber = 0;
       // Wait until nonzero buttonNumber:
       while (!this.z.buttonNumber) {
-        await new Promise (z => setTimeout (z, 199)); // @eraseFunc 2
+        await new Promise (z => setTimeout (z, 199)); // eraseFunc 2nd Timeout
       }
 
       // (*) Concerning the use of dialogChoose here:
@@ -449,10 +446,10 @@ export class MenuImage extends Component {
       while (this.z.buttonNumber === 3) {
         if (document.getElementById('Choice_3').checked === true) {
           document.querySelector('span.Choice_3 label').innerHTML = SP + ' ' + this.intl.t('write.eraseOption') + '. <b style="color:#df1837">' + this.intl.t('write.eraseOption1') + '</b> ' + this.intl.t('write.eraseOption2');
-          await new Promise (z => setTimeout (z, 199)); // @eraseFunc 3
+          await new Promise (z => setTimeout (z, 199)); // eraseFunc 3rd Timeout
         } else {
           document.querySelector('span.Choice_3 label').innerHTML = SP + ' ' + this.intl.t('write.eraseOption');
-          await new Promise (z => setTimeout (z, 199)); // @eraseFunc 4
+          await new Promise (z => setTimeout (z, 199)); // eraseFunc 4th Timeout
         }
       }
       if (this.z.buttonNumber === 1) {
@@ -508,8 +505,8 @@ export class MenuImage extends Component {
             }
 
           } else {
-            let CSP = imgPath; // C.s.p
-            let err = await this.z.execute('rm -f ' + imgPath); // Complete server path
+            let CSP = imgPath; // C.s.p. is Complete server path
+            let err = await this.z.execute('rm -f ' + imgPath); // CSP
               // this.z.loli('rm -f ' + imgPath, 'color:pink');
             if (err) {
               errNames.push(imgName)
@@ -524,7 +521,7 @@ export class MenuImage extends Component {
                 // this.z.loli('rm -f ' + path + '_show_' + imgName + '.png', 'color:pink');
             }
           }
-          // If at picFound: imgName is trunchated, preparied for remove of the original
+          // If at picFound: imgName is trunchated, prepared for remove of the original
             // this.z.loli(imgName, 'color:brown');
             // this.z.loli(imgTitle, 'color:brown');
             // this.z.loli(imgPath, 'color:brown');

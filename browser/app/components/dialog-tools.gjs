@@ -80,7 +80,10 @@ uploadPhoto = async (file) => {
       // this.z.loli(`${elRadio.id} ${elRadio.checked}`, 'color:red');
     this.tool = elRadio.id;
     if (this.tool === 'util9') { // Manage own favorite images
-      this.z.toolsVisible = !this.z.toolsVisible; //close this dialog
+      // Simulate clicking button.ok + closing this (look _here_):
+      await new Promise (z => setTimeout (z, 555)); //wait to show
+      this.z.toolsVisible = false; //close this dialog
+      this.z.displayNames = 'block'; //show image names
       this.z.openDialog('dialogFavorites'); //open the favorites dialog
     }
     if (this.tool === 'util3') this.z.displayNames = 'block'; //sort by name=>show names
@@ -128,7 +131,7 @@ uploadPhoto = async (file) => {
     }
   }
 
-  get okSubalbum() { // true if subalbums allowed
+  get okSubalbum() { // true if subalbums are allowed
     if (this.z.albumTools && this.z.imdbDir.slice(1) !== this.z.picFound && this.z.allow.albumEdit) {
       this.tool = '';
       return true;
@@ -479,26 +482,15 @@ uploadPhoto = async (file) => {
     await this.z.execute(cmd);
     document.querySelector('img.spinner').style.display = 'none';
       // this.z.loli('updated text database');
+    this.z.toolsVisible = false; //close this dialog
     this.z.alertMess(this.intl.t('write.dbUpdated'));
   }
-
-  // zeTo1 = () => {this.amTools = 0;}
-  // @cached get zeroTools1() {
-  //   this.zeTo1();
-  //   return '';
-  // }
 
   adTo1 = () => {this.amTools++;}
   @cached get addTools1() {
     this.adTo1();
     return '';
   }
-
-  // zeTo2 = () => {this.cnTools = 0;}
-  // @cached get zeroTools2() {
-  //   this.zeTo2();
-  //   return '';
-  // }
 
   adTo2 = () => {this.cnTools++;}
   @cached get addTools2() {
@@ -508,7 +500,7 @@ uploadPhoto = async (file) => {
   }
 
   // NOTE, within the DialogTools template:
-  // *** The utility numbering is not always in sequence ***
+  // *** The utility/tool numbering is not always in sequence ***
   // DialogTools
   <template>
 
@@ -731,6 +723,7 @@ uploadPhoto = async (file) => {
           {{else if (eq this.tool 'util9')}}
 
             <b>{{t 'write.tool9'}}?</b>&nbsp;
+            {{!-- This will never be clicked, see _here_! --}}
             <button type="button" {{on 'click' (fn this.z.openDialog 'dialogFavorites')}}>{{t 'button.ok'}}</button><br>
 
           {{/if}}

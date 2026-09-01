@@ -16,9 +16,9 @@ fields='description creator source'
 if [ ! $1 ] || [ ! -f $1 ]; then
  echo
  echo " För listning av Xmp-metadata i bildfiler"
- echo " Användning: $(basename $0) <textfil med bildfilnamnlista>"
+ echo " Användning: $(basename $0) <textfil med bildnamnlista>"
  echo "  där namnlistans bildfiler förutsätts återfinnas med"
- echo "  unika filnamn i strukturen $katalog"
+ echo "  unika namn i strukturen $katalog"
  echo "  och vilkas metadata ska kopieras till Stdout"
  echo " (listan är anpassad för användning med ld-xmp)"
  echo

@@ -56,6 +56,7 @@ dialog footer {
   justify-content: center;
   background-color: #ddd;
   cursor: grabbing;
+  width: 99%;
 }
 /* Stänger av blåmarkering på alla dragbara ytor */
 [data-dialog-draggable] {
@@ -1456,7 +1457,7 @@ input[type="checkbox"] + label::before {
   display: inline-block;
   border: 2px solid white;
   border-radius: 2px;
-  margin: 0.4rem -0.15rem 0.2rem 0;
+  margin: 0;
   width: 0.45em;
   height: 0.45em;
 }
