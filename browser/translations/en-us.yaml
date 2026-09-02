@@ -265,10 +265,10 @@ dialog:
   rights:
     header: List of user rights and their meaning, and legal terms of use at the bottom
     text0: "The current rights are checked next to the number column:"
-    text1: You are allowed to see and have the images for your own use but not to distribute them further.
-    text2: Nor may you use them for any commercial or profit-making purpose.
-    text3: You undertake to respect applicable copyright legislation and not to transfer images to third parties.
-    text4: Please handle all questions about permission for possible distribution or transfer by contacting the responsible for the album collection.
+    text1: You are allowed to see and have the images for your own use but not to distribute them further. Nor
+    text2: may you use them for any commercial or profit-making purpose. You undertake to respect applicable
+    text3: copyright legislation and not to transfer images to third parties. Please handle all questions about
+    text4: permission for possible distribution or transfer by contacting the responsible for the album collection.
     footnote1: "¹ In parentheses: Not yet implemented"
     footnote2: "² Restriction for some images due to Copyright reservation"
     footnote3: "³ Without this permission, there is no way to know if hidden albums exist"

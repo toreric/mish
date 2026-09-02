@@ -266,10 +266,10 @@ dialog:
   rights:
     header: Lista över användarrättigheter och deras innebörd, samt rättsliga användarvillkor längst ner
     text0: "Kryssen vid sifferkolumnen visar de gällande rättigheterna:"
-    text1: Du får se och använda bilderna för eget bruk men inte distribuera dem vidare.
-    text2: Du får inte heller använda dem för något kommersiellt eller vinstdrivande syfte.
-    text3: Du åtar dig att respektera tillämplig upphovsrättslagstiftning och att inte överlåta bilder till tredje part.
-    text4: Vänligen hantera alla frågor om tillstånd för distribution eller överlåtelse genom att kontakta den som är ansvarig för albumsamlingen.
+    text1: Du får se och använda bilderna för eget bruk men inte distribuera dem vidare. Du får inte heller
+    text2: använda dem för något kommersiellt eller vinstdrivande syfte. Du åtar dig att respektera tillämplig
+    text3: upphovsrättslagstiftning och att inte överlåta bilder till tredje part. Vänligen hantera alla frågor om
+    text4: tillstånd för distribution eller överlåtelse genom att kontakta den som är ansvarig för albumsamlingen.
     footnote1: "¹ Inom parentes: Ännu ej implementerat"
     footnote2: "² Begränsning för vissa bilder på grund av upphovsrättsförbehåll"
     footnote3: "³ Utan denna rättighet går det inte att veta om det finns gömda album"

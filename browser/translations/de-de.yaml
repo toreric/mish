@@ -265,9 +265,9 @@ dialog:
     header: Liste der Nutzerrechte und ihrer Bedeutung, mit rechtliche Nutzungsbedingungen unten
     text0: "Aktuelle Rechte sind neben der Zahlenspalte mit Kreuzen angezeigt:"
     text1: Es ist Ihnen gestattet, die Bilder für Ihren eigenen Gebrauch zu sehen und zu besitzen, sie jedoch nicht weiter zu verbreiten.
-    text2: Sie dürfen die Bilder auch nicht für kommerzielle oder gewinnbringende Zwecke verwenden.
-    text3: Sie verpflichten sich, die geltenden Urheberrechtsgesetze zu respektieren und Bilder nicht an Dritte weiterzugeben.
-    text4: Bei Fragen zur Genehmigung einer möglichen Verbreitung oder Übertragung wenden Sie sich bitte an den Verantwortlichen für die Albensammlung.
+    text2: Sie dürfen die Bilder auch nicht für kommerzielle oder gewinnbringende Zwecke verwenden. Sie verpflichten sich, die
+    text3: geltenden Urheberrechtsgesetze zu respektieren und Bilder nicht an Dritte weiterzugeben. Bei Fragen zur Genehmigung
+    text4: einer möglichen Verbreitung oder Übertragung wenden Sie sich bitte an den Verantwortlichen für die Albensammlung.
     footnote1: "¹ In Klammern: Noch nicht implementiert"
     footnote2: "² Einschränkungen für einige Bilder aufgrund des Urheberrechtsvorbehalts"
     footnote3: "³ Ohne diese Berechtigung kann man nicht wissen, ob versteckte Alben vorhanden sind"
