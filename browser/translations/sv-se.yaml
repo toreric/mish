@@ -427,6 +427,7 @@ write:
   setLogin: Börja med att byta användare
   setPoop: Visa musklick (tillfälligt)
   setEraseOriginal: Radera original med länk (VARNING!)
+  tmpAlb: Album för tillfälligt bruk
   tool0: "Välj för <b>{a}</b>:"
   tool01: "För <b>alla album</b> i den här samlingen, välj:"
   tool1: Radera albumet (måste vara tomt)

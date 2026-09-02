@@ -36,7 +36,7 @@ notesEdit:    editar/guardar notas +13
 notesView:    ver notas
 saveChanges:  guardar cambios más allá de los textos
 setSetting:   cambiar configuración
-textEdit:     editar/guardar textos de imágenes, acceder a álbumes ocultos³
+textEdit:     editar/guardar textos de imágenes, acceder a álbumes escondidos³
 
 all: todas
 allInAlbum: (al álbum)
@@ -264,41 +264,41 @@ dialog:
     error: Nombre de usuario/a o contraseña incorrecto, ¡intentar otra vez!
   rights:
     header: List of user rights and their meaning, and legal terms of use at the bottom
-    text0: "The current rights are checked next to the number column:"
-    text1: You are allowed to see and have the images for your own use but not to distribute them further.
-    text2: Nor may you use them for any commercial or profit-making purpose.
-    text3: You undertake to respect applicable copyright legislation and not to transfer images to third parties.
-    text4: Please handle all questions about permission for possible distribution or transfer by contacting the responsible for the album collection.
-    footnote1: "¹ In parentheses: Not yet implemented"
-    footnote2: "² Restriction for some images due to Copyright reservation"
-    footnote3: "³ Without this permission, there is no way to know if hidden albums exist"
+    text0: "Los derechos actuales aparecen marcados junto a la columna de números:"
+    text1: Se le permite ver y conservar las imágenes para su uso personal, pero no distribuirlas. Tampoco podrá
+    text2: utilizarlos con fines comerciales o lucrativos. Usted se compromete a respetar la legislación vigente en
+    text3: materia de derechos de autor y a no transferir imágenes a terceros. Por favor, dirija cualquier consulta sobre
+    text4: permisos para una posible distribución o transferencia a la persona responsable de la colección del álbum.
+    footnote1: "¹ Entre paréntesis: Aún no implementado"
+    footnote2: "² Restricción para algunas imágenes debido a derechos de autor reservados"
+    footnote3: "³ Sin este permiso, no hay forma de saber si existen álbumes escondidos"
   text:
-    header:   Captions for
-    keywords: Keywords for
-    notes:    Notes for
+    header:   Subtítulos para
+    keywords: Palabras clave para
+    notes:    Notas para
     open:
-      origpos: ... in original position
-      modal:   Open modal text dialog
-    reset: Reset
-    toggle: Toggle text dialog
-erase: erase
+      origpos: ... en la posición original
+      modal:   Abrir diálogo modal de texto
+    reset: Reiniciar
+    toggle: Alternar diálogo de texto
+erase: borrar
 fav:
-  images: Favorite images
-  manage: Manage favorite images
-fileNameRules: "A file name may only contain ›A‹ to ›Z‹, ›a‹ to ›z‹, ›.‹, ›_‹ and ›0‹ to ›9‹ but not blanks/spaces, and it may not start with ›.‹, ›_imdb_‹, ›_mini_‹ or ›_show_‹."
-filesFailed: "Number failed: {n}"
-filesPassed: "Number of approved: {n}"
-filesProceed: with the approved
+  images: Imágenes favoritas
+  manage: Gestionar imágenes favoritas
+fileNameRules: "Un nombre de archivo solo puede contener caracteres de ›A‹ a ›Z‹, ›a‹ a ›z‹, ›.‹, ›_‹ y ›0‹ a ›9‹ pero no espacios en blanco, y no puede comenzar con ›.‹, ›_imdb_‹, ›_mini_‹ o ›_show_‹."
+filesFailed: "Número de fallos: {n}"
+filesPassed: "Número de aprobados: {n}"
+filesProceed: con los aprobados
 foundExplain: Imágenes encontradas
-fullSize: "New zoom window\nWhen focused, press:\n+ = zoom in\n– = zoom out\narrow = move\n0 = fit to window\n1 = 100%\n2 = 200%\nMouse click: show details"
-gomini: "Return\n
+fullSize: "Nueva ventana de zoom\nCuando esté enfocado, pulse:n+ = acercar\n– = alejar\nflecha = move\n0 = ajustar a la ventana\n1 = 100%\n2 = 200%\nMouse click: mostrar detalles"
+gomini: "Retorno\n
         [Esc]"
-gonext: "Next\n
-        image [>]"
-goprev: "Previous\n
-        image [<]"
-gotext: in the album
-goto: Go to the original image
+gonext: "Próxima\n
+        imagen [>]"
+goprev: "Previa\n
+        imagen [<]"
+gotext: en el álbum
+goto: Ir a la imagen original
 header: Mish galería de imágenes
 hello:
   world:  Hello World!
@@ -335,13 +335,13 @@ tools: Herramientas
 toolsAlbum: Herramientas del álbum
 totalImgNumber: Número de imágenes en la colección
 write:
-  afterSort: Drag-and-drop moving of images<br>
-             is not possible hereafter, but is<br>
-             restored by reloading <a id="reFr0" class="helpIcon"><img draggable="false" src="/images/reload.png"></a> the album,<br>
-             after perhaps having saved <a class="helpIcon"><img draggable="false" src="/images/floppy1.png" style="width:.9rem"></a> it<br><br>
-             Guests can only reload<br><br>
-             <span style="font-weight:normal;color:#000">Hopefully, the drag-and-drop<br>
-              problem will be eventually fixed</span>
+  afterSort: Mover imágenes mediante arrastrar y soltar<br>
+             no es posible en adelante, pero es<br>
+             restaurado por recargar <a id="reFr0" class="helpIcon"><img draggable="false" src="/images/reload.png"></a> el álbum,<br>
+             después de tal vez haber ahorradolo <a class="helpIcon"><img draggable="false" src="/images/floppy1.png" style="width:.9rem"></a><br><br>
+             Huéspedes solo pueden recargar<br><br>
+             <span style="font-weight:normal;color:#000">Con suerte, el problema de arrastrar y soltar<br>
+             se solucionará finalmente</span>
   albumName: Introduce el nombre del álbum
   chooseAlbum: Ningún álbum seleccionado; ¡selecciona uno!
   chooseBoth: Should both selected images
@@ -403,29 +403,30 @@ write:
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (two search terms) finds all images with the text ’Nils Jacobsson’ and also all images with any of ’Nils’ or ’Jacobss’ in the text, for example ’Fredrik Nilson’ and/or ’Filip Jacobsson’ (but not ’Nisse Jacobson’).<br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (one search term) finds images with, for example ’Nils Jacobsson’ or ’Nils Jacobsen’ (same as <span>1</span>, since only one search term)."
-  findHelp5: Write what you want to search for in the box at the top and start the search. The result is presented in an album for temporary use called <b>Imágenes encontradas</b> with a link to the original in each thumbnail's menu. <span style="color:#0a0;text-decoration:underline">Green border below the caption</span> means linked image.
-  findHelp6: "Tip: Find out how many photos are in the album collection by searching for a ’/’ (in album names)!"
-  foundNoAlbums: No albums found!
-  imageSeveral: The names of {n} images to be removed
-  imageSingle:  The name of the image to be removed
-  isEmpty: is empty
+  findHelp5: Escribe lo que quieras buscar en el cuadro de la parte superior e inicia la búsqueda. El resultado se presenta en un álbum de uso temporal llamado <b>Imágenes encontradas</b> con un enlace al original en el menú de cada miniatura. <span style="color:#0a0;text-decoration:underline">Un borde verde debajo del pie de foto</span> indica una imagen enlacada.
+  findHelp6: "Consejo: Averigua el número total de fotos en la colección de álbumes buscando una barra diagonal ’/’ (en los nombres de los álbumes)"
+  foundNoAlbums: ¡No se encontraron álbumes!
+  imageSeveral: Los nombres de las {n} imágenes que se eliminarán
+  imageSingle:  El nombre de la imagen que se eliminará
+  isEmpty: está vacío
   keywords: "<b>Information about planned future addition:</b><br>
              Keywords to be stored as metadata for search key use"
   maxWarning: <b>More than {n} images cannot<br>be displayed together</b>
-  noDupNamesFound: Found no duplicate image names in <b>{a}</b> with subalbums
-  noErased: but {n} could not be removed:<br><br>{a}
-  noLinkLink: There is at least one link among the selected images.<br>Linked images cannot be further linked!<br>Go to the original image to link it.
-  noneFound: Sorry, no image found!
-  notEmpty: The album must first be emptied!
-  notes: Notes not shown with the image
-  originUntouch: "<b>NOTE</b> that there is a difference between images: Green image names do not refer to own <b>original images</b> but to <b>linked images</b> (or simply: <b>links</b>). An image with a green bottom border is actually just a link to its original image in another album. An original image remains untouched even when the link to it is removed."
-  reloadRequired: <br><br>Changed album structure requires restart<br>
+  noDupNamesFound: No se encontraron nombres duplicados en <b>{a}</b> con subálbumes
+  noErased: pero no se pudo eliminar {n}:<br><br>{a}
+  noLinkLink: Hay al menos un enlace entre las imágenes seleccionadas.<br>¡Las imágenes enlazadas no pueden volver a enlazarse!<br>Ir a la imagen original para enlazarla.
+  noneFound: Lo sentimos, ¡no se encontró ninguna imagen!
+  notEmpty: ¡Primero hay que vaciar el álbum!
+  notes: Notas no mostradas con la imagen
+  originUntouch: "<b>NOTAR</b> que existe una diferencia entre las imágenes: los nombres de las imágenes en verde no se refieren a las <b>imágenes originales</b> propiamente dichas, sino a <b>imágenes enlazadas</b> (o, simplemente, <b>enlaces</b>). Una imagen con un borde inferior verde es, en realidad, solo un enlace a su imagen original situada en otro álbum. La imagen original permanece intacta incluso cuando se elimina el enlace a ella."
+  reloadRequired: <br><br>El cambio en la estructura del álbum requiere un reinicio<br>
   searchTerms: Escribe los términos de búsqueda separados por espacios, no importa si son mayúsculas o minúsculas, ni tampoco diacríticos excepto üåäö (elija a continuación en qué textos buscar)
   set0: Seleccionar configuración
   setBeep: Sonar por clics del ratón (temporalmente)
   setLogin: Empieza siempre cambiando de usuario/a
   setPoop: Mostrar clics del ratón (temporalmente)
   setEraseOriginal: Erase original with link (WARNING!)
+  tmpAlb: Álbum para uso temporal
   tool0: "Choose for <b>{a}</b>:"
   tool01: "For <b>all albums</b> in this collection, choose:"
   tool1: Delete the album (must be empty)

@@ -428,6 +428,7 @@ write:
   setEraseOriginal: Erase original with link (WARNING!)
   # To use 'a' instead of 'album' as parameter did HANG
   # both FF and Chromium (UNBELIEVABLE!):
+  tmpAlb: Album for temporary use
   tool0: "Choose for <b>{a}</b>:"
   tool01: "For <b>all albums</b> in this collection, choose:"
   tool1: Delete the album (must be empty)

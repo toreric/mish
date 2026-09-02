@@ -581,7 +581,7 @@ export class DialogSettings extends Component {
           <div style="display:inline-block;margin-top:0.5rem" title-3="{{t 'select.value'}} 50–300">
             {{t 'recommended'}}:&nbsp;
             <input class="threedig" min={{this.minv}} max={{this.maxv}} value={{this.z.maxWarning}} type="number" {{on "keydown" this.handleKeyDown}} {{on "blur" this.setMaxWarning}} />
-            <br>(= {{t 'maxfor'}} <b>{{this.zPicFound}}</b>, {{{t 'changeWithReason'}}})
+            <br>(= {{t 'maxfor'}} <b title-1={{t 'write.tmpAlb'}}>{{this.zPicFound}}</b>, {{{t 'changeWithReason'}}})
           </div>
           <br><br>
 

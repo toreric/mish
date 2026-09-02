@@ -1993,16 +1993,16 @@ export default class CommonStorageService extends Service {
       let path = '';
       if (f.symlink) {
         path = f.orig; //** see below
-          this.loli('1 '+path, 'color:brown');
+          // this.loli('1 '+path, 'color:brown');
       } else {
         path = f.linkto;
-          this.loli('2 '+path, 'color:yellow');
+          // this.loli('2 '+path, 'color:yellow');
       }
       if (path[0] !== '.') { // Is occationaly incomplete
         if (path[0] === '/') path = '.' + path;
         else path = './' + path;
       }
-          this.loli('3 '+path, 'color:yellow');
+        // this.loli('3 '+path, 'color:yellow');
       // since at some point it may be omitted for symlinks in the album root
       // (not always needed but here: in order to pass a certain regex!)
 
@@ -2032,10 +2032,10 @@ export default class CommonStorageService extends Service {
       this.paintHideFlags(); // AFTER RERENDER!
       this.markBorders(this.picName, 'z.saveDialog'); // sec param for debug
         // this.loli(this.imdbRoot, 'color:red');
-        this.loli('4 '+path, 'color:red');
+        // this.loli('4 '+path, 'color:red');
       // Remove the initial '../..etc.' if 'path' is from 'f.orig' //**
       path = this.imdbRoot + path.replace(/^\.*(\/\.+)*/, '');
-        this.loli('5 '+path, 'color:red');
+        // this.loli('5 '+path, 'color:red');
       if (!gif) {
         await this.saveText(path + LF + txt1 + LF + txt2);
         // this.loli('saved ' + dialogId); // is confirmed by 'saveText'

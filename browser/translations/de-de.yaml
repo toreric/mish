@@ -425,6 +425,7 @@ write:
   setLogin: Mit Benutzerwechsel beginnen
   setPoop: Mausklicks anzeigen (vorübergehend)
   setEraseOriginal: Original mit Link löschen (WARNUNG!)
+  tmpAlb: Temporäres Album
   tool0: "Für <b>{a}</b> wählen:"
   tool01: "Für <b>alle Alben</b> dieser Sammlung wählen:"
   tool1: Das Album löschen (muss leer sein)

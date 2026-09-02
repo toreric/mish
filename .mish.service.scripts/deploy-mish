@@ -80,6 +80,7 @@ echo
 cp $required /home/tore/Arbeten/mish/.usr.local.bin
 cp $service /home/tore/Arbeten/mish/.mish.service.scripts
 echo "Scripts were also saved in the Mish project"
+echo
 echo "NOTE: this 'deploy-mish' script has to be"
 echo "much modified for use on another computer!"
 
