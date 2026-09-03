@@ -263,7 +263,7 @@ dialog:
     text3: nombres de usuario/a sin contraseña
     error: Nombre de usuario/a o contraseña incorrecto, ¡intentar otra vez!
   rights:
-    header: List of user rights and their meaning, and legal terms of use at the bottom
+    header: Lista de derechos del usuario/a y su significado, junto con los términos legales de uso en la parte inferior
     text0: "Los derechos actuales aparecen marcados junto a la columna de números:"
     text1: Se le permite ver y conservar las imágenes para su uso personal, pero no distribuirlas. Tampoco podrá
     text2: utilizarlos con fines comerciales o lucrativos. Usted se compromete a respetar la legislación vigente en
@@ -403,7 +403,7 @@ write:
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (two search terms) finds all images with the text ’Nils Jacobsson’ and also all images with any of ’Nils’ or ’Jacobss’ in the text, for example ’Fredrik Nilson’ and/or ’Filip Jacobsson’ (but not ’Nisse Jacobson’).<br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (one search term) finds images with, for example ’Nils Jacobsson’ or ’Nils Jacobsen’ (same as <span>1</span>, since only one search term)."
-  findHelp5: Escribe lo que quieras buscar en el cuadro de la parte superior e inicia la búsqueda. El resultado se presenta en un álbum de uso temporal llamado <b>Imágenes encontradas</b> con un enlace al original en el menú de cada miniatura. <span style="color:#0a0;text-decoration:underline">Un borde verde debajo del pie de foto</span> indica una imagen enlacada.
+  findHelp5: Escribe lo que quieras buscar en el cuadro de la parte superior e inicia la búsqueda. El resultado se presenta en un álbum de uso temporal llamado <b>Imágenes encontradas</b> con un enlace al original en el menú de cada miniatura. <span style="color:#0a0;text-decoration:underline">Un borde verde debajo del pie de foto</span> indica una imagen enlazada.
   findHelp6: "Consejo: Averigua el número total de fotos en la colección de álbumes buscando una barra diagonal ’/’ (en los nombres de los álbumes)"
   foundNoAlbums: ¡No se encontraron álbumes!
   imageSeveral: Los nombres de las {n} imágenes que se eliminarán

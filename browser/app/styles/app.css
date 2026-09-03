@@ -13,6 +13,7 @@ body {
   background: #ccc;
   padding: 0;
   margin: 0;
+  line-height: 1rem;
 }
 dialog {
   border: 1px solid white;

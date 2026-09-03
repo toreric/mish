@@ -1,6 +1,6 @@
 # Mish
 
-This is a development project of the Mish one-page gallery app run in a standard web browser, installed locally or on a web server. The aim is to utilize the Glimmer engine of Ember Polaris without the Ember data model and without Typescript.
+This is a development project of the Mish one-page gallery app run in a standard web browser, installed locally or on a web server. The aim is to utilize the Glimmer engine of Ember Polaris without the Ember data model and without Typescript. It mostly availible as a live pilot project at https://mish.hopto.org/.
 
 # Mish outline
 
