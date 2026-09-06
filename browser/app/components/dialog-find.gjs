@@ -302,6 +302,7 @@ export class DialogFind extends Component {
     await this.z.openAlbum(this.ixFound);
   }
 
+  // openAlbumAll(i) opens the whole album 'i' (where at least one image is found)
   openAlbumAll = async (i) => {
     await this.z.openAlbum(i);
     // Allow for the rendering of mini images and preload of view images

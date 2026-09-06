@@ -273,7 +273,7 @@ export class MenuImage extends Component {
     let i = this.z.picIndex;
     if (i < 0) return a; //important
     let b = this.z.allFiles[i]; // has an object property `albname`
-    if (b) a = b.albname;       // which is name of home album
+    if (b) a = b.albname;       // is name of home album
     return a;
   }
 
@@ -282,7 +282,7 @@ export class MenuImage extends Component {
     let i = this.z.picIndex;
     if (i < 0) return a; //important
     let b = this.z.allFiles[i]; // has an object property `orig`
-    if (b) a = b.orig;          // which is path to home album
+    if (b) a = b.orig;          // is path to home album
     return a;
   }
 
@@ -762,8 +762,7 @@ export class ChooseAlbum extends Component {
       // selEl.value = this.z.imdbRoot;
       this.z.updateTree();
       await new Promise (z => setTimeout (z, 88));
-      // selEl.dispatchEvent(new Event('change'));
-      // await new Promise (z => setTimeout (z, 888));
+
       // Back to the album we came from
       await this.z.openAlbum(fromIndex);
     // ******************************************************
@@ -849,11 +848,8 @@ export class ChooseAlbum extends Component {
 
       // Go back to the album we came from after root load
       await this.z.openAlbum(fromIndex);
-      // Go to the destination album
-      // await this.z.openAlbum(this.which);
     }
     this.which = -1;
-    // await this.z.openAlbum(this.z.imdbDirIndex); // Reloads current album
     this.z.countNumbers();
   }
 

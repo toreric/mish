@@ -35,7 +35,7 @@ imgUpload:    Originalfotos in das Album hochladen
 notesEdit:    Notizen bearbeiten/speichern +13
 notesView:    Notizen anschauen
 saveChanges:  Änderungen speichern zusätzlich zu Text
-setSetting:   Einstellungen ändern
+setSetting:   (Diese Einstellungen ändern)¹
 textEdit:     Untertiteln bearbeiten/speichern, ausgeblendete Alben anzeigen³
 
 all: alle

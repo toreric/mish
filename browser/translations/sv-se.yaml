@@ -35,7 +35,7 @@ imgUpload:    ladda upp originalbilder till album
 notesEdit:    redigera/spara anteckningar +13
 notesView:    se anteckningar
 saveChanges:  spara ändringar utöver text
-setSetting:   ändra inställningar
+setSetting:   (ändra de här inställningarna)¹
 textEdit:     redigera/spara bildtexter, se dolda album³
 
 all: alla

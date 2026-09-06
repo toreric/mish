@@ -258,7 +258,9 @@ class Welcome extends Component {
         // console.log(allowances); // this is the text table of rights
       this.z.allowances = allowances;
 
-      // Check login cookie (e.g. change user early)
+      // Check login cookie (e.g. change user first/early) [2],
+      // and set maxWarning from its cookie value, if any [3].
+      // The [0] and [1] cookies are temporary and thus always '0'.
       if (this.z.getCookie('mish_sett')) {
         let sets = this.z.getCookie('mish_sett').split(',');
         if (Number(sets[2])) {

@@ -44,7 +44,7 @@ if [[ $yN != 'y' && $yN != 'yes' ]]; then
   exit
 fi
 echo
-echo "Copying all files to the web root:"
+echo "— Copying basic files to "$copyto
 
 # SAVING DIRECTORY
 pwd=$PWD
@@ -66,7 +66,7 @@ service=' deploy-mish exif_dimension grind ran4add rm-mini-show set_xmp_creatord
 
 # CHANGING DIRECTORY to the source directory of required and service Mish scripts:
 cd /usr/local/bin
-echo "Copying scripts to "$copyto
+echo "— Copying scripts to "$copyto
 scp $required$service $copyto"~/usr.local.bin"
 if [[ $? == 0 ]]; then
   echo "Ended with no error"
@@ -81,8 +81,8 @@ cp $required /home/tore/Arbeten/mish/.usr.local.bin
 cp $service /home/tore/Arbeten/mish/.mish.service.scripts
 echo "Scripts were also saved in the Mish project"
 echo
-echo "NOTE: this 'deploy-mish' script has to be"
-echo "much modified for use on another computer!"
+echo "NOTE: this ”deploy-mish” script has to be much modified"
+echo "for use on another computer than this, ”nejlika”!"
 
 # BACK TO SAVED DIRECTORY
 cd $pwd

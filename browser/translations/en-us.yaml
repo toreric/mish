@@ -35,7 +35,7 @@ imgUpload:    upload original images to album
 notesEdit:    edit/save notes +13
 notesView:    view notes
 saveChanges:  save changes beyond texts
-setSetting:   change settings
+setSetting:   (change these settings)¹
 textEdit:     edit/save image texts/captions, access hidden albums³
 
 all: all

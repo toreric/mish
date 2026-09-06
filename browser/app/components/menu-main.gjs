@@ -30,8 +30,9 @@ export class MenuMain extends Component {
 
   // Choose collection = album root directory and its album (sub)directories
   // and convert them into an object tree with an amended property set.
-  // NOTE: THE COLLECTIONS 'text' DIRECTORY IS COPIED INTO THE WEB ROOT!
-  // Finally: Indicate if this album tree has any hidden-without-allowance album.
+  // NOTE: The collection's 'text' directory is also copied into the web root,
+  // so its content may be easily accessed by hyperlinks in the image captions.
+  // Finally: Indicate, if allowed, whether this album tree has any hidden album(s).
   selectRoot = async (event) => { // Album root = collection
     this.z.closeMainMenu('- prepare for selectRoot');
     this.z.allFiles = []; // prepare for new root
@@ -41,6 +42,9 @@ export class MenuMain extends Component {
     this.z.closeDialog(dialogAlertId);
     this.z.imdbRoot = event.target.value;
     if (!this.z.imdbRoot) return; // We have selected none!
+
+    // Display the spinner already (will be hidden somewhere else)
+    document.querySelector('img.spinner').style.display = '';
       // console.log(document.getElementById('rootSel'));
       // this.z.loli(document.getElementById('rootSel').selectedIndex, 'color:red');
     document.querySelector('.albumsHdr').style.display = 'none'; // else ''
@@ -53,9 +57,6 @@ export class MenuMain extends Component {
       // this.z.loli('IMDB_ROOT (imdbRoot) set to ' + this.z.imdbRoot, 'color:orange');
     const allow = this.z.allow; // permissions
 
-    // Display the spinner already (will be hidden somewhere else)
-    document.querySelector('img.spinner').style.display = '';
-
     await new Promise (z => setTimeout (z, 699)); // selectRoot, ensurance!?
     // The wait reason: Sometimes getAlbumDirs is unsuspectedly null
 
@@ -64,8 +65,9 @@ export class MenuMain extends Component {
     // root album is read by the server, and mentioned albums
     // with subalbums are removed from the list:
     let tmp = await this.z.getAlbumDirs(allow.textEdit);
-      // this.z.loli('getAlbumDirs:' + LF + tmp, 'color:red');
+    if (tmp === null) return;
     let arr = tmp.split(LF);
+      // this.z.loli('getAlbumDirs:' + LF + tmp, 'color:red');
 
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     // The three first lines (to be shifted off) have other content
@@ -142,7 +144,6 @@ export class MenuMain extends Component {
       // JSON.stringify makes the album tree human readable:
       // this.z.loli('imdbTree ' + n + LF + JSON.stringify(result, null, 2), 'color:yellow');
       // this.z.loli(this.z.imdbCoco.length, 'color:red');
-    // await new Promise (z => setTimeout (z, 33*this.z.imdbCoco.length)); // selectRoot Wait for album tree
     await new Promise (z => setTimeout (z, 3333)); // selectRoot Wait for album tree
     this.toggleTree(CL); // fold all nodes except 0
 

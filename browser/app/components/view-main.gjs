@@ -302,7 +302,6 @@ class AllImages extends Component {
     } else {
       this.z.openDialog('dialogText');
     }
-    // await new Promise (z => setTimeout (z, 9)); // ediText
     document.querySelector('textarea[name="description"]').focus();
   }
 
@@ -570,7 +569,7 @@ class AllImages extends Component {
         </div>
         </RefreshThis>
 
-        {{!-- The image menu --}}
+        {{!-- The image menu for the thumbnails and the show image --}}
         <MenuImage @toggleInfo={{this.toggleInfo}} />
 
     </div>

@@ -35,7 +35,7 @@ imgUpload:    subir imágenes originales al álbum
 notesEdit:    editar/guardar notas +13
 notesView:    ver notas
 saveChanges:  guardar cambios más allá de los textos
-setSetting:   cambiar configuración
+setSetting:   (cambiar esta configuración)¹
 textEdit:     editar/guardar textos de imágenes, acceder a álbumes escondidos³
 
 all: todas

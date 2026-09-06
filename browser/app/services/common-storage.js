@@ -126,7 +126,7 @@ export default class CommonStorageService extends Service {
   @tracked  hasImages = false; // true if 'imdbDir' has at least one image
   @tracked  ifAuto = false;
   @tracked  imiix = 0; // Shown image index within the DOM array of thumbnails
-  // 'maxWarning' default (may be modified in 'settings'):
+  // 'maxWarning' may be modified in common settings, preserved in the mish_sett cookie:
   @tracked  maxWarning = 100;  // Recommended max. number of images in an album
   @tracked  numHidden = 0;  // Number of images with hide flag in 'sortOrder'
   @tracked  numImages = 0;  // Total numder of images in the album
@@ -177,7 +177,7 @@ export default class CommonStorageService extends Service {
     "notesEdit",    // +  " edit notes (metadata) NOTE *
     "notesView",    // +  " view   "              NOTE *
     "saveChanges",  // +  " save order/changes (= saveOrder)
-    "setSetting",   // +  " change settings
+    "setSetting",   // o  " change these settings
     "textEdit"      // +  " edit image texts (metadata) and hidden albums
                     //
                     // o = not yet used
@@ -348,7 +348,7 @@ export default class CommonStorageService extends Service {
   // Disable browser back arrow, go instead to most recent visited album
   //#region initBrowser
   initBrowser = async () => {
-    // Refresh the setting, it may have been lost!
+    // Refresh the setting every ten seconds, it may have been lost!
     while (this.bkgrColor) { // Intended eternal loop
       window.history.pushState (null, "");
       window.onpopstate = () => {
@@ -382,9 +382,6 @@ export default class CommonStorageService extends Service {
     // to conform with z.imdbDirs server list, rooted at album root
     if (this.imdbDir.slice(1,2) === '§') {
       picName = (picName.trim()).replace(/\.[0-9a-z]{4}$/, '');
-      // Uncertain about the role of picIndex here
-      // while (!this.allFiles) await new Promise (z => setTimeout (z,99));
-      // this.picIndex = this.allFiles.findIndex(a => {return a.name === picName;});
     }
       // this.loli('imdbDir: ' + this.imdbDir, 'color:orange');
       this.loli('picName: ' + picName, 'color:orange');
@@ -401,9 +398,6 @@ export default class CommonStorageService extends Service {
       }
     } else {
       await this.openAlbum(i);
-      // Allow for the rendering of mini images and preload of view images
-      // let size = this.albumAllImg(i);
-      // await new Promise (z => setTimeout (z, size*120 + 100)); // album load in homeAlbum
       this.gotoMinipic(picName, 'z.homeAlbum');
     }
   }
@@ -428,8 +422,6 @@ export default class CommonStorageService extends Service {
     document.querySelector('#smallButtons').style.display = '';
     document.querySelector('#upperButtons').style.display = '';
     document.querySelector('.albumsHdr').style.display = '';
-    // Display the spinner
-    document.querySelector('img.spinner').style.display = '';
     // Set marked zero
     this.numMarked = 0;
 
@@ -476,7 +468,7 @@ export default class CommonStorageService extends Service {
       if (file) newFiles.push(file);
     }
     this.hasImages = newFiles.length > 0;
-      // this.loli('hasImages = ' + this.hasImages, 'color:red'); // LOG WITH
+      // this.loli('hasImages = ' + this.hasImages, 'color:red');
     this.numImages = newFiles.length;
     this.allFiles = [...newFiles]; // copy back ¤¤¤
 
@@ -489,6 +481,7 @@ export default class CommonStorageService extends Service {
     // "push the allFiles content" into the thumbnail template:
     let tmpnode = document.getElementById('loadMiniImages');
     if (tmpnode) tmpnode.click(); // Avoids meaningless error
+
     // Show the subalbums etc.
     document.querySelector('#upperButtons').style.display = '';
     document.querySelector('.albumsHdr').style.display = '';
@@ -524,6 +517,12 @@ export default class CommonStorageService extends Service {
       this.loli('opened album ' + i + ' ' + a, 'color:lightgreen' );
     }
     document.querySelector('img.spinner').style.display = 'none';
+
+    // Restart the spinner if another login has been initiated
+    // HOW TO KNOW if another login has been initiated?
+    // SOLUTION (indirect): See getAlbumDirs in this file. It will
+    // cancel and restart itself if revoked after a speedy login,
+    // and the spinner then will continue unbroken.
 
     // Set colors in the album tree
     this.paintTree(i);
@@ -634,6 +633,7 @@ export default class CommonStorageService extends Service {
     // root album is read by the server, and mentioned albums
     // with subalbums are removed from the list:
     let tmp = await this.getAlbumDirs(allow.textEdit);
+    if (tmp === null) return;
     let arr = tmp.split(LF);
       // this.loli(arr[1], 'color:red');
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -695,8 +695,7 @@ export default class CommonStorageService extends Service {
       // this.loli(this.imdbDirs);
       // this.loli('imdbTree ' + n + LF + JSON.stringify(result, null, 2)); //human readable
       // this.loli(this.imdbCoco.length, 'color:red');
-    // await new Promise (z => setTimeout (z, 33*this.imdbCoco.length)); // in updateTree Wait for album tree
-    this.refreshTree ++;
+   this.refreshTree ++;
     await new Promise (z => setTimeout (z, 333)); // in updateTree Wait for album tree
 
     // Set colors in the album tree
@@ -838,9 +837,9 @@ export default class CommonStorageService extends Service {
     if (this.numImages !== this.numShown + this.numInvisible) {
       // If the total number of images in the open album (numImages) isn't correctly
       // updated at deletion/addition of images, one has to reload it, since the count
-      // is made elsewhere in openAlbum.It may be done by pressing the reload button
-      // with "document.getElementById('reLd').click();" or directly like here:
-      // this.openAlbum(this.imdbDirIndex); // Reloads current album
+      // is made elsewhere in openAlbum. It may be done by pressing the reload button
+      // with "document.getElementById('reLd').click();"
+      // or directly like "this.openAlbum(this.imdbDirIndex);"
       this.alertMess(this.intl.t('numbererror'), 0.25);
       this.loli('shown:' + this.numShown + ' + invisible:' + this.numInvisible + ' != sum:' + this.numImages, 'color:red');
     }
@@ -863,7 +862,7 @@ export default class CommonStorageService extends Service {
   //#region albumAllImg
   albumAllImg = (i) => { // number of original + symlink images in album 'i'
     let c = this.imdbCoco[i];
-    if (!c) return; // Break if e.g. during speedy login
+    if (!c) return 0; // Break if e.g. during a speedy login
     let a = c.replace(/^.*(\(.+\)).*$/, '$1'); // NOTE; Avoiding eval(a)
       // this.loli(a, 'color:red');
     a = a.slice(0, -1).slice(1).split('+');
@@ -903,7 +902,6 @@ export default class CommonStorageService extends Service {
   //#region markBorders
   // Flashing white thumbnail borders, highly temporary
   markBorders = async (namepic, from) => { // Mark a mini-image border; from is for debug
-    // await new Promise (z => setTimeout (z, 25)); // Allow the dom to settle
       // console.trace();
       // this.loli('z.markBorders ' + namepic +', from '+ from, 'color:deeppink');
       // console.log((new Error()).stack?.split("\n")[2]?.trim().split(" ")[1]);
@@ -956,7 +954,9 @@ export default class CommonStorageService extends Service {
       if (tgt.closest('.img_mini')) {
         // Does this ever happen?
         this.picName = tgt.closest('.img_mini').id.slice(1);
-        while (!this.allFiles) await new Promise (z => setTimeout (z,99));
+        while (!this.allFiles) {
+          await new Promise (z => setTimeout (z,99));
+        }
         this.picIndex = this.allFiles.findIndex(a => {return a.name === this.picName;});
       }
       if (e.button === 0) { // mouse button
@@ -1411,31 +1411,48 @@ export default class CommonStorageService extends Service {
 
   //#region imdbdirs/
   // Do not move 'getAlbumDirs' to 'menu-main.gjs' in order to balance
-  // code lines more reasonably between source files! Since it is also
+  // code lines more reasonably between source files, since it is also
   // called by 'updateTree' which is called from 'menu-image.gjs'!
-  getAlbumDirs = async (getHidden) => {
-    // Get album collections or albums if we are at an album root
+  albumDirsRequest = 0;
+  albumDirsXhr = null;
+  getAlbumDirs = (getHidden) => {
+    // Cancel the previous request
+    this.albumDirsXhr?.abort();
+    // This identifies this particular invocation
+    const request = ++this.albumDirsRequest;
     return new Promise((resolve, reject) => {
-      // ===== XMLHttpRequest returning user credentials
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'imdbdirs/', true, null, null);
+      const xhr = new XMLHttpRequest();
+      this.albumDirsXhr = xhr;
+      xhr.open('GET', 'imdbdirs/', true);
       this.xhrSetRequestHeader(xhr);
       xhr.setRequestHeader('hidden', getHidden ? 'true' : 'false');
-      xhr.onload = function() {
-        let res = xhr.response;
-        resolve(res);
-      }
-      xhr.onerror = function() {
-        reject({
-          status: this.status,
-          statusText: xhr.statusText
-        });
-      }
+      xhr.onload = () => {
+        if (request !== this.albumDirsRequest) {
+          // A newer request has superseded this one
+          return resolve(null);
+        }
+        this.albumDirsXhr = null;
+        resolve(xhr.response);
+      };
+      xhr.onerror = () => {
+        if (request !== this.albumDirsRequest) {
+          return resolve(null);
+        }
+        this.albumDirsXhr = null;
+        reject(new Error(xhr.statusText));
+      };
+      xhr.onabort = () => {
+        // If another request has superseded this one,
+        // quietly terminate the old caller:
+        if (request !== this.albumDirsRequest) {
+          return resolve(null);
+        }
+        this.albumDirsXhr = null;
+        resolve(null);
+      };
       xhr.send();
-    }).catch(error => {
-      console.error(error.message);
     });
-  }
+  };
 
   //#region imagelist/
   // WAS: requestNames = async () => { // ===== Request the file information list
@@ -1575,7 +1592,7 @@ export default class CommonStorageService extends Service {
       };
       xhr.send ();
     }).catch(error => {
-      console.error (error.message);
+      console.error(error.message);
     });
   }
 
