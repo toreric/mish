@@ -344,19 +344,19 @@ write:
              se solucionará finalmente</span>
   albumName: Introduce el nombre del álbum
   chooseAlbum: Ningún álbum seleccionado; ¡selecciona uno!
-  chooseBoth: Should both selected images
-  chooseErase: really be removed?
-  chooseFirst: be moved to the beginning?
+  chooseBoth: ¿Deben ambas imágenes seleccionadas
+  chooseErase: realmente se pueden eliminar?
+  chooseFirst: moverse al principio?
   chooseHeader: <b>Cancelar o confirmar</b>
-  chooseHide: be hidden or shown?
-  chooseLast: be moved to the end?
-  chooseLink: be linked to another album?
-  chooseMany: Should all {n} selected images
-  chooseMove: be moved to another album?
-  chosenNone: No image chosen!<br>
-              <br>At least the image you click must also be marked.
-              <br>This applies to deletion as a security measure.
-  chooseOne:  Should this image
+  chooseHide: escondida/s o visible/s?
+  chooseLast: moverse al final?
+  chooseLink: estar enlazada/s a otro álbum?
+  chooseMany: ¿Deberían todas las {n} imágenes seleccionadas
+  chooseMove: moverse a otro álbum?
+  chosenNone: ¡No se ha seleccionado ninguna imagen!<br>
+              <br>Al menos la imagen sobre la que haga clic debe estar marcada.
+              <br>Esto se aplica a la eliminación como medida de seguridad.
+  chooseOne:  ¿Debe esta imagen
   chooseRemove:  ¿Se deben eliminar todas las {n}<br>imágenes de la lista?
   chooseRemove1: ¿Se debe eliminar la imagen<br>seleccionada de la lista?
   chooseThis: "Álbum seleccionado: <b>{a}</b>"
@@ -379,7 +379,7 @@ write:
   eraseOption: "OPCIÓN y EXCEPCIÓN: Eliminar imágenes originales"
   eraseOption1: ¡ADVERTENCIA! ¡Las IMÁGENES ORIGINALES de los enlaces también se eliminarán ahora!
   eraseOption2: Bueno para eliminar duplicados; ¡úsalo con cuidado!
-  find0: "Search in:"
+  find0: "Buscar en:"
   find1: leyendas (textos superiores)
   find2: orígenes (textos inferiores)
   find3: notas
@@ -428,21 +428,21 @@ write:
   setEraseOriginal: Erase original with link (WARNING!)
   tmpAlb: Álbum para uso temporal
   tool0: "Choose for <b>{a}</b>:"
-  tool01: "For <b>all albums</b> in this collection, choose:"
-  tool1: Delete the album (must be empty)
-  tool2: Make a subalbum
-  tool3: Sort the images by names
-  tool31: in ascending order
-  tool32: in reverse order
-  tool4: Find duplicate image names
-  tool41: Find duplicate image names in <b>{a}</b> including all subalbums
-  tool42: Find duplicate image names
-  tool5: Upload images
-  tool51: Select image files to upload
-  tool6: Update search data
-  tool7: Try to find similar images
-  tool8: Make text list for displayed images
-  tool9: Manage own favorite images
-  tool99: Here is nothing to choose!
-  utilHeader: Tools for the album
-  utilHeader0: Tools for the album collection
+  tool01: "Para <b>todos los álbumes</b> de esta colección, elija:"
+  tool1: Eliminar el álbum (debe estar vacío)
+  tool2: Crear un subálbum
+  tool3: Ordena las imágenes por nombre
+  tool31: en orden ascendente
+  tool32: en orden inverso
+  tool4: Buscar nombres de imagen duplicados
+  tool41: Buscar nombres de imagen duplicados en <b>{a}</b>, incluyendo todos los subálbumes
+  tool42: Buscar nombres de imagen duplicados
+  tool5: Subir imágenes
+  tool51: Seleccione los archivos de imagen para cargar
+  tool6: Actualizar datos de búsqueda
+  tool7: Intenta buscar imágenes similares
+  tool8: Crear una lista de texto para las imágenes mostradas
+  tool9: Gestionar imágenes favoritas
+  tool99: ¡Aquí no hay nada que elegir!
+  utilHeader: Herramientas para el álbum
+  utilHeader0: Herramientas para la colección de álbumes
