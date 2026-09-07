@@ -127,7 +127,7 @@ status: Estado
 subalbum:  subálbum
 subalbums: subálbumes
 toggtext: "Mostrar/ocultar\nleyendas de las imágenes"
-txtGif: ¡Imagen Gif! Solo se le puede asignar texto temporal y no conservar de forma permanente
+txtGif: ¡Imagen Gif! Solo se le puede asignar texto temporal y no de forma permanente
 wait: esperar
 with: con
 xplErrImg: "Evaluación de la calidad<br>técnica de la imagen original:"
@@ -154,7 +154,7 @@ blockFirefox: "Unfortunately, full-size images cannot yet be viewed with\n
               Firefox browsers. Hopefully this will be fixed soon."
 button:
   add:       Añadir
-  ok:        ¡Si!
+  ok:        Sí
   backgtitle: Cambiar fondo
   cancel:    Cancelar
   close:     Cerrar
@@ -399,19 +399,19 @@ write:
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (dos elementos de búsqueda) encuentra todas las imágenes con el texto ’Nils Jacobsson’ pero también otras imágenes con los nombres ’Nils’ y ’Jacobss’ en el texto, por ejemplo, ’Nils Jonasson’ y ’Bertil Jacobsson’.<br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (one search term) finds images with, for example ’Nils Jacobsson’ or ’Nils Jacobsen’."
-  findHelp4: "<span>2</span>. Do mark that <span>at least one of them must be found...</span> and write, for example:
+  findHelp4: "<span>2</span>. Ten en cuenta que <span>al menos uno de ellos debe encontrarse...</span> y escribe, por ejemplo:
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (two search terms) finds all images with the text ’Nils Jacobsson’ and also all images with any of ’Nils’ or ’Jacobss’ in the text, for example ’Fredrik Nilson’ and/or ’Filip Jacobsson’ (but not ’Nisse Jacobson’).<br>
-            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (one search term) finds images with, for example ’Nils Jacobsson’ or ’Nils Jacobsen’ (same as <span>1</span>, since only one search term)."
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (dos términos de búsqueda) encuentra todas las imágenes con el texto ’Nils Jacobsson’ y también todas aquellas que contengan ’Nils’ o ’Jacobss’ en el texto; por ejemplo, ’Fredrik Nilson’ y/o ’Filip Jacobsson’ (pero no ’Nisse Jacobson’).<br>
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (un único término de búsqueda) encuentra imágenes que contienen, por ejemplo, ’Nils Jacobsson’ o ’Nils Jacobsen’ (lo mismo que <span>1</span>, al tratarse de un solo término de búsqueda)."
   findHelp5: Escribe lo que quieras buscar en el cuadro de la parte superior e inicia la búsqueda. El resultado se presenta en un álbum de uso temporal llamado <b>Imágenes encontradas</b> con un enlace al original en el menú de cada miniatura. <span style="color:#0a0;text-decoration:underline">Un borde verde debajo del pie de foto</span> indica una imagen enlazada.
   findHelp6: "Consejo: Averigua el número total de fotos en la colección de álbumes buscando una barra diagonal ’/’ (en los nombres de los álbumes)"
   foundNoAlbums: ¡No se encontraron álbumes!
   imageSeveral: Los nombres de las {n} imágenes que se eliminarán
   imageSingle:  El nombre de la imagen que se eliminará
   isEmpty: está vacío
-  keywords: "<b>Information about planned future addition:</b><br>
-             Keywords to be stored as metadata for search key use"
-  maxWarning: <b>More than {n} images cannot<br>be displayed together</b>
+  keywords: "<b>Información sobre futuras incorporaciones previstas:</b><br>
+             Palabras clave que se almacenarán como metadatos para su uso como claves de búsqueda"
+  maxWarning: <b>No se pueden mostrar<br>más de {n} imágenes a la vez</b>
   noDupNamesFound: No se encontraron nombres duplicados en <b>{a}</b> con subálbumes
   noErased: pero no se pudo eliminar {n}:<br><br>{a}
   noLinkLink: Hay al menos un enlace entre las imágenes seleccionadas.<br>¡Las imágenes enlazadas no pueden volver a enlazarse!<br>Ir a la imagen original para enlazarla.

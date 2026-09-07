@@ -1199,6 +1199,16 @@ export default class CommonStorageService extends Service {
     pic.querySelector('div[alt="MARKER"]').className = 'markFalse';
   }
 
+  xyMoveTrans3d = (trans, delta) => {
+    // Examples of trans contents:
+    //  translate3d(2.66666px, 0.533356px, 0px)
+    //  translate3d(-81.6004px, -77.333px, 0px)
+    // The delta value is maybe between 5 and -10.
+    let x = Number(trans.replace(/^[^(]*\(([-.0123456789]+).*$/, '$1')) + delta;
+    let y = Number(trans.replace(/^[^, ]*, ([-.0123456789]+).*$/, '$1')) + delta;
+    return 'translate3d(' + x + 'px, ' + y + 'px, 0px)'
+  }
+
   //#region COOKIES
   //== Cookie names are mish_lang, mish_bkgr, ...
   setCookie = (cname, cvalue, exminutes) => {
@@ -1653,11 +1663,11 @@ export default class CommonStorageService extends Service {
 
   //#region savetext/
   //saving image captions as metadata: saveText(filePath +'\n'+ txt1 +'\n'+ txt2);
-  placeMess = () => { // Place the message here too
+  placeMess = (pxDelta) => { // Place the message adjacent
     let textel = document.getElementById('dialogText');
     let messel = document.getElementById('dialogAlert');
     // Copy the screen coordinates to keep them close
-    messel.style.transform = textel.style.transform;
+    messel.style.transform = this.xyMoveTrans3d(textel.style.transform, pxDelta);
   }
   saveText = async (txt) => {
     var that = this;
@@ -1676,12 +1686,12 @@ export default class CommonStorageService extends Service {
           mess += that.intl.t('errTxtCannotSave') + '<br><br>';
           mess += that.intl.t('errTxtRecover');
           that.alertMess(mess, 0);
-          that.placeMess();
+          that.placeMess(5);
         } else {
           that.loli('Xmp.dc metadata saved for ' + that.picName);
           let mess = that.intl.t('captionFor') + ' <b style="color:black">' + that.picName + '</b> ' + that.intl.t('captionSaved');
           that.alertMess(mess, 1.5);
-          that.placeMess();
+          that.placeMess(5);
         }
       }
       xhr.send(txt);
