@@ -1,7 +1,6 @@
 // app/routes.js
 
 // const { statfs } = require('fs/promises') EC
-// import path, { dirname } from 'node:path'
 import path from 'node:path'
 import ProMise from 'bluebird'
 // const path = require('path')
@@ -12,7 +11,7 @@ import fs from 'node:fs'
 
 import multer from 'multer'
 import { execSync } from 'child_process'
-import bodyParser from 'body-parser'
+// import bodyParser from 'body-parser' obsolete
 import util from 'util'
 // const multer = require('multer')
 // const execSync = require('child_process').execSync
@@ -21,7 +20,7 @@ import util from 'util'
 import { exec as execute } from 'child_process'
 
 import SQLite from 'better-sqlite3'
-import { stdout } from 'node:process'
+// import { stdout } from 'node:process' obsolete
 // const SQLite = require('better-sqlite3')
 
 // Configure storage engine and filename
@@ -52,9 +51,6 @@ const upload = () => multer({
 export { upload }
 
 export default function(app) { // Start module.exports
-  // const fs = ProMise.promisifyAll(require('fs')) // ...Async() suffix
-  // const fs = ProMise.promisifyAll(fisy) // sets ...Async() suffix
-  // const execP = ProMise.promisify(require('child_process').exec)
 
   // exec is imported as execute (now exec will appear like an "execAsync")
   // Now exec use is ({stdout, stderr} = await exec(cmdstring)); note ()s!
@@ -69,8 +65,8 @@ export default function(app) { // Start module.exports
     res.status(400).send(err.message)
   })
 
-  app.use(bodyParser.urlencoded({extended: false}))
-  app.use(bodyParser.json())
+  // app.use(bodyParser.urlencoded({extended: false})) obsolete
+  // app.use(bodyParser.json())
 
 
   // This line should be moved to the 'login' and there followed at end by 'setdb.close'
@@ -735,7 +731,8 @@ export default function(app) { // Start module.exports
   // ##### Update one or more database entries
   //#region sqlupdate
   // NOTE: To handle 'req.body' with Formdata: Use multer().none()
-  app.post('/sqlupdate', multer().none(), async function(req, res, next) {
+  // but removed sept 2026 since application/json is used instead
+  app.post('/sqlupdate', async function(req, res, next) {
     console.log(BGRE + '/sqlupdate' + RSET)
       console.log("req.body =", req.body)
     let filepaths = req.body.filepaths
@@ -843,7 +840,7 @@ export default function(app) { // Start module.exports
   //   console.log(return_token)
   //   let file_that_was_uploaded = req.files
   //   console.log(file_that_was_uploaded)
-  //   return res.json("thanks")
+  //   return "thanks"
   // })
 
 
@@ -1155,17 +1152,13 @@ export default function(app) { // Start module.exports
     let minifile = path.join(fileObj.dir, '_mini_' + namefile + '.png')
     if (symlink === '&') {
       resizefile(origfile, showfile, "'640x640>'")
-      .then(resizefile(origfile, minifile, "'150x150>'")).then()
+      .then(resizefile(origfile, minifile, "'150x150>'"))
     } else {
-      //let linkto = await cmdasync("readlink " + origfile).then().toString().trim() // NOTE: Buggy, links badly, why, wrong syntax?
       let linkto = execSync("readlink " + origfile).toString().trim()
       let linkObj = path.parse(linkto)
 
-      // cmdasync("ln -sfn " + linkObj.dir + "/" +"_show_"+ linkObj.name + ".png " + showfile)
       exec("ln -sfn " + linkObj.dir + "/" +"_show_"+ linkObj.name + ".png " + showfile)
-      // .then(cmdasync("ln -sfn " + linkObj.dir + "/" +"_mini_"+ linkObj.name + ".png " + minifile))
       .then(exec("ln -sfn " + linkObj.dir + "/" +"_mini_"+ linkObj.name + ".png " + minifile))
-      .then()
     }
     let cmd = []
     let tmp = '--' // Should never show up
@@ -1253,17 +1246,13 @@ export default function(app) { // Start module.exports
       const { stdout, stderr } = await exec(imckcmd)
       // We have to be careful here since stderr may contain various messages and warnings
       // regarding irregular metadata field tags, especially among tiff image files, ignore;
-      // if (errmsg.stdout || errmsg.stderr) {
       if (stderr) console.log('Imagemagick convert:', stderr)
     } catch (err) {
       console.error(err)
     }
     if(filepath1 !== filepath) {
-      // await new Promise(z => setTimeout(z, 1222))
       await rename(filepath1, filepath)
       await chmod(filepath, '664')
-      // execSync("mv " + filepath1 + " " + filepath + "&&chmod 664 " + filepath)
-      // await exec("mv " + filepath1 + " " + filepath + "&&chmod 664 " + filepath)
     }
       console.log(' .' + filepath.slice(IMDB.length) + ' created') // Hide absolute s-path
     // })
@@ -1296,7 +1285,6 @@ export default function(app) { // Start module.exports
     .then(sqlUpdate(fileName))
     .then(fs.unlink(imdbImdbDir +'/_mini_'+ pngname)) // File not found isn't caught!
     .then(fs.unlink(imdbImdbDir +'/_show_'+ pngname)) // File not found isn't caught!
-    .then()
     .catch(function(error) {
       if (error.code === "ENOENT") {
         tmp = 'FILE NOT FOUND: ' + IMDB_ROOT + IMDB_DIR + '/' + picfile

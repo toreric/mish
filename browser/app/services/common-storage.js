@@ -1701,29 +1701,67 @@ export default class CommonStorageService extends Service {
   }
 
   //#region sqlupdate/
+  // (1st version)  with FormData depending on Multer
   // Update the sqlite text database (symlinked pictures auto-omitted)
   // Called from eraseFunc and doLinkMove in menu-image.gjs
-  sqlUpdate = (picPaths) => { // Must be complete server paths (LF-joined)
+  // sqlUpdate = (picPaths) => { // Must be complete server paths (LF-joined)
+  //   if (!picPaths) return;
+  //   let data = new FormData(); // depending on Multer in server
+  //   data.append ("filepaths", picPaths);
+  //   return new Promise ( (resolve, reject) => {
+  //     let xhr = new XMLHttpRequest ();
+  //     xhr.open('POST', 'sqlupdate/', true, null, null);
+  //     this.xhrSetRequestHeader(xhr);
+  //     xhr.onload = function() {
+  //       resolve(xhr.response); // empty
+  //     };
+  //     xhr.onerror = function () {
+  //       resolve(xhr.statusText);
+  //       reject({
+  //         status: this.status,
+  //         statusText: xhr.statusText
+  //       });
+  //     }
+  //       // console.log(data);
+  //     xhr.send (data);
+  //   });
+  // }
+  // (2nd version)
+  // sqlUpdate = (picPaths) => { // Must be complete server paths (LF-joined)
+  //   if (!picPaths) return;
+  //   return new Promise((resolve, reject) => {
+  //     let xhr = new XMLHttpRequest();
+  //     xhr.open('POST', 'sqlupdate/', true, null, null);
+  //     xhr.setRequestHeader('Content-Type', 'application/json');
+  //     this.xhrSetRequestHeader(xhr);
+  //     xhr.onload = function() {
+  //       resolve(xhr.response); // empty
+  //     };
+  //     xhr.onerror = function() {
+  //       reject({
+  //         status: this.status,
+  //         statusText: xhr.statusText
+  //       });
+  //     };
+  //     xhr.send(JSON.stringify({ filepaths: picPaths }));
+  //   });
+  // }
+
+  //#region sqlupdate/
+  // (3rd version)
+  // Update the sqlite text database (symlinked pictures auto-omitted)
+  // Called from eraseFunc and doLinkMove in menu-image.gjs
+  // MORE SIMPLIFIED using fetch:
+  sqlUpdate = async (picPaths) => {
     if (!picPaths) return;
-    let data = new FormData();
-    data.append ("filepaths", picPaths);
-    return new Promise ( (resolve, reject) => {
-      let xhr = new XMLHttpRequest ();
-      xhr.open('POST', 'sqlupdate/', true, null, null);
-      this.xhrSetRequestHeader(xhr);
-      xhr.onload = function() {
-        resolve(xhr.response); // empty
-      };
-      xhr.onerror = function () {
-        resolve(xhr.statusText);
-        reject({
-          status: this.status,
-          statusText: xhr.statusText
-        });
-      }
-        // console.log(data);
-      xhr.send (data);
+    const response = await fetch('sqlupdate/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ filepaths: picPaths })
     });
+    return response.text();
   }
 
   //#region search/

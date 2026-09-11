@@ -504,7 +504,7 @@ uploadPhoto = async (file) => {
   // DialogTools
   <template>
 
-    <dialog id="dialogTools" style="width:min(calc(100vw - 2rem),auto);max-width:480px;z-index:15;transform:none" open>
+    <dialog id="dialogTools" style="width:min(calc(100vw - 2rem),auto);max-width:520px;z-index:15;transform:none" open>
       <header data-dialog-draggable>
 
         {{!-- Placeholder for

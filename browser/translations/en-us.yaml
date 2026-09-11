@@ -67,7 +67,7 @@ for: for
 found: Found
 futureFacility: Not yet implemented
 #NOTE: Choose a 'guest: value' which exists in the _imdb_settings.sqlite 'user' table!
-#      Else use instead the standard name guest!
+#      Else use instead the standard 'guest: guest'!
 guest: guest
 has: has
 hidden: hidden
