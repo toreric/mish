@@ -79,6 +79,7 @@ uploadPhoto = async (file) => {
     let elRadio = e.target;
       // this.z.loli(`${elRadio.id} ${elRadio.checked}`, 'color:red');
     this.tool = elRadio.id;
+    if (this.tool === 'util2') this.clearInput('newAlbNam'); // Create album
     if (this.tool === 'util9') { // Manage own favorite images
       // Simulate clicking button.ok + closing this (look _here_):
       await new Promise (z => setTimeout (z, 555)); //wait to show
@@ -89,11 +90,13 @@ uploadPhoto = async (file) => {
     if (this.tool === 'util3') this.z.displayNames = 'block'; //sort by name=>show names
   }
 
-  clearInput = (id) => {
+  clearInput = async (id) => {
+    await new Promise (z => setTimeout (z, 111)); //wait to render
     let elem = document.getElementById(id);
     elem.value = '';
     elem.style.background = '#f0f0a0';
     elem.focus();
+    await this.doSubalbum(2);
   }
 
   get imdbDirName() {
@@ -261,8 +264,7 @@ uploadPhoto = async (file) => {
     // Buttons 'continue' and 'make-album'
     let bucont = document.querySelector('#newAlbNam + a + br + button');
     let bumake = document.querySelector('#newAlbNam + a + br + button + button');
-    elem.focus();
-    if (n === 1) { // continue
+    if (n === 1) { // continue at 1
       name = name.trim().replace(/ +/g, '_');
       elem.value = name;
       if (name && this.z.acceptedDirName(name)) {
@@ -274,11 +276,12 @@ uploadPhoto = async (file) => {
         bumake.disabled = true;
       }
     }
-    if (n > 1) { // reset
+    if (n > 1) { // reset at 2 3
       bucont.disabled = false;
       bumake.disabled = true;
       elem.style.background = '#f0f0a0'; // yellow
-      if (n === 3) { // make
+      elem.focus();
+      if (n === 3) { // make at 3
         let pathNew = this.z.imdbPath + this.z.imdbDir;
         let nameNew = '/' + document.getElementById('newAlbNam').value;
         let cmd = 'mkdir ' + pathNew + nameNew + ' && touch ' + pathNew + nameNew + '/.imdb';
@@ -486,14 +489,14 @@ uploadPhoto = async (file) => {
     this.z.alertMess(this.intl.t('write.dbUpdated'));
   }
 
-  adTo1 = () => {this.amTools++;}
-  @cached get addTools1() {
+  adTo1 = () => {this.amTools++;} // amTools = Album toools
+  @cached get addTools1() {       // individual (sub)album tools
     this.adTo1();
     return '';
   }
 
-  adTo2 = () => {this.cnTools++;}
-  @cached get addTools2() {
+  adTo2 = () => {this.cnTools++;} // cnTools = Common tools
+  @cached get addTools2() {       // all album collection tools
     this.adTo2();
      // console.log(this.cnTools);
     return '';
@@ -511,6 +514,7 @@ uploadPhoto = async (file) => {
         display:flex;justify-content:space-between --}}
         <p>&nbsp;</p>
 
+        {{!-- This dialog will show EITHER Albun tools OR Common tools (never both!) --}}
         {{#if this.z.albumTools}}
           {{!-- Album tools --}}
           <p><b>{{t 'write.utilHeader'}} <span>{{this.imdbDirName}}</span></b><br>({{this.z.imdbRoot}}{{this.z.imdbDir}})</p>
@@ -525,8 +529,8 @@ uploadPhoto = async (file) => {
       <main style="padding:0 0.75rem;max-height:24rem" width="99%">
 
         <div style="padding:0.5rem 0;line-height:1.4rem">
-        {{#if this.z.albumTools}}
-        {{!-- Album tools{{this.zeroTools1}} --}}
+
+        {{#if this.z.albumTools}} {{!-- Album tools --}}
 
           {{!-- Here are tools specific for the actual album --}}
           {{{t 'write.tool0' a=this.imdbDirName}}}<br>
@@ -545,7 +549,7 @@ uploadPhoto = async (file) => {
           {{/if}}
           {{#if this.okSubalbum}}
             <span class="glue">
-              <input id="util2" {{this.addTools1}} name="albumUtility" type="radio" autofocus {{on 'click' (fn this.detectRadio)}}>
+              <input id="util2" {{this.addTools1}} name="albumUtility" type="radio" {{on 'click' (fn this.detectRadio)}}>
               <label for="util2"> &nbsp;{{t 'write.tool2'}}</label>
             </span>
           {{/if}}
@@ -562,10 +566,9 @@ uploadPhoto = async (file) => {
             </span>
           {{/if}}
 
-        {{else}}
-        {{!-- Common tools{{this.zeroTools2}} --}}
+        {{else}}  {{!-- Common tools --}}
 
-          {{!-- Here are tools for the entire album collection --}}
+          {{!-- Here are Common tools for the entire album collection --}}
           <div style="margin:0.5rem 0 0 0">{{{t 'write.tool01'}}}</div>
           {{#if this.okSeeFavorites}}
             <span class="glue">
@@ -632,7 +635,7 @@ uploadPhoto = async (file) => {
           {{else if (eq this.tool 'util2')}}
             <b>{{t 'write.tool2'}}</b><br>
 
-            <input id="newAlbNam" type="text" class="cred user nameNew" size="36" title="" placeholder="{{t 'write.albumName'}}" style="margin:0.2rem 0 0.5rem 0" {{on 'keydown' (fn this.doSubalbum 2)}} autofocus autocomplete="off"><a title={{t 'erase'}} {{on 'click' (fn this.clearInput 'newAlbNam')}}> ×&nbsp;</a><br>
+            <input id="newAlbNam" type="text" class="cred user nameNew" size="36" placeholder="{{t 'write.albumName'}}" style="margin:0.2rem 0 0.5rem 0" {{on 'keydown' (fn this.doSubalbum 2)}} autocomplete="off"><a title={{t 'erase'}} {{on 'click' (fn this.clearInput 'newAlbNam')}}> ×&nbsp;</a><br>
 
             <button type="button" {{on 'click' (fn this.doSubalbum 1)}}>{{t 'button.continue'}}</button>
             <button type="button" {{on 'click' (fn this.doSubalbum 3)}} disabled>{{t 'button.dosub'}}</button>
@@ -683,14 +686,14 @@ uploadPhoto = async (file) => {
             {{!-- {{#let (fileQueue name='photos') as |queue|}} --}}
 
             {{!-- <form action="/uploads/" enctype="multipart/form-data" method="post" onsubmit="return false"> --}}
-              <label>Choose files
-                <input id="imUpLd" type="file" multiple name="uploaded_file">
-                {{!-- <input id="imUpLd" type="file" name="uploaded_file"> --}}
+              <label>{{t 'filesChoose'}}
+                <input id="imUpLd" type="file" multiple name="upload_files">
+                {{!-- <input id="imUpLd" type="file" name="upload_file"> --}}
               </label><br>
-              Files in queue: {{queue.files.length}}<br>
+              {{t 'filesQueued' n=queue.files.length}}<br>
               {{t 'filesPassed' n=this.nPass}}<br>
               {{t 'filesFailed' n=this.nFail}}<br>
-              <button type="submit">upload</button>
+              <button type="button" {{on 'click' (fn this.z.futureNotYet 'write.tool5')}}>{{t 'button.upload'}}</button>
             {{!-- </form> --}}
 
             {{/let}}
@@ -729,8 +732,6 @@ uploadPhoto = async (file) => {
           {{/if}}
 
         </div>
-
-        {{!-- {{this.resetRadio}} --}}
 
       </main>
       <footer data-dialog-draggable>

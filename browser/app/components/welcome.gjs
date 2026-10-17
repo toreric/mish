@@ -54,6 +54,7 @@ makeDialogDraggable();
 // Detect various keys
 document.addEventListener('keydown', (event) => {
 
+  if (event.ctrlKey) return;
   event.stopPropagation();
   var key = event.code;
     // console.log('Key ' + key + ' pressed');
@@ -77,19 +78,23 @@ document.addEventListener('keydown', (event) => {
         document.getElementById('go_back').click(); //close view image
       break;
     case 'ArrowLeft':  // <
-      if (document.activeElement.nodeName === 'TEXTAREA') break;
+      if (document.activeElement.nodeName === 'INPUT') break;
+      // if (document.activeElement.nodeName === 'TEXTAREA') break;
       document.querySelector('.nav_.prev').click();
       break;
     case 'ArrowRight':  // >
-      if (document.activeElement.nodeName === 'TEXTAREA') break;
+      if (document.activeElement.nodeName === 'INPUT') break;
+      // if (document.activeElement.nodeName === 'TEXTAREA') break;
       document.querySelector('.nav_.next').click();
       break;
     case 'KeyA':  // A
-      if (document.activeElement.nodeName === 'TEXTAREA') break;
+      if (document.activeElement.nodeName === 'INPUT') break;
+      // if (document.activeElement.nodeName === 'TEXTAREA') break;
       document.querySelector('.nav_.toggleAuto').click();
       break;
     case 'KeyF':  // F
-      if (document.activeElement.nodeName === 'TEXTAREA') break;
+      if (document.activeElement.nodeName === 'INPUT') break;
+      // if (document.activeElement.nodeName === 'TEXTAREA') break;
       event.preventDefault();
       document.getElementById('searchText').click();
       break;
@@ -111,8 +116,6 @@ const beep  =  function(vol, freq, duration){
   v.start(aud.currentTime);
   v.stop(aud.currentTime + duration*0.001);
 }
-
-
 
 // ALL bubbling mousedowns are caught, even programmatical clicks!
 // Important: ”document.body.” excludes SCROLLBARS, if any!
@@ -224,8 +227,8 @@ class Welcome extends Component {
   @service('common-storage') z;
   @service intl;
 
+  // Mish is initiated by getCred from the template via greet:
   greet = () => { getPromiseState(this.getCred()); } // avoid "obj" printout
-
 
   someFunction = (param) => {this.z.loli(param, 'color:red');}
 
@@ -239,7 +242,7 @@ class Welcome extends Component {
     if (this.z.refreshTexts) return; // First time if zero
     this.z.refreshTexts++ // this counter/trigger has another use later
     //await new Promise (z => setTimeout (z, 99)); // Allow userStatus to settle
-    await new Promise (z => setTimeout (z, 2299)); // getCred: with Vite 2026
+    await new Promise (z => setTimeout (z, 2299)); // in getCred: with Vite 2026
     if (!this.z.userStatus) { // only once
       this.z.loli('getCred RUNNING', 'color:yellow')
 
@@ -248,7 +251,7 @@ class Welcome extends Component {
       this.z.initBrowser();         // Manipulate browser back-arrow
       this.z.imdbRoot = await this.z.execute('echo -n $IMDB_ROOT'); // Server environment
       if (this.z.imdbRoot === '""') this.z.imdbRoot = ''; // See the node-express script!
-      await new Promise (z => setTimeout (z, 99)); // getCred: before awakening the system
+      await new Promise (z => setTimeout (z, 99)); // in getCred: before awakening
 
       // Read the build stamp files (nodestamp.txt may be initially missing) etc.
       this.z.aboutThis = 'Mish ' + await this.z.execute('cat buildstamp.txt') + ' ' + await this.z.execute('cat nodestamp.txt') + ' and Glimmer by Ember<br>' + await this.z.execute('head -n1 LICENSE.txt');
@@ -343,10 +346,6 @@ class Welcome extends Component {
   }
 }
 
-// const executeOnInsert = modifier((element, [component]) => {
-//   component.geCr();
-// });
-
 export default class extends Welcome {
   <template>
 
@@ -358,7 +357,6 @@ export default class extends Welcome {
 
     <div id="upperButtons" style="position:relative;top:0;left:0;width:100%;padding-top:0.5rem">
 
-      {{!-- <div {{executeOnInsert this}} class="" style="display:flex;justify-content:space-between;margin:0 3.25rem 0 4rem"> --}}
       <div style="display:flex;justify-content:space-between;margin:0 0.75rem 0 4rem">
 
         <span>
@@ -458,19 +456,20 @@ export default class extends Welcome {
 
     </p>
 
-    {{!-- <DialogLogin /> moved to ViewMain --}}
+    {{!-- <DialogLogin /> included in ViewMain --}}
     <DialogText />
-    {{!-- <DialogFavorites /> moved to DialogTools --}}
+    {{!-- <DialogFavorites /> included in DialogTools --}}
     <DialogFind />
     <DialogHelp />
-    {{!-- <DialogInfo /> moved to ViewMain --}}
+    {{!-- <DialogInfo /> included in ViewMain --}}
     <DialogAlert />
     <DialogChoose />
     <DialogXper @content={{this.getAlbum}} />
-    {{!-- <DialogTools /> moved to ViewMain --}}
+    {{!-- <DialogTools /> included in ViewMain --}}
     <DialogSettings />
     <Spinner />
 
+    {{!-- Initiate Mish: --}}
     {{this.greet}}
   </template>;
 }

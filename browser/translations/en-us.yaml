@@ -38,6 +38,7 @@ saveChanges:  save changes beyond texts
 setSetting:   (change these settings)¹
 textEdit:     edit/save image texts/captions, access hidden albums³
 
+Album: Album
 all: all
 allInAlbum: (to the album)
 and: and
@@ -70,6 +71,7 @@ futureFacility: Not yet implemented
 #      Else use instead the standard 'guest: guest'!
 guest: guest
 has: has
+hasNo: has no
 hidden: hidden
 hideshow: Hide or show
 home: to&nbsp;the&nbsp;main&nbsp;page&nbsp;of
@@ -164,6 +166,7 @@ button:
   dosub:     Make a new subalbum
   findIn:    Search in
   findDupNames: Find duplicate names
+  getFavorites: Retrieve favorites
   keywords:  Keywords
   #the initial 1 means link==true, move==false
   linkFunc:  1Link to the selected album
@@ -182,6 +185,7 @@ button:
   saveclose: Save and close
   show:      Show all in
   sort:      Sort
+  upload:    Upload
 
 buttons:
   left:
@@ -286,9 +290,11 @@ fav:
   images: Favorite images
   manage: Manage favorite images
 fileNameRules: "A file name may only contain ›A‹ to ›Z‹, ›a‹ to ›z‹, ›.‹, ›_‹ and ›0‹ to ›9‹ but not blanks/spaces, and it may not start with ›.‹, ›_imdb_‹, ›_mini_‹ or ›_show_‹."
+filesChoose: Choose files
 filesFailed: "Number failed: {n}"
 filesPassed: "Number of approved: {n}"
 filesProceed: with the approved
+filesQueued: "Files in queue: {n}"
 foundExplain: Found images
 fullSize: "New zoom window\nWhen focused, press:\n+ = zoom in\n– = zoom out\narrow = move\n0 = fit to window\n1 = 100%\n2 = 200%\nMouse click: show details"
 gomini: "Return\n
@@ -359,6 +365,7 @@ write:
   chooseOne:  Should this image
   chooseRemove:  Should all {n} images<br>be removed from the list?
   chooseRemove1: Should the selected image<br>be removed from the list?
+  chooseRemove2: Should both selected images<br>be removed from the list?
   chooseThis: "Selected album: <b>{a}</b>"
 #  chooseTool: Choose tool
   confirm: Not used, report!

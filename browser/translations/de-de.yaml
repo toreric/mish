@@ -38,6 +38,7 @@ saveChanges:  Änderungen speichern zusätzlich zu Text
 setSetting:   (Diese Einstellungen ändern)¹
 textEdit:     Untertiteln bearbeiten/speichern, ausgeblendete Alben anzeigen³
 
+Album: Album
 all: alle
 allInAlbum: (zum album)
 and: und
@@ -70,6 +71,7 @@ futureFacility: Noch nicht umgesetzt
 #      Else use instead the standard 'guest: guest'!
 guest: gast
 has: hat
+hasNo: hat keine
 hidden: verbergte
 hideshow: Verstecken oder anzeigen
 home: zur&nbsp;hauptseite&nbsp;von
@@ -163,6 +165,7 @@ button:
   dosub:     Ein neues Unteralbum erstellen
   findIn:    Suche in
   findDupNames: Doppelte Namen finden
+  getFavorites: Favoriten abrufen
   keywords:  Stichwörter
   #the initial 1 means link==true, move==false
   linkFunc:  1Zum ausgewählten Album verlinken
@@ -181,6 +184,7 @@ button:
   saveclose: Speichern und schließen
   show:      Alle anzeigen in
   sort:      Sortieren
+  upload:    Hochladen
 
 buttons:
   left:
@@ -285,9 +289,11 @@ fav:
   images: Bildfavoriten
   manage: Bildfavoriten verwalten
 fileNameRules: "Ein Dateiname darf nur ›A‹ bis ›Z‹, ›a‹ bis ›z‹, ›.‹, ›_‹ und ›0‹ bis ›9‹ enthalten, jedoch keine Leerzeichen und darf nicht mit ›.‹, ›_imdb_‹, ›_mini_‹ oder ›_show_‹ beginnen."
+filesChoose: Dateien auswählen
 filesFailed: "Nicht genehmigte: {n}"
 filesPassed: "Anzahl genehmigte: {n}"
 filesProceed: mit genehmigte
+filesQueued: "Dateien in der Warteschlange: {n}"
 foundExplain: Gefundene Bilder
 fullSize: "In neuem Fenster zoomen\nBei Fokus drücken:\n+ = vergrößert\n– = verkleinert\nPfeil = bewegen\n0 = an Fenster anpassen\n1 = 100 %\n2 = 200 %\nMausklick: Details anzeigen"
 gomini: "Zurück\n
@@ -358,6 +364,7 @@ write:
   chooseOne:  Soll dieses Bild
   chooseRemove:  Sollten alle {n} Bilder<br>aus der Liste entfernt werden?
   chooseRemove1: Soll das ausgewählte Bild<br>aus der Liste entfernt werden?
+  chooseRemove2: Sollen beide ausgewählten Bilder<br>aus der Liste entfernt werden?
   chooseThis: "Ausgewähltes Album: <b>{a}</b>"
 #  chooseTool: Werkzeug wählen
   confirm: Nicht verwendet, melden!

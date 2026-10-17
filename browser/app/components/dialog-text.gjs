@@ -139,7 +139,7 @@ export class DialogText extends Component {
           <p>&nbsp;</p>
           <p><b>{{t 'dialog.text.header'}}<span style="color:blue;cursor:pointer" type="button" {{on 'click' this.texts}} title="{{t 'dialog.text.reset'}}">
             {{this.picName}}</span></b></p>
-          {{!-- ^^^Here^^^  'this.picName' did some settings for GIFs etc.!!! --}}
+          {{!-- ^^^Here^^^  'this.picName' makes some settings for GIFs etc.!!! --}}
           <button class="close" type="button" {{on 'click' (fn this.z.closeDialog dialogTextId)}}>×</button>
         </header>
         <main>

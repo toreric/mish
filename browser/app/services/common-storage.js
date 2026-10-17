@@ -404,6 +404,8 @@ export default class CommonStorageService extends Service {
 
   //#region openAlbum
   openAlbum = async (i) => { // parameter may be text, e.g. '0' or '12'
+    // Display the spinner
+    document.querySelector('img.spinner').style.display = '';
     this.picName = '';
     this.picIndex = -1;
     // Close dialogs without reuse potential:
@@ -1970,7 +1972,7 @@ export default class CommonStorageService extends Service {
     const loliClose = (name) => this.loli('closed menu of image ' + name + ' in album ' + this.imdbRoot + this.imdbDir);
 
     let list = document.querySelector('#i' + this.escapeDots(name) + ' .menu_img_list');
-    if (!list.style.display) open = 0;
+    if (list && !list.style.display) open = 0;
     if (open) { // 1 == do open
       let allist = document.querySelectorAll('.menu_img_list');
       // If another image menu is open, close it:
@@ -1989,7 +1991,7 @@ export default class CommonStorageService extends Service {
       this.loli('opened menu of image ' + name + ' in album ' + this.imdbRoot + this.imdbDir);
 
     } else { // 0 == do close
-      if (!list.style.display) {
+      if (list && !list.style.display) {
         list.style.display = 'none';
         loliClose(name);
       }

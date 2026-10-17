@@ -38,6 +38,7 @@ saveChanges:  spara ändringar utöver text
 setSetting:   (ändra de här inställningarna)¹
 textEdit:     redigera/spara bildtexter, se dolda album³
 
+Album: Album
 all: alla
 allInAlbum: (till albumet)
 and: och
@@ -70,6 +71,7 @@ futureFacility: Ännu inte färdigt för användning
 #      Else use instead the standard 'guest: guest'!
 guest: gäst
 has: har
+hasNo: har inga
 hidden: dolda
 hideshow: Göm eller visa
 home: till&nbsp;huvudsidan&nbsp;för
@@ -165,6 +167,7 @@ button:
   dosub:     Gör ett nytt underalbum
   findIn:    Sök i
   findDupNames: Finn dublettnamn
+  getFavorites: Hämta favoriter
   keywords:  Nyckelord
   #the initial 1 means link==true, move==false
   linkFunc:  1Länka till det valda albumet
@@ -183,6 +186,7 @@ button:
   saveclose: Spara och stäng
   show:      Visa alla i
   sort:      Sortera
+  upload:    Ladda upp
 
 buttons:
   left:
@@ -287,9 +291,11 @@ fav:
   images: Favoritbilder
   manage: Favoritbildhantering
 fileNameRules: "Ett filnamn får bara innehålla ›A‹ till ›Z‹, ›a‹ till ›z‹, ›.‹, ›_‹ och ›0‹ till ›9‹ men inte blank/mellanslag, och det får inte börja med ›.‹, ›_imdb_‹, ›_mini_‹ eller ›_show_‹."
+filesChoose: Välj filer
 filesFailed: "Underkända: {n}"
 filesPassed: "Antal godkända: {n}"
 filesProceed: med godkända
+filesQueued: "Filer i kö: {n}"
 foundExplain: Funna bilder
 fullSize: "Zooma i nytt fönster\nVid fokus tryck på:\n+ = förstora\n– = förminska\npil = flytta\n0 = anpassa till fönster\n1 = 100 %\n2 = 200 %\nMusklick: visa detaljer"
 gomini: "Återgå\n
@@ -359,6 +365,7 @@ write:
   chooseOne:  Ska den här bilden
   chooseRemove:  Ska alla {n} bilderna<br>tas bort ur listan?
   chooseRemove1: Ska den markerade bilden<br>tas bort ur listan?
+  chooseRemove2: Ska båda markerade bilderna<br>tas bort ur listan?
   chooseThis: "Valt album: <b>{a}</b>"
 #  chooseTool: Välj verktyg
   confirm: Används inte, rapportera!

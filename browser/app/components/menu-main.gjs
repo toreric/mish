@@ -268,7 +268,7 @@ export class MenuMain extends Component {
 
           <a style="margin:0 0.2rem 0 0.5rem;padding:0.1rem 0.2rem;border:0.5px solid #d3d3d3;border-radius:4px" title-2={{t 'openallalb'}} {{on "click" (fn this.toggleTree this.opcl)}}>{{this.opcl}} {{t 'all'}}</a>
 
-          <a style="margin:0;padding:0.1rem 0.2rem;border:0.5px solid #d3d3d3;border-radius:4px" {{on "click" (fn this.showSelected)}}>{{t 'showselected'}}</a>
+          <a class="e0e" style="margin:0;padding:0.1rem 0.2rem;border:0.5px solid #d3d3d3;border-radius:4px" {{on "click" (fn this.showSelected)}}>{{t 'showselected'}}</a>
         </span>
       </div>
 

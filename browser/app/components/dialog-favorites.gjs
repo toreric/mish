@@ -15,6 +15,8 @@ import { getPromiseState } from 'reactiveweb/get-promise-state';
 
 const LF = '\n';   // Line Feed == New Line
 const BR = '<br>'; // HTML line break
+const RED  = '\x1b[31m';   // Red
+const RSET = '\x1b[0m';    // Reset
 
 export class DialogFavorites extends Component {
   @service('common-storage') z;
@@ -25,13 +27,25 @@ export class DialogFavorites extends Component {
   @tracked indices = [];
   @tracked items = [];
 
+// Det behövs en allmän reset-namArr/realArr-funktion
+// för att det är fönstret som gäller!!?!!
+  resetArr = () => {
+    const textEl = document.getElementById('favText');
+    if (textEl) {
+      this.nameArr = textEl.innerHTML;
+      this.nameArr = this.nameArr.replace(/\n\n/g, LF).trim();
+      textEl.innerHTML = this.nameArr;
+      this.realArr = this.nameArr.split(LF);
+      if (this.nameArr) this.z.setCookie('mish_favorites', this.realArr.join(','));
+    }
+  }
+
   addImgages = () => {
     if (this.z.picIndex > -1) this.z.toggleMenuImg(0);
     this.indices = [];
     this.items = [];
     let toAdd = '';
     let marked = document.querySelectorAll('.img_mini.selected ');
-    const textEl = document.getElementById('favText');
     if(!this.z.numMarked || !marked.length) {
       this.z.alertMess(this.intl.t('noneMarked'), 1.5);
       return
@@ -41,18 +55,22 @@ export class DialogFavorites extends Component {
         // ALSO: this.z.markOn(pic)
         // pic has its id == pic.id.slice(1)
         this.z.markOff(pic);
-        toAdd += pic.id.slice(1) + BR;
+        toAdd += LF + pic.id.slice(1);
       }
       this.z.countNumbers();
     }
     this.nameArr += toAdd;
+    this.nameArr = this.nameArr.trim();
+    const textEl = document.getElementById('favText');
+      console.log('nameArr:', this.nameArr);
     textEl.innerHTML = this.nameArr;
-    this.realArr = this.nameArr.split(BR);
-    console.log(this.realArr);
+    this.realArr = this.nameArr.split(LF);
+      console.log('realArr:', this.realArr);
   }
 
   removeImages = async () => {
     this.z.toggleMenuImg(0);
+    this.items = [];
     let text = window.getSelection().toString();
     const textEl = document.getElementById('favText');
     if (text.length > 0) {
@@ -64,12 +82,12 @@ export class DialogFavorites extends Component {
       }
       this.indices = [...new Set(this.indices)];
       for (let i=0;i<this.indices.length;i++) {
-        this.realArr[this.indices[i]] = '<span style="background:pink">' + this.realArr[this.indices[i]] + '</span>';
+        this.realArr[this.indices[i]] = '=>' + this.realArr[this.indices[i]] + '<=';
       }
-      textEl.innerHTML = this.realArr.join(BR);
-      console.log(text);
-      console.log(this.items);
-      console.log(this.indices)
+      textEl.innerHTML = this.realArr.join(LF);
+        console.log(text);
+        console.log(this.items);
+        console.log(this.indices)
     } else {
       this.indices = [];
       this.nameArr = '';
@@ -80,6 +98,7 @@ export class DialogFavorites extends Component {
     switch(n) {
       case 0: return; break;
       case 1: this.z.chooseText = this.intl.t('write.chooseRemove1'); break;
+      case 2: this.z.chooseText = this.intl.t('write.chooseRemove2'); break;
       default: this.z.chooseText = this.intl.t('write.chooseRemove', {n: n});
     }
     this.z.buttonNumber = 0;
@@ -99,7 +118,7 @@ export class DialogFavorites extends Component {
       }
       this.nameArr = '';
       for (let i=0;i<this.realArr.length;i++) {
-        if (athis.realArr[i]) this.nameArr += this.realArr[i] + BR;
+        if (this.realArr[i]) this.nameArr += this.realArr[i] + LF;
       }
       this.indices = [];
     } else {
@@ -108,9 +127,24 @@ export class DialogFavorites extends Component {
         let j = this.indices[i];
         this.realArr[j] = this.z.noTags(this.realArr[j]);
       }
-      this.nameArr = this.realArr.join(BR);
+      this.nameArr = this.realArr.join(LF);
     }
+    this.items = [];
     textEl.innerHTML = this.nameArr;
+    this.resetArr();
+  }
+
+  saveImages = async () => {
+    this.nameArr = document.getElementById('favText').innerHTML.trim();
+    this.realArr = this.nameArr.split(LF);
+    if (this.nameArr) this.z.setCookie('mish_favorites', this.realArr.join(','));
+    else this.z.setCookie('mish_favorites', '');
+  }
+
+  loadImages = async () => {
+    this.realArr = this.z.getCookie('mish_favorites').split(',');
+    this.nameArr = this.realArr.join(LF).trim();
+    document.getElementById('favText').innerHTML = this.nameArr;
   }
 
   <template>
@@ -123,18 +157,18 @@ export class DialogFavorites extends Component {
 
       <main style="padding:0.75rem;min-height:14rem">
 
-        <div id="favText" style="width:auto;height:auto;background:#fff;padding:0 0.5rem">
+        <div style="width:auto;height:auto;background:#fff">
+          <textarea id="favText" class="favorites" name="favorites" placeholder="Skriv in favoriter = bildnamn" rows="16" cols="52" {{on 'change' this.resetArr}}></textarea>
         </div>
 
       </main>
 
       <footer data-dialog-draggable style="display:inline-block;text-align:center">
         {{t 'numMarked'}}: {{this.z.numMarked}}<br>
-        &nbsp;
-        <button type="button" {{on 'click' (fn this.addImgages)}}>{{t 'button.add'}}</button>&nbsp;
-        <button type="button" {{on 'click' (fn this.removeImages 'dialogFavorites')}}>{{t 'button.remove'}}</button>&nbsp;
-        <button type="button" {{on 'click' (fn this.z.closeDialog 'dialogFavorites')}}>{{t 'button.save'}}</button>&nbsp;
-        <button type="button" {{on 'click' (fn this.z.closeDialog 'dialogFavorites')}}>{{t 'button.close'}}</button>&nbsp;
+        <button type="button" {{on 'click' (fn this.loadImages)}}>{{t 'button.getFavorites'}}</button>
+        <button type="button" {{on 'click' (fn this.addImgages)}}>{{t 'button.add'}}</button>
+        <button type="button" {{on 'click' (fn this.removeImages)}}>{{t 'button.remove'}}</button>
+        <button type="button" {{on 'click' (fn this.saveImages)}}>{{t 'button.save'}}</button>&nbsp;<button type="button" {{on 'click' (fn this.z.closeDialog 'dialogFavorites')}}>{{t 'button.close'}}</button>
       </footer>
     </dialog>
   </template>

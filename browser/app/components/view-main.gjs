@@ -50,11 +50,11 @@ class SubAlbums extends Component {
   @service('common-storage') z;
   @service intl;
 
-  get nsub() { // No of subalbums of this album
-    let res =  this.z.subaIndex.length;
-    if (res < 1) res = this.intl.t('no');
-    return res;
-  }
+  // get nsub() { // No of subalbums of this album
+  //   let res =  this.z.subaIndex.length;
+  //   if (res < 1) res = this.intl.t('no');
+  //   return res;
+  // }
 
   get nsubRoot() { // No of subalbums of the root album
     let res =  this.z.subaIndex.length - 1; // for the picFound album
@@ -63,11 +63,10 @@ class SubAlbums extends Component {
   }
 
   get sual() { // Subalbum(s) text
-    if (this.z.subaIndex.length === 1) {
-      return this.intl.t('subalbum');
-    } else {
-      return this.intl.t('subalbums');
-    }
+    let n = this.z.subaIndex.length;
+    if (n === 0) return this.intl.t('hasNo') + ' ' + this.intl.t('subalbums');
+    else if (n === 1) return this.intl.t('has') + ' ' + n + ' ' + this.intl.t('subalbum');
+    else return this.intl.t('has') + ' ' + n + ' ' + this.intl.t('subalbums');
   }
 
   get sualRoot() { // Subalbum(s) text for root
@@ -104,7 +103,7 @@ class SubAlbums extends Component {
       tmp = this.z.numOrigin + ' ' + this.intl.t('images');
       if (this.z.numLinked) tmp += ' (' + this.intl.t('own') + ') + ' + this.z.numLinked + ' ' + this.intl.t('linked');
     } else {
-      tmp =  this.intl.t('no') + ' ' + this.intl.t('images');
+      tmp =  this.intl.t('hasNo') + ' ' + this.intl.t('images');
     }
     return tmp;
   }
@@ -150,7 +149,7 @@ class SubAlbums extends Component {
           {{#if this.z.imdbDir}}
             <span title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}">
               <b>”{{this.z.handsomize2sp this.z.imdbDirName}}”</b>
-              {{t 'has'}} {{this.nsub}} {{this.sual}}<span title-2={{t 'plusExplain'}}>{{{this.nadd}}}</span>, &nbsp;<span>{{this.hasImages}}</span>
+              {{this.sual}}<span title-2={{t 'plusExplain'}}>{{{this.nadd}}}</span>, &nbsp;<span>{{this.hasImages}}</span>
             </span>
           {{else}} {{!-- root --}}
             <span>
@@ -164,8 +163,8 @@ class SubAlbums extends Component {
             {{#if (this.keepDir i)}}
               <div class="subAlbum" title="" {{on 'click' (fn this.z.openAlbum i)}}>
                 <a class="imDir" style="background:transparent">
-                  <div title-2="Album ”{{this.dirName i}}”">
-                    <img src={{this.setLabel i}} alt="Album ”{{this.dirName i}}”">
+                  <div title-2="{{t 'Album'}} ”{{this.dirName i}}”">
+                    <img src={{this.setLabel i}} alt="{{t 'Album'}} ”{{this.dirName i}}”">
                   </div><br>
                   <span style="font-size:85%;color:{{this.z.subColor}}">{{this.dirName i}}</span>
                 </a>
@@ -364,7 +363,7 @@ class AllImages extends Component {
       {{#if this.z.imdbRoot}}
 
         {{!-- Here is an invisible button for album images load, used
-        programmatically by z.openAlbum, display it for manual test/use! --}}
+        programmatically by z.openAlbum, display it for manual test/use --}}
         <p class="tmpHeader" style="display:none">
             Press to (re)load images for
             <button id="loadMiniImages" type="button" {{on 'click' this.copyAllFiles}}>{{{this.z.imdbDirName}}}</button>

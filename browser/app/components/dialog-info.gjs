@@ -140,11 +140,11 @@ export class DialogInfo extends Component {
           {{{this.showStat}}}
 
           {{!-- Image name --}}
-          <i>{{t 'Name'}}</i>
+          <i>{{t 'Name'}}</i>:
           <span style="color:black">{{this.z.picName}}</span><br>
 
           {{!-- Original image file path --}}
-          {{t 'Filename'}}
+          <i>{{t 'Filename'}}</i>:
           {{#if this.linkedImage}}
             {{this.fileName}}
           {{else}}

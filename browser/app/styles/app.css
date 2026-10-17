@@ -56,7 +56,7 @@ dialog footer {
   justify-content: center;
   background-color: #ddd;
   cursor: grabbing;
-  width: 99%;
+  width: auto;
 }
 /* Stänger av blåmarkering på alla dragbara ytor */
 [data-dialog-draggable] {
@@ -300,7 +300,8 @@ button.updText {
 }
 textarea.favorites {
   background: #f0f0e0;
-  width: 20em;
+  width: 28rem;
+  border-radius: 0;
 }
 #notes textarea {
   font-family: Georgia, "Times New Roman", Times, serif !important;
@@ -892,12 +893,14 @@ img[alt] {
   font-size: 80%;
   color: #777;
 }
+
 /* *** CSS tooltip title-1 for long one-liners */
-*[title-1] {
+[title-1] {
   position: relative;
+  cursor: pointer;
 }
-*[title-1]:hover::after,
-*[title-1]:active::after {
+[title-1]:hover::after,
+[title-1]:active::after {
   content: attr(title-1);
   position: absolute;
   left: 0;
@@ -921,6 +924,7 @@ img[alt] {
   opacity: 1;
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 .img_txt1[title-2],
 .img_txt2[title-2] {
@@ -930,6 +934,7 @@ img[alt] {
   opacity: 1;
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 .hoverDark[title-2],
 .hoverDark[title-3] {
@@ -1945,6 +1950,9 @@ a {
   cursor: pointer;
   text-decoration: none;
   border-radius: 3pt;
+}
+a.e0e {
+  color: #e0e;
 }
 a:hover {
   color: #aef;

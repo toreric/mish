@@ -38,6 +38,7 @@ saveChanges:  guardar cambios más allá de los textos
 setSetting:   (cambiar esta configuración)¹
 textEdit:     editar/guardar textos de imágenes, acceder a álbumes escondidos³
 
+Album: Álbum
 all: todas
 allInAlbum: (al álbum)
 and: y
@@ -70,6 +71,7 @@ futureFacility: Aún no implementado
 #      Else use instead the standard 'guest: guest'!
 guest: huésped
 has: tiene
+hasNo: no tiene
 hidden: escondidas
 hideshow: Ocultar o mostrar
 home: a&nbsp;la&nbsp;página&nbsp;principal&nbsp;de
@@ -164,6 +166,7 @@ button:
   dosub:     Crear un nuevo subálbum
   findIn:    Buscar en
   findDupNames: Buscar nombres duplicados
+  getFavorites: Obtener favoritas
   keywords:  Palabras clave
   #the initial 1 means link==true, move==false
   linkFunc:  1Enlace al álbum seleccionado
@@ -178,10 +181,11 @@ button:
              haciendo clic aquí"
   rights:    Sobre derechos
   rightsinfo: Información de derechos
-  save:      Guárdalo
+  save:      Guardar
   saveclose: Guardar y cerrar
-  show:      Mostrar todo en
+  show:      Mostrar todas en
   sort:      Ordenar
+  upload:    Subir
 
 buttons:
   left:
@@ -209,7 +213,7 @@ dialog:
     nolinks: (no enlazadas)
   help:
     header: Guía del usuario/a
-    header1: (mainly for computers with keyboard and mouse or touchpad)
+    header1: (principalmente para ordenadores con teclado y ratón o panel táctil)
     imgdef0: Una imagen
     imgdef1: en un álbum es o bien una
     imgdef2: imagen original
@@ -269,7 +273,7 @@ dialog:
     text2: utilizarlos con fines comerciales o lucrativos. Usted se compromete a respetar la legislación vigente en
     text3: materia de derechos de autor y a no transferir imágenes a terceros. Por favor, dirija cualquier consulta sobre
     text4: permisos para una posible distribución o transferencia a la persona responsable de la colección del álbum.
-    footnote1: "¹ Entre paréntesis: Aún no implementado"
+    footnote1: "¹ Entre parénteses: Aún no implementado"
     footnote2: "² Restricción para algunas imágenes debido a derechos de autor reservados"
     footnote3: "³ Sin este permiso, no hay forma de saber si existen álbumes escondidos"
   text:
@@ -286,11 +290,13 @@ fav:
   images: Imágenes favoritas
   manage: Gestionar imágenes favoritas
 fileNameRules: "Un nombre de archivo solo puede contener caracteres de ›A‹ a ›Z‹, ›a‹ a ›z‹, ›.‹, ›_‹ y ›0‹ a ›9‹ pero no espacios en blanco, y no puede comenzar con ›.‹, ›_imdb_‹, ›_mini_‹ o ›_show_‹."
+filesChoose: Seleccionar archivos
 filesFailed: "Número de fallos: {n}"
 filesPassed: "Número de aprobados: {n}"
 filesProceed: con los aprobados
+filesQueued: "Archivos en cola: {n}"
 foundExplain: Imágenes encontradas
-fullSize: "Nueva ventana de zoom\nCuando esté enfocado, pulse:n+ = acercar\n– = alejar\nflecha = move\n0 = ajustar a la ventana\n1 = 100%\n2 = 200%\nMouse click: mostrar detalles"
+fullSize: "Nueva ventana de zoom\nCuando esté enfocado, pulse:\n+ = acercar\n– = alejar\nflecha = move\n0 = ajustar a la ventana\n1 = 100%\n2 = 200%\nClic del ratón: mostrar detalles"
 gomini: "Retorno\n
         [Esc]"
 gonext: "Próxima\n
@@ -309,7 +315,7 @@ imageMenu: "Menú\nde imagen"
 infoHeader: Información
 loggedIn: Usuario/a
 nameError: Error de nombre
-navHelp: "Alternative\nimage swap.\nFor further\nassistance:\nPress F1!"
+navHelp: "Opciones para\ncambiar la imagen.\nPara obtener más\nayuda: ¡Presione F1!"
 maxfor: máximo para
 noCollSelected: Ninguna colección de álbumes seleccionada
 picfound: §Imágenes_encontradas
@@ -359,6 +365,7 @@ write:
   chooseOne:  ¿Debe esta imagen
   chooseRemove:  ¿Se deben eliminar todas las {n}<br>imágenes de la lista?
   chooseRemove1: ¿Se debe eliminar la imagen<br>seleccionada de la lista?
+  chooseRemove2: ¿Se deben eliminar de la lista<br>ambas imágenes seleccionadas?
   chooseThis: "Álbum seleccionado: <b>{a}</b>"
 #  chooseTool: Choose tool
   confirm: ¡No se usa, repórtalo!
@@ -398,7 +405,7 @@ write:
   findHelp3: "<span>1</span>. Seleccionas <span>todas en una sola...</span> y luego escribes en el cuadro de texto de arriba; aquí tienes algunos ejemplos (resaltados en azul):
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (dos elementos de búsqueda) encuentra todas las imágenes con el texto ’Nils Jacobsson’ pero también otras imágenes con los nombres ’Nils’ y ’Jacobss’ en el texto, por ejemplo, ’Nils Jonasson’ y ’Bertil Jacobsson’.<br>
-            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (one search term) finds images with, for example ’Nils Jacobsson’ or ’Nils Jacobsen’."
+            &nbsp;&nbsp;&nbsp;&nbsp; <span>nils%jacobs</span> (un único término de búsqueda) encuentra imágenes con, por ejemplo, ’Nils Jacobsson’ y/o ’Nils Jacobsen’."
   findHelp4: "<span>2</span>. Seleccionas <span>al menos una de ellas debe encontrarse...</span> y escribe, por ejemplo:
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp; <span>nils jacobss</span> (dos términos de búsqueda) encuentra todas las imágenes con el texto ’Nils Jacobsson’ y también todas aquellas que contengan ’Nils’ o ’Jacobss’ en el texto; por ejemplo, ’Fredrik Nilson’ y/o ’Filip Jacobsson’ (pero no ’Nisse Jacobson’).<br>
@@ -431,7 +438,7 @@ write:
   tool01: "Para <b>todos los álbumes</b> de esta colección, elija:"
   tool1: Eliminar el álbum (debe estar vacío)
   tool2: Crear un subálbum
-  tool3: Ordena las imágenes por nombre
+  tool3: Ordenar las imágenes por nombre
   tool31: en orden ascendente
   tool32: en orden inverso
   tool4: Buscar nombres de imagen duplicados
@@ -442,7 +449,7 @@ write:
   tool6: Actualizar datos de búsqueda
   tool7: Intenta buscar imágenes similares
   tool8: Crear una lista de texto para las imágenes mostradas
-  tool9: Gestionar imágenes favoritas
+  tool9: Gestionar propias imágenes favoritas
   tool99: ¡Aquí no hay nada que elegir!
   utilHeader: Herramientas para el álbum
   utilHeader0: Herramientas para la colección de álbumes
