@@ -448,8 +448,7 @@ export default class extends Welcome {
       {{{this.z.aboutThis}}}
       <br>
 
-      <a href id="do_mail" style="font-size:2rem;margin:0" class="smBu" title={{t 'buttons.left.mail'}} {{on 'click' (fn this.someFunction 'doMail')}} src="/images/mail.svg">
-      </a>
+      <a href id="do_mail" style="font-size:2rem;margin:0" class="smBu" title={{t 'buttons.left.mail'}} {{on 'click' (fn this.someFunction 'doMail')}} src="/images/mail.svg">&nbsp;</a>
 
       <a id="netMeeting" class="smBu" title={{t 'buttons.left.meet'}}
       href="https://meet.jit.si/Minnenfr%C3%A5nS%C3%A4var%C3%A5dalenochHolm%C3%B6n" target="jitsi_window" draggable="false" ondragstart="return false" style="font-size:1.85rem;margin:0;padding:0 0.4rem 0.3rem 0.2rem">▣</a>

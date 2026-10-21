@@ -39,6 +39,7 @@ export class MenuMain extends Component {
     this.z.imgItems = [];  // remove any old thumbnails (does it work?)
     this.z.rmMinis(); // remove any remaining thumbnails in the DOM
     this.z.closeDialog('dialogFindResult'); // may cause trouble if open
+    this.z.closeDialog('dialogDupResult');  // "
     this.z.closeDialog(dialogAlertId);
     this.z.imdbRoot = event.target.value;
     if (!this.z.imdbRoot) return; // We have selected none!

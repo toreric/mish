@@ -468,8 +468,8 @@ uploadPhoto = async (file) => {
   doDupNamesShow = async () => {
     document.querySelector('img.spinner').style.display = '';
     this.z.openAlbum(this.z.picFoundIndex);
-    this.z.closeDialog('dialogDupResult');
-    await new Promise (z => setTimeout(z, this.countImgs*50 + 99)); // doDupNamesShow
+    this.z.closeDialog('dialogTools');
+    await new Promise (z => setTimeout(z, this.countImgs*50 + 99)); // in doDupNamesShow
     this.z.displayNames = 'block';
     document.querySelector('img.spinner').style.display = 'none';
   }
@@ -654,8 +654,8 @@ uploadPhoto = async (file) => {
                 <label for="util32"> &nbsp;{{t 'write.tool32'}}</label>
               </span>
             </form>
-
-            <b>{{t 'write.tool3'}}?</b>&nbsp;
+            {{!-- write.iq = inverted question mark --}}
+            <b>{{t 'write.iq'}}{{t 'write.tool3'}}?</b>&nbsp;
             <button type="button" {{on 'click' (fn this.doSort)}}>{{t 'button.ok'}}</button>
 
           {{!-- === Find duplicate image names === --}}
@@ -665,14 +665,14 @@ uploadPhoto = async (file) => {
             {{!-- {{#if this.z.imdbDir}} subtree OVERRIDE!
               <button type="button" {{on 'click' (fn this.doDupNames)}}>{{{t 'write.tool41' a=this.imdbDirName}}}</button>
             {{else}} root --}}
-              <b>{{t 'write.tool42'}}?</b>&nbsp;
+              <b>{{t 'write.iq'}}{{t 'write.tool42'}}?</b>&nbsp;
               <button type="button" {{on 'click' (fn this.doDupNames)}}>{{t 'button.ok'}}</button>
             {{!-- {{/if}} --}}
 
           {{!-- === Find duplicate images === --}}
           {{else if (eq this.tool 'util7')}}
 
-              <b>{{t 'write.tool7' a=this.imdbDirName}}?</b>&nbsp;
+              <b>{{t 'write.iq'}}{{t 'write.tool7' a=this.imdbDirName}}?</b>&nbsp;
               <button type="button" {{on 'click' (fn this.doDupImages)}}>{{t 'button.ok'}}</button>
 
           {{!-- === Upload images === --}}
@@ -719,8 +719,9 @@ uploadPhoto = async (file) => {
           {{!-- === Update search data for the entire album collection === --}}
           {{else if (eq this.tool 'util6')}}
 
-            <b>{{t 'write.tool6'}}?</b>&nbsp;
-            <button type="button" {{on 'click' (fn this.doDbUpdate)}}>{{t 'button.ok'}}</button>
+            <b>{{t 'write.iq'}}{{t 'write.tool6'}}?</b>&nbsp;
+            <button type="button" {{on 'click' (fn this.doDbUpdate)}}>{{t 'button.ok'}}</button><br>{{t 'write.tool61'}}
+
 
           {{!-- === Manage personal favorites === --}}
           {{else if (eq this.tool 'util9')}}

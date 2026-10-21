@@ -414,7 +414,8 @@ write:
   findHelp6: "Tips: Ta reda på hur många bilder det finns i albumsamlingen genom att söka efter ett ’/’ (i albumnamn)!"
   foundNoAlbums: Fann inga album!
   imageSeveral: Namnen på {n} bilder som ska tas bort
-  imageSingle:  Namnet på bilden som ska tas bort
+  imageSingle:  Namnet på bilden som ska tas bor
+  iq: ""
   isEmpty: är tomt
   keywords: "<b>Information om planerat framtida tillägg:</b><br>
             Ord lagrade som metadata för användning som särskilda sökbegrepp"
@@ -448,6 +449,7 @@ write:
   tool5: Ladda upp bilder
   tool51: Välj bildfiler att ladda upp
   tool6: Uppdatera sökdata
+  tool61: (kan ta några minuter)
   tool7: Försök finna likadana bilder
   tool8: Gör textlista till bilder som visas
   tool9: Hantera egna favoritbilder

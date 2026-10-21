@@ -415,6 +415,7 @@ write:
   foundNoAlbums: No albums found!
   imageSeveral: The names of {n} images to be removed
   imageSingle:  The name of the image to be removed
+  iq: ""
   isEmpty: is empty
   keywords: "<b>Information about planned future addition:</b><br>
              Keywords to be stored as metadata for search key use"
@@ -449,6 +450,7 @@ write:
   tool5: Upload images
   tool51: Select image files to upload
   tool6: Update search data
+  tool61: (may take some minutes)
   tool7: Try to find similar images
   tool8: Make text list for displayed images
   tool9: Manage own favorite images

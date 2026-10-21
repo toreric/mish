@@ -1016,7 +1016,8 @@ img[alt] {
   z-index: 99999;
   visibility: hidden;
 }
-.miniImgs span {
+.miniImgs.albs span,
+.miniImgs.imgs span {
   display: inline-block;
   margin-bottom: 0.1em;
 }

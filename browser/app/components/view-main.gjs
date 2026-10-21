@@ -391,13 +391,15 @@ class AllImages extends Component {
           {{!-- If the album isn't the root album: --}}
           {{#if this.z.imdbDir}}
 
-            <p><b title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}">”{{this.z.handsomize2sp this.z.imdbDirName}}”</b>
+            <p>
 
             {{#if this.z.numHidden}}
+              <span title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}"><b>”{{this.z.handsomize2sp this.z.imdbDirName}}”</b>
               — {{this.z.numShown}}&nbsp;{{t 'shown'}},
-              {{this.z.numInvisible}}&nbsp;{{t  'hidden'}}
+              {{this.z.numInvisible}}&nbsp;{{t  'hidden'}}</span>
             {{else}}
-              — {{this.z.numShown}}&nbsp;{{t 'shown'}}
+              <span title-2="{{this.z.imdbRoot}}{{this.z.imdbDir}}"><b>”{{this.z.handsomize2sp this.z.imdbDirName}}”</b>
+              — {{this.z.numShown}}&nbsp;{{t 'shown'}}</span>
             {{/if}}
 
             ({{this.z.numMarked}}&nbsp;{{t 'marked'}})</p>

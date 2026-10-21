@@ -163,7 +163,7 @@ export class DialogFavorites extends Component {
 
       </main>
 
-      <footer data-dialog-draggable style="display:inline-block;text-align:center">
+      <footer data-dialog-draggable style="display:block;text-align:center">
         {{t 'numMarked'}}: {{this.z.numMarked}}<br>
         <button type="button" {{on 'click' (fn this.loadImages)}}>{{t 'button.getFavorites'}}</button>
         <button type="button" {{on 'click' (fn this.addImgages)}}>{{t 'button.add'}}</button>

@@ -332,7 +332,7 @@ select:
 selectAlbumMove: ¿Mover a qué álbum?
 selectAlbumLink: ¿Enlace a qué álbum?
 selectTarget: Seleccionar álbum de destino
-sizewarning: A D V E R T E N C I A &nbsp; D E L &nbsp; T A M A Ñ O<br><br>More than
+sizewarning: A D V E R T E N C I A &nbsp; D E L &nbsp; T A M A Ñ O<br><br>¡Más de
 spinwait: W A I T — or stop with a click if it spins too long
 time:
   text: La hora es
@@ -415,6 +415,7 @@ write:
   foundNoAlbums: ¡No se encontraron álbumes!
   imageSeveral: Los nombres de las {n} imágenes que se eliminarán
   imageSingle:  El nombre de la imagen que se eliminará
+  iq: ¿
   isEmpty: está vacío
   keywords: "<b>Información sobre futuras incorporaciones previstas:</b><br>
              Palabras clave que se almacenarán como metadatos para su uso como claves de búsqueda"
@@ -447,6 +448,7 @@ write:
   tool5: Subir imágenes
   tool51: Seleccione los archivos de imagen para cargar
   tool6: Actualizar datos de búsqueda
+  tool61: (puede tardar unos minutos)
   tool7: Intenta buscar imágenes similares
   tool8: Crear una lista de texto para las imágenes mostradas
   tool9: Gestionar propias imágenes favoritas

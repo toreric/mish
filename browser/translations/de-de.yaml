@@ -412,9 +412,10 @@ write:
   findHelp5: Schreiben in das Feld oben, wonach gesucht werden soll, dann die Suche starten. Das Ergebnis wird in einem temporären Album mit dem Namen <b>Gefundene Bilder</b> präsentiert. Es gibt einem Link zum Original im Menü jedes Miniaturbildes. <span style="color:#0a0;text-decoration:underline">Ein grüner Rand unter der Bildunterschrift</span> bedeutet ein verlinktes Bild.
   findHelp6: "Tipp: Die Gesamtzahl der Bilder in der Albensammlung wird durch die Suche (in Albumnamen) nach einem „/” angezeigt!"
   foundNoAlbums: Keine Alben gefunden!
-  isEmpty: ist leer
   imageSeveral: Die Namen von {n} Bildern, die entfernt werden sollen
   imageSingle:  Der Name des Bildes, das entfernt werden soll
+  iq: ""
+  isEmpty: ist leer
   keywords: "<b>Information von geplante zukünftige Ergänzung:</b><br>
             Wörter als Metadaten gespeichert zur Verwendung als Suchbegriffe"
   maxWarning: <b>Mehr als {n} Bilder können nicht<br>alle gleichzeitig angezeigt werden</b>
@@ -446,6 +447,7 @@ write:
   tool5: Bilder hochladen
   tool51: Bilddateien hochzuladen auswählen
   tool6: Suchdaten aktualisieren
+  tool61: (kann einige Minuten dauern)
   tool7: Ähnliche Bilder finden versuchen
   tool8: Textliste für angezeigte Bilder erstellen
   tool9: Eigene Lieblingsbilder verwalten

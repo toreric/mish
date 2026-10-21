@@ -2068,7 +2068,7 @@ export default class CommonStorageService extends Service {
         path = f.linkto;
           // this.loli('2 '+path, 'color:yellow');
       }
-      if (path[0] !== '.') { // Is occationaly incomplete
+      if (path[0] !== '.') { // Is occationally incomplete
         if (path[0] === '/') path = '.' + path;
         else path = './' + path;
       }
