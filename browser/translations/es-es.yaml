@@ -47,9 +47,9 @@ captionFor: Pies de imagen para
 captionSaved: guardado
 checkuncheck: Marcar o desmarcar todas
 chooseShow: "Elige ver en <b>{f}</b> o en su propio álbum"
-created: creada
+created: creado
 createfail: NO CREADA
-deleted: eliminadas
+deleted: eliminado
 dark: oscuro
 Dimension: Dimensión
 download: Descargar...
@@ -89,7 +89,7 @@ Linkname: Nombre del enlace
 linkto: Enlazar con...
 Mark: Marca
 marked: marcadas
-markhidden: Marcar solo las escondidas
+markvisible: Marcar las visibles
 mayExist: (¿podría existir ya?)
 missing: (falta) NOTA nunca utilizada
 Moditime: Modificada
@@ -97,7 +97,7 @@ moveto: Mover a...
 Name: Nombre
 next: próxima
 no: ningunas
-noneMarked: ¡Ninguna imagen seleccionada!
+noneMarked: <b>¡Ninguna imagen seleccionada!</b>
 notAvailable: No disponible
 numbererror: A D V E R T E N C I A<br><br>¡Discrepancia en el recuento de imágenes!
 numMarked: Imágenes seleccionadas
@@ -116,7 +116,7 @@ previous: previa
 remove: ELIMINAR...
 return: fuera = retorno
 rights: derechos
-saved: G U A R D A D A
+saved: G U A R D A D O
 searchedFor: Se buscó
 searchHelp: Ayuda de búsqueda
 selectTreshold: Seleccione el valor de umbral
@@ -236,10 +236,10 @@ dialog:
     tools: Herramientas para la colección de álbumes
     find:  Busca imágenes en la colección de álbumes mediante una búsqueda de texto
     qmark: Mostrar/ocultar esta guía del usuario/a
-    rload: Recarga el álbum y restaura los cambios no guardados (botón de ’deshacer’, aunque no se refiere a cambios de texto)¹ ²
+    rload: Recarga el álbum y restaura los cambios no guardados (botón de ’deshacer’, aunque no se refiere a cambios de texto, imágenes borradas, etc.)¹ ²
     names: Mostrar/ocultar nombre de la imagen (nombre del archivo sin la extensión)
     hide:  Mostrar/ocultar ’imágenes escondidas’ (ocultas con el menú de miniaturas)
-    save:  Guardar cambios en la imagen¹ que, por lo demás, son temporales y pueden restaurarse²
+    save:  Guardar cambios en el álbum¹ que, por lo demás, son temporales y pueden restaurarse²
     uptop: Ir a la parte superior de la página
     note1: "¹ Los cambios son: desplazamiento de miniaturas mediante arrastrar y soltar, y opción de ocultarlas o mostrarlas desde el menú de miniaturas"
     note2: ² Restaurar también puede, en ocasiones, mejorar la visualización de imágenes incompletas
@@ -425,9 +425,9 @@ write:
   noLinkLink: Hay al menos un enlace entre las imágenes seleccionadas.<br>¡Las imágenes enlazadas no pueden volver a enlazarse!<br>Ir a la imagen original para enlazarla.
   noneFound: Lo sentimos, ¡no se encontró ninguna imagen!
   notEmpty: ¡Primero hay que vaciar el álbum!
-  notes: Notas no mostradas con la imagen
+  notes: Notas que no se muestran junto con la imagen
   originUntouch: "<b>NOTAR</b> que existe una diferencia entre las imágenes: los nombres de las imágenes en verde no se refieren a las <b>imágenes originales</b> propiamente dichas, sino a <b>imágenes enlazadas</b> (o, simplemente, <b>enlaces</b>). Una imagen con un borde inferior verde es, en realidad, solo un enlace a su imagen original situada en otro álbum. La imagen original permanece intacta incluso cuando se elimina el enlace a ella."
-  reloadRequired: <br><br>El cambio en la estructura del álbum requiere un reinicio<br>
+  reloadRequired: <br><br> El cambio en la estructura de los álbumes requiere un reinicio.<br>
   searchTerms: Escribe los términos de búsqueda separados por espacios, no importa si son mayúsculas o minúsculas, ni tampoco diacríticos excepto üåäö (elija a continuación en qué textos buscar)
   set0: Seleccionar configuración
   setBeep: Sonar por clics del ratón (temporalmente)

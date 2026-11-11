@@ -89,7 +89,7 @@ Linkname: Länknamn
 linkto: Länka till...
 Mark: Markera
 marked: markerade
-markhidden: Markera bara gömda
+markvisible: Markera de synliga
 mayExist: (kanske redan finns?)
 missing: (saknas) NOTE never used
 Moditime: Ändrad
@@ -97,7 +97,7 @@ moveto: Flytta till...
 Name: Namn
 next: nästa
 no: inga
-noneMarked: Ingen bild är vald!
+noneMarked: <b>Ingen bild är vald!</b>
 notAvailable: Ej tillgänglig
 numbererror: V A R N I N G<br><br>Bildantalet stämmer inte!
 numMarked: Antal valda bilder
@@ -237,10 +237,10 @@ dialog:
     tools: Verktyg för albumsamlingen
     find:  Finn bilder i albumsamlingen med textsökning
     qmark: Visa/dölj den här användarhandledningen
-    rload: Ladda om albumet, återställ eventuella osparade ändringar (’ångerknapp’ men avser ej textändringar)¹ ²
+    rload: Ladda om albumet, återställ eventuella osparade ändringar (’ångerknapp’ men avser ej textändringar, raderade bilder, etc.)¹ ²
     names: Visa/dölj namn på bilden (filnamn utan .filtyp)
     hide:  Visa/dölj ’gömda bilder’ (gömda med bildmenyn)
-    save:  Spara bildändringar¹ som annars är tillfälliga och kan återställas²
+    save:  Spara albumändringar¹ som annars är tillfälliga och kan återställas²
     uptop: Gå upp till överst på sidan
     note1: "¹ Ändringar är: Dra-och-släpp-flyttning av miniatyrbilder, göm eller visa med miniatyrbildmenyn"
     note2: ² Återställning kan också ibland förbättra ofullständig bildvisning
@@ -425,7 +425,7 @@ write:
   noLinkLink: Det finns minst en länk bland de valda bilderna.<br>Inlänkade bilder kan inte vidarelänkas!<br>Gå till originalbilden för att länka den.
   noneFound: Tyvärr, ingen bild funnen!
   notEmpty: Albumet måste först tömmas!
-  notes: Anteckningar som ej visas med bilden
+  notes: Anteckningar som ej visas tillsammans med bilden
   originUntouch: "<b>OBSERVERA</b> att det är skillnad på bilder: Gröna bildnamn avser inte egna <b>originalbilder</b> utan <b>inlänkade bilder</b> (enklare: <b>länkar</b>). En bild med grön underkant är egentligen bara en länk till sin originalbild i ett annat album. En originalbild förblir orörd även när länken till den tas bort."
   origRemove: "Alternativ:"
   reloadRequired: <br><br>Ändrad albumstruktur kräver omstart<br>

@@ -89,7 +89,7 @@ Linkname: Linkname
 linkto: Verlinken zu...
 Mark: Markieren
 marked: markierte
-markhidden: Nur versteckten markieren
+markvisible: Alle sichtbare markieren
 mayExist: (vielleicht schon erstellt?)
 missing: (fehlt) NOTE never used
 Moditime: Geändert
@@ -97,7 +97,7 @@ moveto: Umzug nach...
 Name: Name
 next: nächstes
 no: keine
-noneMarked: Kein Bild ist ausgewählt!
+noneMarked: <b>Kein Bild ist ausgewählt!</b>
 notAvailable: Nicht verfügbar
 numbererror: W A R N U N G<br><br>Nicht übereinstimmende Bildanzahl!
 numMarked: Ausgewählte Bilder
@@ -146,7 +146,7 @@ albumSelectInfo: "Eine Albensammlung hier auswählen,
                  auch „Album Root” genannt, und es
                  verzweigt sich nach unten.
                  – Tipps bei Problemen:
-                 Den Browser neuladen!"
+                 Den Browser nachladen!"
 blockCopyright: "Vollbildfenster aus urheberrechtlichen Gründen gesperrt.\n
                 Bitte an den Urheberrechtsinhaber wenden!"
 blockCopyright1: "Herunterladen aus urheberrechtlichen Gründen gesperrt.\n
@@ -176,7 +176,7 @@ button:
   notes:     Anmerkungen
   optchuser: "Rechteinformation\nBenutzer wechseln"
   remove:    Entfernen
-  restart:   "Den Browser neuladen\n
+  restart:   "Den Browser nachladen\n
              durch hier klicken!"
   rightsinfo: Rechteinformation
   rights:    Rechteinformation
@@ -194,7 +194,7 @@ buttons:
 
     help: "Anweisungen\n[F1]"
 
-    reload: "Album\xa0neuladen\n(ungespeicherte\nÄnderungen\nzurücksetzen)"
+    reload: "Album\xa0nachladen\n(ungespeicherte\nÄnderungen\nzurücksetzen)"
 
     name: "Bildnamen\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\nzeigen/verbergen"
     hide: "Mindestens\xa0ein\nverstecktes\xa0Bild:\nversteckte\xa0Bilder\xa0\xa0\xa0\nzeigen/verbergen"
@@ -235,10 +235,10 @@ dialog:
     tools: Werkzeuge für die Albensammlung
     find:  Bilder in der Albensammlung finden per Textsuche
     qmark: Benutzeranweisung öffnen/schließen
-    rload: Das Album neuladen, alle nicht gespeicherten Änderungen wiederherstellen („reset-Taste”, jedoch nicht für Textänderungen)¹ ²
+    rload: Das Album nachladen, alle nicht gespeicherten Änderungen wiederherstellen („reset-Taste”, jedoch nicht für Textänderungen, gelöschte Bilder, etc.)¹ ²
     names: Bildnamen ein-/ausblenden (Dateiname ohne .file-Typ)
     hide:  „Versteckte Bilder” ein-/ausblenden (beim Bildmenü versteckt)
-    save:  Bildänderungen¹ speichern, die ansonsten temporär sind und wiederhergestellt werden können²
+    save:  Albumänderungen¹ speichern, die ansonsten temporär sind und wiederhergestellt werden können²
     uptop: Zum Seitenanfang
     note1: "¹ Änderungen sind: Verschieben von Miniaturbilder per Drag-and-Drop, Ausblenden oder Anzeigen mit Miniaturansichtsmenü"
     note2: ² Durch die Wiederherstellung kann manchmal auch unvollständige Bildanzeige verbessert werden
@@ -424,7 +424,7 @@ write:
   noLinkLink: Unter den ausgewählten Bildern befindet sich mindestens ein Link.<br>Verlinkte Bilder können nicht weiterverlinkt werden!<br>Zum Originalbild gehen, um es zu verlinken.
   noneFound: Leider kein Bild gefunden!
   notEmpty: Das Album muss zuerst geleert werden!
-  notes: Anmerkungen die nicht mit dem Bild erscheinen
+  notes: Anmerkungen, die nicht zusammen mit dem Bild angezeigt werden
   originUntouch: "<b>HINWEIS</b>, dass es einen Unterschied zwischen Bildern gibt: Grüne Bildnamen beziehen sich nicht auf eigene <b>Originalbilder</b>, sondern auf <b>verlinkte Bilder</b> (einfacher: <b>Links</b>). Ein Bild mit einem grünen unteren Rand ist eigentlich nur ein Link zu seinem Originalbild in einem anderen Album. Ein Originalbild bleibt unberührt, auch wenn der Link dazu entfernt wird."
   reloadRequired: <br><br>Geänderte Albumstruktur erfordert Neustart<br>
   searchTerms: Suchbegriffe eingeben, durch Leerzeichen getrennt, Groß-/Kleinschreibung spielt keine Rolle, ebenso diakritische Zeichen außer üåäö (unten auswählen, in welchen Texten gesucht werden soll)

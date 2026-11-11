@@ -33,7 +33,7 @@ export class DialogAlert extends Component {
       </header>
       <main>
 
-        <p style="padding:1rem;font-weight:bold;color:blue">{{{this.z.infoMessage}}}</p>
+        <p style="padding:1rem;color:blue">{{{this.z.infoMessage}}}</p>
 
       </main>
       <footer data-dialog-draggable>

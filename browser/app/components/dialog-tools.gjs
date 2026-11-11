@@ -215,7 +215,7 @@ uploadPhoto = async (file) => {
       this.z.loli(this.z.imdbRoot + this.z.imdbDir + ': delete failed', 'color:red');
     } else {
       this.z.loli(this.z.imdbRoot + this.z.imdbDir + ' deleted', 'color:lightgreen');
-      this.z.alertMess(this.z.imdbRoot + this.z.imdbDir + ' ' + this.intl.t('deleted') + this.intl.t('write.reloadRequired') + this.restart);
+      this.z.alertMess('<b>' + this.z.imdbRoot + this.z.imdbDir + '</b> ' + this.intl.t('deleted') + this.intl.t('write.reloadRequired') + this.restart);
     }
   }
 
@@ -291,10 +291,10 @@ uploadPhoto = async (file) => {
           // don't show msg: reveals paths
           let mayExist = this.intl.t('mayExist');
           this.z.loli(this.z.imdbRoot + this.z.imdbDir + nameNew + ' not created ' + mayExist, 'color:red');
-          this.z.alertMess(this.z.imdbRoot + this.z.imdbDir + nameNew + ' ' + this.intl.t('createfail') + ' ' + mayExist);
+          this.z.alertMess('<b>' + this.z.imdbRoot + this.z.imdbDir + nameNew + '</b> ' + this.intl.t('createfail') + ' ' + mayExist);
         } else {
           this.z.loli(this.z.imdbRoot + this.z.imdbDir + nameNew + ' created', 'color:lightgreen');
-          this.z.alertMess(this.z.imdbRoot + this.z.imdbDir + nameNew + ' ' + this.intl.t('created') + this.intl.t('write.reloadRequired') + this.restart);
+          this.z.alertMess('<b>' + this.z.imdbRoot + this.z.imdbDir + nameNew + '</b> ' + this.intl.t('created') + this.intl.t('write.reloadRequired') + this.restart);
         }
       }
     }
@@ -621,7 +621,7 @@ uploadPhoto = async (file) => {
               <br><span style="color:blue">{{t 'write.notEmpty'}}</span>
             {{else}}
               – {{t 'write.isEmpty'}}<br>
-              <b>{{t 'button.delete' name=this.imdbDirName}}?</b>&nbsp;
+              <b>{{t 'write.iq'}}{{t 'button.delete' name=this.imdbDirName}}?</b>&nbsp;
               <button type="button" {{on 'click' (fn this.doDelete)}}>{{t 'button.ok'}}</button>
             {{/if}}
 

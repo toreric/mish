@@ -246,9 +246,19 @@ export default class CommonStorageService extends Service {
   //== Text utility functions
 
   // Check if an album/directory name can be accepted
-  // WHAT ABOUT THE ORDINARY SLASH? (/)
-  acceptedDirName = (name) => { // Note that – (&ndash;) and Üü are accepted:
-    let acceptedName = 0 === name.replace(/[/\-–@_.a-zåäöüA-ZÅÄÖÜ0-9]+/g, '').length;
+  acceptedDirName = (name) => {
+    // NAMING RULES: File names (mostly images): [-_a-zA-Z0-9].
+    // Here, for album names, there are expansions covering some languages.
+
+    // NOTE: The search algoritm is case independent and removes diacritics
+    // with the exceptions of [åäöü] (adapted for Swedish and German).
+
+    // NOTE: [–] (= &ndash;) and [üÜ] are accepted like also, so far, accented
+    // Spanish letters [áóúéíñÁÓÚÉÍÑ]; [øæØÆ] for Danish and Norwegian names are
+    // also accepted. For more languages, still more must be added for convenient
+    // album naming.
+
+    let acceptedName = 0 === name.replace(/[/\-–@_.a-zøæA-ZØÆ0-9åäöüáóúéíñÅÄÖÜÁÓÚÉÍÑ]+/g, '').length;
     return acceptedName && name.slice(0,1) !== "." && !name.includes('/.');
   }
 
@@ -753,6 +763,7 @@ export default class CommonStorageService extends Service {
   }
 
 
+
   //#region showHidden
   showHidden = () => {
     document.getElementById('toggleHide').style.backgroundImage = 'url(/images/eyes-white.png)';
@@ -1051,6 +1062,7 @@ export default class CommonStorageService extends Service {
   // Show the next or previous slideshow image
   //#region showNext
   showNext = async (forward, e) => {
+    document.querySelector('body').classList.remove('bordered');
     // Here the image's invisible overlay is clicked: with Ctrl or Shift?
     // If so, other than next or previous image is demanded:
     if (e) {

@@ -127,21 +127,21 @@ export class MenuImage extends Component {
     this.z.sortOrder = this.z.updateOrder();
   }
 
-  // Mark (check as selected) only hidden images
-  markHidden = () => {
+  // Mark (check as selected) only visible images
+  markVisible = () => {
     if (!document.querySelector('div.nav_links').style.display) {
       document.getElementById('go_back').click();
     }
     for (let pic of document.querySelectorAll('.img_mini')) {
-      if (pic.classList.contains('hidden')) {
+      if (!pic.classList.contains('hidden')) {
         pic.classList.add('selected');
         pic.querySelector('div[alt="MARKER"]').className = 'markTrue';
       } else {
         this.z.markOff(pic);
       }
     }
-    this.z.countNumbers();
     this.z.toggleMenuImg(0); //close image menu
+    this.z.countNumbers();
     this.z.sortOrder = this.z.updateOrder();
   }
 
@@ -609,10 +609,10 @@ export class MenuImage extends Component {
           <span style="font-size:124%;line-height:50%">
             ○</span>{{t 'hideshow'}}</p></li>
 
-      {{!-- Mark (check) only hidden images --}}
-      <li><p {{on 'click' (fn this.markHidden)}}>
+      {{!-- Mark (check) only visible images --}}
+      <li><p {{on 'click' (fn this.markVisible)}}>
         <span style="font-size:124%;line-height:50%">
-            ○</span>{{t 'markhidden'}}</p></li>
+            ○</span>{{t 'markvisible'}}</p></li>
       {{/if}}
       <li><hr style="margin:0.25rem 0.5rem"></li>
 

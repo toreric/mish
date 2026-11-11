@@ -53,6 +53,7 @@ makeDialogDraggable();
 
 // Detect various keys
 document.addEventListener('keydown', (event) => {
+  document.querySelector('body').classList.remove('bordered');
 
   if (event.ctrlKey) return;
   event.stopPropagation();
@@ -61,6 +62,8 @@ document.addEventListener('keydown', (event) => {
   switch(key) {
     case 'Escape':  // Esc
         // console.log(event.target);
+      if (document.querySelector('.nav_.toggleAuto').innerHTML === 'STOP')
+        document.querySelector('.nav_.toggleAuto').click();
       resetBorders();
       for (let d of document.querySelectorAll('dialog')) {
         if (d.hasAttribute('open')) {
@@ -79,22 +82,22 @@ document.addEventListener('keydown', (event) => {
       break;
     case 'ArrowLeft':  // <
       if (document.activeElement.nodeName === 'INPUT') break;
-      // if (document.activeElement.nodeName === 'TEXTAREA') break;
+      if (document.activeElement.nodeName === 'TEXTAREA') break;
       document.querySelector('.nav_.prev').click();
       break;
     case 'ArrowRight':  // >
       if (document.activeElement.nodeName === 'INPUT') break;
-      // if (document.activeElement.nodeName === 'TEXTAREA') break;
+      if (document.activeElement.nodeName === 'TEXTAREA') break;
       document.querySelector('.nav_.next').click();
       break;
     case 'KeyA':  // A
       if (document.activeElement.nodeName === 'INPUT') break;
-      // if (document.activeElement.nodeName === 'TEXTAREA') break;
+      if (document.activeElement.nodeName === 'TEXTAREA') break;
       document.querySelector('.nav_.toggleAuto').click();
       break;
     case 'KeyF':  // F
       if (document.activeElement.nodeName === 'INPUT') break;
-      // if (document.activeElement.nodeName === 'TEXTAREA') break;
+      if (document.activeElement.nodeName === 'TEXTAREA') break;
       event.preventDefault();
       document.getElementById('searchText').click();
       break;
@@ -120,6 +123,7 @@ const beep  =  function(vol, freq, duration){
 // ALL bubbling mousedowns are caught, even programmatical clicks!
 // Important: ”document.body.” excludes SCROLLBARS, if any!
 document.body.addEventListener('mousedown', async (event) => {
+  document.querySelector('body').classList.remove('bordered');
     // console.log('event:', event);
     // console.log('1target:', event.target.tagName);
   var tgt = event.target;
@@ -230,7 +234,10 @@ class Welcome extends Component {
   // Mish is initiated by getCred from the template via greet:
   greet = () => { getPromiseState(this.getCred()); } // avoid "obj" printout
 
-  someFunction = (param) => {this.z.loli(param, 'color:red');}
+  someFunction = (param) => {
+      // this.z.loli(param, 'color:red');
+    this.z.alertMess(param + ' is not avaliable');
+  }
 
   get getAlbum() {
     return this.z.imdbRoot + this.z.imdbDir;
@@ -448,7 +455,7 @@ export default class extends Welcome {
       {{{this.z.aboutThis}}}
       <br>
 
-      <a href id="do_mail" style="font-size:2rem;margin:0" class="smBu" title={{t 'buttons.left.mail'}} {{on 'click' (fn this.someFunction 'doMail')}} src="/images/mail.svg">&nbsp;</a>
+      <a id="do_mail" style="font-size:2rem;margin:0" class="smBu" title={{t 'buttons.left.mail'}} {{on 'click' (fn this.someFunction 'doMail')}} src="/images/mail.svg"></a>
 
       <a id="netMeeting" class="smBu" title={{t 'buttons.left.meet'}}
       href="https://meet.jit.si/Minnenfr%C3%A5nS%C3%A4var%C3%A5dalenochHolm%C3%B6n" target="jitsi_window" draggable="false" ondragstart="return false" style="font-size:1.85rem;margin:0;padding:0 0.4rem 0.3rem 0.2rem">▣</a>

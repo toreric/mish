@@ -16,8 +16,12 @@ export class ButtonsRight extends Component {
   toggleNavInfo = () => { // Show/hide navigation help
     if (document.querySelector('.toggleNavInfo').style.opacity === '0') {
       document.querySelector('.toggleNavInfo').style.opacity = '1';
+      document.querySelector('body').classList.add('bordered');
     } else {
       document.querySelector('.toggleNavInfo').style.opacity = '0';
+      // Such a reset is done on any key or mouse click, in welcome.gjs
+      // Therefore, the next row is unnecessary:
+      // document.querySelector('body').classList.remove('bordered');
     }
   }
 
